@@ -34,5 +34,24 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ChiTiet_HDAU_DTO.cs" />
+    <Compile Include="ChiTiet_HDDC_DTO.cs" />
+    <Compile Include="ChiTiet_HDLT_DTO.cs" />
+    <Compile Include="ChuyenDi_DTO.cs" />
+    <Compile Include="HoaDonAnUong_DTO.cs" />
+    <Compile Include="HoaDonDiChuyen_DTO.cs" />
+    <Compile Include="HoaDon_DTO.cs" />
+    <Compile Include="HoaDonGiatUi_DTO.cs" />
+    <Compile Include="HoaDonLuuTru_DTO.cs" />
+    <Compile Include="KhachHang_DTO.cs" />
+    <Compile Include="LoaiGiatUi_DTO.cs" />
+    <Compile Include="LoaiPhong_DTO.cs" />
+    <Compile Include="LuotGiatUi_DTO.cs" />
+    <Compile Include="MatHang_DTO.cs" />
+    <Compile Include="NhanVien_DTO.cs" />
+    <Compile Include="Phong_DTO.cs" />
+    <Compile Include="TaiKhoan_DTO.cs" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

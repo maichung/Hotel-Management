@@ -5,10 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GUI"
         mc:Ignorable="d"
-        Title="HoaDonLuuTru" Height="700" Width="800" WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize">
+        Title="HoaDonLuuTru" Height="670" Width="800" WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize">
     <Grid>
         <StackPanel>
-            <Label Content="HÓA ĐƠN THANH TOÁN" HorizontalContentAlignment="Center" FontSize="30" Margin="10">
+            <Label Content="HÓA ĐƠN THANH TOÁN" HorizontalContentAlignment="Center" FontSize="20" Margin="10" FontWeight="Bold">
             </Label>
             <GroupBox Header="Thông tin khách hàng" VerticalAlignment="Top" Margin="20,10,20,0" FontSize="11">
                 <Grid Height="60" Margin="5,15,5,15">
@@ -35,7 +35,7 @@
                 </Grid>
             </GroupBox>
             <GroupBox Header="Chi tiết hóa đơn" VerticalAlignment="Top" Margin="20,20,20,0" FontSize="11">
-                <DataGrid Name="dgHoaDon" Height="150" Margin="5,15,5,5">
+                <DataGrid Name="dgHoaDon" Height="150" Margin="5,15,5,5" Background="White">
 
                 </DataGrid>
             </GroupBox>
@@ -64,8 +64,8 @@
                 </Grid>
             </GroupBox>
             <StackPanel HorizontalAlignment="Right" Margin="0,40,30,0" Orientation="Horizontal">
-                <Button Name="btnHuyHD" Content="Hủy" Width="100" Height="40" Margin="0,0,20,0" BorderBrush="#FFD6D6D6" Background="White" FontSize="14" FontWeight="Bold" Foreground="#FFAAAAAA"></Button>
-                <Button Name="btnLuuHD" Content="Lưu" Width="100" Height="40" BorderBrush="#00707070" FontSize="14" Background="#FFF57824" Foreground="White" FontWeight="Bold"></Button>
+                <Button Name="btnHuyHD" Content="Hủy" Width="100" Height="40" Margin="0,0,10,0" BorderBrush="#00D6D6D6" Background="#F0F0F0" FontSize="14" FontWeight="Bold" Foreground="Gray"></Button>
+                <Button Name="btnLuuHD" Content="Lưu" Width="100" Height="40" BorderBrush="#00707070" FontSize="14" Background="#f57824" Foreground="White" FontWeight="Bold"></Button>
             </StackPanel>
             
         </StackPanel>

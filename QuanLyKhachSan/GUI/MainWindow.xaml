@@ -1,12 +1,35 @@
-﻿<Window x:Class="GUI.MainWindow"
+﻿<Window
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GUI"
+        xmlns:dxca="http://schemas.devexpress.com/winfx/2008/xaml/carousel" xmlns:dxwui="http://schemas.devexpress.com/winfx/2008/xaml/windowsui" xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors" x:Class="GUI.MainWindow"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="Trang chủ" Height="540" Width="960">
     <Grid>
-        
+        <Label Content="QUẢN LÍ KHÁCH SẠN" FontSize="20" FontFamily="Segoe UI Semibold" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="80,15"/>
+        <dxwui:PageView Margin="10,10,10,10" FontSize="14" VerticalContentAlignment="Center">
+            <dxwui:PageViewItem Header="Trang chủ" FontSize="13" Width="100">
+                <Grid Background="#F0F0F0" Margin="0,10,0,0"/>
+            </dxwui:PageViewItem>
+            <dxwui:PageViewItem Header="Ăn uống" FontSize="13" Width="100" >
+                <Grid Background="#F0F0F0" Margin="0,10,0,0"/>
+            </dxwui:PageViewItem>
+            <dxwui:PageViewItem Header="Giặt ủi" FontSize="13" Width="100">
+                <Grid Background="#F0F0F0" Margin="0,10,0,0"/>
+            </dxwui:PageViewItem>
+            <dxwui:PageViewItem Header="Di chuyển" FontSize="13" Width="100">
+                <Grid Background="#F0F0F0" Margin="0,10,0,0"/>
+            </dxwui:PageViewItem>
+            <dxwui:PageViewItem Header="Tra cứu" FontSize="13" Width="100">
+                <Grid Background="#F0F0F0" Margin="0,10,0,0"/>
+            </dxwui:PageViewItem>
+            <dxwui:PageViewItem Header="Báo cáo" FontSize="13" Width="100">
+                <Grid Background="#F0F0F0" Margin="0,10,0,0"/>
+            </dxwui:PageViewItem>
+
+        </dxwui:PageView>
+
     </Grid>
 </Window>
