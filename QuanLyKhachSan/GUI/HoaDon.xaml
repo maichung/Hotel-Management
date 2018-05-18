@@ -57,7 +57,7 @@
                     <Label Content="Nhân viên" Grid.Column="0" Grid.Row="2" VerticalContentAlignment="Center"></Label>
                     <Label Content="Thời gian lập " Grid.Column="3" Grid.Row="0" VerticalContentAlignment="Center"></Label>
                     <Label Content="Tổng cộng" Grid.Column="3" Grid.Row="2" VerticalContentAlignment="Center"></Label>
-                    <TextBox Name="tboxMaHD"  Grid.Column="1" Grid.Row="0" VerticalContentAlignment="Center"></TextBox>
+                    <TextBox Name="tboxMaHD"  Grid.Column="1" Grid.Row="0" VerticalContentAlignment="Center" IsEnabled="False"></TextBox>
                     <TextBox Name="tboxNhanVienHD" Grid.Column="1" Grid.Row="2" VerticalContentAlignment="Center"></TextBox>
                     <TextBox Name="tboxThoiGianHD" Grid.Column="4" Grid.Row="0" VerticalContentAlignment="Center"></TextBox>
                     <TextBox Name="tboxTriGiaHD" Grid.Column="4" Grid.Row="2" VerticalContentAlignment="Center"></TextBox>

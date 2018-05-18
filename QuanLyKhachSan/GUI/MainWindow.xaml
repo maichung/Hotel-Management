@@ -8,28 +8,20 @@
         mc:Ignorable="d"
         Title="Trang chủ" Height="540" Width="960">
     <Grid>
-        <Label Content="QUẢN LÍ KHÁCH SẠN" FontSize="20" FontFamily="Segoe UI Semibold" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="80,15"/>
-        <dxwui:PageView Margin="10,10,10,10" FontSize="14" VerticalContentAlignment="Center">
-            <dxwui:PageViewItem Header="Trang chủ" FontSize="13" Width="100">
-                <Grid Background="#F0F0F0" Margin="0,10,0,0"/>
-            </dxwui:PageViewItem>
-            <dxwui:PageViewItem Header="Ăn uống" FontSize="13" Width="100" >
-                <Grid Background="#F0F0F0" Margin="0,10,0,0"/>
-            </dxwui:PageViewItem>
-            <dxwui:PageViewItem Header="Giặt ủi" FontSize="13" Width="100">
-                <Grid Background="#F0F0F0" Margin="0,10,0,0"/>
-            </dxwui:PageViewItem>
-            <dxwui:PageViewItem Header="Di chuyển" FontSize="13" Width="100">
-                <Grid Background="#F0F0F0" Margin="0,10,0,0"/>
-            </dxwui:PageViewItem>
-            <dxwui:PageViewItem Header="Tra cứu" FontSize="13" Width="100">
-                <Grid Background="#F0F0F0" Margin="0,10,0,0"/>
-            </dxwui:PageViewItem>
-            <dxwui:PageViewItem Header="Báo cáo" FontSize="13" Width="100">
-                <Grid Background="#F0F0F0" Margin="0,10,0,0"/>
-            </dxwui:PageViewItem>
+        <StackPanel Orientation="Horizontal" Margin="0,60,0,0">
+            <StackPanel HorizontalAlignment="Left" Height="Auto" Margin="20,50,0,0" VerticalAlignment="Top" Width="150">
+                <Button Name="btnTrangChu" Content="Trang chủ" Height="50" BorderBrush="{x:Null}" ></Button>
+                <Button Name="btnAnUong" Content="Dịch vụ ăn uống" Height="50" Margin="0,10,0,0" BorderBrush="{x:Null}"></Button>
+                <Button Name="btnGiatUi" Content="Dịch vụ giặt ủi" Height="50" Margin="0,10,0,0" BorderBrush="{x:Null}"></Button>
+                <Button Name="btnDiChuyen" Content="Dịch vụ di chuyển" Height="50" Margin="0,10,0,0" BorderBrush="{x:Null}"></Button>
+                <Button Name="btnTraCuu" Content="Tra cứu" Height="50" Margin="0,10,0,0" BorderBrush="{x:Null}"></Button>
+                <Button Name="btnBaoCao" Content="Báo cáo" Height="50" Margin="0,10,0,0" BorderBrush="{x:Null}"></Button>
+            </StackPanel>
+            <Grid Margin="20,20" HorizontalAlignment="Left" >
 
-        </dxwui:PageView>
+            </Grid>
+        </StackPanel>
+
 
     </Grid>
 </Window>

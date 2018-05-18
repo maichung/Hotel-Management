@@ -1,0 +1,183 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="QLKS_IS201ModelStoreContainer" CdmEntityContainer="QLKS_IS201Entities">
+    <EntitySetMapping Name="CHITIET_HDAU">
+      <EntityTypeMapping TypeName="QLKS_IS201Model.CHITIET_HDAU">
+        <MappingFragment StoreEntitySet="CHITIET_HDAU">
+          <ScalarProperty Name="MA_HDAU" ColumnName="MA_HDAU" />
+          <ScalarProperty Name="MA_MH" ColumnName="MA_MH" />
+          <ScalarProperty Name="SOLUONG_MH" ColumnName="SOLUONG_MH" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CHITIET_HDDC">
+      <EntityTypeMapping TypeName="QLKS_IS201Model.CHITIET_HDDC">
+        <MappingFragment StoreEntitySet="CHITIET_HDDC">
+          <ScalarProperty Name="MA_HDDC" ColumnName="MA_HDDC" />
+          <ScalarProperty Name="MA_CD" ColumnName="MA_CD" />
+          <ScalarProperty Name="SOLUONG_CD" ColumnName="SOLUONG_CD" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CHITIET_HDLT">
+      <EntityTypeMapping TypeName="QLKS_IS201Model.CHITIET_HDLT">
+        <MappingFragment StoreEntitySet="CHITIET_HDLT">
+          <ScalarProperty Name="MA_HDLT" ColumnName="MA_HDLT" />
+          <ScalarProperty Name="MA_PHONG" ColumnName="MA_PHONG" />
+          <ScalarProperty Name="THOIGIANNHAN_PHONG" ColumnName="THOIGIANNHAN_PHONG" />
+          <ScalarProperty Name="THOIGIANTRA_PHONG" ColumnName="THOIGIANTRA_PHONG" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CHUYENDI">
+      <EntityTypeMapping TypeName="QLKS_IS201Model.CHUYENDI">
+        <MappingFragment StoreEntitySet="CHUYENDI">
+          <ScalarProperty Name="MA_CD" ColumnName="MA_CD" />
+          <ScalarProperty Name="SOLUONGNGUOI_CD" ColumnName="SOLUONGNGUOI_CD" />
+          <ScalarProperty Name="DONGIA_CD" ColumnName="DONGIA_CD" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="HOADON">
+      <EntityTypeMapping TypeName="QLKS_IS201Model.HOADON">
+        <MappingFragment StoreEntitySet="HOADON">
+          <ScalarProperty Name="MA_HD" ColumnName="MA_HD" />
+          <ScalarProperty Name="MA_HDAU" ColumnName="MA_HDAU" />
+          <ScalarProperty Name="MA_HDGU" ColumnName="MA_HDGU" />
+          <ScalarProperty Name="MA_HDLT" ColumnName="MA_HDLT" />
+          <ScalarProperty Name="MA_HDDC" ColumnName="MA_HDDC" />
+          <ScalarProperty Name="MA_NV" ColumnName="MA_NV" />
+          <ScalarProperty Name="MA_KH" ColumnName="MA_KH" />
+          <ScalarProperty Name="THOIGIANLAP_HD" ColumnName="THOIGIANLAP_HD" />
+          <ScalarProperty Name="TRIGIA_HD" ColumnName="TRIGIA_HD" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="HOADONANUONG">
+      <EntityTypeMapping TypeName="QLKS_IS201Model.HOADONANUONG">
+        <MappingFragment StoreEntitySet="HOADONANUONG">
+          <ScalarProperty Name="MA_HDAU" ColumnName="MA_HDAU" />
+          <ScalarProperty Name="THOIGIANLAP_HDAU" ColumnName="THOIGIANLAP_HDAU" />
+          <ScalarProperty Name="TRIGIA_HDAU" ColumnName="TRIGIA_HDAU" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="HOADONDICHUYEN">
+      <EntityTypeMapping TypeName="QLKS_IS201Model.HOADONDICHUYEN">
+        <MappingFragment StoreEntitySet="HOADONDICHUYEN">
+          <ScalarProperty Name="MA_HDDC" ColumnName="MA_HDDC" />
+          <ScalarProperty Name="THOIGIANLAP_HDDC" ColumnName="THOIGIANLAP_HDDC" />
+          <ScalarProperty Name="TRIGIA_HDDC" ColumnName="TRIGIA_HDDC" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="HOADONLUUTRU">
+      <EntityTypeMapping TypeName="QLKS_IS201Model.HOADONLUUTRU">
+        <MappingFragment StoreEntitySet="HOADONLUUTRU">
+          <ScalarProperty Name="MA_HDLT" ColumnName="MA_HDLT" />
+          <ScalarProperty Name="THOIGIANLAP_HDLT" ColumnName="THOIGIANLAP_HDLT" />
+          <ScalarProperty Name="TRIGIA_HDLT" ColumnName="TRIGIA_HDLT" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="HOADONGIATUI">
+      <EntityTypeMapping TypeName="QLKS_IS201Model.HOADONGIATUI">
+        <MappingFragment StoreEntitySet="HOADONGIATUI">
+          <ScalarProperty Name="MA_HDGU" ColumnName="MA_HDGU" />
+          <ScalarProperty Name="THOIGIANLAP_HDGU" ColumnName="THOIGIANLAP_HDGU" />
+          <ScalarProperty Name="TRIGIA_HDGU" ColumnName="TRIGIA_HDGU" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="KHACHHANG">
+      <EntityTypeMapping TypeName="QLKS_IS201Model.KHACHHANG">
+        <MappingFragment StoreEntitySet="KHACHHANG">
+          <ScalarProperty Name="MA_KH" ColumnName="MA_KH" />
+          <ScalarProperty Name="HOTEN_KH" ColumnName="HOTEN_KH" />
+          <ScalarProperty Name="SODIENTHOAI_KH" ColumnName="SODIENTHOAI_KH" />
+          <ScalarProperty Name="CMND_KH" ColumnName="CMND_KH" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LOAIGIATUI">
+      <EntityTypeMapping TypeName="QLKS_IS201Model.LOAIGIATUI">
+        <MappingFragment StoreEntitySet="LOAIGIATUI">
+          <ScalarProperty Name="MA_LOAIGU" ColumnName="MA_LOAIGU" />
+          <ScalarProperty Name="TEN_LOAIGU" ColumnName="TEN_LOAIGU" />
+          <ScalarProperty Name="DONGIA_LOAIGU" ColumnName="DONGIA_LOAIGU" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LOAIPHONG">
+      <EntityTypeMapping TypeName="QLKS_IS201Model.LOAIPHONG">
+        <MappingFragment StoreEntitySet="LOAIPHONG">
+          <ScalarProperty Name="MA_LP" ColumnName="MA_LP" />
+          <ScalarProperty Name="TEN_LP" ColumnName="TEN_LP" />
+          <ScalarProperty Name="DONGIA_LP" ColumnName="DONGIA_LP" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LUOTGIATUI">
+      <EntityTypeMapping TypeName="QLKS_IS201Model.LUOTGIATUI">
+        <MappingFragment StoreEntitySet="LUOTGIATUI">
+          <ScalarProperty Name="MA_LUOTGU" ColumnName="MA_LUOTGU" />
+          <ScalarProperty Name="MA_LOAIGU" ColumnName="MA_LOAIGU" />
+          <ScalarProperty Name="SOKILOGRAM_LUOTGU" ColumnName="SOKILOGRAM_LUOTGU" />
+          <ScalarProperty Name="NGAYBATDAU_LUOTGU" ColumnName="NGAYBATDAU_LUOTGU" />
+          <ScalarProperty Name="NGAYKETTHUC_LUOTGU" ColumnName="NGAYKETTHUC_LUOTGU" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MATHANG">
+      <EntityTypeMapping TypeName="QLKS_IS201Model.MATHANG">
+        <MappingFragment StoreEntitySet="MATHANG">
+          <ScalarProperty Name="MA_MH" ColumnName="MA_MH" />
+          <ScalarProperty Name="TEN_MH" ColumnName="TEN_MH" />
+          <ScalarProperty Name="DONGIA_MH" ColumnName="DONGIA_MH" />
+          <ScalarProperty Name="NGAYNHAP_MH" ColumnName="NGAYNHAP_MH" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="NHANVIEN">
+      <EntityTypeMapping TypeName="QLKS_IS201Model.NHANVIEN">
+        <MappingFragment StoreEntitySet="NHANVIEN">
+          <ScalarProperty Name="MA_NV" ColumnName="MA_NV" />
+          <ScalarProperty Name="MA_TK" ColumnName="MA_TK" />
+          <ScalarProperty Name="HOTEN_NV" ColumnName="HOTEN_NV" />
+          <ScalarProperty Name="GIOITINH_NV" ColumnName="GIOITINH_NV" />
+          <ScalarProperty Name="NGAYSINH_NV" ColumnName="NGAYSINH_NV" />
+          <ScalarProperty Name="SODIENTHOAI_NV" ColumnName="SODIENTHOAI_NV" />
+          <ScalarProperty Name="CHUCVU_NV" ColumnName="CHUCVU_NV" />
+          <ScalarProperty Name="DIACHI_NV" ColumnName="DIACHI_NV" />
+          <ScalarProperty Name="NGAYVAOLAM_NV" ColumnName="NGAYVAOLAM_NV" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PHONG">
+      <EntityTypeMapping TypeName="QLKS_IS201Model.PHONG">
+        <MappingFragment StoreEntitySet="PHONG">
+          <ScalarProperty Name="MA_PHONG" ColumnName="MA_PHONG" />
+          <ScalarProperty Name="MA_LP" ColumnName="MA_LP" />
+          <ScalarProperty Name="TINHTRANG_PHONG" ColumnName="TINHTRANG_PHONG" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TAIKHOAN">
+      <EntityTypeMapping TypeName="QLKS_IS201Model.TAIKHOAN">
+        <MappingFragment StoreEntitySet="TAIKHOAN">
+          <ScalarProperty Name="MA_TK" ColumnName="MA_TK" />
+          <ScalarProperty Name="TENDANGNHAP_TK" ColumnName="TENDANGNHAP_TK" />
+          <ScalarProperty Name="MATKHAU_TK" ColumnName="MATKHAU_TK" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="CHITIET_HDGU" TypeName="QLKS_IS201Model.CHITIET_HDGU" StoreEntitySet="CHITIET_HDGU">
+      <EndProperty Name="HOADONGIATUI">
+        <ScalarProperty Name="MA_HDGU" ColumnName="MA_HDGU" />
+      </EndProperty>
+      <EndProperty Name="LUOTGIATUI">
+        <ScalarProperty Name="MA_LUOTGU" ColumnName="MA_LUOTGU" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping>
