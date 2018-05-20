@@ -6,22 +6,38 @@
         xmlns:local="clr-namespace:GUI"
         xmlns:dxca="http://schemas.devexpress.com/winfx/2008/xaml/carousel" xmlns:dxwui="http://schemas.devexpress.com/winfx/2008/xaml/windowsui" xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors" x:Class="GUI.MainWindow"
         mc:Ignorable="d"
-        Title="Trang chủ" Height="540" Width="960">
+        Title="Trang chủ" Height="700" Width="960">
     <Grid>
-        <StackPanel Orientation="Horizontal" Margin="0,60,0,0">
-            <StackPanel HorizontalAlignment="Left" Height="Auto" Margin="20,50,0,0" VerticalAlignment="Top" Width="150">
-                <Button Name="btnTrangChu" Content="Trang chủ" Height="50" BorderBrush="{x:Null}" ></Button>
-                <Button Name="btnAnUong" Content="Dịch vụ ăn uống" Height="50" Margin="0,10,0,0" BorderBrush="{x:Null}"></Button>
-                <Button Name="btnGiatUi" Content="Dịch vụ giặt ủi" Height="50" Margin="0,10,0,0" BorderBrush="{x:Null}"></Button>
-                <Button Name="btnDiChuyen" Content="Dịch vụ di chuyển" Height="50" Margin="0,10,0,0" BorderBrush="{x:Null}"></Button>
-                <Button Name="btnTraCuu" Content="Tra cứu" Height="50" Margin="0,10,0,0" BorderBrush="{x:Null}"></Button>
-                <Button Name="btnBaoCao" Content="Báo cáo" Height="50" Margin="0,10,0,0" BorderBrush="{x:Null}"></Button>
-            </StackPanel>
-            <Grid Margin="20,20" HorizontalAlignment="Left" >
-
-            </Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.5*"></ColumnDefinition>
+            <ColumnDefinition Width="1*"></ColumnDefinition>
+            <ColumnDefinition Width="4*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <StackPanel Grid.Column="0" HorizontalAlignment="Center" Height="Auto" Margin="0,170,0,0" VerticalAlignment="Top" Width="50">
+            <Button Height="50" BorderBrush="{x:Null}" Margin="0,0,0,0"></Button>
+            <Button Height="50" BorderBrush="{x:Null}" Margin="0,10,0,0"></Button>
+            <Button Height="50" BorderBrush="{x:Null}" Margin="0,10,0,0"></Button>
+            <Button Height="50" BorderBrush="{x:Null}" Margin="0,10,0,0"></Button>
+            <Button Height="50" BorderBrush="{x:Null}" Margin="0,10,0,0"></Button>
+            <Button Height="50" BorderBrush="{x:Null}" Margin="0,10,0,0"></Button>            
         </StackPanel>
-
-
+        <StackPanel Grid.Column="1" HorizontalAlignment="Left" Height="Auto" Margin="0,170,0,0" VerticalAlignment="Top" Width="150">
+            <Button Name="btnTrangChu" Content="Trang chủ" Height="50" BorderBrush="{x:Null}" ></Button>
+            <Button Name="btnAnUong" Content="Dịch vụ ăn uống" Height="50" Margin="0,10,0,0" BorderBrush="{x:Null}"></Button>
+            <Button Name="btnGiatUi" Content="Dịch vụ giặt ủi" Height="50" Margin="0,10,0,0" BorderBrush="{x:Null}"></Button>
+            <Button Name="btnDiChuyen" Content="Dịch vụ di chuyển" Height="50" Margin="0,10,0,0" BorderBrush="{x:Null}"></Button>
+            <Button Name="btnTraCuu" Content="Tra cứu" Height="50" Margin="0,10,0,0" BorderBrush="{x:Null}"></Button>
+            <Button Name="btnBaoCao" Content="Báo cáo" Height="50" Margin="0,10,0,0" BorderBrush="{x:Null}"></Button>
+        </StackPanel>
+        <StackPanel HorizontalAlignment="Right" Grid.Column="2"  Margin="20,120" VerticalAlignment="Top" Orientation="Horizontal">
+            <Button Content="Thuê" Height="30" Width="60" BorderBrush="{x:Null}" Margin="5,0,0,0"></Button>
+            <Button Content="Thanh toán" Height="30" Width="60" BorderBrush="{x:Null}" Margin="5,0,0,0"></Button>
+            <Button Height="30" Width="60" BorderBrush="{x:Null}" Margin="5,0,0,0"></Button>
+            <Button Height="30" Width="60" BorderBrush="{x:Null}" Margin="5,0,0,0"></Button>
+        </StackPanel>
+        <ScrollViewer Grid.Column="2"  Margin="20,170,20,20"  VerticalAlignment="Top">            
+            <Grid Name="GridTrangChu"></Grid>
+        </ScrollViewer>
+        
     </Grid>
 </Window>

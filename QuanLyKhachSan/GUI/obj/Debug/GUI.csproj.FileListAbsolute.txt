@@ -48,3 +48,5 @@ D:\HK6\Phân tích thiết kế hệ thống thông tin\Đồ án\QuanLyKhachSan
 D:\HK6\Phân tích thiết kế hệ thống thông tin\Đồ án\QuanLyKhachSan\GUI\bin\Debug\ja\DevExpress.Pdf.v17.2.Core.resources.dll
 D:\HK6\Phân tích thiết kế hệ thống thông tin\Đồ án\QuanLyKhachSan\GUI\bin\Debug\ru\DevExpress.Pdf.v17.2.Core.resources.dll
 D:\HK6\Phân tích thiết kế hệ thống thông tin\Đồ án\QuanLyKhachSan\GUI\obj\Debug\GUI.exe.licenses
+D:\HK6\Phân tích thiết kế hệ thống thông tin\Đồ án\QuanLyKhachSan\GUI\obj\Debug\abc.g.cs
+D:\HK6\Phân tích thiết kế hệ thống thông tin\Đồ án\QuanLyKhachSan\GUI\obj\Debug\abc.baml
