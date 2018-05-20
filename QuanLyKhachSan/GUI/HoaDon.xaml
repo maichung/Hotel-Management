@@ -1,11 +1,11 @@
-﻿<Window x:Class="GUI.HoaDonLuuTru"
+﻿<Window x:Class="GUI.HoaDon"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GUI"
         mc:Ignorable="d"
-        Title="HoaDonLuuTru" Height="670" Width="800" WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize">
+        Title="HoaDon" Height="670" Width="800" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen">
     <Grid>
         <StackPanel>
             <Label Content="HÓA ĐƠN THANH TOÁN" HorizontalContentAlignment="Center" FontSize="20" Margin="10" FontWeight="Bold">
@@ -67,8 +67,7 @@
                 <Button Name="btnHuyHD" Content="Hủy" Width="100" Height="40" Margin="0,0,10,0" BorderBrush="#00D6D6D6" Background="#F0F0F0" FontSize="14" FontWeight="Bold" Foreground="Gray"></Button>
                 <Button Name="btnLuuHD" Content="Lưu" Width="100" Height="40" BorderBrush="#00707070" FontSize="14" Background="#f57824" Foreground="White" FontWeight="Bold"></Button>
             </StackPanel>
-            
+
         </StackPanel>
-        
     </Grid>
 </Window>

@@ -15,15 +15,13 @@ using System.Windows.Shapes;
 namespace GUI
 {
     /// <summary>
-    /// Interaction logic for HoaDonLuuTru.xaml
+    /// Interaction logic for HoaDon.xaml
     /// </summary>
-    public partial class HoaDonLuuTru : Window
+    public partial class HoaDon : Window
     {
-        public HoaDonLuuTru()
+        public HoaDon()
         {
             InitializeComponent();
         }
-
-        
     }
 }

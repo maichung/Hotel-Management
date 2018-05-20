@@ -82,6 +82,7 @@
     <Compile Include="LUOTGIATUI.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="MainDTO.cs" />
     <Compile Include="MATHANG.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>

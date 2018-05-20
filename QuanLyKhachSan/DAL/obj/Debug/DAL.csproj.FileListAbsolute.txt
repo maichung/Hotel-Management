@@ -1,1 +1,6 @@
 D:\HK6\Phân tích thiết kế hệ thống thông tin\Đồ án\QuanLyKhachSan\DAL\obj\Debug\DAL.csprojResolveAssemblyReference.cache
+D:\HK6\Phân tích thiết kế hệ thống thông tin\Đồ án\QuanLyKhachSan\DAL\bin\Debug\DAL.exe.config
+D:\HK6\Phân tích thiết kế hệ thống thông tin\Đồ án\QuanLyKhachSan\DAL\bin\Debug\DAL.exe
+D:\HK6\Phân tích thiết kế hệ thống thông tin\Đồ án\QuanLyKhachSan\DAL\bin\Debug\DAL.pdb
+D:\HK6\Phân tích thiết kế hệ thống thông tin\Đồ án\QuanLyKhachSan\DAL\obj\Debug\DAL.exe
+D:\HK6\Phân tích thiết kế hệ thống thông tin\Đồ án\QuanLyKhachSan\DAL\obj\Debug\DAL.pdb
