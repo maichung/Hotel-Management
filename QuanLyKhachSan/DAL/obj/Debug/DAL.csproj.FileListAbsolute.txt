@@ -4,3 +4,8 @@ D:\HK6\Phân tích thiết kế hệ thống thông tin\Đồ án\QuanLyKhachSan
 D:\HK6\Phân tích thiết kế hệ thống thông tin\Đồ án\QuanLyKhachSan\DAL\bin\Debug\DAL.pdb
 D:\HK6\Phân tích thiết kế hệ thống thông tin\Đồ án\QuanLyKhachSan\DAL\obj\Debug\DAL.exe
 D:\HK6\Phân tích thiết kế hệ thống thông tin\Đồ án\QuanLyKhachSan\DAL\obj\Debug\DAL.pdb
+D:\HK6\Phân tích thiết kế hệ thống thông tin\Đồ án\QuanLyKhachSan\DAL\bin\Debug\DTO.exe
+D:\HK6\Phân tích thiết kế hệ thống thông tin\Đồ án\QuanLyKhachSan\DAL\bin\Debug\EntityFramework.dll
+D:\HK6\Phân tích thiết kế hệ thống thông tin\Đồ án\QuanLyKhachSan\DAL\bin\Debug\DTO.pdb
+D:\HK6\Phân tích thiết kế hệ thống thông tin\Đồ án\QuanLyKhachSan\DAL\bin\Debug\DTO.exe.config
+D:\HK6\Phân tích thiết kế hệ thống thông tin\Đồ án\QuanLyKhachSan\DAL\bin\Debug\EntityFramework.xml
