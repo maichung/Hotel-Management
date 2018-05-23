@@ -29,11 +29,11 @@ D:\HK6\Phân tích thiết kế hệ thống thông tin\Đồ án\QuanLyKhachSan
 D:\HK6\Phân tích thiết kế hệ thống thông tin\Đồ án\QuanLyKhachSan\GUI\obj\Debug\GUI.csproj.GenerateResource.Cache
 D:\HK6\Phân tích thiết kế hệ thống thông tin\Đồ án\QuanLyKhachSan\GUI\obj\Debug\GUI.exe
 D:\HK6\Phân tích thiết kế hệ thống thông tin\Đồ án\QuanLyKhachSan\GUI\obj\Debug\GUI.pdb
-D:\HK6\Phân tích thiết kế hệ thống thông tin\Đồ án\QuanLyKhachSan\GUI\obj\Debug\tesst.g.cs
 D:\HK6\Phân tích thiết kế hệ thống thông tin\Đồ án\QuanLyKhachSan\GUI\bin\Debug\DAL1.dll
 D:\HK6\Phân tích thiết kế hệ thống thông tin\Đồ án\QuanLyKhachSan\GUI\bin\Debug\DTO.exe
 D:\HK6\Phân tích thiết kế hệ thống thông tin\Đồ án\QuanLyKhachSan\GUI\bin\Debug\EntityFramework.dll
 D:\HK6\Phân tích thiết kế hệ thống thông tin\Đồ án\QuanLyKhachSan\GUI\bin\Debug\DAL1.pdb
 D:\HK6\Phân tích thiết kế hệ thống thông tin\Đồ án\QuanLyKhachSan\GUI\bin\Debug\DTO.pdb
 D:\HK6\Phân tích thiết kế hệ thống thông tin\Đồ án\QuanLyKhachSan\GUI\bin\Debug\DTO.exe.config
-D:\HK6\Phân tích thiết kế hệ thống thông tin\Đồ án\QuanLyKhachSan\GUI\obj\Debug\tesst.baml
+D:\HK6\Phân tích thiết kế hệ thống thông tin\Đồ án\QuanLyKhachSan\GUI\obj\Debug\HoaDonLuuTru.g.cs
+D:\HK6\Phân tích thiết kế hệ thống thông tin\Đồ án\QuanLyKhachSan\GUI\obj\Debug\HoaDonLuuTru.baml

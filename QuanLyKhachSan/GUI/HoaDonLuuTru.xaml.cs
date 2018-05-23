@@ -11,27 +11,17 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using DTO;
-using DAL1;
+
 namespace GUI
 {
     /// <summary>
-    /// Interaction logic for tesst.xaml
+    /// Interaction logic for HoaDonLuuTru.xaml
     /// </summary>
-    public partial class tesst : Window
+    public partial class HoaDonLuuTru : Window
     {
-        NhanVienDAL bl = new NhanVienDAL();
-        public tesst()
+        public HoaDonLuuTru()
         {
             InitializeComponent();
-            Employee_View_Load();
-        }
-        private void Employee_View_Load()
-        {
-            dt.AutoGenerateColumns = false;          
-            
-            dt.ItemsSource = bl.layNhanVien(); 
-            
         }
     }
 }

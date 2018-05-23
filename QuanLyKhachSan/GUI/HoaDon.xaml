@@ -8,8 +8,7 @@
         Title="HoaDon" Height="670" Width="800" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen">
     <Grid>
         <StackPanel>
-            <Label Content="HÓA ĐƠN THANH TOÁN" HorizontalContentAlignment="Center" FontSize="20" Margin="10" FontWeight="Bold">
-            </Label>
+            <Label Content="HÓA ĐƠN THANH TOÁN" HorizontalContentAlignment="Center" FontSize="20" Margin="10" FontWeight="Bold" Foreground="#FFB39D5A"/>
             <GroupBox Header="Thông tin khách hàng" VerticalAlignment="Top" Margin="20,10,20,0" FontSize="11">
                 <Grid Height="60" Margin="5,15,5,15">
                     <Grid.ColumnDefinitions>
@@ -65,7 +64,8 @@
             </GroupBox>
             <StackPanel HorizontalAlignment="Right" Margin="0,40,30,0" Orientation="Horizontal">
                 <Button Name="btnHuyHD" Content="Hủy" Width="100" Height="40" Margin="0,0,10,0" BorderBrush="#00D6D6D6" Background="#F0F0F0" FontSize="14" FontWeight="Bold" Foreground="Gray"></Button>
-                <Button Name="btnLuuHD" Content="Lưu" Width="100" Height="40" BorderBrush="#00707070" FontSize="14" Background="#f57824" Foreground="White" FontWeight="Bold"></Button>
+                <Button Name="btnLuuHD" Content="Lưu" Width="100" Height="40" Margin="0,0,10,0" BorderBrush="#00707070" FontSize="14" Background="#FF74583E" Foreground="White" FontWeight="Bold"></Button>
+                <Button Name="btnThanhToanHD" Content="Thanh toán" Width="100" Height="40" BorderBrush="#00707070" FontSize="14" Background="#FF74583E" Foreground="White" FontWeight="Bold"></Button>
             </StackPanel>
 
         </StackPanel>

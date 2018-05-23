@@ -24,11 +24,14 @@ namespace GUI
         {
             InitializeComponent();
             LoadTrangChu();
+            LoadAnUong();
         }
+
+        // Load nội dung trang chủ
         public void LoadTrangChu()
         {
             Grid gridRow = new Grid();
-            GridPhong.Children.Add(gridRow);
+            gridPhong.Children.Add(gridRow);
 
             for (int i = 0; i < 7; i++)
             {
@@ -53,36 +56,17 @@ namespace GUI
             }
         }
 
-        private void btnTrangChu_Click(object sender, RoutedEventArgs e)
-        {          
-            SetVisibleContents(gridTrangChu);
-            LoadTrangChu();
+        // Load nội dung trang ăn uống
+        public void LoadAnUong()
+        {
+            lstHangHoa.Items.Add(new HangHoa() { Number = 1, ID = 3431, Name = "Cocacola", PriceUnit = 10000, Quantity = 1, button = new Button() });
+            lstHangHoa.Items.Add(new HangHoa() { Number = 2, ID = 6541, Name = "Pepsi", PriceUnit = 18000, Quantity = 4, button = new Button() });
+            lstHangHoa.Items.Add(new HangHoa() { Number = 3, ID = 3881, Name = "Twister", PriceUnit = 23000, Quantity = 1, button = new Button() });
+            lstHangHoa.Items.Add(new HangHoa() { Number = 4, ID = 9321, Name = "Aquafina", PriceUnit = 6700, Quantity = 2, button = new Button() });
+
         }
 
-        private void btnAnUong_Click(object sender, RoutedEventArgs e)
-        {
-            SetVisibleContents(gridAnUong);
-        }
-
-        private void btnGiatUi_Click(object sender, RoutedEventArgs e)
-        {
-            SetVisibleContents(gridGiatUi);
-        }
-
-        private void btnDiChuyen_Click(object sender, RoutedEventArgs e)
-        {
-            SetVisibleContents(gridDiChuyen);
-        }
-
-        private void btnTraCuu_Click(object sender, RoutedEventArgs e)
-        {
-            SetVisibleContents(gridTraCuu);
-        }
-
-        private void btnBaoCao_Click(object sender, RoutedEventArgs e)
-        {
-            SetVisibleContents(gridBaoCao);
-        }
+        // Thay đổi các nội dung theo từng button chọn trên màn hình
         public void SetVisibleContents(Grid gr)
         {
             foreach (Grid grid in gridCollumn2.Children)
@@ -97,5 +81,60 @@ namespace GUI
                 }
             }
         }
+        public void SetFocusTitle(Button btn)
+        {
+            foreach (Button button in groupButtonTitles.Children)
+            {
+                if (button.Name == btn.Name)
+                {
+                    button.Foreground = Brushes.Black;
+                }
+                else
+                {
+                    Color color = (Color)ColorConverter.ConvertFromString("#FFB1B1B1");
+                    button.Foreground = new SolidColorBrush(color);                    
+                }
+            }
+        }
+
+        #region Xử lí các button click
+        private void btnTrangChu_Click(object sender, RoutedEventArgs e)
+        {
+            SetVisibleContents(gridTrangChu);
+            SetFocusTitle(btnTrangChu);
+        }
+
+        private void btnAnUong_Click(object sender, RoutedEventArgs e)
+        {
+            SetVisibleContents(gridAnUong);
+            SetFocusTitle(btnAnUong);
+        }
+
+        private void btnGiatUi_Click(object sender, RoutedEventArgs e)
+        {
+            SetVisibleContents(gridGiatUi);
+            SetFocusTitle(btnGiatUi);
+        }
+
+        private void btnDiChuyen_Click(object sender, RoutedEventArgs e)
+        {
+            SetVisibleContents(gridDiChuyen);
+            SetFocusTitle(btnDiChuyen);
+        }
+
+        private void btnTraCuu_Click(object sender, RoutedEventArgs e)
+        {
+            SetVisibleContents(gridTraCuu);
+            SetFocusTitle(btnTraCuu);
+        }
+
+        private void btnBaoCao_Click(object sender, RoutedEventArgs e)
+        {
+            SetVisibleContents(gridBaoCao);
+            SetFocusTitle(btnBaoCao);
+        }
+        #endregion
+
+
     }
 }
