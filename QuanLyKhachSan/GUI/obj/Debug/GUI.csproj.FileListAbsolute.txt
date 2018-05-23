@@ -36,5 +36,4 @@ D:\HK6\Phân tích thiết kế hệ thống thông tin\Đồ án\QuanLyKhachSan
 D:\HK6\Phân tích thiết kế hệ thống thông tin\Đồ án\QuanLyKhachSan\GUI\bin\Debug\DAL1.pdb
 D:\HK6\Phân tích thiết kế hệ thống thông tin\Đồ án\QuanLyKhachSan\GUI\bin\Debug\DTO.pdb
 D:\HK6\Phân tích thiết kế hệ thống thông tin\Đồ án\QuanLyKhachSan\GUI\bin\Debug\DTO.exe.config
-D:\HK6\Phân tích thiết kế hệ thống thông tin\Đồ án\QuanLyKhachSan\GUI\bin\Debug\EntityFramework.xml
 D:\HK6\Phân tích thiết kế hệ thống thông tin\Đồ án\QuanLyKhachSan\GUI\obj\Debug\tesst.baml

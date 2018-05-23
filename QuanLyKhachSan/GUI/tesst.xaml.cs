@@ -28,8 +28,7 @@ namespace GUI
         }
         private void Employee_View_Load()
         {
-            dt.AutoGenerateColumns = false;
-           
+            dt.AutoGenerateColumns = false;          
             
             dt.ItemsSource = bl.layNhanVien(); 
             

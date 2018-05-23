@@ -3,7 +3,6 @@ D:\HK6\Phân tích thiết kế hệ thống thông tin\Đồ án\QuanLyKhachSan
 D:\HK6\Phân tích thiết kế hệ thống thông tin\Đồ án\QuanLyKhachSan\DAL1\bin\Debug\DTO.exe
 D:\HK6\Phân tích thiết kế hệ thống thông tin\Đồ án\QuanLyKhachSan\DAL1\bin\Debug\DTO.pdb
 D:\HK6\Phân tích thiết kế hệ thống thông tin\Đồ án\QuanLyKhachSan\DAL1\bin\Debug\DTO.exe.config
-D:\HK6\Phân tích thiết kế hệ thống thông tin\Đồ án\QuanLyKhachSan\DAL1\bin\Debug\EntityFramework.xml
 D:\HK6\Phân tích thiết kế hệ thống thông tin\Đồ án\QuanLyKhachSan\DAL1\obj\Debug\DAL1.csprojResolveAssemblyReference.cache
 D:\HK6\Phân tích thiết kế hệ thống thông tin\Đồ án\QuanLyKhachSan\DAL1\obj\Debug\DAL1.dll
 D:\HK6\Phân tích thiết kế hệ thống thông tin\Đồ án\QuanLyKhachSan\DAL1\obj\Debug\DAL1.pdb

@@ -23,12 +23,12 @@ namespace GUI
         public MainWindow()
         {
             InitializeComponent();
-            InitListPhong();
+            LoadTrangChu();
         }
-        public void InitListPhong()
+        public void LoadTrangChu()
         {
             Grid gridRow = new Grid();
-            GridTrangChu.Children.Add(gridRow);
+            GridPhong.Children.Add(gridRow);
 
             for (int i = 0; i < 7; i++)
             {
@@ -49,6 +49,51 @@ namespace GUI
                     btn.Margin = new Thickness(5, 0, 0, 5);
                     gridCollumn.Children.Add(btn);
                     Grid.SetColumn(btn, j);
+                }
+            }
+        }
+
+        private void btnTrangChu_Click(object sender, RoutedEventArgs e)
+        {          
+            SetVisibleContents(gridTrangChu);
+            LoadTrangChu();
+        }
+
+        private void btnAnUong_Click(object sender, RoutedEventArgs e)
+        {
+            SetVisibleContents(gridAnUong);
+        }
+
+        private void btnGiatUi_Click(object sender, RoutedEventArgs e)
+        {
+            SetVisibleContents(gridGiatUi);
+        }
+
+        private void btnDiChuyen_Click(object sender, RoutedEventArgs e)
+        {
+            SetVisibleContents(gridDiChuyen);
+        }
+
+        private void btnTraCuu_Click(object sender, RoutedEventArgs e)
+        {
+            SetVisibleContents(gridTraCuu);
+        }
+
+        private void btnBaoCao_Click(object sender, RoutedEventArgs e)
+        {
+            SetVisibleContents(gridBaoCao);
+        }
+        public void SetVisibleContents(Grid gr)
+        {
+            foreach (Grid grid in gridCollumn2.Children)
+            {
+                if (grid.Name == gr.Name)
+                {
+                    grid.Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    grid.Visibility = Visibility.Hidden;
                 }
             }
         }

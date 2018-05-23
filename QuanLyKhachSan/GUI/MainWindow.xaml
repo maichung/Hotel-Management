@@ -5,37 +5,129 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GUI"
         mc:Ignorable="d"
-        Title="Trang chủ" Height="700" Width="960" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen">
+        Title="Trang chủ" Height="700" Width="1000" WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="0.5*"></ColumnDefinition>
             <ColumnDefinition Width="1*"></ColumnDefinition>
             <ColumnDefinition Width="4*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
+
         <StackPanel Grid.Column="0" HorizontalAlignment="Center" Height="Auto" Margin="0,170,0,0" VerticalAlignment="Top" Width="50">
-            <Button Height="50" BorderBrush="{x:Null}" Margin="0,0,0,0"></Button>
-            <Button Height="50" BorderBrush="{x:Null}" Margin="0,10,0,0"></Button>
-            <Button Height="50" BorderBrush="{x:Null}" Margin="0,10,0,0"></Button>
-            <Button Height="50" BorderBrush="{x:Null}" Margin="0,10,0,0"></Button>
-            <Button Height="50" BorderBrush="{x:Null}" Margin="0,10,0,0"></Button>
-            <Button Height="50" BorderBrush="{x:Null}" Margin="0,10,0,0"></Button>
+            <Image Height="50" Margin="10,0,10,0" Source="D:\HK6\Phân tích thiết kế hệ thống thông tin\Đồ án\QuanLyKhachSan\GUI\Icons\btnTrangChu.png" Stretch="Uniform" RenderTransformOrigin="0.5,0.7"></Image>
+            <Image Height="50" Margin="10,10,10,0" Source="D:\HK6\Phân tích thiết kế hệ thống thông tin\Đồ án\QuanLyKhachSan\GUI\Icons\btnAnUong.png" Stretch="Uniform"></Image>
+            <Image Height="50" Margin="10,10,10,0" Source="D:\HK6\Phân tích thiết kế hệ thống thông tin\Đồ án\QuanLyKhachSan\GUI\Icons\btnGiatUi.png" Stretch="Uniform"></Image>
+            <Image Height="50" Margin="10,10,10,0" Source="D:\HK6\Phân tích thiết kế hệ thống thông tin\Đồ án\QuanLyKhachSan\GUI\Icons\btnDiChuyen.png" Stretch="Uniform"></Image>
+            <Image Height="50" Margin="10,10,10,0" Source="D:\HK6\Phân tích thiết kế hệ thống thông tin\Đồ án\QuanLyKhachSan\GUI\Icons\btnTraCuu.png" Stretch="Uniform"></Image>
+            <Image Height="50" Margin="10,10,10,0" Source="D:\HK6\Phân tích thiết kế hệ thống thông tin\Đồ án\QuanLyKhachSan\GUI\Icons\btnBaoCao.png" Stretch="Uniform"></Image>
         </StackPanel>
-        <StackPanel Grid.Column="1" HorizontalAlignment="Left" Height="Auto" Margin="0,170,0,0" VerticalAlignment="Top" Width="150">
-            <Button Name="btnTrangChu" Content="Trang chủ" Height="50" BorderBrush="{x:Null}" ></Button>
-            <Button Name="btnAnUong" Content="Dịch vụ ăn uống" Height="50" Margin="0,10,0,0" BorderBrush="{x:Null}"></Button>
-            <Button Name="btnGiatUi" Content="Dịch vụ giặt ủi" Height="50" Margin="0,10,0,0" BorderBrush="{x:Null}"></Button>
-            <Button Name="btnDiChuyen" Content="Dịch vụ di chuyển" Height="50" Margin="0,10,0,0" BorderBrush="{x:Null}"></Button>
-            <Button Name="btnTraCuu" Content="Tra cứu" Height="50" Margin="0,10,0,0" BorderBrush="{x:Null}"></Button>
-            <Button Name="btnBaoCao" Content="Báo cáo" Height="50" Margin="0,10,0,0" BorderBrush="{x:Null}"></Button>
+        <StackPanel Grid.Column="1" HorizontalAlignment="Left" Height="Auto" Margin="0,170,0,0" VerticalAlignment="Top" Width="Auto">
+            <Button Name="btnTrangChu" Content="Trang chủ" Height="50" BorderBrush="{x:Null}" Background="{x:Null}" FontSize="20" HorizontalAlignment="Left" Click="btnTrangChu_Click" />
+            <Button Name="btnAnUong" Content="Dịch vụ ăn uống" Height="50" Margin="0,10,0,0" BorderBrush="{x:Null}" Background="{x:Null}" FontSize="20" HorizontalAlignment="Left" Click="btnAnUong_Click"/>
+            <Button Name="btnGiatUi" Content="Dịch vụ giặt ủi" Height="50" Margin="0,10,0,0" BorderBrush="{x:Null}" Background="{x:Null}" FontSize="20" HorizontalAlignment="Left" Click="btnGiatUi_Click"/>
+            <Button Name="btnDiChuyen" Content="Dịch vụ di chuyển" Height="50" Margin="0,10,0,0" BorderBrush="{x:Null}" Background="{x:Null}" FontSize="20" HorizontalAlignment="Left" Click="btnDiChuyen_Click"/>
+            <Button Name="btnTraCuu" Content="Tra cứu" Height="50" Margin="0,10,0,0" BorderBrush="{x:Null}" Background="{x:Null}" FontSize="20" HorizontalAlignment="Left" Click="btnTraCuu_Click"/>
+            <Button Name="btnBaoCao" Content="Báo cáo" Height="50" Margin="0,10,0,0" BorderBrush="{x:Null}" Background="{x:Null}" FontSize="20" HorizontalAlignment="Left" Click="btnBaoCao_Click"/>
         </StackPanel>
-        <StackPanel HorizontalAlignment="Right" Grid.Column="2"  Margin="20,120" VerticalAlignment="Top" Orientation="Horizontal">
-            <Button Content="Thuê" Height="30" Width="60" BorderBrush="{x:Null}" Margin="5,0,0,0"></Button>
-            <Button Content="Thanh toán" Height="30" Width="60" BorderBrush="{x:Null}" Margin="5,0,0,0"></Button>
-            <Button Height="30" Width="60" BorderBrush="{x:Null}" Margin="5,0,0,0"></Button>
-            <Button Height="30" Width="60" BorderBrush="{x:Null}" Margin="5,0,0,0"></Button>
-        </StackPanel>
-        <ScrollViewer Grid.Column="2"  Margin="20,170,20,20"  VerticalAlignment="Top">
-            <Grid Name="GridTrangChu"></Grid>
-        </ScrollViewer>
+
+        <Grid Name="gridCollumn2" Grid.Column="2">
+            <!-- Grid Trang chủ -->
+            <Grid Name="gridTrangChu" Visibility="Visible">
+                <!-- Button trang chủ -->
+                <StackPanel Name="groupButtonsTrangChu" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="20,120">
+                    <Image Height="25" Width="25" Cursor="Hand" Source="D:\HK6\Phân tích thiết kế hệ thống thông tin\Đồ án\QuanLyKhachSan\GUI\Icons\btnThuePhong.png" ToolTip="Thuê phòng"></Image>
+                    <GridSplitter IsEnabled="False" Width="1" Margin="10,0,10,0" Background="#FFD6D6D6"></GridSplitter>
+                    <Image Height="25" Width="25" Cursor="Hand" Source="D:\HK6\Phân tích thiết kế hệ thống thông tin\Đồ án\QuanLyKhachSan\GUI\Icons\btnDatPhongTruoc.png" ToolTip="Đặt phòng trước"></Image>
+                    <GridSplitter IsEnabled="False" Width="1" Margin="10,0,10,0" Background="#FFD6D6D6"></GridSplitter>
+                    <Image Height="25" Width="25" Cursor="Hand" Source="D:\HK6\Phân tích thiết kế hệ thống thông tin\Đồ án\QuanLyKhachSan\GUI\Icons\btnThanhToan.png" ToolTip="Thanh toán"></Image>
+                    <GridSplitter IsEnabled="False" Width="1" Margin="10,0,10,0" Background="#FFD6D6D6"></GridSplitter>
+                    <Image Height="25" Width="25" Cursor="Hand" Source="D:\HK6\Phân tích thiết kế hệ thống thông tin\Đồ án\QuanLyKhachSan\GUI\Icons\btnThongTinPhong.png" ToolTip="Thông tin phòng"></Image>
+                </StackPanel>
+                
+                <StackPanel Name="groupStatusTrangChu" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,120">
+                    <Label Height="25" Width="auto" Content="Tất cả:" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" ></Label>
+                    <Button Height="25" Width="50" Content="20" Background="Turquoise" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" BorderBrush="{x:Null}"></Button>
+                    <GridSplitter IsEnabled="False" Width="1" Margin="10,0,0,0" Background="#FFD6D6D6"></GridSplitter>
+                    <Label Height="25" Width="auto" Content="Còn trống:" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" ></Label>
+                    <Button Height="25" Width="50" Content="13" Background="Aqua" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" BorderBrush="{x:Null}"></Button>
+                    <GridSplitter IsEnabled="False" Width="1" Margin="10,0,0,0" Background="#FFD6D6D6"></GridSplitter>
+                    <Label Height="25" Width="auto" Content="Đang thuê:" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"></Label>
+                    <Button Height="25" Width="50" Content="5" Background="Gainsboro" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" BorderBrush="{x:Null}" ></Button>
+                    <GridSplitter IsEnabled="False" Width="1" Margin="10,0,0,0" Background="#FFD6D6D6"></GridSplitter>
+                    <Label Height="25" Width="auto" Content="Đã đặt trước:" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"></Label>
+                    <Button Height="25" Width="50" Content="2" Background="LemonChiffon" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" BorderBrush="{x:Null}" ></Button>
+
+                </StackPanel>
+                <ScrollViewer Name="SrViewTrangChu" Margin="0,170,20,20">
+                    <Grid Name="GridPhong"></Grid>
+                </ScrollViewer>
+            </Grid>
+
+            <!-- Grid Ăn uống -->
+            <Grid Name="gridAnUong" Visibility="Hidden">
+                <!-- Button ăn uống -->
+                <StackPanel Name="groupButtonsAnUong" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="20,120">
+                    <Image Height="25" Width="25" Cursor="Hand" Source="D:\HK6\Phân tích thiết kế hệ thống thông tin\Đồ án\QuanLyKhachSan\GUI\Icons\btnThemMon.png" Margin="10,0,10,0" ToolTip="Thêm món"></Image>
+                    <Image Height="25" Width="25" Cursor="Hand" Source="D:\HK6\Phân tích thiết kế hệ thống thông tin\Đồ án\QuanLyKhachSan\GUI\Icons\btnXoaMon.png" Margin="10,0,10,0" ToolTip="Xóa món"></Image>
+                    <Image Height="25" Width="25" Cursor="Hand" Source="D:\HK6\Phân tích thiết kế hệ thống thông tin\Đồ án\QuanLyKhachSan\GUI\Icons\btnThanhToan.png" Margin="10,0,10,0" ToolTip="Thanh toán"></Image>
+                </StackPanel>
+                <ScrollViewer Name="SrViewAnUong" Margin="20,170,20,20">
+                    <Grid Name="GridHangHoa"></Grid>
+                </ScrollViewer>
+            </Grid>
+
+            <!-- Grid Giặt ủi -->
+            <Grid Name="gridGiatUi" Visibility="Hidden">
+                <!-- Button giặt ủi -->
+                <StackPanel Name="groupButtonsGiatUi" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="20,120">
+                    <Image Height="25" Width="25" Cursor="Hand" Source="D:\HK6\Phân tích thiết kế hệ thống thông tin\Đồ án\QuanLyKhachSan\GUI\Icons\btnThuePhong.png" Margin="10,0,10,0" ToolTip="Thuê phòng"></Image>
+                    <Image Height="25" Width="25" Cursor="Hand" Source="D:\HK6\Phân tích thiết kế hệ thống thông tin\Đồ án\QuanLyKhachSan\GUI\Icons\btnDatPhongTruoc.png" Margin="10,0,10,0" ToolTip="Đặt phòng trước"></Image>
+                    <Image Height="25" Width="25" Cursor="Hand" Source="D:\HK6\Phân tích thiết kế hệ thống thông tin\Đồ án\QuanLyKhachSan\GUI\Icons\btnThanhToan.png" Margin="10,0,10,0" ToolTip="Thanh toán"></Image>
+                    <Image Height="25" Width="25" Cursor="Hand" Source="D:\HK6\Phân tích thiết kế hệ thống thông tin\Đồ án\QuanLyKhachSan\GUI\Icons\btnThongTinPhong.png" Margin="10,0,10,0" ToolTip="Thông tin phòng"></Image>
+                </StackPanel>
+                <ScrollViewer Name="SrViewGiatUi" Margin="20,170,20,20">
+
+                </ScrollViewer>
+            </Grid>
+
+            <!-- Grid Di chuyển -->
+            <Grid Name="gridDiChuyen" Visibility="Hidden">
+                <!-- Button di chuyển -->
+                <StackPanel Name="groupButtonsDiChuyen" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="20,120">
+                    <Image Height="25" Width="25" Cursor="Hand" Source="D:\HK6\Phân tích thiết kế hệ thống thông tin\Đồ án\QuanLyKhachSan\GUI\Icons\btnThuePhong.png" Margin="10,0,10,0" ToolTip="Thuê phòng"></Image>
+                    <Image Height="25" Width="25" Cursor="Hand" Source="D:\HK6\Phân tích thiết kế hệ thống thông tin\Đồ án\QuanLyKhachSan\GUI\Icons\btnDatPhongTruoc.png" Margin="10,0,10,0" ToolTip="Đặt phòng trước"></Image>
+                    <Image Height="25" Width="25" Cursor="Hand" Source="D:\HK6\Phân tích thiết kế hệ thống thông tin\Đồ án\QuanLyKhachSan\GUI\Icons\btnThanhToan.png" Margin="10,0,10,0" ToolTip="Thanh toán"></Image>
+                    <Image Height="25" Width="25" Cursor="Hand" Source="D:\HK6\Phân tích thiết kế hệ thống thông tin\Đồ án\QuanLyKhachSan\GUI\Icons\btnThongTinPhong.png" Margin="10,0,10,0" ToolTip="Thông tin phòng"></Image>
+                </StackPanel>
+                <ScrollViewer Name="SrViewDiChuyen" Margin="20,170,20,20">
+                </ScrollViewer>
+            </Grid>
+
+            <!-- Grid Tra cứu -->
+            <Grid Name="gridTraCuu" Visibility="Hidden">
+                <!-- Button tra cứu -->
+                <StackPanel Name="groupButtonsTraCuu" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="20,120">
+                    <Image Height="25" Width="25" Cursor="Hand" Source="D:\HK6\Phân tích thiết kế hệ thống thông tin\Đồ án\QuanLyKhachSan\GUI\Icons\btnThuePhong.png" Margin="10,0,10,0" ToolTip="Thuê phòng"></Image>
+                    <Image Height="25" Width="25" Cursor="Hand" Source="D:\HK6\Phân tích thiết kế hệ thống thông tin\Đồ án\QuanLyKhachSan\GUI\Icons\btnDatPhongTruoc.png" Margin="10,0,10,0" ToolTip="Đặt phòng trước"></Image>
+                    <Image Height="25" Width="25" Cursor="Hand" Source="D:\HK6\Phân tích thiết kế hệ thống thông tin\Đồ án\QuanLyKhachSan\GUI\Icons\btnThanhToan.png" Margin="10,0,10,0" ToolTip="Thanh toán"></Image>
+                    <Image Height="25" Width="25" Cursor="Hand" Source="D:\HK6\Phân tích thiết kế hệ thống thông tin\Đồ án\QuanLyKhachSan\GUI\Icons\btnThongTinPhong.png" Margin="10,0,10,0" ToolTip="Thông tin phòng"></Image>
+                </StackPanel>
+                <ScrollViewer Name="SrViewTraCuu" Margin="20,170,20,20">
+                </ScrollViewer>
+            </Grid>
+
+            <!-- Grid Báo cáo -->
+            <Grid Name="gridBaoCao" Visibility="Hidden">
+                <!-- Button báo cáo -->
+                <StackPanel Name="groupButtonsBaoCao" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="20,120">
+                    <Image Height="25" Width="25" Cursor="Hand" Source="D:\HK6\Phân tích thiết kế hệ thống thông tin\Đồ án\QuanLyKhachSan\GUI\Icons\btnThuePhong.png" Margin="10,0,10,0" ToolTip="Thuê phòng"></Image>
+                    <Image Height="25" Width="25" Cursor="Hand" Source="D:\HK6\Phân tích thiết kế hệ thống thông tin\Đồ án\QuanLyKhachSan\GUI\Icons\btnDatPhongTruoc.png" Margin="10,0,10,0" ToolTip="Đặt phòng trước"></Image>
+                    <Image Height="25" Width="25" Cursor="Hand" Source="D:\HK6\Phân tích thiết kế hệ thống thông tin\Đồ án\QuanLyKhachSan\GUI\Icons\btnThanhToan.png" Margin="10,0,10,0" ToolTip="Thanh toán"></Image>
+                    <Image Height="25" Width="25" Cursor="Hand" Source="D:\HK6\Phân tích thiết kế hệ thống thông tin\Đồ án\QuanLyKhachSan\GUI\Icons\btnThongTinPhong.png" Margin="10,0,10,0" ToolTip="Thông tin phòng"></Image>
+                </StackPanel>
+                <ScrollViewer Name="SrViewBaoCao" Margin="20,170,20,20" >
+                </ScrollViewer>
+            </Grid>
+        </Grid>
     </Grid>
 </Window>
