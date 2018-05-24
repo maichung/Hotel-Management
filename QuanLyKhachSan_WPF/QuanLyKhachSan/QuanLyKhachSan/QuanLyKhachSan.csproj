@@ -162,6 +162,7 @@
     <Compile Include="Model\TAIKHOAN.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Model\ThongTinNhanVien.cs" />
     <Compile Include="Model\ThongTinPhong.cs" />
     <Compile Include="ViewModel\BaseViewModel.cs" />
     <Compile Include="ViewModel\ControlBarViewModel.cs" />
@@ -169,6 +170,7 @@
     <Compile Include="ViewModel\KhachHangViewModel.cs" />
     <Compile Include="ViewModel\LoaiPhongViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
+    <Compile Include="ViewModel\NhanVienViewModel.cs" />
     <Page Include="CreateUserControl\ControlBarUC.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

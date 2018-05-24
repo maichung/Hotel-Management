@@ -6,5 +6,5 @@
     <viewmodel:DangNhapViewModel x:Key="DangNhapVM"></viewmodel:DangNhapViewModel>
     <viewmodel:LoaiPhongViewModel x:Key="LoaiPhongVM"></viewmodel:LoaiPhongViewModel>
     <viewmodel:KhachHangViewModel x:Key="KhachHangVM"></viewmodel:KhachHangViewModel>
-    
+    <viewmodel:NhanVienViewModel x:Key="NhanVienVM"></viewmodel:NhanVienViewModel>
 </ResourceDictionary>

@@ -19,8 +19,9 @@
 		ResizeMode="NoResize"
 		WindowStyle="None"
         WindowStartupLocation="CenterScreen"
-        Name="window"
         
+        Name="window"
+        DataContext="{StaticResource NhanVienVM}"
         Title="Quản lý Nhân viên" Height="450" Width="900">
     <Grid>
         <Grid.RowDefinitions>
@@ -42,7 +43,7 @@
             <materialDesign:Card Grid.Row="0" Margin="5">
                 <WrapPanel Margin="0 0 0 5">
                     <TextBox Margin="5 5 15 5" materialDesign:HintAssist.Hint="Tài khoản" Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                             Text="{Binding TaiKhoan, UpdateSourceTrigger=PropertyChanged}"/>
+                             Text="{Binding TenDangNhap, UpdateSourceTrigger=PropertyChanged}"/>
                     <PasswordBox x:Name="pbxMatKhau" Margin="5 5 15 5" materialDesign:HintAssist.Hint="Mật khẩu" Style="{StaticResource MaterialDesignFloatingHintPasswordBox}">
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="PasswordChanged">
@@ -52,15 +53,16 @@
                         </i:Interaction.Triggers>
                     </PasswordBox>
                     <TextBox Margin="5 5 15 5" materialDesign:HintAssist.Hint="Họ tên" Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                             Text="{Binding HoTen, UpdateSourceTrigger=PropertyChanged}"/>
+                             Text="{Binding TenNhanVien, UpdateSourceTrigger=PropertyChanged}"/>
                     <TextBox Margin="5 5 15 5" materialDesign:HintAssist.Hint="Giới tính" Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                              Text="{Binding GioiTinh, UpdateSourceTrigger=PropertyChanged}"/>
                     <DatePicker Width="100" Margin="5 5 15 7" VerticalAlignment="Bottom" materialDesign:HintAssist.Hint="Ngày sinh" Style="{StaticResource MaterialDesignFloatingHintDatePicker}"
                                 SelectedDate="{Binding NgaySinh, StringFormat='dd/MM/yyyy', UpdateSourceTrigger=PropertyChanged}"/>
                     <TextBox Margin="5 5 15 5" materialDesign:HintAssist.Hint="Số điện thoại" Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                             Text="{Binding SDT, UpdateSourceTrigger=PropertyChanged}"/>
+                             Text="{Binding SoDienThoai, UpdateSourceTrigger=PropertyChanged}"/>
                     <ComboBox Margin="5 5 15 5" materialDesign:HintAssist.Hint="Chức vụ" IsEditable="True" Style="{StaticResource MaterialDesignFloatingHintComboBox}"
-                        ItemsSource="{Binding ChucVu}" SelectedItem="{Binding SelectedChucVu, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        ItemsSource="{Binding ListNhanVien}" DisplayMemberPath="CHUCVU_NV"
+                        SelectedItem="{Binding SelectedNhanVien, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                     <TextBox Margin="5 5 15 5" materialDesign:HintAssist.Hint="Địa chỉ" Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                              Text="{Binding DiaChi, UpdateSourceTrigger=PropertyChanged}"/>
                     <DatePicker Width="100" Margin="5 5 15 7" VerticalAlignment="Bottom" materialDesign:HintAssist.Hint="Ngày vào làm" Style="{StaticResource MaterialDesignFloatingHintDatePicker}"
@@ -75,25 +77,25 @@
                     <Button Content="Xóa" Width="100" Margin="5"
                             Command="{Binding DeleteCommand}"></Button>
                     <Button Content="Sửa" Width="100" Margin="5"
-                            Command="{Binding UpdateCommand}"></Button>
+                            Command="{Binding EditCommand}"></Button>
                 </WrapPanel>
             </materialDesign:Card>
 
             <materialDesign:Card Grid.Row="2" Margin="5" VerticalAlignment="Stretch">
                 <ScrollViewer VerticalScrollBarVisibility="Auto">
-                    <ListView ItemsSource="{Binding listNhanVien}"
+                    <ListView ItemsSource="{Binding ListTTNhanVien}"
                               SelectedItem="{Binding SelectedItem, Mode=OneWayToSource}">
                         <ListView.View>
                             <GridView>
-                                <GridViewColumn Header="Tài khoản" DisplayMemberBinding="{Binding TaiKhoan.TenDangNhap}"></GridViewColumn>
-                                <GridViewColumn Header="Mật khẩu" DisplayMemberBinding="{Binding TaiKhoan.TenDangNhap}"></GridViewColumn>
-                                <GridViewColumn Header="Họ tên" DisplayMemberBinding="{Binding HoTen}"></GridViewColumn>
-                                <GridViewColumn Header="Giới tính" DisplayMemberBinding="{Binding GioiTinh}"></GridViewColumn>
-                                <GridViewColumn Header="Ngày sinh" DisplayMemberBinding="{Binding NgaySinh, StringFormat='dd/MM/yyyy'}"></GridViewColumn>
-                                <GridViewColumn Header="Số điện thoại" DisplayMemberBinding="{Binding SDT}"></GridViewColumn>
-                                <GridViewColumn Header="Chức vụ" DisplayMemberBinding="{Binding ChucVu}"></GridViewColumn>
-                                <GridViewColumn Header="Địa chỉ" DisplayMemberBinding="{Binding DiaChi}"></GridViewColumn>
-                                <GridViewColumn Header="Ngày vào làm" DisplayMemberBinding="{Binding NgayVaoLam, StringFormat='dd/MM/yyyy'}"></GridViewColumn>
+                                <GridViewColumn Header="Tài khoản" DisplayMemberBinding="{Binding TaiKhoan.TENDANGNHAP_TK}"></GridViewColumn>
+                                <GridViewColumn Header="Mật khẩu" DisplayMemberBinding="{Binding TaiKhoan.MATKHAU_TK}"></GridViewColumn>
+                                <GridViewColumn Header="Họ tên" DisplayMemberBinding="{Binding NhanVien.HOTEN_NV}"></GridViewColumn>
+                                <GridViewColumn Header="Giới tính" DisplayMemberBinding="{Binding NhanVien.GIOITINH_NV}"></GridViewColumn>
+                                <GridViewColumn Header="Ngày sinh" DisplayMemberBinding="{Binding NhanVien.NGAYSINH_NV, StringFormat='dd/MM/yyyy'}"></GridViewColumn>
+                                <GridViewColumn Header="Số điện thoại" DisplayMemberBinding="{Binding NhanVien.SODIENTHOAI_NV}"></GridViewColumn>
+                                <GridViewColumn Header="Chức vụ" DisplayMemberBinding="{Binding NhanVien.CHUCVU_NV}"></GridViewColumn>
+                                <GridViewColumn Header="Địa chỉ" DisplayMemberBinding="{Binding NhanVien.DIACHI_NV}"></GridViewColumn>
+                                <GridViewColumn Header="Ngày vào làm" DisplayMemberBinding="{Binding NhanVien.NGAYVAOLAM_NV, StringFormat='dd/MM/yyyy'}"></GridViewColumn>
                             </GridView>
                         </ListView.View>
                     </ListView>
