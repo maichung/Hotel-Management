@@ -1,0 +1,104 @@
+﻿<Window x:Class="QuanLyKhachSan.ManHinhNhanVien"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:QuanLyKhachSan"
+        mc:Ignorable="d"
+        
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+		xmlns:uc="clr-namespace:QuanLyKhachSan.CreateUserControl"
+		xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+		TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+		TextElement.FontWeight="Regular"
+		TextElement.FontSize="13"
+		TextOptions.TextFormattingMode="Ideal"
+		TextOptions.TextRenderingMode="Auto"
+		Background="{DynamicResource MaterialDesignPaper}"
+		FontFamily="{DynamicResource MaterialDesignFont}"
+		ResizeMode="NoResize"
+		WindowStyle="None"
+        WindowStartupLocation="CenterScreen"
+        Name="window"
+        
+        Title="Quản lý Nhân viên" Height="450" Width="900">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+            <uc:ControlBarUC Tag="{Binding Title, ElementName=window}"></uc:ControlBarUC>
+        </Grid>
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <!--Các element binding từ selected item-->
+            <materialDesign:Card Grid.Row="0" Margin="5">
+                <WrapPanel Margin="0 0 0 5">
+                    <TextBox Margin="5 5 15 5" materialDesign:HintAssist.Hint="Tài khoản" Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                             Text="{Binding TaiKhoan, UpdateSourceTrigger=PropertyChanged}"/>
+                    <PasswordBox x:Name="pbxMatKhau" Margin="5 5 15 5" materialDesign:HintAssist.Hint="Mật khẩu" Style="{StaticResource MaterialDesignFloatingHintPasswordBox}">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="PasswordChanged">
+                                <i:InvokeCommandAction Command="{Binding PasswordChangedCommand}"
+                                                       CommandParameter="{Binding ElementName=pbxMatKhau}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </PasswordBox>
+                    <TextBox Margin="5 5 15 5" materialDesign:HintAssist.Hint="Họ tên" Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                             Text="{Binding HoTen, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBox Margin="5 5 15 5" materialDesign:HintAssist.Hint="Giới tính" Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                             Text="{Binding GioiTinh, UpdateSourceTrigger=PropertyChanged}"/>
+                    <DatePicker Width="100" Margin="5 5 15 7" VerticalAlignment="Bottom" materialDesign:HintAssist.Hint="Ngày sinh" Style="{StaticResource MaterialDesignFloatingHintDatePicker}"
+                                SelectedDate="{Binding NgaySinh, StringFormat='dd/MM/yyyy', UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBox Margin="5 5 15 5" materialDesign:HintAssist.Hint="Số điện thoại" Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                             Text="{Binding SDT, UpdateSourceTrigger=PropertyChanged}"/>
+                    <ComboBox Margin="5 5 15 5" materialDesign:HintAssist.Hint="Chức vụ" IsEditable="True" Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                        ItemsSource="{Binding ChucVu}" SelectedItem="{Binding SelectedChucVu, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBox Margin="5 5 15 5" materialDesign:HintAssist.Hint="Địa chỉ" Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                             Text="{Binding DiaChi, UpdateSourceTrigger=PropertyChanged}"/>
+                    <DatePicker Width="100" Margin="5 5 15 7" VerticalAlignment="Bottom" materialDesign:HintAssist.Hint="Ngày vào làm" Style="{StaticResource MaterialDesignFloatingHintDatePicker}"
+                                SelectedDate="{Binding NgayVaoLam, StringFormat='dd/MM/yyyy', UpdateSourceTrigger=PropertyChanged}"/>
+                </WrapPanel>
+            </materialDesign:Card>
+
+            <materialDesign:Card Grid.Row="1" Margin="5">
+                <WrapPanel>
+                    <Button Content="Thêm" Width="100" Margin="5"
+                            Command="{Binding AddCommand}"></Button>
+                    <Button Content="Xóa" Width="100" Margin="5"
+                            Command="{Binding DeleteCommand}"></Button>
+                    <Button Content="Sửa" Width="100" Margin="5"
+                            Command="{Binding UpdateCommand}"></Button>
+                </WrapPanel>
+            </materialDesign:Card>
+
+            <materialDesign:Card Grid.Row="2" Margin="5" VerticalAlignment="Stretch">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <ListView ItemsSource="{Binding listNhanVien}"
+                              SelectedItem="{Binding SelectedItem, Mode=OneWayToSource}">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Tài khoản" DisplayMemberBinding="{Binding TaiKhoan.TenDangNhap}"></GridViewColumn>
+                                <GridViewColumn Header="Mật khẩu" DisplayMemberBinding="{Binding TaiKhoan.TenDangNhap}"></GridViewColumn>
+                                <GridViewColumn Header="Họ tên" DisplayMemberBinding="{Binding HoTen}"></GridViewColumn>
+                                <GridViewColumn Header="Giới tính" DisplayMemberBinding="{Binding GioiTinh}"></GridViewColumn>
+                                <GridViewColumn Header="Ngày sinh" DisplayMemberBinding="{Binding NgaySinh, StringFormat='dd/MM/yyyy'}"></GridViewColumn>
+                                <GridViewColumn Header="Số điện thoại" DisplayMemberBinding="{Binding SDT}"></GridViewColumn>
+                                <GridViewColumn Header="Chức vụ" DisplayMemberBinding="{Binding ChucVu}"></GridViewColumn>
+                                <GridViewColumn Header="Địa chỉ" DisplayMemberBinding="{Binding DiaChi}"></GridViewColumn>
+                                <GridViewColumn Header="Ngày vào làm" DisplayMemberBinding="{Binding NgayVaoLam, StringFormat='dd/MM/yyyy'}"></GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </ScrollViewer>
+            </materialDesign:Card>
+        </Grid>
+    </Grid>
+</Window>

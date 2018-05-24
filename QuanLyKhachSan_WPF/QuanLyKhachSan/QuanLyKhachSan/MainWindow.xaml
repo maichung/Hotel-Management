@@ -1,0 +1,211 @@
+﻿<Window x:Class="QuanLyKhachSan.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:QuanLyKhachSan"
+		mc:Ignorable="d"
+		
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+		xmlns:uc="clr-namespace:QuanLyKhachSan.CreateUserControl"
+		xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+		TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+		TextElement.FontWeight="Regular"
+		TextElement.FontSize="13"
+		TextOptions.TextFormattingMode="Ideal"
+		TextOptions.TextRenderingMode="Auto"
+		Background="{DynamicResource MaterialDesignPaper}"
+		FontFamily="{DynamicResource MaterialDesignFont}"
+		ResizeMode="NoResize"
+		WindowStyle="None"
+        WindowStartupLocation="CenterScreen"
+        
+        Name="mainWindow"
+        DataContext="{StaticResource MainVM}"
+        Title="Trang chủ" Height="450" Width="900">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding LoadedWindowCommand}"
+                                   CommandParameter="{Binding ElementName=mainWindow}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    
+    <Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="auto"></RowDefinition>
+			<RowDefinition></RowDefinition>
+		</Grid.RowDefinitions>
+
+		<Grid Grid.Row="0">
+			<uc:ControlBarUC Tag="{Binding Title, ElementName=mainWindow}"></uc:ControlBarUC>
+		</Grid>
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0">
+                <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                    <Grid.Resources>
+                        <Style TargetType="Button">
+                            <Setter Property="Margin" Value="5"></Setter>
+                        </Style>
+                    </Grid.Resources>
+                    
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+
+                    <Button Grid.Column="0" ToolTip="Loại phòng" Background="WhiteSmoke"
+                            Command="{Binding LoaiPhongCommand}">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                            </Grid.RowDefinitions>
+
+                            <Grid Grid.Row="0">
+                                <TextBlock HorizontalAlignment="Center" Text="Loại phòng"></TextBlock>
+                            </Grid>
+                            <Grid Grid.Row="1">
+                                <materialDesign:PackIcon HorizontalAlignment="Center" Kind="TwitterBox" />
+                            </Grid>
+                        </Grid>
+                    </Button>
+                    <Button Grid.Column="1" ToolTip="Nhân viên" Background="WhiteSmoke"
+                            Command="{Binding NhanVienCommand}">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                            </Grid.RowDefinitions>
+
+                            <Grid Grid.Row="0">
+                                <TextBlock HorizontalAlignment="Center" Text="Nhân viên"></TextBlock>
+                            </Grid>
+                            <Grid Grid.Row="1">
+                                <materialDesign:PackIcon HorizontalAlignment="Center" Kind="TwitterBox" />
+                            </Grid>
+                        </Grid>
+                    </Button>
+                    <Button Grid.Column="2" ToolTip="Khách hàng" Background="WhiteSmoke"
+                            Command="{Binding KhachHangCommand}">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                            </Grid.RowDefinitions>
+
+                            <Grid Grid.Row="0">
+                                <TextBlock HorizontalAlignment="Center" Text="Khách hàng"></TextBlock>
+                            </Grid>
+                            <Grid Grid.Row="1">
+                                <materialDesign:PackIcon HorizontalAlignment="Center" Kind="TwitterBox" />
+                            </Grid>
+                        </Grid>
+                    </Button>
+                    <Button Grid.Column="3" ToolTip="Giặt ủi" Background="WhiteSmoke">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                            </Grid.RowDefinitions>
+
+                            <Grid Grid.Row="0">
+                                <TextBlock HorizontalAlignment="Center" Text="Giặt ủi"></TextBlock>
+                            </Grid>
+                            <Grid Grid.Row="1">
+                                <materialDesign:PackIcon HorizontalAlignment="Center" Kind="TwitterBox" />
+                            </Grid>
+                        </Grid>
+                    </Button>
+                    <Button Grid.Column="4" ToolTip="Di Chuyển" Background="WhiteSmoke">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                            </Grid.RowDefinitions>
+
+                            <Grid Grid.Row="0">
+                                <TextBlock HorizontalAlignment="Center" Text="Di Chuyển"></TextBlock>
+                            </Grid>
+                            <Grid Grid.Row="1">
+                                <materialDesign:PackIcon HorizontalAlignment="Center" Kind="CarConvertible" Width="40" Height="40" />
+                            </Grid>
+                        </Grid>
+                    </Button>
+                    <Button Grid.Column="5" ToolTip="Tra cứu" Background="WhiteSmoke">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                            </Grid.RowDefinitions>
+
+                            <Grid Grid.Row="0">
+                                <TextBlock HorizontalAlignment="Center" Text="Tra cứu"></TextBlock>
+                            </Grid>
+                            <Grid Grid.Row="1">
+                                <materialDesign:PackIcon HorizontalAlignment="Center" Kind="TwitterBox" />
+                            </Grid>
+                        </Grid>
+                    </Button>
+                    <Button Grid.Column="6" ToolTip="Thanh toán" Background="WhiteSmoke">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                            </Grid.RowDefinitions>
+
+                            <Grid Grid.Row="0">
+                                <TextBlock HorizontalAlignment="Center" Text="Thanh toán"></TextBlock>
+                            </Grid>
+                            <Grid Grid.Row="1">
+                                <materialDesign:PackIcon HorizontalAlignment="Center" Kind="TwitterBox" />
+                            </Grid>
+                        </Grid>
+                    </Button>
+                    <Button Grid.Column="7" ToolTip="Báo cáo" Background="WhiteSmoke">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                            </Grid.RowDefinitions>
+
+                            <Grid Grid.Row="0">
+                                <TextBlock HorizontalAlignment="Center" Text="Báo cáo"></TextBlock>
+                            </Grid>
+                            <Grid Grid.Row="1">
+                                <materialDesign:PackIcon HorizontalAlignment="Center" Kind="TwitterBox" />
+                            </Grid>
+                        </Grid>
+                    </Button>
+                </Grid>
+            </Grid>
+            <Grid Grid.Row="1">
+                <Separator Margin="5"></Separator>
+            </Grid>
+            <Grid Grid.Row="2">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <ListView ItemsSource="{Binding ListTTPhong}">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Mã phòng" DisplayMemberBinding="{Binding MaPhong}"></GridViewColumn>
+                                <GridViewColumn Header="Loại phòng" DisplayMemberBinding="{Binding LoaiPhong}"></GridViewColumn>
+                                <GridViewColumn Header="Đơn giá" DisplayMemberBinding="{Binding DonGia, StringFormat='N0'}"></GridViewColumn>
+                                <GridViewColumn Header="Tình trạng phòng" DisplayMemberBinding="{Binding TinhTrangPhong}"></GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </ScrollViewer>
+            </Grid>
+        </Grid>
+	</Grid>
+</Window>
