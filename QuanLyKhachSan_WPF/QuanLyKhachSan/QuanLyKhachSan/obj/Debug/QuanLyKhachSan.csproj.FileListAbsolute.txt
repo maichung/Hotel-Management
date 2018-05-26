@@ -86,3 +86,45 @@ E:\Phuc\TLHT\KTEAM\KTeam_WPF\QuanLyKhachSan_WPF\QuanLyKhachSan\QuanLyKhachSan\ob
 E:\Phuc\TLHT\KTEAM\KTeam_WPF\QuanLyKhachSan_WPF\QuanLyKhachSan\QuanLyKhachSan\obj\Debug\QuanLyKhachSan.csproj.CopyComplete
 E:\Phuc\TLHT\KTEAM\KTeam_WPF\QuanLyKhachSan_WPF\QuanLyKhachSan\QuanLyKhachSan\obj\Debug\QuanLyKhachSan.exe
 E:\Phuc\TLHT\KTEAM\KTeam_WPF\QuanLyKhachSan_WPF\QuanLyKhachSan\QuanLyKhachSan\obj\Debug\QuanLyKhachSan.pdb
+D:\HK6\Phân tích thiết kế hệ thống thông tin\Đồ án\QuanLyKhachSan_WPF\QuanLyKhachSan\QuanLyKhachSan\bin\Debug\QuanLyKhachSan.exe.config
+D:\HK6\Phân tích thiết kế hệ thống thông tin\Đồ án\QuanLyKhachSan_WPF\QuanLyKhachSan\QuanLyKhachSan\bin\Debug\QuanLyKhachSan.exe
+D:\HK6\Phân tích thiết kế hệ thống thông tin\Đồ án\QuanLyKhachSan_WPF\QuanLyKhachSan\QuanLyKhachSan\bin\Debug\QuanLyKhachSan.pdb
+D:\HK6\Phân tích thiết kế hệ thống thông tin\Đồ án\QuanLyKhachSan_WPF\QuanLyKhachSan\QuanLyKhachSan\bin\Debug\EntityFramework.dll
+D:\HK6\Phân tích thiết kế hệ thống thông tin\Đồ án\QuanLyKhachSan_WPF\QuanLyKhachSan\QuanLyKhachSan\bin\Debug\EntityFramework.SqlServer.dll
+D:\HK6\Phân tích thiết kế hệ thống thông tin\Đồ án\QuanLyKhachSan_WPF\QuanLyKhachSan\QuanLyKhachSan\bin\Debug\MaterialDesignColors.dll
+D:\HK6\Phân tích thiết kế hệ thống thông tin\Đồ án\QuanLyKhachSan_WPF\QuanLyKhachSan\QuanLyKhachSan\bin\Debug\MaterialDesignThemes.Wpf.dll
+D:\HK6\Phân tích thiết kế hệ thống thông tin\Đồ án\QuanLyKhachSan_WPF\QuanLyKhachSan\QuanLyKhachSan\bin\Debug\Microsoft.Expression.Interactions.dll
+D:\HK6\Phân tích thiết kế hệ thống thông tin\Đồ án\QuanLyKhachSan_WPF\QuanLyKhachSan\QuanLyKhachSan\bin\Debug\System.Windows.Interactivity.dll
+D:\HK6\Phân tích thiết kế hệ thống thông tin\Đồ án\QuanLyKhachSan_WPF\QuanLyKhachSan\QuanLyKhachSan\bin\Debug\EntityFramework.xml
+D:\HK6\Phân tích thiết kế hệ thống thông tin\Đồ án\QuanLyKhachSan_WPF\QuanLyKhachSan\QuanLyKhachSan\bin\Debug\EntityFramework.SqlServer.xml
+D:\HK6\Phân tích thiết kế hệ thống thông tin\Đồ án\QuanLyKhachSan_WPF\QuanLyKhachSan\QuanLyKhachSan\bin\Debug\MaterialDesignThemes.Wpf.pdb
+D:\HK6\Phân tích thiết kế hệ thống thông tin\Đồ án\QuanLyKhachSan_WPF\QuanLyKhachSan\QuanLyKhachSan\bin\Debug\MaterialDesignThemes.Wpf.xml
+D:\HK6\Phân tích thiết kế hệ thống thông tin\Đồ án\QuanLyKhachSan_WPF\QuanLyKhachSan\QuanLyKhachSan\bin\Debug\Microsoft.Expression.Interactions.xml
+D:\HK6\Phân tích thiết kế hệ thống thông tin\Đồ án\QuanLyKhachSan_WPF\QuanLyKhachSan\QuanLyKhachSan\bin\Debug\System.Windows.Interactivity.xml
+D:\HK6\Phân tích thiết kế hệ thống thông tin\Đồ án\QuanLyKhachSan_WPF\QuanLyKhachSan\QuanLyKhachSan\obj\Debug\QuanLyKhachSan.csprojResolveAssemblyReference.cache
+D:\HK6\Phân tích thiết kế hệ thống thông tin\Đồ án\QuanLyKhachSan_WPF\QuanLyKhachSan\QuanLyKhachSan\obj\Debug\CreateUserControl\ControlBarUC.g.cs
+D:\HK6\Phân tích thiết kế hệ thống thông tin\Đồ án\QuanLyKhachSan_WPF\QuanLyKhachSan\QuanLyKhachSan\obj\Debug\DangNhap.g.cs
+D:\HK6\Phân tích thiết kế hệ thống thông tin\Đồ án\QuanLyKhachSan_WPF\QuanLyKhachSan\QuanLyKhachSan\obj\Debug\ManHinhKhachHang.g.cs
+D:\HK6\Phân tích thiết kế hệ thống thông tin\Đồ án\QuanLyKhachSan_WPF\QuanLyKhachSan\QuanLyKhachSan\obj\Debug\ManHinhLoaiPhong.g.cs
+D:\HK6\Phân tích thiết kế hệ thống thông tin\Đồ án\QuanLyKhachSan_WPF\QuanLyKhachSan\QuanLyKhachSan\obj\Debug\MainWindow.g.cs
+D:\HK6\Phân tích thiết kế hệ thống thông tin\Đồ án\QuanLyKhachSan_WPF\QuanLyKhachSan\QuanLyKhachSan\obj\Debug\ManHinhNhanVien.g.cs
+D:\HK6\Phân tích thiết kế hệ thống thông tin\Đồ án\QuanLyKhachSan_WPF\QuanLyKhachSan\QuanLyKhachSan\obj\Debug\ManHinhTaiKhoan.g.cs
+D:\HK6\Phân tích thiết kế hệ thống thông tin\Đồ án\QuanLyKhachSan_WPF\QuanLyKhachSan\QuanLyKhachSan\obj\Debug\App.g.cs
+D:\HK6\Phân tích thiết kế hệ thống thông tin\Đồ án\QuanLyKhachSan_WPF\QuanLyKhachSan\QuanLyKhachSan\obj\Debug\QuanLyKhachSan_Content.g.cs
+D:\HK6\Phân tích thiết kế hệ thống thông tin\Đồ án\QuanLyKhachSan_WPF\QuanLyKhachSan\QuanLyKhachSan\obj\Debug\GeneratedInternalTypeHelper.g.cs
+D:\HK6\Phân tích thiết kế hệ thống thông tin\Đồ án\QuanLyKhachSan_WPF\QuanLyKhachSan\QuanLyKhachSan\obj\Debug\QuanLyKhachSan_MarkupCompile.cache
+D:\HK6\Phân tích thiết kế hệ thống thông tin\Đồ án\QuanLyKhachSan_WPF\QuanLyKhachSan\QuanLyKhachSan\obj\Debug\QuanLyKhachSan_MarkupCompile.lref
+D:\HK6\Phân tích thiết kế hệ thống thông tin\Đồ án\QuanLyKhachSan_WPF\QuanLyKhachSan\QuanLyKhachSan\obj\Debug\App.baml
+D:\HK6\Phân tích thiết kế hệ thống thông tin\Đồ án\QuanLyKhachSan_WPF\QuanLyKhachSan\QuanLyKhachSan\obj\Debug\CreateUserControl\ControlBarUC.baml
+D:\HK6\Phân tích thiết kế hệ thống thông tin\Đồ án\QuanLyKhachSan_WPF\QuanLyKhachSan\QuanLyKhachSan\obj\Debug\DangNhap.baml
+D:\HK6\Phân tích thiết kế hệ thống thông tin\Đồ án\QuanLyKhachSan_WPF\QuanLyKhachSan\QuanLyKhachSan\obj\Debug\ManHinhKhachHang.baml
+D:\HK6\Phân tích thiết kế hệ thống thông tin\Đồ án\QuanLyKhachSan_WPF\QuanLyKhachSan\QuanLyKhachSan\obj\Debug\ManHinhLoaiPhong.baml
+D:\HK6\Phân tích thiết kế hệ thống thông tin\Đồ án\QuanLyKhachSan_WPF\QuanLyKhachSan\QuanLyKhachSan\obj\Debug\MainWindow.baml
+D:\HK6\Phân tích thiết kế hệ thống thông tin\Đồ án\QuanLyKhachSan_WPF\QuanLyKhachSan\QuanLyKhachSan\obj\Debug\ManHinhNhanVien.baml
+D:\HK6\Phân tích thiết kế hệ thống thông tin\Đồ án\QuanLyKhachSan_WPF\QuanLyKhachSan\QuanLyKhachSan\obj\Debug\ManHinhTaiKhoan.baml
+D:\HK6\Phân tích thiết kế hệ thống thông tin\Đồ án\QuanLyKhachSan_WPF\QuanLyKhachSan\QuanLyKhachSan\obj\Debug\Resource\MainResource.baml
+D:\HK6\Phân tích thiết kế hệ thống thông tin\Đồ án\QuanLyKhachSan_WPF\QuanLyKhachSan\QuanLyKhachSan\obj\Debug\QuanLyKhachSan.g.resources
+D:\HK6\Phân tích thiết kế hệ thống thông tin\Đồ án\QuanLyKhachSan_WPF\QuanLyKhachSan\QuanLyKhachSan\obj\Debug\QuanLyKhachSan.Properties.Resources.resources
+D:\HK6\Phân tích thiết kế hệ thống thông tin\Đồ án\QuanLyKhachSan_WPF\QuanLyKhachSan\QuanLyKhachSan\obj\Debug\QuanLyKhachSan.csproj.GenerateResource.Cache
+D:\HK6\Phân tích thiết kế hệ thống thông tin\Đồ án\QuanLyKhachSan_WPF\QuanLyKhachSan\QuanLyKhachSan\obj\Debug\QuanLyKhachSan.exe
+D:\HK6\Phân tích thiết kế hệ thống thông tin\Đồ án\QuanLyKhachSan_WPF\QuanLyKhachSan\QuanLyKhachSan\obj\Debug\QuanLyKhachSan.pdb

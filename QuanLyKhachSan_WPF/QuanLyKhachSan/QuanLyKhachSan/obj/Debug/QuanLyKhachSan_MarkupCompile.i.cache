@@ -4,16 +4,16 @@
 winexe
 C#
 .cs
-E:\Phuc\TLHT\PTHTTT\IS201.I21-FinalProject\QuanLyKhachSan_WPF\QuanLyKhachSan\QuanLyKhachSan\obj\Debug\
+D:\HK6\Phân tích thiết kế hệ thống thông tin\Đồ án\QuanLyKhachSan_WPF\QuanLyKhachSan\QuanLyKhachSan\obj\Debug\
 QuanLyKhachSan
 none
 false
 DEBUG;TRACE
-E:\Phuc\TLHT\PTHTTT\IS201.I21-FinalProject\QuanLyKhachSan_WPF\QuanLyKhachSan\QuanLyKhachSan\App.xaml
+D:\HK6\Phân tích thiết kế hệ thống thông tin\Đồ án\QuanLyKhachSan_WPF\QuanLyKhachSan\QuanLyKhachSan\App.xaml
 8-776808199
 2482335943
-45-70712339
-221633489200
+45113671855
+22687915602
 CreateUserControl\ControlBarUC.xaml;DangNhap.xaml;ManHinhKhachHang.xaml;ManHinhLoaiPhong.xaml;MainWindow.xaml;ManHinhNhanVien.xaml;ManHinhTaiKhoan.xaml;Resource\MainResource.xaml;
 
 True

@@ -1,5 +1,0 @@
-D:\HK6\Phân tích thiết kế hệ thống thông tin\Đồ án\QuanLyKhachSan\BUS\bin\Debug\BUS.exe.config
-D:\HK6\Phân tích thiết kế hệ thống thông tin\Đồ án\QuanLyKhachSan\BUS\bin\Debug\BUS.exe
-D:\HK6\Phân tích thiết kế hệ thống thông tin\Đồ án\QuanLyKhachSan\BUS\bin\Debug\BUS.pdb
-D:\HK6\Phân tích thiết kế hệ thống thông tin\Đồ án\QuanLyKhachSan\BUS\obj\Debug\BUS.exe
-D:\HK6\Phân tích thiết kế hệ thống thông tin\Đồ án\QuanLyKhachSan\BUS\obj\Debug\BUS.pdb
