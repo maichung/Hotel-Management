@@ -9,22 +9,27 @@
 
 namespace QLKS.Model
 {
+    using QLKS.ViewModel;
     using System;
     using System.Collections.Generic;
     
-    public partial class KHACHHANG
+    public partial class KHACHHANG : BaseViewModel
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public KHACHHANG()
         {
             this.HOADON = new HashSet<HOADON>();
         }
-    
-        public int MA_KH { get; set; }
-        public string HOTEN_KH { get; set; }
-        public string SODIENTHOAI_KH { get; set; }
-        public string CMND_KH { get; set; }
-    
+
+        private int _MA_KH;
+        public int MA_KH { get => _MA_KH; set { _MA_KH = value; OnPropertyChanged(); } }
+        private string _HOTEN_KH;
+        public string HOTEN_KH { get => _HOTEN_KH; set { _HOTEN_KH = value; OnPropertyChanged(); } }
+        private string _SODIENTHOAI_KH;
+        public string SODIENTHOAI_KH { get => _SODIENTHOAI_KH; set { _SODIENTHOAI_KH = value; OnPropertyChanged(); } }
+        private string _CMND_KH;
+        public string CMND_KH { get => _CMND_KH; set { _CMND_KH = value; OnPropertyChanged(); } }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<HOADON> HOADON { get; set; }
     }

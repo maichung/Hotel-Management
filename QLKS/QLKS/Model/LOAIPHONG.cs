@@ -9,21 +9,25 @@
 
 namespace QLKS.Model
 {
+    using QLKS.ViewModel;
     using System;
     using System.Collections.Generic;
     
-    public partial class LOAIPHONG
+    public partial class LOAIPHONG : BaseViewModel
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public LOAIPHONG()
         {
             this.PHONG = new HashSet<PHONG>();
         }
-    
-        public int MA_LP { get; set; }
-        public string TEN_LP { get; set; }
-        public Nullable<decimal> DONGIA_LP { get; set; }
-    
+
+        private int _MA_LP;
+        public int MA_LP { get => _MA_LP; set { _MA_LP = value; OnPropertyChanged(); } }
+        private string _TEN_LP;
+        public string TEN_LP { get => _TEN_LP; set { _TEN_LP = value; OnPropertyChanged(); } }
+        private Nullable<decimal> _DONGIA_LP;
+        public Nullable<decimal> DONGIA_LP { get => _DONGIA_LP; set { _DONGIA_LP = value; OnPropertyChanged(); } }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PHONG> PHONG { get; set; }
     }

@@ -3,4 +3,9 @@
                     xmlns:local="clr-namespace:QLKS.Resources"
                     xmlns:viewmodel="clr-namespace:QLKS.ViewModel">
     <viewmodel:MainViewModel x:Key="MainVM"></viewmodel:MainViewModel>
+    <viewmodel:MatHangViewModel x:Key="MatHangVM"></viewmodel:MatHangViewModel>
+    <viewmodel:NhanVienViewModel x:Key="NhanVienVM"></viewmodel:NhanVienViewModel>
+    <viewmodel:KhachHangViewModel x:Key="KhachHangVM"></viewmodel:KhachHangViewModel>
+    <viewmodel:PhongViewModel x:Key="PhongVM"></viewmodel:PhongViewModel>
+    <viewmodel:LoaiPhongViewModel x:Key="LoaiPhongVM"></viewmodel:LoaiPhongViewModel>
 </ResourceDictionary>

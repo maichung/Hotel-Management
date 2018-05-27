@@ -1,4 +1,5 @@
-﻿using System;
+﻿using QLKS.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,11 +7,10 @@ using System.Threading.Tasks;
 
 namespace QLKS.Model
 {
-    public class ThongTinPhong
+    public class ThongTinPhong : BaseViewModel
     {
-        public int MaPhong { get; set; }
-        public string LoaiPhong { get; set; }
-        public int DonGia { get; set; }
-        public string TinhTrangPhong { get; set; }
+        public PHONG Phong { get; set; }
+        private LOAIPHONG _LoaiPhong;
+        public LOAIPHONG LoaiPhong { get => _LoaiPhong; set { _LoaiPhong = value; OnPropertyChanged(); } }
     }
 }

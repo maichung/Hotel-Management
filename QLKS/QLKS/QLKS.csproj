@@ -69,8 +69,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Model\ThongTinNhanVien.cs" />
     <Compile Include="ViewModel\BaseViewModel.cs" />
+    <Compile Include="ViewModel\KhachHangViewModel.cs" />
+    <Compile Include="ViewModel\LoaiPhongViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
+    <Compile Include="ViewModel\MatHangViewModel.cs" />
+    <Compile Include="ViewModel\NhanVienViewModel.cs" />
     <Compile Include="ViewModel\PhongViewModel.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
