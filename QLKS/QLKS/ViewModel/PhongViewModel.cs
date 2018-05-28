@@ -50,7 +50,7 @@ namespace QLKS.ViewModel
         {
             LoadTTPhog();
             ListLoaiPhong = new ObservableCollection<LOAIPHONG>(DataProvider.Ins.model.LOAIPHONG);
-            string[] tinhtrangphongs = new string[] { "Tốt", "Đang sửa chữa", "Đã đặt trước" };
+            string[] tinhtrangphongs = new string[] { "Trống", "Đang thuê", "Đã đặt trước" };
             ListTinhTrangPhong = new ObservableCollection<string>(tinhtrangphongs);
 
             AddCommand = new RelayCommand<Object>((p) => {

@@ -8,4 +8,6 @@
     <viewmodel:KhachHangViewModel x:Key="KhachHangVM"></viewmodel:KhachHangViewModel>
     <viewmodel:PhongViewModel x:Key="PhongVM"></viewmodel:PhongViewModel>
     <viewmodel:LoaiPhongViewModel x:Key="LoaiPhongVM"></viewmodel:LoaiPhongViewModel>
+    <viewmodel:LoaiGiatUiViewModel x:Key="LoaiGiatUiVM"></viewmodel:LoaiGiatUiViewModel>
+    <viewmodel:DangNhapViewModel x:Key="DangNhapVM"></viewmodel:DangNhapViewModel>
 </ResourceDictionary>

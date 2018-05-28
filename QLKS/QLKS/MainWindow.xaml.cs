@@ -24,37 +24,9 @@ namespace QLKS
         public MainWindow()
         {
             InitializeComponent();
-            //LoadTrangChu();
+            
         }
-
-        // Load nội dung trang chủ
-        //public void LoadTrangChu()
-        //{
-        //    Grid gridRow = new Grid();
-        //    gridPhong.Children.Add(gridRow);
-
-        //    for (int i = 0; i < 6; i++)
-        //    {
-        //        RowDefinition row = new RowDefinition();
-        //        gridRow.RowDefinitions.Add(row);
-        //        row.Height = new GridLength(80);
-        //        Grid gridCollumn = new Grid();
-        //        gridRow.Children.Add(gridCollumn);
-
-        //        Grid.SetRow(gridCollumn, i);
-        //        for (int j = 0; j < 7; j++)
-        //        {
-        //            ColumnDefinition col = new ColumnDefinition();
-        //            gridCollumn.ColumnDefinitions.Add(col);
-        //            Button btn = new Button();
-        //            btn.Content = "Dong " + i + " Cot " + j;
-        //            btn.BorderBrush = null;
-        //            btn.Margin = new Thickness(5, 0, 0, 5);
-        //            gridCollumn.Children.Add(btn);
-        //            Grid.SetColumn(btn, j);
-        //        }
-        //    }
-        //}
+        
 
         // Thay đổi các nội dung theo từng button chọn trên màn hình
         public void SetVisibleContents(Grid gr)

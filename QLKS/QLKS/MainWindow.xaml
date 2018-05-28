@@ -134,29 +134,29 @@
 
                 <StackPanel Name="groupStatusTrangChu" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,120">
                     <Label Height="25" Width="auto" Content="Tất cả:" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" ></Label>
-                    <Button Height="25" Width="50" Content="20" Background="#D6D6D6" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" BorderBrush="{x:Null}"></Button>
+                    <Button Command="{Binding TatCaCommand}" Height="25" Width="50" Content="{Binding SoPhong}" Background="#D6D6D6" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" BorderBrush="{x:Null}"></Button>
                     <GridSplitter IsEnabled="False" Width="1" Margin="10,0,0,0" Background="#FFD6D6D6"></GridSplitter>
                     <Label Height="25" Width="auto" Content="Còn trống:" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" ></Label>
-                    <Button Height="25" Width="50" Content="13" Background="#FFF7EE" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" BorderBrush="{x:Null}"></Button>
+                    <Button Command="{Binding TrongCommand}" Height="25" Width="50" Content="{Binding SoPhongTrong}" Background="#FFF7EE" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" BorderBrush="{x:Null}"></Button>
                     <GridSplitter IsEnabled="False" Width="1" Margin="10,0,0,0" Background="#FFD6D6D6"></GridSplitter>
                     <Label Height="25" Width="auto" Content="Đang thuê:" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"></Label>
-                    <Button Height="25" Width="50" Content="5" Background="#E5BDA7" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" BorderBrush="{x:Null}" ></Button>
+                    <Button Command="{Binding DangThueCommand}" Height="25" Width="50" Content="{Binding SoPhongDangThue}" Background="#E5BDA7" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" BorderBrush="{x:Null}" ></Button>
                     <GridSplitter IsEnabled="False" Width="1" Margin="10,0,0,0" Background="#FFD6D6D6"></GridSplitter>
                     <Label Height="25" Width="auto" Content="Đã đặt trước:" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"></Label>
-                    <Button Height="25" Width="50" Content="2" Background="#5E6572" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" BorderBrush="{x:Null}" Foreground="White" ></Button>
+                    <Button Command="{Binding DaDatTruocCommand}" Height="25" Width="50" Content="{Binding SoPhongDatTruoc}" Background="#5E6572" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" BorderBrush="{x:Null}" Foreground="White" ></Button>
                 </StackPanel>
                 
                 <ScrollViewer Name="SrViewTrangChu" Margin="5,170,20,20">
                     <ItemsControl ItemsSource="{Binding ListTTPhong}">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
-                                <WrapPanel Orientation="Horizontal" MaxWidth="720"/>
+                                <WrapPanel Name="panelPhong" Orientation="Horizontal"/>
                             </ItemsPanelTemplate>
                         </ItemsControl.ItemsPanel>
 
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <Button Width="100" Height="60" Margin="5" HorizontalAlignment="Center">
+                                <Button Width="100" Height="60" Margin="5" HorizontalAlignment="Center"  Background="{Binding color}">
                                     <Grid HorizontalAlignment="Center">
                                         <Grid.RowDefinitions>
                                             <RowDefinition></RowDefinition>
@@ -211,23 +211,18 @@
                         </ListView.View>
                     </ListView>
                     <Grid Grid.Column="1" Margin="10,0,0,0">
-                        <GroupBox Header="Loại phục vụ" VerticalAlignment="Top">
-                            <Grid>
-                                <RadioButton Name="rbtnTaiPhong" Content="Phục vụ tại phòng" HorizontalAlignment="Left" Margin="10,10,20,20" VerticalAlignment="Top"/>
-                                <RadioButton Name="rbtnTaiSanhAnUong" Content="Phục vụ tại sảnh ăn uống" HorizontalAlignment="Left" Margin="10,30,20,10" VerticalAlignment="Top" />
-                            </Grid>
-                        </GroupBox>
-                        <GroupBox Header="Danh sách đã chọn" Margin="0,90,0,0">
-                            <ListView Name="lstDaChon" Margin="0,15,0,0">
-                                <ListView.View>
-                                    <GridView>
-                                        <GridViewColumn Header="Tên hàng hóa"/>
-                                        <GridViewColumn Header="Đơn giá"/>
-                                        <GridViewColumn Header="Số lượng"/>
-                                    </GridView>
-                                </ListView.View>
-                            </ListView>
-                        </GroupBox>
+                        <Label Content="Loại phục vụ:" Margin="0,0,10,20" VerticalAlignment="Top"></Label>
+                        <ComboBox Margin="0,30,10,20" VerticalAlignment="Top" IsEditable="True"/>
+                        <Label Content="Danh sách đã chọn:" Margin="0,70,10,20" VerticalAlignment="Top"></Label>
+                        <ListView Name="lstDaChon" Margin="0,100,0,0">
+                            <ListView.View>
+                                <GridView>
+                                    <GridViewColumn Header="Tên hàng hóa"/>
+                                    <GridViewColumn Header="Đơn giá"/>
+                                    <GridViewColumn Header="Số lượng"/>
+                                </GridView>
+                            </ListView.View>
+                        </ListView>                        
                     </Grid>
 
 
@@ -235,7 +230,7 @@
             </Grid>
 
             <!-- Grid Giặt ủi -->
-            <Grid Name="gridGiatUi" Visibility="Hidden">
+            <Grid Name="gridGiatUi" Visibility="Hidden" DataContext="{StaticResource LoaiGiatUiVM}">
                 <Rectangle Margin="0,160,10,10" Stroke="#FFD6D6D6"/>
                 <!-- Button giặt ủi -->
                 <StackPanel Name="groupButtonsGiatUi" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="20,120">
@@ -254,13 +249,10 @@
                     <Button Height="25" Width="100" Content="5" Background="#5E6572" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" BorderBrush="{x:Null}" Foreground="White" ></Button>
                 </StackPanel>
                 <Grid Name="gridLoaiGiatUi" Margin="10,170,20,20">
-                    <GroupBox Header="Loại giặt ủi" Margin="10,10,10,0" VerticalAlignment="Top">
-                        <Grid>
-                            <RadioButton Name="rbtnTheoKilogram" Content="Giặt ủi theo kilogram" HorizontalAlignment="Left" Margin="10,20,20,20" VerticalAlignment="Top"/>
-                            <RadioButton Name="rbtnTheoNgay" Content="Giặt ủi theo ngày" HorizontalAlignment="Left" Margin="10,60,20,20" VerticalAlignment="Top" />
-                        </Grid>
-                    </GroupBox>
-                    <GroupBox Header="Thông tin giặt ủi" Margin="10,150,10,10" >
+                    <Label Content="Loại giặt ủi" Margin="30,20,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"></Label>
+                    <ComboBox ItemsSource="{Binding ListLoaiGiatUi}" DisplayMemberPath="TEN_LOAIGU" SelectedItem="{Binding SelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="115,20,20,20" Width="150" HorizontalAlignment="Left" VerticalAlignment="Top" IsEditable="True"/>
+                    
+                    <GroupBox Header="Thông tin giặt ủi" Margin="10,70,10,10" >
                         <Grid>
                             <Label Height="30" Content="Cân nặng" HorizontalAlignment="Left" Margin="10,20,0,0" VerticalAlignment="Top"/>
                             <TextBox Name="tboxCanNang" HorizontalAlignment="Left" Margin="100,26,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="150" HorizontalContentAlignment="Right" VerticalContentAlignment="Center"/>
@@ -270,7 +262,7 @@
                             <Label Height="30" Content="Ngày kết thúc" HorizontalAlignment="Left" Margin="10,97,0,0" VerticalAlignment="Top"/>
                             <DatePicker Name="dateNgayKetThuc" HorizontalAlignment="Left" Margin="100,100,0,0" VerticalAlignment="Top" Width="150" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" FirstDayOfWeek="Monday"/>
                             <Label Height="30" Content="Đơn giá" HorizontalAlignment="Left" Margin="10,140,20,20" VerticalAlignment="Top"/>
-                            <TextBox HorizontalAlignment="Left" Margin="100,146,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="150" IsEnabled="False" HorizontalContentAlignment="Right" VerticalContentAlignment="Center"/>
+                            <TextBox Text="{Binding DonGiaLoaiGiatUi, StringFormat='N0', UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="100,146,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="150" IsEnabled="False" HorizontalContentAlignment="Right" VerticalContentAlignment="Center"/>
                             <Label Height="30" Content="VND" HorizontalAlignment="Left" Margin="260,140,0,0" VerticalAlignment="Top"/>
                         </Grid>
                     </GroupBox>
@@ -317,6 +309,16 @@
                                             <i:EventTrigger EventName="MouseLeftButtonDown">
                                                 <i:InvokeCommandAction Command="{Binding EditCommand}"
                                                                        CommandParameter="{Binding ElementName=imgEditNhanVien}">
+                                                </i:InvokeCommandAction>
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                    </Image>
+                                    <GridSplitter IsEnabled="False" Width="1" Margin="10,0,10,0" Background="#FFD6D6D6"></GridSplitter>
+                                    <Image Name="imgLamMoiNhanVien" Height="25" Width="25" Cursor="Hand" Source="Resources\Icons\btnLamMoi.png" ToolTip="Làm mới">
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="MouseLeftButtonDown">
+                                                <i:InvokeCommandAction Command="{Binding RefreshCommand}"
+                                                                       CommandParameter="{Binding ElementName=imglamMoiNhanVien}">
                                                 </i:InvokeCommandAction>
                                             </i:EventTrigger>
                                         </i:Interaction.Triggers>

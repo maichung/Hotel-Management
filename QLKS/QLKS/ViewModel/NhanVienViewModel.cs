@@ -66,12 +66,13 @@ namespace QLKS.ViewModel
 
         public ICommand AddCommand { get; set; }
         public ICommand EditCommand { get; set; }
+        public ICommand RefreshCommand { get; set; }
 
         public NhanVienViewModel()
         {
             #region Load dữ liệu nhân viên
             LoadTTNhanVien();
-            string[] chucvus = new string[] { "Admin", "Staff" };
+            string[] chucvus = new string[] { "Quản lí", "Nhân viên" };
             ListChucVu = new ObservableCollection<string>(chucvus);
             string[] gioitinhs = new string[] { "Nam", "Nữ" };
             ListGioiTinh = new ObservableCollection<string>(gioitinhs);
@@ -136,6 +137,19 @@ namespace QLKS.ViewModel
                 nhanVien.NGAYVAOLAM_NV = NgayVaoLam;
                 DataProvider.Ins.model.SaveChanges();
             });
+
+            RefreshCommand = new RelayCommand<Object>((p) => { return true; }, (p) =>
+              {
+                  TenDangNhap = null;
+                  MatKhau = null;
+                  TenNhanVien = null;
+                  NgaySinh = null;
+                  SoDienThoai = null;
+                  SelectedGioiTinh = null;
+                  SelectedChucVu = null;
+                  NgayVaoLam = null;
+                  DiaChi = null;
+              });
         }
 
         void LoadTTNhanVien()

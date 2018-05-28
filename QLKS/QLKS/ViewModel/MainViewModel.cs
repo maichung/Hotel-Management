@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
 
 namespace QLKS.ViewModel
 {
@@ -15,20 +16,95 @@ namespace QLKS.ViewModel
     {
         private ObservableCollection<ThongTinPhong> _ListTTPhong;
         public ObservableCollection<ThongTinPhong> ListTTPhong { get => _ListTTPhong; set { _ListTTPhong = value; OnPropertyChanged(); } }
-
+        private int _SoPhong;
+        public int SoPhong { get => _SoPhong; set { _SoPhong = value; OnPropertyChanged(); } }
+        private int _SoPhongTrong;
+        public int SoPhongTrong { get => _SoPhongTrong; set { _SoPhongTrong = value; OnPropertyChanged(); } }
+        private int _SoPhongDangThue;
+        public int SoPhongDangThue { get => _SoPhongDangThue; set { _SoPhongDangThue = value; OnPropertyChanged(); } }
+        private int _SoPhongDatTruoc;
+        public int SoPhongDatTruoc { get => _SoPhongDatTruoc; set { _SoPhongDatTruoc = value; OnPropertyChanged(); } }
         public ICommand LoadedWindowCommand { get; set; }
-        
+        public ICommand TatCaCommand { get; set; }
+        public ICommand TrongCommand { get; set; }
+        public ICommand DangThueCommand { get; set; }
+        public ICommand DaDatTruocCommand { get; set; }
+
 
         public MainViewModel()
         {
             LoadedWindowCommand = new RelayCommand<Window>((p) => { return p == null ? false : true; }, (p) =>
               {
                   p.Show();
-                  LoadTTPhog();
-              });            
+                  LoadTTPhong();
+
+                  SoPhong = ListTTPhong.Count();
+                  SoPhongTrong = ListTTPhong.Where(x => x.Phong.TINHTRANG_PHONG == "Trống").Count();
+                  SoPhongDangThue = ListTTPhong.Where(x => x.Phong.TINHTRANG_PHONG == "Đang thuê").Count();
+                  SoPhongDatTruoc = ListTTPhong.Where(x => x.Phong.TINHTRANG_PHONG == "Đã đặt trước").Count();
+              });
+            TatCaCommand = new RelayCommand<Object>((p) => { return true; }, (p) =>
+            {
+                ListTTPhong = LoadTTPhong();
+            });
+
+            TrongCommand = new RelayCommand<Object>((p) => { return true; }, (p) =>
+            {
+                ListTTPhong = new ObservableCollection<ThongTinPhong>();
+                var listTTPhong = from ph in DataProvider.Ins.model.PHONG
+                                  join lp in DataProvider.Ins.model.LOAIPHONG
+                                  on ph.MA_LP equals lp.MA_LP
+                                  where ph.TINHTRANG_PHONG == "Trống"
+                                  select new ThongTinPhong()
+                                  {
+                                      Phong = ph,
+                                      LoaiPhong = lp
+                                  };
+                foreach (ThongTinPhong item in listTTPhong)
+                {
+                    ListTTPhong.Add(item);
+                }
+            });
+
+            DangThueCommand = new RelayCommand<Object>((p) => { return true; }, (p) =>
+            {
+                ListTTPhong = new ObservableCollection<ThongTinPhong>();
+                var listTTPhong = from ph in DataProvider.Ins.model.PHONG
+                                  join lp in DataProvider.Ins.model.LOAIPHONG
+                                  on ph.MA_LP equals lp.MA_LP
+                                  where ph.TINHTRANG_PHONG == "Đang thuê"
+                                  select new ThongTinPhong()
+                                  {
+                                      Phong = ph,
+                                      LoaiPhong = lp
+                                  };
+                foreach (ThongTinPhong item in listTTPhong)
+                {
+                    ListTTPhong.Add(item);
+                }
+            });
+
+            DaDatTruocCommand = new RelayCommand<Object>((p) => { return true; }, (p) =>
+            {
+                ListTTPhong = new ObservableCollection<ThongTinPhong>();
+                var listTTPhong = from ph in DataProvider.Ins.model.PHONG
+                                  join lp in DataProvider.Ins.model.LOAIPHONG
+                                  on ph.MA_LP equals lp.MA_LP
+                                  where ph.TINHTRANG_PHONG == "Đã đặt trước"
+                                  select new ThongTinPhong()
+                                  {
+                                      Phong = ph,
+                                      LoaiPhong = lp
+                                  };
+                foreach (ThongTinPhong item in listTTPhong)
+                {
+                    ListTTPhong.Add(item);
+                }
+            });
+
         }
 
-        public void LoadTTPhog()
+        public ObservableCollection<ThongTinPhong> LoadTTPhong()
         {
             ListTTPhong = new ObservableCollection<ThongTinPhong>();
             var listTTPhong = from p in DataProvider.Ins.model.PHONG
@@ -39,11 +115,24 @@ namespace QLKS.ViewModel
                                   Phong = p,
                                   LoaiPhong = lp
                               };
-            foreach(ThongTinPhong item in listTTPhong)
+            foreach (ThongTinPhong item in listTTPhong)
             {
+                if (item.Phong.TINHTRANG_PHONG.ToString().Equals("Trống"))
+                {
+                    item.color = (Color)ColorConverter.ConvertFromString("#FFFFF7EE");
+                }
+                else if (item.Phong.TINHTRANG_PHONG.ToString().Equals("Đang thuê"))
+                {
+                    item.color = (Color)ColorConverter.ConvertFromString("#FFE5BDA7");
+                }
+                else
+                {
+                    item.color = (Color)ColorConverter.ConvertFromString("#FF5E6572");
+                }
                 ListTTPhong.Add(item);
             }
-            
+            return ListTTPhong;
+
         }
     }
 }

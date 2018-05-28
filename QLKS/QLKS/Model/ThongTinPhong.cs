@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media;
 
 namespace QLKS.Model
 {
@@ -12,5 +13,8 @@ namespace QLKS.Model
         public PHONG Phong { get; set; }
         private LOAIPHONG _LoaiPhong;
         public LOAIPHONG LoaiPhong { get => _LoaiPhong; set { _LoaiPhong = value; OnPropertyChanged(); } }
+        private Color _color;
+        public Color color { get => _color; set { _color = value; OnPropertyChanged(); } }
+
     }
 }
