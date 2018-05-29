@@ -24,7 +24,6 @@ namespace QLKS
         public MainWindow()
         {
             InitializeComponent();
-            
         }
         
 
@@ -111,6 +110,6 @@ namespace QLKS
                 dateNgayBatDau.IsEnabled = true;
                 dateNgayKetThuc.IsEnabled = true;
             }
-        }
+        }        
     }
 }

@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Data;
 using System.Windows.Input;
 
 namespace QLKS.ViewModel
@@ -32,13 +33,32 @@ namespace QLKS.ViewModel
         public string TenLoaiPhong { get => _TenLoaiPhong; set { _TenLoaiPhong = value; OnPropertyChanged(); } }
         private int _DonGia;
         public int DonGia { get => _DonGia; set { _DonGia = value; OnPropertyChanged(); } }
+        private string _SearchLoaiPhong;
+        public string SearchLoaiPhong { get => _SearchLoaiPhong; set { _SearchLoaiPhong = value; OnPropertyChanged(); } }
 
+        public ICommand SearchLoaiPhongCommand { get; set; }
         public ICommand AddCommand { get; set; }
         public ICommand EditCommand { get; set; }
 
         public LoaiPhongViewModel()
         {
             ListLoaiPhong = new ObservableCollection<LOAIPHONG>(DataProvider.Ins.model.LOAIPHONG);
+
+            SearchLoaiPhongCommand = new RelayCommand<Object>((p) => { return true; }, (p) => {
+                if (!string.IsNullOrEmpty(SearchLoaiPhong))
+                {
+                    CollectionViewSource.GetDefaultView(ListLoaiPhong).Filter = (searchLoaiPhong) =>
+                    {
+                        return (searchLoaiPhong as LOAIPHONG).TEN_LP.StartsWith(SearchLoaiPhong) ||
+                               (searchLoaiPhong as LOAIPHONG).DONGIA_LP.ToString().StartsWith(SearchLoaiPhong);
+                    };
+                }
+                else
+                {
+                    CollectionViewSource.GetDefaultView(ListLoaiPhong).Filter = (all) => { return true; };
+                }
+
+            });
 
             AddCommand = new RelayCommand<Object>((p) => {
                 if (string.IsNullOrEmpty(TenLoaiPhong) || string.IsNullOrEmpty(DonGia.ToString()))
