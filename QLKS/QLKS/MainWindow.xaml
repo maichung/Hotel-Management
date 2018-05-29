@@ -23,11 +23,25 @@
             <ColumnDefinition Width="3*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
-        <Label Content="Tên nhân viên" Grid.Column="2" Margin="20,10" VerticalAlignment="Top" HorizontalAlignment="Right" FontWeight="Bold"/>
-        <Label Content="HỆ THỐNG QUẢN LÝ KHÁCH SẠN" Margin="40"  VerticalAlignment="Top" HorizontalAlignment="Center" FontWeight="Bold" Grid.Column="3" FontSize="18" Foreground="#FF474747"/>
+        <!-- Tài khoản đăng nhập -->
+        <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="20,10">
+            <Label DataContext="{StaticResource DangNhapVM}" Content="{Binding NVDangNhap.HOTEN_NV}" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold" Foreground="#FF9B9B9B"/>
+            <GridSplitter IsEnabled="False" Width="1" Margin="5,0,5,0" Background="#FFD6D6D6"></GridSplitter>
+            <Image Height="18" Width="18" Cursor="Hand" Source="Resources\Icons\btnDangXuat32.png" ToolTip="Đăng xuất">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                        <i:InvokeCommandAction Command="{Binding DangXuatCommand}" CommandParameter="{Binding ElementName=mainWindow}">
+                        </i:InvokeCommandAction>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </Image>
+        </StackPanel>
+
+        <!-- Tiêu đề phần mềm-->
+        <Label Content="HỆ THỐNG QUẢN LÝ KHÁCH SẠN" Margin="40"  VerticalAlignment="Top" HorizontalAlignment="Center" FontWeight="Bold" Grid.Column="1" FontSize="18" Foreground="#FF474747"/>
 
 
-        <!-- Tiêu đề -->
+        <!-- Tiêu đề menu -->
         <StackPanel Name="groupButtonTitles" Grid.Column="0" HorizontalAlignment="Left" Height="Auto" Margin="10,170,0,0" VerticalAlignment="Top" Width="Auto">
             <Button Name="btnTrangChu" Height="50" BorderBrush="{x:Null}" Background="{x:Null}" FontSize="18" Click="btnTrangChu_Click" >
                 <Grid Width="220" >
@@ -145,7 +159,7 @@
                     <Label Height="25" Width="auto" Content="Đã đặt trước:" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"></Label>
                     <Button Command="{Binding DaDatTruocCommand}" Height="25" Width="50" Content="{Binding SoPhongDatTruoc}" Background="#5E6572" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" BorderBrush="{x:Null}" Foreground="White" ></Button>
                 </StackPanel>
-                
+
                 <ScrollViewer Name="SrViewTrangChu" Margin="5,170,20,20">
                     <ItemsControl ItemsSource="{Binding ListTTPhong}">
                         <ItemsControl.ItemsPanel>
@@ -156,7 +170,7 @@
 
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <Button Width="100" Height="60" Margin="5" HorizontalAlignment="Center"  Background="{Binding color}">
+                                <Button Width="127" Height="60" Margin="5" HorizontalAlignment="Center"  Background="{Binding color}">
                                     <Grid HorizontalAlignment="Center">
                                         <Grid.RowDefinitions>
                                             <RowDefinition></RowDefinition>
@@ -186,7 +200,7 @@
                 </StackPanel>
                 <StackPanel Name="groupStatusAnUong" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,120">
                     <Label Height="25" Width="auto" Content="Phòng:" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" ></Label>
-                    <ComboBox Height="25" Width="50" Background="#D6D6D6" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" BorderBrush="{x:Null}" IsEditable="True"></ComboBox>
+                    <ComboBox DataContext="{StaticResource MainVM}" ItemsSource="{Binding ListTTPhongDangThue}" DisplayMemberPath="Phong.MA_PHONG" Height="25" Width="50" Background="#D6D6D6" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" BorderBrush="{x:Null}" IsEditable="True"></ComboBox>
                     <GridSplitter IsEnabled="False" Width="1" Margin="10,0,0,0" Background="#FFD6D6D6"></GridSplitter>
                     <Label Height="25" Width="auto" Content="Đã chọn:" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" ></Label>
                     <Button Height="25" Width="50" Content="13" Background="#E5BDA7" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" BorderBrush="{x:Null}"></Button>
@@ -222,7 +236,7 @@
                                     <GridViewColumn Header="Số lượng"/>
                                 </GridView>
                             </ListView.View>
-                        </ListView>                        
+                        </ListView>
                     </Grid>
 
 
@@ -230,7 +244,7 @@
             </Grid>
 
             <!-- Grid Giặt ủi -->
-            <Grid Name="gridGiatUi" Visibility="Hidden" DataContext="{StaticResource LoaiGiatUiVM}">
+            <Grid Name="gridGiatUi" Visibility="Hidden" DataContext="{StaticResource LuotGiatUiVM}">
                 <Rectangle Margin="0,160,10,10" Stroke="#FFD6D6D6"/>
                 <!-- Button giặt ủi -->
                 <StackPanel Name="groupButtonsGiatUi" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="20,120">
@@ -242,27 +256,27 @@
                 </StackPanel>
                 <StackPanel Name="groupStatusGiatUi" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,120">
                     <Label Height="25" Width="auto" Content="Phòng:" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" ></Label>
-                    <ComboBox Height="25" Width="50" Background="#D6D6D6" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" BorderBrush="{x:Null}" IsEditable="True"></ComboBox>
+                    <ComboBox DataContext="{StaticResource MainVM}" ItemsSource="{Binding ListTTPhongDangThue}" DisplayMemberPath="Phong.MA_PHONG" Height="25" Width="50" Background="#D6D6D6" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" BorderBrush="{x:Null}" IsEditable="True"></ComboBox>
                     <GridSplitter IsEnabled="False" Width="1" Margin="10,0,0,0" Background="#FFD6D6D6"></GridSplitter>
 
                     <Label Height="25" Width="auto" Content="Thành tiền:" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"></Label>
-                    <Button Height="25" Width="100" Content="5" Background="#5E6572" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" BorderBrush="{x:Null}" Foreground="White" ></Button>
+                    <TextBox Height="25" Width="100" Text="{Binding ThanhTien, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Background="#5E6572" Foreground="White" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" />
                 </StackPanel>
                 <Grid Name="gridLoaiGiatUi" Margin="10,170,20,20">
                     <Label Content="Loại giặt ủi" Margin="30,20,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"></Label>
-                    <ComboBox ItemsSource="{Binding ListLoaiGiatUi}" DisplayMemberPath="TEN_LOAIGU" SelectedItem="{Binding SelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="115,20,20,20" Width="150" HorizontalAlignment="Left" VerticalAlignment="Top" IsEditable="True"/>
-                    
+                    <ComboBox Name="cboxLoaiGiatUi" ItemsSource="{Binding ListLoaiGiatUi}" DisplayMemberPath="TEN_LOAIGU" SelectedItem="{Binding SelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="115,20,20,20" Width="150" HorizontalAlignment="Left" VerticalAlignment="Top" IsEditable="True" SelectionChanged="cboxLoaiGiatUi_SelectionChanged"/>
+
                     <GroupBox Header="Thông tin giặt ủi" Margin="10,70,10,10" >
                         <Grid>
                             <Label Height="30" Content="Cân nặng" HorizontalAlignment="Left" Margin="10,20,0,0" VerticalAlignment="Top"/>
-                            <TextBox Name="tboxCanNang" HorizontalAlignment="Left" Margin="100,26,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="150" HorizontalContentAlignment="Right" VerticalContentAlignment="Center"/>
+                            <TextBox Text="{Binding CanNang, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Name="tboxCanNang" HorizontalAlignment="Left" Margin="100,26,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="150" HorizontalContentAlignment="Right" VerticalContentAlignment="Center"/>
                             <Label Height="30" Content="kilogram(s)" HorizontalAlignment="Left" Margin="260,20,20,0" VerticalAlignment="Top"/>
                             <Label Height="30" Content="Ngày bắt đầu" HorizontalAlignment="Left" Margin="10,57,0,0" VerticalAlignment="Top"/>
                             <DatePicker Name="dateNgayBatDau" HorizontalAlignment="Left" Margin="100,60,0,0" VerticalAlignment="Top" Width="150" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" FirstDayOfWeek="Monday"/>
                             <Label Height="30" Content="Ngày kết thúc" HorizontalAlignment="Left" Margin="10,97,0,0" VerticalAlignment="Top"/>
                             <DatePicker Name="dateNgayKetThuc" HorizontalAlignment="Left" Margin="100,100,0,0" VerticalAlignment="Top" Width="150" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" FirstDayOfWeek="Monday"/>
                             <Label Height="30" Content="Đơn giá" HorizontalAlignment="Left" Margin="10,140,20,20" VerticalAlignment="Top"/>
-                            <TextBox Text="{Binding DonGiaLoaiGiatUi, StringFormat='N0', UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="100,146,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="150" IsEnabled="False" HorizontalContentAlignment="Right" VerticalContentAlignment="Center"/>
+                            <TextBox Text="{Binding DonGia, Mode=TwoWay, StringFormat='N0', UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="100,146,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="150" IsEnabled="False" HorizontalContentAlignment="Right" VerticalContentAlignment="Center"/>
                             <Label Height="30" Content="VND" HorizontalAlignment="Left" Margin="260,140,0,0" VerticalAlignment="Top"/>
                         </Grid>
                     </GroupBox>
@@ -301,7 +315,7 @@
                                     </Image>
                                     <GridSplitter IsEnabled="False" Width="1" Margin="10,0,10,0" Background="#FFD6D6D6"></GridSplitter>
                                     <Image Height="25" Width="25" Cursor="Hand" Source="Resources\Icons\btnXoa.png" ToolTip="Xóa">
-                                        
+
                                     </Image>
                                     <GridSplitter IsEnabled="False" Width="1" Margin="10,0,10,0" Background="#FFD6D6D6"></GridSplitter>
                                     <Image Name="imgEditNhanVien" Height="25" Width="25" Cursor="Hand" Source="Resources\Icons\btnSua.png" ToolTip="Sửa">
@@ -318,18 +332,18 @@
                                         <i:Interaction.Triggers>
                                             <i:EventTrigger EventName="MouseLeftButtonDown">
                                                 <i:InvokeCommandAction Command="{Binding RefreshCommand}"
-                                                                       CommandParameter="{Binding ElementName=imglamMoiNhanVien}">
+                                                                       CommandParameter="{Binding ElementName=imgLamMoiNhanVien}">
                                                 </i:InvokeCommandAction>
                                             </i:EventTrigger>
                                         </i:Interaction.Triggers>
                                     </Image>
                                 </StackPanel>
-                                
+
                                 <StackPanel Margin="10,10" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" >
                                     <TextBox Height="25" Width="250" VerticalContentAlignment="Center" ></TextBox>
                                     <Image Height="25" Width="25" Margin="10,0,0,0" Cursor="Hand" Source="Resources\Icons\btnTim.png" ToolTip="Tìm"></Image>
                                 </StackPanel>
-                                
+
                                 <Grid Margin="0,50,0,0">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="2*"></ColumnDefinition>
@@ -340,9 +354,9 @@
                                               SelectedItem="{Binding SelectedItem, Mode=OneWayToSource}">
                                         <ListView.View>
                                             <GridView>
-                                                <GridViewColumn Header="Mã nhân viên" DisplayMemberBinding="{Binding NhanVien.MA_NV}"/>
-                                                <GridViewColumn Header="Họ tên nhân viên" DisplayMemberBinding="{Binding NhanVien.HOTEN_NV}"/>
-                                                <GridViewColumn Header="Giới tính" DisplayMemberBinding="{Binding NhanVien.GIOITINH_NV}"/>
+                                                <GridViewColumn Header="ID" DisplayMemberBinding="{Binding NhanVien.MA_NV}" />
+                                                <GridViewColumn Header="Họ tên" DisplayMemberBinding="{Binding NhanVien.HOTEN_NV}"/>
+                                                <GridViewColumn Header="Số điện thoại" DisplayMemberBinding="{Binding NhanVien.SODIENTHOAI_NV}"/>
                                                 <GridViewColumn Header="Chức vụ" DisplayMemberBinding="{Binding NhanVien.CHUCVU_NV}"/>
                                             </GridView>
                                         </ListView.View>
@@ -397,7 +411,7 @@
                                         </i:Interaction.Triggers>
                                     </Image>
                                 </StackPanel>
-                                
+
                                 <StackPanel Margin="10,10" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" >
                                     <TextBox Height="25" Width="250" VerticalContentAlignment="Center" ></TextBox>
                                     <Image Height="25" Width="25" Margin="10,0,0,0" Cursor="Hand" Source="Resources\Icons\btnTim.png" ToolTip="Tìm"></Image>
@@ -413,10 +427,10 @@
                                               SelectedItem="{Binding SelectedItem, Mode=OneWayToSource}">
                                         <ListView.View>
                                             <GridView>
-                                                <GridViewColumn Header="Mã khách hàng" DisplayMemberBinding="{Binding MA_KH}"/>
-                                                <GridViewColumn Header="Họ tên khách hàng" DisplayMemberBinding="{Binding HOTEN_KH}"/>
+                                                <GridViewColumn Header="ID" DisplayMemberBinding="{Binding MA_KH}"/>
+                                                <GridViewColumn Header="Họ tên" DisplayMemberBinding="{Binding HOTEN_KH}"/>
                                                 <GridViewColumn Header="Số điện thoại" DisplayMemberBinding="{Binding SODIENTHOAI_KH}"/>
-                                                <GridViewColumn Header="CMND" DisplayMemberBinding="{Binding CMND_KH}"/>
+                                                <GridViewColumn Header="Số CMND" DisplayMemberBinding="{Binding CMND_KH}"/>
                                             </GridView>
                                         </ListView.View>
                                     </ListView>
@@ -427,7 +441,7 @@
                                         <TextBox Text="{Binding SoDienThoai, UpdateSourceTrigger=PropertyChanged}" VerticalContentAlignment="Center"></TextBox>
                                         <Label Content="CMND"></Label>
                                         <TextBox Text="{Binding CMND, UpdateSourceTrigger=PropertyChanged}" VerticalContentAlignment="Center"></TextBox>
-                                        
+
                                     </StackPanel>
 
                                 </Grid>
@@ -458,7 +472,7 @@
                                         </i:Interaction.Triggers>
                                     </Image>
                                 </StackPanel>
-                                
+
                                 <StackPanel Margin="10,10" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" >
                                     <TextBox Height="25" Width="250" VerticalContentAlignment="Center" ></TextBox>
                                     <Image Height="25" Width="25" Margin="10,0,0,0" Cursor="Hand" Source="Resources\Icons\btnTim.png" ToolTip="Tìm"></Image>
@@ -477,6 +491,7 @@
                                                 <GridViewColumn Header="Mã phòng" DisplayMemberBinding="{Binding Phong.MA_PHONG}"/>
                                                 <GridViewColumn Header="Loại phòng" DisplayMemberBinding="{Binding LoaiPhong.TEN_LP}"/>
                                                 <GridViewColumn Header="Tình trạng phòng" DisplayMemberBinding="{Binding Phong.TINHTRANG_PHONG}"/>
+                                                <GridViewColumn Header="Đơn giá" DisplayMemberBinding="{Binding LoaiPhong.DONGIA_LP, StringFormat='N0'}"/>
                                             </GridView>
                                         </ListView.View>
                                     </ListView>
@@ -518,7 +533,7 @@
                                         </i:Interaction.Triggers>
                                     </Image>
                                 </StackPanel>
-                                
+
                                 <StackPanel Margin="10,10" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" >
                                     <TextBox Height="25" Width="250" VerticalContentAlignment="Center" ></TextBox>
                                     <Image Height="25" Width="25" Margin="10,0,0,0" Cursor="Hand" Source="Resources\Icons\btnTim.png" ToolTip="Tìm"></Image>
@@ -534,7 +549,7 @@
                                               SelectedItem="{Binding SelectedItem, Mode=OneWayToSource}">
                                         <ListView.View>
                                             <GridView>
-                                                <GridViewColumn Header="Mã loại phòng" DisplayMemberBinding="{Binding MA_LP}"/>
+                                                <GridViewColumn Header="ID" DisplayMemberBinding="{Binding MA_LP}"/>
                                                 <GridViewColumn Header="Tên loại phòng" DisplayMemberBinding="{Binding TEN_LP}"/>
                                                 <GridViewColumn Header="Đơn giá" DisplayMemberBinding="{Binding DONGIA_LP, StringFormat='N0'}"/>
                                             </GridView>
@@ -590,7 +605,7 @@
                                         </i:Interaction.Triggers>
                                     </Image>
                                 </StackPanel>
-                                
+
                                 <StackPanel Margin="10,10" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" >
                                     <TextBox Height="25" Width="250" VerticalContentAlignment="Center" ></TextBox>
                                     <Image Height="25" Width="25" Margin="10,0,0,0" Cursor="Hand" Source="Resources\Icons\btnTim.png" ToolTip="Tìm"></Image>
@@ -606,7 +621,7 @@
                                               SelectedItem="{Binding SelectedItem, Mode=OneWayToSource}">
                                         <ListView.View>
                                             <GridView>
-                                                <GridViewColumn Header="Mã mặt hàng" DisplayMemberBinding="{Binding MA_MH}"/>
+                                                <GridViewColumn Header="ID" DisplayMemberBinding="{Binding MA_MH}"/>
                                                 <GridViewColumn Header="Tên mặt hàng" DisplayMemberBinding="{Binding TEN_MH}"/>
                                                 <GridViewColumn Header="Đơn giá" DisplayMemberBinding="{Binding DONGIA_MH, StringFormat='N0'}"/>
                                                 <GridViewColumn Header="Ngày nhập" DisplayMemberBinding="{Binding NGAYNHAP_MH, StringFormat='dd/MM/yyyy'}"/>

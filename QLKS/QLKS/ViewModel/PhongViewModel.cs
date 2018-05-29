@@ -48,7 +48,7 @@ namespace QLKS.ViewModel
 
         public PhongViewModel()
         {
-            LoadTTPhog();
+            LoadTTPhong();
             ListLoaiPhong = new ObservableCollection<LOAIPHONG>(DataProvider.Ins.model.LOAIPHONG);
             string[] tinhtrangphongs = new string[] { "Trống", "Đang thuê", "Đã đặt trước" };
             ListTinhTrangPhong = new ObservableCollection<string>(tinhtrangphongs);
@@ -93,7 +93,7 @@ namespace QLKS.ViewModel
             });
         }
 
-        public void LoadTTPhog()
+        public void LoadTTPhong()
         {
             ListTTPhong = new ObservableCollection<ThongTinPhong>();
             var listTTPhong = from p in DataProvider.Ins.model.PHONG

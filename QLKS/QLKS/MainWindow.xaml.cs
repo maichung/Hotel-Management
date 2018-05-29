@@ -96,5 +96,21 @@ namespace QLKS
             SetFocusTitle(btnBaoCao);
         }
         #endregion
+
+        private void cboxLoaiGiatUi_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (cboxLoaiGiatUi.SelectedIndex == 0)
+            {
+                tboxCanNang.IsEnabled = true;
+                dateNgayBatDau.IsEnabled = false;
+                dateNgayKetThuc.IsEnabled = false;
+            }
+            else
+            {
+                tboxCanNang.IsEnabled = false;
+                dateNgayBatDau.IsEnabled = true;
+                dateNgayKetThuc.IsEnabled = true;
+            }
+        }
     }
 }

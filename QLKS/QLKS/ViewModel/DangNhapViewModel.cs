@@ -18,7 +18,7 @@ namespace QLKS.ViewModel
         private string _MatKhau;
         public string MatKhau { get => _MatKhau; set { _MatKhau = value; OnPropertyChanged(); } }
         public bool ktDangNhap { get; set; }
-
+        public NHANVIEN NVDangNhap { get; set; }
         public ICommand DangNhapCommand { get; set; }
         public ICommand PasswordChangedCommand { get; set; }
 
@@ -34,10 +34,12 @@ namespace QLKS.ViewModel
         void DangNhap(Window p)
         {
             string matKhauMaHoa = MD5Hash(Base64Encode(MatKhau));
-            var taiKhoan = DataProvider.Ins.model.TAIKHOAN.Where(x => x.TENDANGNHAP_TK == TenDangNhap && x.MATKHAU_TK == matKhauMaHoa).Count();
-            if (taiKhoan > 0)
+            var taiKhoan = DataProvider.Ins.model.TAIKHOAN.Where(x => x.TENDANGNHAP_TK == TenDangNhap && x.MATKHAU_TK == matKhauMaHoa);
+            if (taiKhoan.Count() > 0)
             {
                 ktDangNhap = true;
+                int maTKDangNhap = taiKhoan.SingleOrDefault().MA_TK;
+                NVDangNhap = DataProvider.Ins.model.NHANVIEN.Where(x => x.MA_TK == maTKDangNhap).SingleOrDefault();
             }
             else
             {

@@ -72,12 +72,14 @@
     <Compile Include="DangNhap.xaml.cs">
       <DependentUpon>DangNhap.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Model\ThongTinGiatUi.cs" />
     <Compile Include="Model\ThongTinNhanVien.cs" />
     <Compile Include="ViewModel\BaseViewModel.cs" />
     <Compile Include="ViewModel\DangNhapViewModel.cs" />
     <Compile Include="ViewModel\KhachHangViewModel.cs" />
     <Compile Include="ViewModel\LoaiGiatUiViewModel.cs" />
     <Compile Include="ViewModel\LoaiPhongViewModel.cs" />
+    <Compile Include="ViewModel\LuotGiatUiViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\MatHangViewModel.cs" />
     <Compile Include="ViewModel\NhanVienViewModel.cs" />
@@ -254,6 +256,12 @@
       <DependentUpon>Model.edmx</DependentUpon>
       <LastGenOutput>Model.cs</LastGenOutput>
     </Content>
+    <Resource Include="Resources\Icons\btnDangXuat32.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\btnDangXuat.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Resources\Icons\btnLamMoi.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
