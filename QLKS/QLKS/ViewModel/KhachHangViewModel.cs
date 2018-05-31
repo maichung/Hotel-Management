@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Data;
 using System.Windows.Input;
 
 namespace QLKS.ViewModel
@@ -35,13 +36,32 @@ namespace QLKS.ViewModel
         public string SoDienThoai { get => _SoDienThoai; set { _SoDienThoai = value; OnPropertyChanged(); } }
         private string _CMND;
         public string CMND { get => _CMND; set { _CMND = value; OnPropertyChanged(); } }
+        private string _SearchKhachHang;
+        public string SearchKhachHang { get => _SearchKhachHang; set { _SearchKhachHang = value; OnPropertyChanged(); } }
 
+        public ICommand SearchKhachHangCommand { get; set; }
         public ICommand AddCommand { get; set; }
         public ICommand EditCommand { get; set; }
 
         public KhachHangViewModel()
         {
             ListKhachHang = new ObservableCollection<KHACHHANG>(DataProvider.Ins.model.KHACHHANG);
+
+            SearchKhachHangCommand = new RelayCommand<Object>((p) => { return true; }, (p) => {
+                if (!string.IsNullOrEmpty(SearchKhachHang))
+                {
+                    CollectionViewSource.GetDefaultView(ListKhachHang).Filter = (searchKhachHang) =>
+                    {
+                        return (searchKhachHang as KHACHHANG).HOTEN_KH.StartsWith(SearchKhachHang) ||
+                               (searchKhachHang as KHACHHANG).CMND_KH.StartsWith(SearchKhachHang);
+                    };
+                }
+                else
+                {
+                    CollectionViewSource.GetDefaultView(ListKhachHang).Filter = (all) => { return true; };
+                }
+
+            });
 
             AddCommand = new RelayCommand<Object>((p) =>
             {

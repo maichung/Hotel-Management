@@ -80,6 +80,7 @@
     </Compile>
     <Compile Include="Model\ThongTinGiatUi.cs" />
     <Compile Include="Model\ThongTinNhanVien.cs" />
+    <Compile Include="Model\ThongTinOrder.cs" />
     <Compile Include="ViewModel\BaseViewModel.cs" />
     <Compile Include="ViewModel\DangNhapViewModel.cs" />
     <Compile Include="ViewModel\KhachHangViewModel.cs" />

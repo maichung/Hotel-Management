@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Data;
 using System.Windows.Input;
 using QLKS.Model;
 
@@ -42,7 +43,10 @@ namespace QLKS.ViewModel
         public LOAIPHONG SelectedLoaiPhong { get => _SelectedLoaiPhong; set { _SelectedLoaiPhong = value; OnPropertyChanged(); } }
         private string _SelectedTinhTrangPhong;
         public string SelectedTinhTrangPhong { get => _SelectedTinhTrangPhong; set { _SelectedTinhTrangPhong = value; OnPropertyChanged(); } }
+        private string _SearchPhong;
+        public string SearchPhong { get => _SearchPhong; set { _SearchPhong = value; OnPropertyChanged(); } }
 
+        public ICommand SearchPhongCommand { get; set; }
         public ICommand AddCommand { get; set; }
         public ICommand EditCommand { get; set; }
 
@@ -52,6 +56,23 @@ namespace QLKS.ViewModel
             ListLoaiPhong = new ObservableCollection<LOAIPHONG>(DataProvider.Ins.model.LOAIPHONG);
             string[] tinhtrangphongs = new string[] { "Trống", "Đang thuê", "Đã đặt trước" };
             ListTinhTrangPhong = new ObservableCollection<string>(tinhtrangphongs);
+
+            SearchPhongCommand = new RelayCommand<Object>((p) => { return true; }, (p) => {
+                if (!string.IsNullOrEmpty(SearchPhong))
+                {
+                    CollectionViewSource.GetDefaultView(ListTTPhong).Filter = (searchPhong) =>
+                    {
+                        return (searchPhong as ThongTinPhong).LoaiPhong.TEN_LP.StartsWith(SearchPhong) ||
+                               (searchPhong as ThongTinPhong).Phong.MA_PHONG.ToString().StartsWith(SearchPhong) ||
+                               (searchPhong as ThongTinPhong).Phong.TINHTRANG_PHONG.StartsWith(SearchPhong);
+                    };
+                }
+                else
+                {
+                    CollectionViewSource.GetDefaultView(ListTTPhong).Filter = (all) => { return true; };
+                }
+
+            });
 
             AddCommand = new RelayCommand<Object>((p) => {
                 if (string.IsNullOrEmpty(MaPhong.ToString()) || SelectedLoaiPhong == null || SelectedTinhTrangPhong == null)

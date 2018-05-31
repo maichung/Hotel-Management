@@ -6,6 +6,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Data;
 using System.Windows.Input;
 
 namespace QLKS.ViewModel
@@ -62,8 +63,12 @@ namespace QLKS.ViewModel
         public string DiaChi { get => _DiaChi; set { _DiaChi = value; OnPropertyChanged(); } }
         private DateTime? _NgayVaoLam;
         public DateTime? NgayVaoLam { get => _NgayVaoLam; set { _NgayVaoLam = value; OnPropertyChanged(); } }
+
+        private string _SearchNhanVien;
+        public string SearchNhanVien { get => _SearchNhanVien; set { _SearchNhanVien = value; OnPropertyChanged(); } }
         #endregion
 
+        public ICommand SearchNhanVienCommand { get; set; }
         public ICommand AddCommand { get; set; }
         public ICommand EditCommand { get; set; }
         public ICommand RefreshCommand { get; set; }
@@ -77,6 +82,23 @@ namespace QLKS.ViewModel
             string[] gioitinhs = new string[] { "Nam", "Nữ" };
             ListGioiTinh = new ObservableCollection<string>(gioitinhs);
             #endregion
+
+            SearchNhanVienCommand = new RelayCommand<Object>((p) => { return true; }, (p) => {
+                if (!string.IsNullOrEmpty(SearchNhanVien))
+                {
+                    CollectionViewSource.GetDefaultView(ListTTNhanVien).Filter = (searchNhanVien) =>
+                    {
+                        return (searchNhanVien as ThongTinNhanVien).TaiKhoan.TENDANGNHAP_TK.StartsWith(SearchNhanVien) ||
+                               (searchNhanVien as ThongTinNhanVien).NhanVien.HOTEN_NV.StartsWith(SearchNhanVien) ||
+                               (searchNhanVien as ThongTinNhanVien).NhanVien.CHUCVU_NV.StartsWith(SearchNhanVien);
+                    };
+                }
+                else
+                {
+                    CollectionViewSource.GetDefaultView(ListTTNhanVien).Filter = (all) => { return true; };
+                }
+                
+            });
 
             AddCommand = new RelayCommand<Object>((p) =>
             {
