@@ -88,7 +88,8 @@ namespace QLKS.ViewModel
             ListTTPhong = new ObservableCollection<ThongTinPhong>();
             var listTTPhong = from p in DataProvider.Ins.model.PHONG
                               join lp in DataProvider.Ins.model.LOAIPHONG
-                              on p.MA_LP equals lp.MA_LP
+                              on p.MA_LP equals lp.MA_LP    
+                              
                               select new ThongTinPhong()
                               {
                                   Phong = p,
@@ -96,18 +97,6 @@ namespace QLKS.ViewModel
                               };
             foreach (ThongTinPhong item in listTTPhong)
             {
-                if (item.Phong.TINHTRANG_PHONG.ToString().Equals("Trống"))
-                {
-                    item.color = (Color)ColorConverter.ConvertFromString("#FFFFF7EE");
-                }
-                else if (item.Phong.TINHTRANG_PHONG.ToString().Equals("Đang thuê"))
-                {
-                    item.color = (Color)ColorConverter.ConvertFromString("#FFE5BDA7");
-                }
-                else
-                {
-                    item.color = (Color)ColorConverter.ConvertFromString("#FF5E6572");
-                }
                 ListTTPhong.Add(item);
             }
             return ListTTPhong;

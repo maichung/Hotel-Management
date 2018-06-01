@@ -13,8 +13,6 @@ namespace QLKS.Model
         public PHONG Phong { get; set; }
         private LOAIPHONG _LoaiPhong;
         public LOAIPHONG LoaiPhong { get => _LoaiPhong; set { _LoaiPhong = value; OnPropertyChanged(); } }
-        private Color _color;
-        public Color color { get => _color; set { _color = value; OnPropertyChanged(); } }
 
     }
 }

@@ -49,6 +49,7 @@ namespace QLKS.ViewModel
         public ICommand SearchPhongCommand { get; set; }
         public ICommand AddCommand { get; set; }
         public ICommand EditCommand { get; set; }
+        public ICommand RefreshCommand { get; set; }
 
         public PhongViewModel()
         {
@@ -111,6 +112,13 @@ namespace QLKS.ViewModel
                 phong.TINHTRANG_PHONG = SelectedTinhTrangPhong;
                 SelectedItem.LoaiPhong = DataProvider.Ins.model.LOAIPHONG.Where(x => x.MA_LP == SelectedLoaiPhong.MA_LP).SingleOrDefault();
                 DataProvider.Ins.model.SaveChanges();
+            });
+
+            RefreshCommand = new RelayCommand<Object>((p) => { return true; }, (p) =>
+            {
+                MaPhong = 0;
+                SelectedLoaiPhong = null;
+                SelectedTinhTrangPhong = null;
             });
         }
 

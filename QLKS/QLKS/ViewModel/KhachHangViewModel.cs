@@ -42,6 +42,7 @@ namespace QLKS.ViewModel
         public ICommand SearchKhachHangCommand { get; set; }
         public ICommand AddCommand { get; set; }
         public ICommand EditCommand { get; set; }
+        public ICommand RefreshCommand { get; set; }
 
         public KhachHangViewModel()
         {
@@ -103,6 +104,13 @@ namespace QLKS.ViewModel
                 khachHang.SODIENTHOAI_KH = SoDienThoai;
                 khachHang.CMND_KH = CMND;
                 DataProvider.Ins.model.SaveChanges();
+            });
+
+            RefreshCommand = new RelayCommand<Object>((p) => { return true; }, (p) =>
+            {
+                TenKhachHang = null;
+                SoDienThoai = null;
+                CMND = null;
             });
         }
     }

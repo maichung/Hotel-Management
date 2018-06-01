@@ -39,6 +39,7 @@ namespace QLKS.ViewModel
         public ICommand SearchLoaiPhongCommand { get; set; }
         public ICommand AddCommand { get; set; }
         public ICommand EditCommand { get; set; }
+        public ICommand RefreshCommand { get; set; }
 
         public LoaiPhongViewModel()
         {
@@ -92,6 +93,12 @@ namespace QLKS.ViewModel
                 loaiPhong.TEN_LP = TenLoaiPhong;
                 loaiPhong.DONGIA_LP = DonGia;
                 DataProvider.Ins.model.SaveChanges();
+            });
+
+            RefreshCommand = new RelayCommand<Object>((p) => { return true; }, (p) =>
+            {
+                TenLoaiPhong = null;
+                DonGia = 0;
             });
         }
     }

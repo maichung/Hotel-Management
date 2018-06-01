@@ -85,6 +85,7 @@ namespace QLKS.ViewModel
         public ICommand SearchMatHangCommand { get; set; }
         public ICommand AddMHCommand { get; set; }
         public ICommand EditMHCommand { get; set; }
+        public ICommand RefreshCommand { get; set; }
 
         public MatHangViewModel()
         {
@@ -243,6 +244,13 @@ namespace QLKS.ViewModel
                 matHang.DONGIA_MH = DonGia;
                 matHang.NGAYNHAP_MH = NgayNhap;
                 DataProvider.Ins.model.SaveChanges();
+            });
+
+            RefreshCommand = new RelayCommand<Object>((p) => { return true; }, (p) =>
+            {
+                DonGia = 0;
+                TenMatHang = null;
+                NgayNhap = null;
             });
         }
     }

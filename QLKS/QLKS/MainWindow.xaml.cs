@@ -30,7 +30,7 @@ namespace QLKS
         // Thay đổi các nội dung theo từng button chọn trên màn hình
         public void SetVisibleContents(Grid gr)
         {
-            foreach (Grid grid in gridCollumn2.Children)
+            foreach (Grid grid in gridColumn2.Children)
             {
                 if (grid.Name == gr.Name)
                 {
@@ -48,7 +48,7 @@ namespace QLKS
             {
                 if (button.Name == btn.Name)
                 {
-                    button.Foreground = Brushes.Black;
+                    button.Foreground = Brushes.White;
                 }
                 else
                 {
@@ -110,6 +110,12 @@ namespace QLKS
                 dateNgayBatDau.IsEnabled = true;
                 dateNgayKetThuc.IsEnabled = true;
             }
-        }        
+        }
+
+        private void Image_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            HoaDon hd = new HoaDon();
+            hd.ShowDialog();
+        }
     }
 }
