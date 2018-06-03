@@ -24,6 +24,7 @@ namespace QLKS.Model
         public int MA_HDDC { get; set; }
         public Nullable<System.DateTime> THOIGIANLAP_HDDC { get; set; }
         public Nullable<decimal> TRIGIA_HDDC { get; set; }
+        public Nullable<bool> TINHTRANG_HDDC { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CHITIET_HDDC> CHITIET_HDDC { get; set; }

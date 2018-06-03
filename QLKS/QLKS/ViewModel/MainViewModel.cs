@@ -14,6 +14,36 @@ namespace QLKS.ViewModel
 {
     class MainViewModel : BaseViewModel
     {
+        #region Khai báo biến, command ẩn/hiện nội dung phần mềm
+        private bool _isTrangChuVisible = true;
+        public bool isTrangChuVisible { get => _isTrangChuVisible; set { _isTrangChuVisible = value; OnPropertyChanged(); } }
+        public ICommand btnTrangChuCommand { get; set; }
+
+        private bool _isAnUongVisible = false;
+        public bool isAnUongVisible { get => _isAnUongVisible; set { _isAnUongVisible = value; OnPropertyChanged(); } }
+        public ICommand btnAnUongCommand { get; set; }
+
+        private bool _isGiatUiVisible = false;
+        public bool isGiatUiVisible { get => _isGiatUiVisible; set { _isGiatUiVisible = value; OnPropertyChanged(); } }
+        public ICommand btnGiatUiCommand { get; set; }
+
+        private bool _isDiChuyenVisible = false;
+        public bool isDiChuyenVisible { get => _isDiChuyenVisible; set { _isDiChuyenVisible = value; OnPropertyChanged(); } }
+        public ICommand btnDiChuyenCommand { get; set; }
+
+        private bool _isTraCuuVisible = false;
+        public bool isTraCuuVisible { get => _isTraCuuVisible; set { _isTraCuuVisible = value; OnPropertyChanged(); } }
+        public ICommand btnTraCuuCommand { get; set; }
+
+        private bool _isBaoCaoVisible = false;
+        public bool isBaoCaoVisible { get => _isBaoCaoVisible; set { _isBaoCaoVisible = value; OnPropertyChanged(); } }
+        public ICommand btnBaoCaoCommand { get; set; }
+
+        private bool _isThongTinVisible = false;
+        public bool isThongTinVisible { get => _isThongTinVisible; set { _isThongTinVisible = value; OnPropertyChanged(); } }
+        public ICommand btnThongTinCommand { get; set; }
+        #endregion
+        
         private ObservableCollection<ThongTinPhong> _ListTTPhong;
         public ObservableCollection<ThongTinPhong> ListTTPhong { get => _ListTTPhong; set { _ListTTPhong = value; OnPropertyChanged(); } }
         private ObservableCollection<ThongTinPhong> _ListTTPhongDangThue;
@@ -37,6 +67,80 @@ namespace QLKS.ViewModel
 
         public MainViewModel()
         {
+            #region Command ẩn/hiện nội dung
+            btnTrangChuCommand = new RelayCommand<Button>((p) => { return true; }, (p) =>
+              {
+                  isTrangChuVisible = true;
+                  isAnUongVisible = false;
+                  isGiatUiVisible = false;
+                  isDiChuyenVisible = false;
+                  isTraCuuVisible = false;
+                  isBaoCaoVisible = false;
+                  isThongTinVisible = false;
+              });
+
+            btnAnUongCommand = new RelayCommand<Button>((p) => { return true; }, (p) =>
+            {
+                isTrangChuVisible = false;
+                isAnUongVisible = true;
+                isGiatUiVisible = false;
+                isDiChuyenVisible = false;
+                isTraCuuVisible = false;
+                isBaoCaoVisible = false;
+                isThongTinVisible = false;
+            });
+            btnGiatUiCommand = new RelayCommand<Button>((p) => { return true; }, (p) =>
+            {
+                isTrangChuVisible = false;
+                isAnUongVisible = false;
+                isGiatUiVisible = true;
+                isDiChuyenVisible = false;
+                isTraCuuVisible = false;
+                isBaoCaoVisible = false;
+                isThongTinVisible = false;
+            });
+            btnDiChuyenCommand = new RelayCommand<Button>((p) => { return true; }, (p) =>
+            {
+                isTrangChuVisible = false;
+                isAnUongVisible = false;
+                isGiatUiVisible = false;
+                isDiChuyenVisible = true;
+                isTraCuuVisible = false;
+                isBaoCaoVisible = false;
+                isThongTinVisible = false;
+            });
+            btnTraCuuCommand = new RelayCommand<Button>((p) => { return true; }, (p) =>
+            {
+                isTrangChuVisible = false;
+                isAnUongVisible = false;
+                isGiatUiVisible = false;
+                isDiChuyenVisible = false;
+                isTraCuuVisible = true;
+                isBaoCaoVisible = false;
+                isThongTinVisible = false;
+            });
+            btnBaoCaoCommand = new RelayCommand<Button>((p) => { return true; }, (p) =>
+            {
+                isTrangChuVisible = false;
+                isAnUongVisible = false;
+                isGiatUiVisible = false;
+                isDiChuyenVisible = false;
+                isTraCuuVisible = false;
+                isBaoCaoVisible = true;
+                isThongTinVisible = false;
+            });
+            btnThongTinCommand = new RelayCommand<Button>((p) => { return true; }, (p) =>
+            {
+                isTrangChuVisible = false;
+                isAnUongVisible = false;
+                isGiatUiVisible = false;
+                isDiChuyenVisible = false;
+                isTraCuuVisible = false;
+                isBaoCaoVisible = false;
+                isThongTinVisible = true;
+            });
+            #endregion
+            
             LoadedWindowCommand = new RelayCommand<Window>((p) => { return p == null ? false : true; }, (p) =>
               {
                   p.Show();
@@ -88,8 +192,8 @@ namespace QLKS.ViewModel
             ListTTPhong = new ObservableCollection<ThongTinPhong>();
             var listTTPhong = from p in DataProvider.Ins.model.PHONG
                               join lp in DataProvider.Ins.model.LOAIPHONG
-                              on p.MA_LP equals lp.MA_LP    
-                              
+                              on p.MA_LP equals lp.MA_LP
+
                               select new ThongTinPhong()
                               {
                                   Phong = p,
@@ -122,6 +226,22 @@ namespace QLKS.ViewModel
             return ListTTPhong;
         }
 
-        
+        public void SetVisibility(bool isVisible)
+        {
+            bool[] list = { isTrangChuVisible, isAnUongVisible, isGiatUiVisible, isDiChuyenVisible, isTraCuuVisible, isBaoCaoVisible, isThongTinVisible };
+            for (int i = 0; i < list.Length; i++)
+            {
+                if (list[i] == isVisible)
+                {
+                    list[i] = true;
+                }
+                else
+                {
+                    list[i] = false;
+                }
+            }
+
+        }
+
     }
 }

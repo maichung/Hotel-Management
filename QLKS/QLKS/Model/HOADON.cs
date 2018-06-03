@@ -23,6 +23,7 @@ namespace QLKS.Model
         public int MA_KH { get; set; }
         public Nullable<System.DateTime> THOIGIANLAP_HD { get; set; }
         public Nullable<decimal> TRIGIA_HD { get; set; }
+        public Nullable<bool> TINHTRANG_HD { get; set; }
     
         public virtual KHACHHANG KHACHHANG { get; set; }
         public virtual HOADONANUONG HOADONANUONG { get; set; }

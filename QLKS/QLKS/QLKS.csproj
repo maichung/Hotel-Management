@@ -81,6 +81,12 @@
     <Compile Include="HoaDon.xaml.cs">
       <DependentUpon>HoaDon.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Model\BAOCAODICHVU.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\BAOCAONAM.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="Model\ThongTinGiatUi.cs" />
     <Compile Include="Model\ThongTinNhanVien.cs" />
     <Compile Include="Model\ThongTinOrder.cs" />

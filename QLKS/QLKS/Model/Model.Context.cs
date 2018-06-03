@@ -42,5 +42,7 @@ namespace QLKS.Model
         public virtual DbSet<NHANVIEN> NHANVIEN { get; set; }
         public virtual DbSet<PHONG> PHONG { get; set; }
         public virtual DbSet<TAIKHOAN> TAIKHOAN { get; set; }
+        public virtual DbSet<BAOCAODICHVU> BAOCAODICHVU { get; set; }
+        public virtual DbSet<BAOCAONAM> BAOCAONAM { get; set; }
     }
 }

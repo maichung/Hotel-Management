@@ -16,7 +16,6 @@ namespace QLKS.Model
     {
         public int MA_HDDC { get; set; }
         public int MA_CD { get; set; }
-        public Nullable<int> SOLUONG_CD { get; set; }
     
         public virtual CHUYENDI CHUYENDI { get; set; }
         public virtual HOADONDICHUYEN HOADONDICHUYEN { get; set; }

@@ -55,8 +55,7 @@ namespace QLKS.ViewModel
 
         public LuotGiatUiViewModel()
         {
-            ListLoaiGiatUi=new ObservableCollection<LOAIGIATUI>(DataProvider.Ins.model.LOAIGIATUI);
-            ThanhTien = CanNang * DonGia;
+            ListLoaiGiatUi=new ObservableCollection<LOAIGIATUI>(DataProvider.Ins.model.LOAIGIATUI);            
         }
 
        

@@ -24,6 +24,7 @@ namespace QLKS.Model
         public int MA_HDGU { get; set; }
         public Nullable<System.DateTime> THOIGIANLAP_HDGU { get; set; }
         public Nullable<decimal> TRIGIA_HDGU { get; set; }
+        public Nullable<bool> TINHTRANG_HDGU { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<HOADON> HOADON { get; set; }

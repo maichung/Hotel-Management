@@ -21,8 +21,8 @@ namespace QLKS.Model
         }
     
         public int MA_CD { get; set; }
-        public Nullable<int> SOLUONGNGUOI_CD { get; set; }
         public Nullable<decimal> DONGIA_CD { get; set; }
+        public string DIEMDEN_CD { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CHITIET_HDDC> CHITIET_HDDC { get; set; }

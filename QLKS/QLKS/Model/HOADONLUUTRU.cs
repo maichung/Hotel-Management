@@ -24,6 +24,7 @@ namespace QLKS.Model
         public int MA_HDLT { get; set; }
         public Nullable<System.DateTime> THOIGIANLAP_HDLT { get; set; }
         public Nullable<decimal> TRIGIA_HDLT { get; set; }
+        public Nullable<bool> TINHTRANG_HDLT { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CHITIET_HDLT> CHITIET_HDLT { get; set; }

@@ -13,7 +13,7 @@ namespace QLKS.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class MATHANG : BaseViewModel
+    public partial class MATHANG:BaseViewModel
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public MATHANG()
