@@ -25,11 +25,5 @@ namespace QLKS
         {
             InitializeComponent();
         }
-
-        private void Image_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            HoaDon hd = new HoaDon();
-            hd.ShowDialog();
-        }
     }
 }

@@ -11,4 +11,5 @@
     <viewmodel:LoaiGiatUiViewModel x:Key="LoaiGiatUiVM"></viewmodel:LoaiGiatUiViewModel>
     <viewmodel:DangNhapViewModel x:Key="DangNhapVM"></viewmodel:DangNhapViewModel>
     <viewmodel:LuotGiatUiViewModel x:Key="LuotGiatUiVM"></viewmodel:LuotGiatUiViewModel>
+    <viewmodel:ChuyenDiViewModel x:Key="ChuyenDiVM"></viewmodel:ChuyenDiViewModel>
 </ResourceDictionary>

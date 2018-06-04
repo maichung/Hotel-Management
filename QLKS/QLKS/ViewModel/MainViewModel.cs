@@ -42,8 +42,9 @@ namespace QLKS.ViewModel
         private bool _isThongTinVisible = false;
         public bool isThongTinVisible { get => _isThongTinVisible; set { _isThongTinVisible = value; OnPropertyChanged(); } }
         public ICommand btnThongTinCommand { get; set; }
-        #endregion
         
+        #endregion
+
         private ObservableCollection<ThongTinPhong> _ListTTPhong;
         public ObservableCollection<ThongTinPhong> ListTTPhong { get => _ListTTPhong; set { _ListTTPhong = value; OnPropertyChanged(); } }
         private ObservableCollection<ThongTinPhong> _ListTTPhongDangThue;
@@ -63,6 +64,7 @@ namespace QLKS.ViewModel
         public ICommand TrongCommand { get; set; }
         public ICommand DangThueCommand { get; set; }
         public ICommand DaDatTruocCommand { get; set; }
+        public ICommand MoHoaDonCommand { get; set; }
 
 
         public MainViewModel()
@@ -70,6 +72,7 @@ namespace QLKS.ViewModel
             #region Command ẩn/hiện nội dung
             btnTrangChuCommand = new RelayCommand<Button>((p) => { return true; }, (p) =>
               {
+
                   isTrangChuVisible = true;
                   isAnUongVisible = false;
                   isGiatUiVisible = false;
@@ -81,6 +84,7 @@ namespace QLKS.ViewModel
 
             btnAnUongCommand = new RelayCommand<Button>((p) => { return true; }, (p) =>
             {
+
                 isTrangChuVisible = false;
                 isAnUongVisible = true;
                 isGiatUiVisible = false;
@@ -184,6 +188,12 @@ namespace QLKS.ViewModel
                 ListTTPhong = LoadTTPhong("Đã đặt trước");
             });
 
+            MoHoaDonCommand = new RelayCommand<Object>((p) => { return true; }, (p) =>
+              {
+                  HoaDon hd = new HoaDon();
+                  hd.ShowDialog();
+              });
+
             ListTTPhongDangThue = LoadTTPhong("Đang thuê");
         }
 
@@ -226,22 +236,6 @@ namespace QLKS.ViewModel
             return ListTTPhong;
         }
 
-        public void SetVisibility(bool isVisible)
-        {
-            bool[] list = { isTrangChuVisible, isAnUongVisible, isGiatUiVisible, isDiChuyenVisible, isTraCuuVisible, isBaoCaoVisible, isThongTinVisible };
-            for (int i = 0; i < list.Length; i++)
-            {
-                if (list[i] == isVisible)
-                {
-                    list[i] = true;
-                }
-                else
-                {
-                    list[i] = false;
-                }
-            }
-
-        }
-
+       
     }
 }
