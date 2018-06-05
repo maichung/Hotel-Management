@@ -17,7 +17,7 @@ namespace QLKS.Model
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public NHANVIEN()
         {
-            this.HOADONs = new HashSet<HOADON>();
+            this.HOADON = new HashSet<HOADON>();
         }
     
         public int MA_NV { get; set; }
@@ -31,7 +31,7 @@ namespace QLKS.Model
         public Nullable<System.DateTime> NGAYVAOLAM_NV { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<HOADON> HOADONs { get; set; }
+        public virtual ICollection<HOADON> HOADON { get; set; }
         public virtual TAIKHOAN TAIKHOAN { get; set; }
     }
 }

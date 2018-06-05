@@ -13,10 +13,10 @@ namespace QLKS.Model
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class QLKS_IS201 : DbContext
+    public partial class QLKS_IS201Entities1 : DbContext
     {
-        public QLKS_IS201()
-            : base("name=QLKS_IS201")
+        public QLKS_IS201Entities1()
+            : base("name=QLKS_IS201Entities1")
         {
         }
     
@@ -25,24 +25,22 @@ namespace QLKS.Model
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<BAOCAODICHVU> BAOCAODICHVUs { get; set; }
-        public virtual DbSet<BAOCAONAM> BAOCAONAMs { get; set; }
+        public virtual DbSet<BAOCAODICHVU> BAOCAODICHVU { get; set; }
+        public virtual DbSet<BAOCAONAM> BAOCAONAM { get; set; }
         public virtual DbSet<CHITIET_HDAU> CHITIET_HDAU { get; set; }
+        public virtual DbSet<CHITIET_HDDC> CHITIET_HDDC { get; set; }
+        public virtual DbSet<CHITIET_HDGU> CHITIET_HDGU { get; set; }
         public virtual DbSet<CHITIET_HDLT> CHITIET_HDLT { get; set; }
-        public virtual DbSet<CHUYENDI> CHUYENDIs { get; set; }
-        public virtual DbSet<HOADON> HOADONs { get; set; }
-        public virtual DbSet<HOADONANUONG> HOADONANUONGs { get; set; }
-        public virtual DbSet<HOADONDICHUYEN> HOADONDICHUYENs { get; set; }
-        public virtual DbSet<HOADONGIATUI> HOADONGIATUIs { get; set; }
-        public virtual DbSet<HOADONLUUTRU> HOADONLUUTRUs { get; set; }
-        public virtual DbSet<KHACHHANG> KHACHHANGs { get; set; }
-        public virtual DbSet<LOAIGIATUI> LOAIGIATUIs { get; set; }
-        public virtual DbSet<LOAIPHONG> LOAIPHONGs { get; set; }
-        public virtual DbSet<LUOTGIATUI> LUOTGIATUIs { get; set; }
-        public virtual DbSet<MATHANG> MATHANGs { get; set; }
-        public virtual DbSet<NHANVIEN> NHANVIENs { get; set; }
-        public virtual DbSet<PHONG> PHONGs { get; set; }
-        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
-        public virtual DbSet<TAIKHOAN> TAIKHOANs { get; set; }
+        public virtual DbSet<CHUYENDI> CHUYENDI { get; set; }
+        public virtual DbSet<HOADON> HOADON { get; set; }
+        public virtual DbSet<KHACHHANG> KHACHHANG { get; set; }
+        public virtual DbSet<LOAIGIATUI> LOAIGIATUI { get; set; }
+        public virtual DbSet<LOAIHOADON> LOAIHOADON { get; set; }
+        public virtual DbSet<LOAIPHONG> LOAIPHONG { get; set; }
+        public virtual DbSet<LUOTGIATUI> LUOTGIATUI { get; set; }
+        public virtual DbSet<MATHANG> MATHANG { get; set; }
+        public virtual DbSet<NHANVIEN> NHANVIEN { get; set; }
+        public virtual DbSet<PHONG> PHONG { get; set; }
+        public virtual DbSet<TAIKHOAN> TAIKHOAN { get; set; }
     }
 }

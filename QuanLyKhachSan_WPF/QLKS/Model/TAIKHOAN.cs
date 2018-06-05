@@ -17,7 +17,7 @@ namespace QLKS.Model
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public TAIKHOAN()
         {
-            this.NHANVIENs = new HashSet<NHANVIEN>();
+            this.NHANVIEN = new HashSet<NHANVIEN>();
         }
     
         public int MA_TK { get; set; }
@@ -25,6 +25,6 @@ namespace QLKS.Model
         public string MATKHAU_TK { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<NHANVIEN> NHANVIENs { get; set; }
+        public virtual ICollection<NHANVIEN> NHANVIEN { get; set; }
     }
 }

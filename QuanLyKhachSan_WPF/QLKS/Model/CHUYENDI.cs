@@ -17,7 +17,7 @@ namespace QLKS.Model
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public CHUYENDI()
         {
-            this.HOADONDICHUYENs = new HashSet<HOADONDICHUYEN>();
+            this.CHITIET_HDDC = new HashSet<CHITIET_HDDC>();
         }
     
         public int MA_CD { get; set; }
@@ -25,6 +25,6 @@ namespace QLKS.Model
         public Nullable<decimal> DONGIA_CD { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<HOADONDICHUYEN> HOADONDICHUYENs { get; set; }
+        public virtual ICollection<CHITIET_HDDC> CHITIET_HDDC { get; set; }
     }
 }

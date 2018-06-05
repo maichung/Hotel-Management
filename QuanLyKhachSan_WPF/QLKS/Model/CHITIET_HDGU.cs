@@ -12,12 +12,16 @@ namespace QLKS.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class sysdiagram
+    public partial class CHITIET_HDGU
     {
-        public string name { get; set; }
-        public int principal_id { get; set; }
-        public int diagram_id { get; set; }
-        public Nullable<int> version { get; set; }
-        public byte[] definition { get; set; }
+        public int MA_CTHDGU { get; set; }
+        public int MA_HD { get; set; }
+        public int MA_LHD { get; set; }
+        public int MA_LUOTGU { get; set; }
+        public Nullable<decimal> TRIGIA_CTHDGU { get; set; }
+    
+        public virtual LUOTGIATUI LUOTGIATUI { get; set; }
+        public virtual HOADON HOADON { get; set; }
+        public virtual LOAIHOADON LOAIHOADON { get; set; }
     }
 }

@@ -17,7 +17,7 @@ namespace QLKS.Model
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public LUOTGIATUI()
         {
-            this.HOADONGIATUIs = new HashSet<HOADONGIATUI>();
+            this.CHITIET_HDGU = new HashSet<CHITIET_HDGU>();
         }
     
         public int MA_LUOTGU { get; set; }
@@ -26,8 +26,8 @@ namespace QLKS.Model
         public Nullable<System.DateTime> NGAYBATDAU_LUOTGU { get; set; }
         public Nullable<System.DateTime> NGAYKETTHUC_LUOTGU { get; set; }
     
-        public virtual LOAIGIATUI LOAIGIATUI { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<HOADONGIATUI> HOADONGIATUIs { get; set; }
+        public virtual ICollection<CHITIET_HDGU> CHITIET_HDGU { get; set; }
+        public virtual LOAIGIATUI LOAIGIATUI { get; set; }
     }
 }

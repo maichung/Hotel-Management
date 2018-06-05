@@ -17,7 +17,7 @@ namespace QLKS.Model
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public LOAIPHONG()
         {
-            this.PHONGs = new HashSet<PHONG>();
+            this.PHONG = new HashSet<PHONG>();
         }
     
         public int MA_LP { get; set; }
@@ -25,6 +25,6 @@ namespace QLKS.Model
         public Nullable<decimal> DONGIA_LP { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PHONG> PHONGs { get; set; }
+        public virtual ICollection<PHONG> PHONG { get; set; }
     }
 }

@@ -17,7 +17,7 @@ namespace QLKS.Model
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public KHACHHANG()
         {
-            this.HOADONs = new HashSet<HOADON>();
+            this.HOADON = new HashSet<HOADON>();
         }
     
         public int MA_KH { get; set; }
@@ -26,6 +26,6 @@ namespace QLKS.Model
         public string CMND_KH { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<HOADON> HOADONs { get; set; }
+        public virtual ICollection<HOADON> HOADON { get; set; }
     }
 }

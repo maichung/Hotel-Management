@@ -12,23 +12,27 @@ namespace QLKS.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class HOADONLUUTRU
+    public partial class LOAIHOADON
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public HOADONLUUTRU()
+        public LOAIHOADON()
         {
+            this.CHITIET_HDAU = new HashSet<CHITIET_HDAU>();
+            this.CHITIET_HDDC = new HashSet<CHITIET_HDDC>();
+            this.CHITIET_HDGU = new HashSet<CHITIET_HDGU>();
             this.CHITIET_HDLT = new HashSet<CHITIET_HDLT>();
-            this.HOADONs = new HashSet<HOADON>();
         }
     
-        public int MA_HDLT { get; set; }
-        public Nullable<System.DateTime> THOIGIANLAP_HDLT { get; set; }
-        public Nullable<bool> TINHTRANG_HDLT { get; set; }
-        public Nullable<decimal> TRIGIA_HDLT { get; set; }
+        public int MA_LHD { get; set; }
+        public string TEN_LHD { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CHITIET_HDLT> CHITIET_HDLT { get; set; }
+        public virtual ICollection<CHITIET_HDAU> CHITIET_HDAU { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<HOADON> HOADONs { get; set; }
+        public virtual ICollection<CHITIET_HDDC> CHITIET_HDDC { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CHITIET_HDGU> CHITIET_HDGU { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CHITIET_HDLT> CHITIET_HDLT { get; set; }
     }
 }
