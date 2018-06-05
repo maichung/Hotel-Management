@@ -111,9 +111,6 @@
     <Compile Include="Model\LOAIGIATUI.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="Model\LOAIHOADON.cs">
-      <DependentUpon>Model.tt</DependentUpon>
-    </Compile>
     <Compile Include="Model\LOAIPHONG.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
