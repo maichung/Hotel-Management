@@ -13,10 +13,10 @@ namespace QLKS.Model
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class QLKS_IS201Entities1 : DbContext
+    public partial class QLKS_IS201Entities : DbContext
     {
-        public QLKS_IS201Entities1()
-            : base("name=QLKS_IS201Entities1")
+        public QLKS_IS201Entities()
+            : base("name=QLKS_IS201Entities")
         {
         }
     
@@ -35,7 +35,6 @@ namespace QLKS.Model
         public virtual DbSet<HOADON> HOADON { get; set; }
         public virtual DbSet<KHACHHANG> KHACHHANG { get; set; }
         public virtual DbSet<LOAIGIATUI> LOAIGIATUI { get; set; }
-        public virtual DbSet<LOAIHOADON> LOAIHOADON { get; set; }
         public virtual DbSet<LOAIPHONG> LOAIPHONG { get; set; }
         public virtual DbSet<LUOTGIATUI> LUOTGIATUI { get; set; }
         public virtual DbSet<MATHANG> MATHANG { get; set; }

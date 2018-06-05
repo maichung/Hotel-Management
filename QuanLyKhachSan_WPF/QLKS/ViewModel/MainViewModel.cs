@@ -36,6 +36,8 @@ namespace QLKS.ViewModel
 
         private NHANVIEN _NhanVien;
         public NHANVIEN NhanVien { get => _NhanVien; set { _NhanVien = value; OnPropertyChanged(); } }
+        private KHACHHANG _KhachHangThue;
+        public KHACHHANG KhachHangThue { get => _KhachHangThue; set { _KhachHangThue = value; OnPropertyChanged(); } }
         private int _MaPhongChonThue;
         public int MaPhongChonThue { get => _MaPhongChonThue; set { _MaPhongChonThue = value; OnPropertyChanged(); } }
         private ThongTinPhong _ThongTinPhongChonThue;
@@ -63,12 +65,48 @@ namespace QLKS.ViewModel
         public MainViewModel()
         {
             #region Xử lý ản hiện view
-            btnTrangChuCommand = new RelayCommand<Object>((p) => { return true; }, (p) => ChucNangKS = (int)ChucNangKhachSan.TrangChu);
-            btnDVAnUongCommand = new RelayCommand<Object>((p) => { return true; }, (p) => ChucNangKS = (int)ChucNangKhachSan.DichVuAnUong);
-            btnDVGiatUiCommand = new RelayCommand<Object>((p) => { return true; }, (p) => ChucNangKS = (int)ChucNangKhachSan.DichVuGiatUi);
-            btnDVDiChuyenCommand = new RelayCommand<Object>((p) => { return true; }, (p) => ChucNangKS = (int)ChucNangKhachSan.DichVuDiChuyen);
-            btnTraCuuCommand = new RelayCommand<Object>((p) => { return true; }, (p) => ChucNangKS = (int)ChucNangKhachSan.TraCuu);
-            btnBaoCaoCommand = new RelayCommand<Object>((p) => { return true; }, (p) => ChucNangKS = (int)ChucNangKhachSan.BaoCao);
+            btnTrangChuCommand = new RelayCommand<Object>((p) => { return true; }, (p) => { ChucNangKS = (int)ChucNangKhachSan.TrangChu; MaPhongChonThue = 0; });
+            btnDVAnUongCommand = new RelayCommand<Grid>((p) => 
+            {
+                if(p == null || p.DataContext == null)
+                    return false;
+
+                return true;
+            }, (p) =>
+            {
+                ChucNangKS = (int)ChucNangKhachSan.DichVuAnUong;
+                var mathangVM = p.DataContext as MatHangViewModel;
+                mathangVM.GetTTPhongDangThue();
+                MaPhongChonThue = 0;
+            });            
+            btnDVGiatUiCommand = new RelayCommand<Grid>((p) => 
+            {
+                if (p == null || p.DataContext == null)
+                    return false;
+
+                return true;
+            }, (p) =>
+            {
+                ChucNangKS = (int)ChucNangKhachSan.DichVuGiatUi;
+                var giatuiVM = p.DataContext as LuotGiatUiViewModel;
+                giatuiVM.GetTTPhongDangThue();
+                MaPhongChonThue = 0;
+            });
+            btnDVDiChuyenCommand = new RelayCommand<Grid>((p) => 
+            {
+                if (p == null || p.DataContext == null)
+                    return false;
+
+                return true;
+            }, (p) =>
+            {
+                ChucNangKS = (int)ChucNangKhachSan.DichVuDiChuyen;
+                var dichuyenVM = p.DataContext as DiChuyenViewModel;
+                dichuyenVM.GetTTPhongDangThue();
+                MaPhongChonThue = 0;
+            });
+            btnTraCuuCommand = new RelayCommand<Object>((p) => { return true; }, (p) => { ChucNangKS = (int)ChucNangKhachSan.TraCuu; MaPhongChonThue = 0; });
+            btnBaoCaoCommand = new RelayCommand<Object>((p) => { return true; }, (p) => { ChucNangKS = (int)ChucNangKhachSan.BaoCao; MaPhongChonThue = 0; });
             #endregion
 
             #region Xử lý Load trang chủ
@@ -148,6 +186,7 @@ namespace QLKS.ViewModel
                 hoadonVM.LoaiHD = (int)HoaDonViewModel.LoaiHoaDon.HoaDonLuuTru;
                 hoadonVM.NhanVienLapHD = NhanVien;
                 hoadonVM.ThongTinPhongChonThue = ThongTinPhongChonThue;
+                hoadonVM.MaPhong = MaPhongChonThue;
                 hd.ShowDialog();
             });
 
@@ -163,12 +202,26 @@ namespace QLKS.ViewModel
                 return false;
             }, (p) =>
             {
-                HoaDon hd = new HoaDon();
-                if (hd.DataContext == null)
+                HOADON hoadon = new HOADON();
+                var cthdlt = DataProvider.Ins.model.CHITIET_HDLT.Where(x => x.MA_PHONG == MaPhongChonThue).ToList();
+                foreach (var item in cthdlt)
+                {
+                    var hd = DataProvider.Ins.model.HOADON.Where(x => x.MA_HD == item.MA_HD && x.TINHTRANG_HD == false).SingleOrDefault();
+                    hoadon = hd;
+                }
+                KhachHangThue = new KHACHHANG();
+                var kh = DataProvider.Ins.model.KHACHHANG.Where(x => x.MA_KH == hoadon.MA_KH).SingleOrDefault();
+                KhachHangThue = kh as KHACHHANG;
+
+                HoaDon wd = new HoaDon();
+                if (wd.DataContext == null)
                     return;
-                var hoadonVM = hd.DataContext as HoaDonViewModel;
+                var hoadonVM = wd.DataContext as HoaDonViewModel;
                 hoadonVM.LoaiHD = (int)HoaDonViewModel.LoaiHoaDon.HoaDonTong;
-                hd.ShowDialog();
+                hoadonVM.NhanVienLapHD = NhanVien;
+                hoadonVM.KhachHangThue = KhachHangThue;
+                hoadonVM.MaPhong = MaPhongChonThue;
+                wd.ShowDialog();
             });
         }
 
@@ -209,8 +262,6 @@ namespace QLKS.ViewModel
                 ListTTPhong.Add(item);
             }
             return ListTTPhong;
-        }
-
-        
+        }        
     }
 }

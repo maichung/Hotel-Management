@@ -87,6 +87,7 @@
     <Compile Include="Model\BAOCAONAM.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Model\BiThuatListViewHDTong.cs" />
     <Compile Include="Model\CHITIET_HDAU.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
@@ -109,9 +110,6 @@
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\LOAIGIATUI.cs">
-      <DependentUpon>Model.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Model\LOAIHOADON.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\LOAIPHONG.cs">
@@ -148,6 +146,7 @@
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\ThongTinGiatUi.cs" />
+    <Compile Include="Model\ThongTinHoaDon.cs" />
     <Compile Include="Model\ThongTinNhanVien.cs" />
     <Compile Include="Model\ThongTinOrder.cs" />
     <Compile Include="ViewModel\BaseViewModel.cs" />

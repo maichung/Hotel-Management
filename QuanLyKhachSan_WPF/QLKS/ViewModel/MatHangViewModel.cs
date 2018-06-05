@@ -273,12 +273,13 @@ namespace QLKS.ViewModel
                 return true;
             }, (p) =>
             {
-                var tthd = from cthdlt in DataProvider.Ins.model.CHITIET_HDLT
-                           join hd in DataProvider.Ins.model.HOADON
-                           on cthdlt.MA_HD equals hd.MA_HD
-                           where cthdlt.MA_PHONG == MaPhong && hd.TINHTRANG_HD == false
-                           select hd;
-                HOADON hoadon = tthd as HOADON;
+                HOADON hoadon = new HOADON();
+                var cthdlt = DataProvider.Ins.model.CHITIET_HDLT.Where(x => x.MA_PHONG == MaPhong).ToList();
+                foreach (var item in cthdlt)
+                {
+                    var hd = DataProvider.Ins.model.HOADON.Where(x => x.MA_HD == item.MA_HD && x.TINHTRANG_HD == false).SingleOrDefault();
+                    hoadon = hd;
+                }
                 KhachHangThue = new KHACHHANG();
                 var kh = DataProvider.Ins.model.KHACHHANG.Where(x => x.MA_KH == hoadon.MA_KH).SingleOrDefault();
                 KhachHangThue = kh as KHACHHANG;
@@ -293,11 +294,13 @@ namespace QLKS.ViewModel
                 hoadonVM.LoaiHD = (int)HoaDonViewModel.LoaiHoaDon.HoaDonAnUong;
                 hoadonVM.NhanVienLapHD = NhanVienLapHD;
                 hoadonVM.KhachHangThue = KhachHangThue;
+                hoadonVM.MaHD = hoadon.MA_HD;
                 hoadonVM.MaPhong = MaPhong;
                 hoadonVM.TongTien = TongTien;
                 hoadonVM.LoaiPhucVu = SelectedLoaiPhucVu;
                 hoadonVM.ListOrder = ListOrder;                
                 wd.ShowDialog();
+                RefershControlsDVAU();
             });
             #endregion
 
@@ -384,18 +387,30 @@ namespace QLKS.ViewModel
         {
             ListTTPhongDangThue = new ObservableCollection<ThongTinPhong>();
             var listTTPhongdangthue = from ph in DataProvider.Ins.model.PHONG
-                              join lp in DataProvider.Ins.model.LOAIPHONG
-                              on ph.MA_LP equals lp.MA_LP
-                              where ph.TINHTRANG_PHONG == "Đang thuê"
-                              select new ThongTinPhong()
-                              {
-                                  Phong = ph,
-                                  LoaiPhong = lp
-                              };
+                                      join lp in DataProvider.Ins.model.LOAIPHONG
+                                      on ph.MA_LP equals lp.MA_LP
+                                      where ph.TINHTRANG_PHONG == "Đang thuê"
+                                      select new ThongTinPhong()
+                                      {
+                                          Phong = ph,
+                                          LoaiPhong = lp
+                                      };
             foreach (ThongTinPhong item in listTTPhongdangthue)
             {
                 ListTTPhongDangThue.Add(item);
             }
+        }
+
+        void RefershControlsDVAU()
+        {
+            SelectedPhong = null;
+            SelectedLoaiPhucVu = null;
+            ListOrder.Clear();
+            SelectedItemOrder = null;
+            TongTien = 0;
+            TongSoLuongMHDC = 0;
+
+            SelectedItem = null;
         }
     }
 }

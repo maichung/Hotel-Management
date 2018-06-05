@@ -14,6 +14,9 @@ namespace QLKS.ViewModel
 {
     public class DiChuyenViewModel : BaseViewModel
     {
+        private ObservableCollection<ThongTinPhong> _ListTTPhongDangThue;
+        public ObservableCollection<ThongTinPhong> ListTTPhongDangThue { get => _ListTTPhongDangThue; set { _ListTTPhongDangThue = value; OnPropertyChanged(); } }
+
         private ObservableCollection<CHUYENDI> _ListChuyenDi;
         public ObservableCollection<CHUYENDI> ListChuyenDi { get => _ListChuyenDi; set { _ListChuyenDi = value; OnPropertyChanged(); } }
         private CHUYENDI _SelectedItem;
@@ -68,16 +71,32 @@ namespace QLKS.ViewModel
                 return true;
             }, (p) =>
             {
-                HoaDon hd = new HoaDon();
-                if (hd.DataContext == null)
+                HOADON hoadon = new HOADON();
+                var cthdlt = DataProvider.Ins.model.CHITIET_HDLT.Where(x => x.MA_PHONG == MaPhong).ToList();
+                foreach (var item in cthdlt)
+                {
+                    var hd = DataProvider.Ins.model.HOADON.Where(x => x.MA_HD == item.MA_HD && x.TINHTRANG_HD == false).SingleOrDefault();
+                    hoadon = hd;
+                }
+                KhachHangThue = new KHACHHANG();
+                var kh = DataProvider.Ins.model.KHACHHANG.Where(x => x.MA_KH == hoadon.MA_KH).SingleOrDefault();
+                KhachHangThue = kh as KHACHHANG;
+                NhanVienLapHD = new NHANVIEN();
+                var nv = DataProvider.Ins.model.NHANVIEN.Where(x => x.MA_NV == hoadon.MA_NV).SingleOrDefault();
+                NhanVienLapHD = nv as NHANVIEN;
+
+                HoaDon wd = new HoaDon();
+                if (wd.DataContext == null)
                     return;
-                var hoadonVM = hd.DataContext as HoaDonViewModel;
+                var hoadonVM = wd.DataContext as HoaDonViewModel;
                 hoadonVM.LoaiHD = (int)HoaDonViewModel.LoaiHoaDon.HoaDonDiChuyen;
                 hoadonVM.NhanVienLapHD = NhanVienLapHD;
                 hoadonVM.KhachHangThue = KhachHangThue;
+                hoadonVM.MaHD = hoadon.MA_HD;
                 hoadonVM.MaPhong = MaPhong;
                 hoadonVM.ChuyenDi = SelectedItem;
-                hd.ShowDialog();
+                wd.ShowDialog();
+                RefershControlsDVDC();
             });
 
             SearchChuyenDiCommand = new RelayCommand<Object>((p) => { return true; }, (p) =>
@@ -109,8 +128,7 @@ namespace QLKS.ViewModel
                     return false;
                 }
                 return true;
-            },
-            (p) =>
+            }, (p) =>
             {
                 CHUYENDI cd = new CHUYENDI() { DIEMDEN_CD = DiemDen, DONGIA_CD = DonGia };
                 DataProvider.Ins.model.CHUYENDI.Add(cd);
@@ -129,8 +147,7 @@ namespace QLKS.ViewModel
                     return true;
                 }
                 return false;
-            },
-            (p) =>
+            }, (p) =>
             {
                 var cd = DataProvider.Ins.model.CHUYENDI.Where(x => x.DIEMDEN_CD == DiemDen).SingleOrDefault();
                 cd.DIEMDEN_CD = DiemDen;
@@ -155,6 +172,32 @@ namespace QLKS.ViewModel
                 }
                 sort = !sort;
             });
+        }
+
+        public void GetTTPhongDangThue()
+        {
+            ListTTPhongDangThue = new ObservableCollection<ThongTinPhong>();
+            var listTTPhongdangthue = from ph in DataProvider.Ins.model.PHONG
+                                      join lp in DataProvider.Ins.model.LOAIPHONG
+                                      on ph.MA_LP equals lp.MA_LP
+                                      where ph.TINHTRANG_PHONG == "Đang thuê"
+                                      select new ThongTinPhong()
+                                      {
+                                          Phong = ph,
+                                          LoaiPhong = lp
+                                      };
+            foreach (ThongTinPhong item in listTTPhongdangthue)
+            {
+                ListTTPhongDangThue.Add(item);
+            }
+        }
+
+        void RefershControlsDVDC()
+        {
+            SelectedPhong = null;
+            SelectedItem = null;
+            DonGia = 0;
+            DiemDen = null;
         }
     }
 }

@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
@@ -22,7 +23,9 @@ namespace QLKS.ViewModel
         private DateTime _ThoiGianLapHD;
         public DateTime ThoiGianLapHD { get => _ThoiGianLapHD; set { _ThoiGianLapHD = value; OnPropertyChanged(); } }
 
-        //Truyền thông tin qua những hd dịch vụ        
+        //Truyền thông tin qua những hd dịch vụ
+        private int _MaHD;
+        public int MaHD { get => _MaHD; set { _MaHD = value; OnPropertyChanged(); } }
         private int _MaPhong;
         public int MaPhong { get => _MaPhong; set { _MaPhong = value; OnPropertyChanged(); } }
         private KHACHHANG _KhachHangThue;
@@ -32,10 +35,12 @@ namespace QLKS.ViewModel
         private long _TongTien;
         public long TongTien { get => _TongTien; set { _TongTien = value; OnPropertyChanged(); } }
 
+        private ThongTinHoaDon _ThongTinHD;
+        public ThongTinHoaDon ThongTinHD { get => _ThongTinHD; set { _ThongTinHD = value; OnPropertyChanged(); } }
+
         //Truyền thông tin qua hd lưu trú
         private ThongTinPhong _ThongTinPhongChonThue;
         public ThongTinPhong ThongTinPhongChonThue { get => _ThongTinPhongChonThue; set { _ThongTinPhongChonThue = value; OnPropertyChanged(); } }
-
 
         //Truyền thông tin qua hd ăn uống
         private string _LoaiPhucVu;
@@ -47,7 +52,7 @@ namespace QLKS.ViewModel
         private ThongTinGiatUi _TTGiatUi;
         public ThongTinGiatUi TTGiatUi { get => _TTGiatUi; set { _TTGiatUi = value; OnPropertyChanged(); } }
 
-        //Truyền thông tin qua hd giặt ủi
+        //Truyền thông tin qua hd di chuyển
         private CHUYENDI _ChuyenDi;
         public CHUYENDI ChuyenDi { get => _ChuyenDi; set { _ChuyenDi = value; OnPropertyChanged(); } }
 
@@ -57,11 +62,14 @@ namespace QLKS.ViewModel
         public ICommand btnHDGiatUiCommand { get; set; }
         public ICommand btnHDDiChuyenCommand { get; set; }
 
-        public ICommand LoadKhachHangCommand { get; set; }
+        public ICommand LoadHoaDonTongCommand { get; set; }
+        public ICommand PayCommand { get; set; }
+        public ICommand CancelCommand { get; set; }
 
         public HoaDonViewModel()
         {
             ThoiGianLapHD = DateTime.Now;
+            ThongTinHD = new ThongTinHoaDon();
 
             btnHDTongCommand = new RelayCommand<Object>((p) => { return true; }, (p) => LoaiHD = (int)LoaiHoaDon.HoaDonTong);
             btnHDLuuTruCommand = new RelayCommand<Object>((p) => { return true; }, (p) => LoaiHD = (int)LoaiHoaDon.HoaDonLuuTru);
@@ -69,32 +77,45 @@ namespace QLKS.ViewModel
             btnHDGiatUiCommand = new RelayCommand<Object>((p) => { return true; }, (p) => LoaiHD = (int)LoaiHoaDon.HoaDonGiatUi);
             btnHDDiChuyenCommand = new RelayCommand<Object>((p) => { return true; }, (p) => LoaiHD = (int)LoaiHoaDon.HoaDonDiChuyen);
 
-            LoadKhachHangCommand = new RelayCommand<StackPanel>((p) => 
-            {
-                if (string.IsNullOrEmpty(KhachHangThue.CMND_KH))
-                    return false;
-
-                if (p == null || p.DataContext == null)
-                    return false;
-
-                return true;
-            }, (p) =>
-            {
-                var kh = DataProvider.Ins.model.KHACHHANG.Where(x => x.CMND_KH == KhachHangThue.CMND_KH).SingleOrDefault();
-                if (kh == null)
+            LoadHoaDonTongCommand = new RelayCommand<Object>((p) => { return true; }, (p) =>
+            {                
+                HOADON hoadon = new HOADON();
+                var cthdlt = DataProvider.Ins.model.CHITIET_HDLT.Where(x => x.MA_PHONG == MaPhong).ToList();
+                foreach (var item in cthdlt)
                 {
-                    KhachHangThue.HOTEN_KH = "";
-                    KhachHangThue.SODIENTHOAI_KH = "";
+                    var hd = DataProvider.Ins.model.HOADON.Where(x => x.MA_HD == item.MA_HD && x.TINHTRANG_HD == false).SingleOrDefault();
+                    hoadon = hd;
                 }
-                else
+                ThongTinHD.HoaDon = hoadon;
+                //lấy hóa đơn lưu trú
+                var hdlt = DataProvider.Ins.model.CHITIET_HDLT.Where(x => x.MA_HD == hoadon.MA_HD).SingleOrDefault();
+                ThongTinHD.CTHDLuuTru = hdlt;
+                //lấy hóa đơn ăn uống
+                var listHDAU = DataProvider.Ins.model.CHITIET_HDAU.Where(x => x.MA_HD == hoadon.MA_HD).ToList();
+                foreach (CHITIET_HDAU item in listHDAU)
                 {
-                    KhachHangThue.HOTEN_KH = kh.HOTEN_KH;
-                    KhachHangThue.SODIENTHOAI_KH = kh.SODIENTHOAI_KH;
+                    ThongTinHD.ListCTHDAnUong.Add(item);
                 }
-
-                var hoadonluutruVM = p.DataContext as HoaDonLuuTruViewModel;
-                hoadonluutruVM.KhachHangThue = KhachHangThue;
+                //lấy hóa đơn giặt ủi
+                var listHDGU = DataProvider.Ins.model.CHITIET_HDGU.Where(x => x.MA_HD == hoadon.MA_HD).ToList();
+                foreach (CHITIET_HDGU item in listHDGU)
+                {                    
+                    ThongTinHD.ListCTHDGiatUi.Add(item);
+                }
+                //lấy hóa đơn di chuyển
+                var listHDDC = DataProvider.Ins.model.CHITIET_HDDC.Where(x => x.MA_HD == hoadon.MA_HD).ToList();
+                foreach (CHITIET_HDDC item in listHDDC)
+                {
+                    ThongTinHD.ListCTHDDiChuyen.Add(item);
+                }
             });
+
+            PayCommand = new RelayCommand<Window>((p) => { return p == null ? false : true; }, (p) =>
+            {
+
+            });
+
+            CancelCommand = new RelayCommand<Window>((p) => { return p == null ? false : true; }, (p) => LoaiHD = (int)LoaiHoaDon.HoaDonDiChuyen);
         }
     }
 }

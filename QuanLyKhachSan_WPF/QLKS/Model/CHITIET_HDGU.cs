@@ -16,12 +16,10 @@ namespace QLKS.Model
     {
         public int MA_CTHDGU { get; set; }
         public int MA_HD { get; set; }
-        public int MA_LHD { get; set; }
         public int MA_LUOTGU { get; set; }
         public Nullable<decimal> TRIGIA_CTHDGU { get; set; }
     
         public virtual LUOTGIATUI LUOTGIATUI { get; set; }
         public virtual HOADON HOADON { get; set; }
-        public virtual LOAIHOADON LOAIHOADON { get; set; }
     }
 }

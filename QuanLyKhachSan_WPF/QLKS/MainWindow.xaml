@@ -75,7 +75,8 @@
 
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="Click">
-                            <i:InvokeCommandAction Command="{Binding btnDVAnUongCommand}">
+                            <i:InvokeCommandAction Command="{Binding btnDVAnUongCommand}"
+                                                   CommandParameter="{Binding ElementName=gridAnUong}">
                             </i:InvokeCommandAction>
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
@@ -107,7 +108,8 @@
 
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="Click">
-                            <i:InvokeCommandAction Command="{Binding btnDVGiatUiCommand}">
+                            <i:InvokeCommandAction Command="{Binding btnDVGiatUiCommand}"
+                                                   CommandParameter="{Binding ElementName=gridGiatUi}">
                             </i:InvokeCommandAction>
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
@@ -139,7 +141,8 @@
 
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="Click">
-                            <i:InvokeCommandAction Command="{Binding btnDVDiChuyenCommand}">
+                            <i:InvokeCommandAction Command="{Binding btnDVDiChuyenCommand}"
+                                                   CommandParameter="{Binding ElementName=gridDiChuyen}">
                             </i:InvokeCommandAction>
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
@@ -343,7 +346,7 @@
             </Grid>
 
             <!-- Grid Ăn uống -->
-            <Grid Name="gridAnUong">
+            <Grid>
                 <Grid.Style>
                     <Style TargetType="Grid">
                         <Setter Property="Visibility" Value="Hidden"></Setter>
@@ -357,7 +360,7 @@
                 
                 <Rectangle Margin="0,160,10,10" Stroke="#FFD6D6D6"/>
                 <!-- Button ăn uống -->
-                <Grid DataContext="{StaticResource MatHangVM}">                    
+                <Grid Name="gridAnUong" DataContext="{StaticResource MatHangVM}">                    
                     <StackPanel Name="groupButtonsAnUong" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="20,120">
                         <Image Height="25" Width="25" Cursor="Hand" Source="Resources\Icons\btnThem.png" ToolTip="Thêm món">
                             <i:Interaction.Triggers>
@@ -386,7 +389,7 @@
                     </StackPanel>
 
                     <StackPanel Name="groupStatusAnUong" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,120">
-                        <ComboBox materialDesign:HintAssist.Hint="Chọn phòng" ItemsSource="{Binding ListTTPhongDangThue}" DisplayMemberPath="Phong.MA_PHONG" SelectedItem="{Binding SelectedPhong}" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" FontFamily="Segoe UI Semibold"/>
+                        <ComboBox materialDesign:HintAssist.Hint="Chọn phòng" ItemsSource="{Binding ListTTPhongDangThue}" DisplayMemberPath="Phong.MA_PHONG" SelectedItem="{Binding SelectedPhong}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" FontFamily="Segoe UI Semibold"/>
                         <GridSplitter IsEnabled="False" Width="1" Margin="10,0,10,0" Background="#FFD6D6D6"></GridSplitter>
                         <Label Height="25" Width="auto" Content="Đã chọn:" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" ></Label>
                         <TextBox Height="25" Width="50" Text="{Binding TongSoLuongMHDC, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Background="{x:Null}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="#DD000000" FontFamily="Segoe UI Semibold"/>
@@ -466,7 +469,7 @@
             </Grid>
 
             <!-- Grid Giặt ủi -->
-            <Grid Name="gridGiatUi">
+            <Grid>
                 <Grid.Style>
                     <Style TargetType="Grid">
                         <Setter Property="Visibility" Value="Hidden"></Setter>
@@ -480,7 +483,7 @@
                 
                 <Rectangle Margin="0,160,10,10" Stroke="#FFD6D6D6"/>
                 <!-- Button giặt ủi -->
-                <Grid DataContext="{StaticResource LuotGiatUiVM}">
+                <Grid Name="gridGiatUi" DataContext="{StaticResource LuotGiatUiVM}">
                     <StackPanel Name="groupButtonsGiatUi" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="20,120">
                         <Image Height="25" Width="25" Cursor="Hand" Source="Resources\Icons\btnThem.png" ToolTip="Chọn dịch vụ"></Image>
                         <GridSplitter IsEnabled="False" Width="1" Margin="10,0,10,0" Background="#FFD6D6D6"></GridSplitter>
@@ -497,7 +500,7 @@
                     </StackPanel>
 
                     <StackPanel Name="groupStatusGiatUi" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,120">
-                        <ComboBox materialDesign:HintAssist.Hint="Chọn phòng" DataContext="{StaticResource MainVM}" ItemsSource="{Binding ListTTPhongDangThue}" DisplayMemberPath="Phong.MA_PHONG" SelectedItem="{Binding SelectedPhong}" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Foreground="#DD000000" FontFamily="Segoe UI Semibold"></ComboBox>
+                        <ComboBox materialDesign:HintAssist.Hint="Chọn phòng" ItemsSource="{Binding ListTTPhongDangThue}" DisplayMemberPath="Phong.MA_PHONG" SelectedItem="{Binding SelectedPhong}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Foreground="#DD000000" FontFamily="Segoe UI Semibold"></ComboBox>
                         <GridSplitter IsEnabled="False" Width="1" Margin="10,0,10,0" Background="#FFD6D6D6"></GridSplitter>
                         <Label Height="25" Width="auto" Content="Thành tiền:" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"></Label>
                         <TextBox Height="25" Width="80" Text="{Binding ThanhTien, StringFormat='N0', Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Foreground="#DD000000" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontFamily="Segoe UI Semibold" />
@@ -566,7 +569,7 @@
             </Grid>
 
             <!-- Grid Di chuyển -->
-            <Grid Name="gridDiChuyen">
+            <Grid>
                 <Grid.Style>
                     <Style TargetType="Grid">
                         <Setter Property="Visibility" Value="Hidden"></Setter>
@@ -579,8 +582,8 @@
                 </Grid.Style>                    
                     
                 <Rectangle Margin="0,160,10,10" Stroke="#FFD6D6D6"/>
-                <!-- Button giặt ủi -->
-                <Grid DataContext="{StaticResource DiChuyenVM}">
+                <!-- Button di chuyển -->
+                <Grid Name="gridDiChuyen" DataContext="{StaticResource DiChuyenVM}">
                     <StackPanel Name="groupButtonsDiChuyen" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="20,120">
                         <Image Height="25" Width="25" Cursor="Hand" Source="Resources\Icons\btnThem.png" ToolTip="Chọn dịch vụ"></Image>
                         <GridSplitter IsEnabled="False" Width="1" Margin="10,0,10,0" Background="#FFD6D6D6"></GridSplitter>
@@ -597,7 +600,7 @@
                     </StackPanel>
                     
                     <StackPanel Name="groupStatusDiChuyen" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,120">
-                        <ComboBox materialDesign:HintAssist.Hint="Chọn phòng" DataContext="{StaticResource MainVM}" ItemsSource="{Binding ListTTPhongDangThue}" DisplayMemberPath="Phong.MA_PHONG" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Foreground="#DD000000" FontFamily="Segoe UI Semibold"></ComboBox>
+                        <ComboBox materialDesign:HintAssist.Hint="Chọn phòng" ItemsSource="{Binding ListTTPhongDangThue}" DisplayMemberPath="Phong.MA_PHONG" SelectedItem="{Binding SelectedPhong}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Foreground="#DD000000" FontFamily="Segoe UI Semibold"></ComboBox>
                         <GridSplitter IsEnabled="False" Width="1" Margin="10,0,10,0" Background="#FFD6D6D6"></GridSplitter>
                         <Label Height="25" Width="auto" Content="Thành tiền:" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"></Label>
                         <TextBox Height="25" Width="80" Text="{Binding DonGia, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat='N0'}" Foreground="#DD000000" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontFamily="Segoe UI Semibold" />

@@ -16,7 +16,6 @@ namespace QLKS.Model
     {
         public int MA_CTHDLT { get; set; }
         public int MA_HD { get; set; }
-        public int MA_LHD { get; set; }
         public int MA_PHONG { get; set; }
         public Nullable<System.DateTime> THOIGIANNHAN_PHONG { get; set; }
         public Nullable<System.DateTime> THOIGIANTRA_PHONG { get; set; }
@@ -24,6 +23,5 @@ namespace QLKS.Model
     
         public virtual PHONG PHONG { get; set; }
         public virtual HOADON HOADON { get; set; }
-        public virtual LOAIHOADON LOAIHOADON { get; set; }
     }
 }
