@@ -273,13 +273,17 @@ namespace QLKS.ViewModel
                 return true;
             }, (p) =>
             {
-                var cthdlt = DataProvider.Ins.model.CHITIET_HDLT.Where(x => x.MA_PHONG == MaPhong).SingleOrDefault();
-                var hd = DataProvider.Ins.model.HOADON.Where(x => x.MA_HDLT == cthdlt.MA_HDLT).SingleOrDefault();
+                var tthd = from cthdlt in DataProvider.Ins.model.CHITIET_HDLT
+                           join hd in DataProvider.Ins.model.HOADON
+                           on cthdlt.MA_HD equals hd.MA_HD
+                           where cthdlt.MA_PHONG == MaPhong && hd.TINHTRANG_HD == false
+                           select hd;
+                HOADON hoadon = tthd as HOADON;
                 KhachHangThue = new KHACHHANG();
-                var kh = DataProvider.Ins.model.KHACHHANG.Where(x => x.MA_KH == hd.MA_KH).SingleOrDefault();
+                var kh = DataProvider.Ins.model.KHACHHANG.Where(x => x.MA_KH == hoadon.MA_KH).SingleOrDefault();
                 KhachHangThue = kh as KHACHHANG;
                 NhanVienLapHD = new NHANVIEN();
-                var nv = DataProvider.Ins.model.NHANVIEN.Where(x => x.MA_NV == hd.MA_NV).SingleOrDefault();
+                var nv = DataProvider.Ins.model.NHANVIEN.Where(x => x.MA_NV == hoadon.MA_NV).SingleOrDefault();
                 NhanVienLapHD = nv as NHANVIEN;
 
                 HoaDon wd = new HoaDon();

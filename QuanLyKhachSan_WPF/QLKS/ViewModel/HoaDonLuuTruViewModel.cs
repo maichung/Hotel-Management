@@ -18,28 +18,12 @@ namespace QLKS.ViewModel
         private KHACHHANG _KhachHangThue;
         public KHACHHANG KhachHangThue { get => _KhachHangThue; set { _KhachHangThue = value; OnPropertyChanged(); } }
         
-        public ICommand LoadKhachHangCommand { get; set; }
         public ICommand SaveCommand { get; set; }
         public ICommand CancelCommand { get; set; }
 
         public HoaDonLuuTruViewModel()
         {
-            KhachHangThue = new KHACHHANG();
-
-            LoadKhachHangCommand = new RelayCommand<Object>((p) => { return string.IsNullOrEmpty(KhachHangThue.CMND_KH) ? false : true; }, (p) =>
-            {
-                var kh = DataProvider.Ins.model.KHACHHANG.Where(x => x.CMND_KH == KhachHangThue.CMND_KH).SingleOrDefault();
-                if(kh == null)
-                {
-                    KhachHangThue.HOTEN_KH = "";
-                    KhachHangThue.SODIENTHOAI_KH = "";
-                }
-                else
-                {
-                    KhachHangThue.HOTEN_KH = kh.HOTEN_KH;
-                    KhachHangThue.SODIENTHOAI_KH = kh.SODIENTHOAI_KH;
-                }
-            });
+            KhachHangThue = new KHACHHANG();          
 
             SaveCommand = new RelayCommand<Window>((p) => 
             {
@@ -65,18 +49,14 @@ namespace QLKS.ViewModel
                 var hoadonVM = p.DataContext as HoaDonViewModel;
                 ThongTinPhongChonThue = hoadonVM.ThongTinPhongChonThue;
                 NhanVienLapHD = hoadonVM.NhanVienLapHD;
-                //Tạo hóa đơn lưu trú
-                var hdlt = new HOADONLUUTRU() { THOIGIANLAP_HDLT = DateTime.Now, TRIGIA_HDLT = ThongTinPhongChonThue.LoaiPhong.DONGIA_LP };
-                DataProvider.Ins.model.HOADONLUUTRU.Add(hdlt);
-                DataProvider.Ins.model.SaveChanges();
-                //Tạo chi tiết hóa đơn lưu trú
-                var chitietHDLT = new CHITIET_HDLT() { MA_HDLT = hdlt.MA_HDLT, MA_PHONG = ThongTinPhongChonThue.Phong.MA_PHONG, THOIGIANNHAN_PHONG = DateTime.Now, THOIGIANTRA_PHONG = null };
-                DataProvider.Ins.model.CHITIET_HDLT.Add(chitietHDLT);
-                DataProvider.Ins.model.SaveChanges();
                 //Tạo hóa đơn tổng
-                var hd = new HOADON() { MA_HDLT = hdlt.MA_HDLT, MA_NV = NhanVienLapHD.MA_NV, MA_KH = khachHang.MA_KH };
+                var hd = new HOADON() { MA_NV = NhanVienLapHD.MA_NV, MA_KH = khachHang.MA_KH };
                 DataProvider.Ins.model.HOADON.Add(hd);
                 DataProvider.Ins.model.SaveChanges();
+                //Tạo chi tiết hóa đơn lưu trú
+                var chitietHDLT = new CHITIET_HDLT() { MA_HD = hd.MA_HD, MA_LHD = 1, MA_PHONG = ThongTinPhongChonThue.Phong.MA_PHONG };
+                DataProvider.Ins.model.CHITIET_HDLT.Add(chitietHDLT);
+                DataProvider.Ins.model.SaveChanges();                
                 //Đổi trạng thái của phòng
                 var phong = DataProvider.Ins.model.PHONG.Where(x => x.MA_PHONG == ThongTinPhongChonThue.Phong.MA_PHONG).SingleOrDefault();
                 phong.TINHTRANG_PHONG = "Đang thuê";

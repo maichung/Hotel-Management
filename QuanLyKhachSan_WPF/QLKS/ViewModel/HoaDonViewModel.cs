@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace QLKS.ViewModel
@@ -56,6 +57,8 @@ namespace QLKS.ViewModel
         public ICommand btnHDGiatUiCommand { get; set; }
         public ICommand btnHDDiChuyenCommand { get; set; }
 
+        public ICommand LoadKhachHangCommand { get; set; }
+
         public HoaDonViewModel()
         {
             ThoiGianLapHD = DateTime.Now;
@@ -65,6 +68,33 @@ namespace QLKS.ViewModel
             btnHDAnUongCommand = new RelayCommand<Object>((p) => { return true; }, (p) => LoaiHD = (int)LoaiHoaDon.HoaDonAnUong);
             btnHDGiatUiCommand = new RelayCommand<Object>((p) => { return true; }, (p) => LoaiHD = (int)LoaiHoaDon.HoaDonGiatUi);
             btnHDDiChuyenCommand = new RelayCommand<Object>((p) => { return true; }, (p) => LoaiHD = (int)LoaiHoaDon.HoaDonDiChuyen);
+
+            LoadKhachHangCommand = new RelayCommand<StackPanel>((p) => 
+            {
+                if (string.IsNullOrEmpty(KhachHangThue.CMND_KH))
+                    return false;
+
+                if (p == null || p.DataContext == null)
+                    return false;
+
+                return true;
+            }, (p) =>
+            {
+                var kh = DataProvider.Ins.model.KHACHHANG.Where(x => x.CMND_KH == KhachHangThue.CMND_KH).SingleOrDefault();
+                if (kh == null)
+                {
+                    KhachHangThue.HOTEN_KH = "";
+                    KhachHangThue.SODIENTHOAI_KH = "";
+                }
+                else
+                {
+                    KhachHangThue.HOTEN_KH = kh.HOTEN_KH;
+                    KhachHangThue.SODIENTHOAI_KH = kh.SODIENTHOAI_KH;
+                }
+
+                var hoadonluutruVM = p.DataContext as HoaDonLuuTruViewModel;
+                hoadonluutruVM.KhachHangThue = KhachHangThue;
+            });
         }
     }
 }

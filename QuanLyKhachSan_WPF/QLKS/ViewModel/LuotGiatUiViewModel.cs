@@ -115,21 +115,21 @@ namespace QLKS.ViewModel
                 return true;
             }, (p) =>
             {
-                var cthdlt = DataProvider.Ins.model.CHITIET_HDLT.Where(x => x.MA_PHONG == MaPhong).SingleOrDefault();
-                var hd = DataProvider.Ins.model.HOADON.Where(x => x.MA_HDLT == cthdlt.MA_HDLT).SingleOrDefault();
-                KhachHangThue = new KHACHHANG();
-                var kh = DataProvider.Ins.model.KHACHHANG.Where(x => x.MA_KH == hd.MA_KH).SingleOrDefault();
-                KhachHangThue = kh as KHACHHANG;
-                NhanVienLapHD = new NHANVIEN();
-                var nv = DataProvider.Ins.model.NHANVIEN.Where(x => x.MA_NV == hd.MA_NV).SingleOrDefault();
-                NhanVienLapHD = nv as NHANVIEN;
+                //var cthdlt = DataProvider.Ins.model.CHITIET_HDLT.Where(x => x.MA_PHONG == MaPhong).SingleOrDefault();
+                //var hd = DataProvider.Ins.model.HOADON.Where(x => x.MA_HDLT == cthdlt.MA_HDLT).SingleOrDefault();
+                //KhachHangThue = new KHACHHANG();
+                //var kh = DataProvider.Ins.model.KHACHHANG.Where(x => x.MA_KH == hd.MA_KH).SingleOrDefault();
+                //KhachHangThue = kh as KHACHHANG;
+                //NhanVienLapHD = new NHANVIEN();
+                //var nv = DataProvider.Ins.model.NHANVIEN.Where(x => x.MA_NV == hd.MA_NV).SingleOrDefault();
+                //NhanVienLapHD = nv as NHANVIEN;
 
-                GetThongTinGiatUi();
+                //GetThongTinGiatUi();
 
                 HoaDon wd = new HoaDon();
                 if (wd.DataContext == null)
                     return;
-                var hoadonVM = hd.DataContext as HoaDonViewModel;
+                var hoadonVM = wd.DataContext as HoaDonViewModel;
                 hoadonVM.LoaiHD = (int)HoaDonViewModel.LoaiHoaDon.HoaDonGiatUi;
                 hoadonVM.NhanVienLapHD = NhanVienLapHD;
                 hoadonVM.KhachHangThue = KhachHangThue;
@@ -158,24 +158,24 @@ namespace QLKS.ViewModel
             }
         }
 
-        void GetThongTinGiatUi()
-        {
-            LUOTGIATUI luotGiatUi = new LUOTGIATUI();
-            if (SelectedItem.MA_LOAIGU == 1)
-            {
-                luotGiatUi.SOKILOGRAM_LUOTGU = CanNang;
-                luotGiatUi.NGAYBATDAU_LUOTGU = null;
-                luotGiatUi.NGAYKETTHUC_LUOTGU = null;
-            }
-            else if (SelectedItem.MA_LOAIGU == 2)
-            {
-                luotGiatUi.SOKILOGRAM_LUOTGU = 0;
-                luotGiatUi.NGAYBATDAU_LUOTGU = NgayBatDau;
-                luotGiatUi.NGAYKETTHUC_LUOTGU = NgayKetThuc;
-            }            
-            TTGiatUi = new ThongTinGiatUi() { MaLoaiGiatUi = SelectedItem.MA_LOAIGU, LuotGiatUi = luotGiatUi };
-            DataProvider.Ins.model.LUOTGIATUI.Add(TTGiatUi);
-            DataProvider.Ins.model.SaveChanges();
-        }
+        //void GetThongTinGiatUi()
+        //{
+        //    LUOTGIATUI luotGiatUi = new LUOTGIATUI();
+        //    if (SelectedItem.MA_LOAIGU == 1)
+        //    {
+        //        luotGiatUi.SOKILOGRAM_LUOTGU = CanNang;
+        //        luotGiatUi.NGAYBATDAU_LUOTGU = null;
+        //        luotGiatUi.NGAYKETTHUC_LUOTGU = null;
+        //    }
+        //    else if (SelectedItem.MA_LOAIGU == 2)
+        //    {
+        //        luotGiatUi.SOKILOGRAM_LUOTGU = 0;
+        //        luotGiatUi.NGAYBATDAU_LUOTGU = NgayBatDau;
+        //        luotGiatUi.NGAYKETTHUC_LUOTGU = NgayKetThuc;
+        //    }            
+        //    TTGiatUi = new ThongTinGiatUi() { MaLoaiGiatUi = SelectedItem.MA_LOAIGU, LuotGiatUi = luotGiatUi };
+        //    DataProvider.Ins.model.LUOTGIATUI.Add(TTGiatUi);
+        //    DataProvider.Ins.model.SaveChanges();
+        //}
     }
 }

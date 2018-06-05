@@ -258,7 +258,7 @@
             </Grid>
 
             <!-- Hóa đơn lưu trú -->
-            <Grid Name="gridHoaDonLuuTru">
+            <Grid Name="gridHoaDonLuuTru" Visibility="Visible">
                 <Grid.Style>
                     <Style TargetType="Grid">
                         <Setter Property="Visibility" Value="Hidden"></Setter>
@@ -291,13 +291,22 @@
                         </GroupBox>
                         
                         <GroupBox Margin="0,20,0,0" materialDesign:ColorZoneAssist.Mode="Standard" Header="THÔNG TIN KHÁCH HÀNG">
-                            <StackPanel DataContext="{StaticResource HoaDonLuuTruVM}">
-                                <TextBox Text="{Binding KhachHangThue.HOTEN_KH, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,10" Height="37" materialDesign:HintAssist.Hint="Họ tên khách hàng" Style="{StaticResource MaterialDesignFloatingHintTextBox}" TextWrapping="Wrap" VerticalContentAlignment="Center"></TextBox>
+                            <StackPanel>
+                                <TextBox Text="{Binding KhachHangThue.HOTEN_KH, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,10" Height="37" materialDesign:HintAssist.Hint="Họ tên khách hàng" Style="{StaticResource MaterialDesignFloatingHintTextBox}" TextWrapping="Wrap" VerticalContentAlignment="Center">
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="TextChanged">
+                                            <i:InvokeCommandAction Command="{Binding LoadKhachHangCommand}"
+                                                                   CommandParameter="{Binding ElementName=panelHDLuuTru}">
+                                            </i:InvokeCommandAction>
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
+                                </TextBox>
                                 <TextBox Text="{Binding KhachHangThue.SODIENTHOAI_KH, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,10" Height="37" materialDesign:HintAssist.Hint="Số điện thoại" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  TextWrapping="Wrap" VerticalContentAlignment="Center"></TextBox>
                                 <TextBox Text="{Binding KhachHangThue.CMND_KH, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,10" Height="37" materialDesign:HintAssist.Hint="Số CMND" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  TextWrapping="Wrap" VerticalContentAlignment="Center">
                                     <i:Interaction.Triggers>
                                         <i:EventTrigger EventName="TextChanged">
-                                            <i:InvokeCommandAction Command="{Binding LoadKhachHangCommand}">
+                                            <i:InvokeCommandAction Command="{Binding LoadKhachHangCommand}"
+                                                                   CommandParameter="{Binding ElementName=panelHDLuuTru}">
                                             </i:InvokeCommandAction>
                                         </i:EventTrigger>
                                     </i:Interaction.Triggers>
@@ -320,7 +329,7 @@
                         </StackPanel>
                     </GroupBox>
 
-                    <StackPanel DataContext="{StaticResource HoaDonLuuTruVM}" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10,10">
+                    <StackPanel Name="panelHDLuuTru" DataContext="{StaticResource HoaDonLuuTruVM}" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10,10">
                         <Button Command="{Binding CancelCommand}" CommandParameter="{Binding ElementName=mainWindow}" Margin="0,0,10,0" Width="80" BorderBrush="{x:Null}" Content="Hủy" FontSize="12" Background="White" Foreground="#FF9B9B9B"/>
                         <Button Command="{Binding SaveCommand}" CommandParameter="{Binding ElementName=mainWindow}" Margin="0,0,10,0" Width="80" BorderBrush="{x:Null}" Content="Lưu" FontSize="12" Background="#FFA58A72"/>
                         <Button Command="{Binding PayCommand}" CommandParameter="{Binding ElementName=mainWindow}" Width="100" BorderBrush="{x:Null}" Content="Thanh toán" FontSize="12" Background="#FF5E6572"/>
@@ -380,7 +389,7 @@
                                 <TextBox Text="{Binding LoaiPhucVu}" Grid.Column="1" Margin="10,0,0,10" Height="37" materialDesign:HintAssist.Hint="Loại phục vụ" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  TextWrapping="Wrap" VerticalContentAlignment="Center"></TextBox>
                             </Grid>
                             <CheckBox Grid.Column="1" Margin="0,0,0,10" Height="37" Content="Phụ thu 10% tổng hóa đơn"  VerticalContentAlignment="Center" IsEnabled="False"/>
-                            <ListView Height="280" ItemsSource="{Binding ListOrder}" DataContext="{StaticResource MatHangVM}">
+                            <ListView Height="280" ItemsSource="{Binding ListOrder}">
                                 <ListView.View>
                                     <GridView>
                                         <GridViewColumn DisplayMemberBinding="{Binding MatHang.TEN_MH}">
@@ -497,7 +506,7 @@
             </Grid>
 
             <!-- Hóa đơn di chuyển -->
-            <Grid Name="gridHoaDonDiChuyen" Visibility="Visible">
+            <Grid Name="gridHoaDonDiChuyen">
                 <Grid.Style>
                     <Style TargetType="Grid">
                         <Setter Property="Visibility" Value="Hidden"></Setter>
