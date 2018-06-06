@@ -1229,7 +1229,7 @@
             </Grid>
 
             <!-- Grid Báo cáo -->
-            <Grid Visibility="Visible">
+            <Grid>
                 <Grid.Style>
                     <Style TargetType="Grid">
                         <Setter Property="Visibility" Value="Hidden"></Setter>

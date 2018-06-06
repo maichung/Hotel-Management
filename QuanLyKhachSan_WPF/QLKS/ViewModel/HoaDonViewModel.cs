@@ -74,6 +74,7 @@ namespace QLKS.ViewModel
         public ICommand btnHDDiChuyenCommand { get; set; }
 
         public ICommand LoadHoaDonTongCommand { get; set; }
+        public ICommand LoadKhachHangCommand { get; set; }
         public ICommand PayCommand { get; set; }
         public ICommand CancelCommand { get; set; }
         public ICommand ClosedWindowCommand { get; set; }
@@ -165,9 +166,60 @@ namespace QLKS.ViewModel
                 view.GroupDescriptions.Add(new PropertyGroupDescription("LoaiHoaDon"));
             });
 
-            PayCommand = new RelayCommand<Window>((p) => { return p == null ? false : true; }, (p) =>
+            LoadKhachHangCommand = new RelayCommand<Object>((p) => 
             {
+                return string.IsNullOrEmpty(KhachHangThue.CMND_KH) ? false : true; }, (p) =>
+            {
+                var kh = DataProvider.Ins.model.KHACHHANG.Where(x => x.CMND_KH == KhachHangThue.CMND_KH).SingleOrDefault();
+                if (kh == null)
+                {
+                    KhachHangThue.HOTEN_KH = "";
+                    KhachHangThue.SODIENTHOAI_KH = "";
+                }
+                else
+                {
+                    KhachHangThue.HOTEN_KH = kh.HOTEN_KH;
+                    KhachHangThue.SODIENTHOAI_KH = kh.SODIENTHOAI_KH;
+                }
+            });
 
+            PayCommand = new RelayCommand<Window>((p) => 
+            {
+                if (p == null || HoaDon == null || ListThongTinHD == null || ListThongTinHD.Count() == 0)
+                    return false;
+
+                return true;
+            }, (p) =>
+            {
+                MessageBoxResult result = MessageBox.Show("Tổng tiền cần thanh toán: " + TongTienHD.ToString("N0") + " VNĐ", "Thanh toán", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                if (result == MessageBoxResult.Yes)
+                {
+                    //lưu chi tiết hóa đơn
+                    ThongTinHoaDon ttHD = new ThongTinHoaDon();
+                    foreach (var item in ListThongTinHD)
+                    {
+                        if (item.LoaiHoaDon == "Hóa đơn lưu trú")
+                        {
+                            ttHD = item;
+                            break;
+                        }
+                    }
+                    var cthdlt = DataProvider.Ins.model.CHITIET_HDLT.Where(x => x.MA_HD == HoaDon.MA_HD).SingleOrDefault();
+                    cthdlt.THOIGIANTRA_PHONG = DateTime.Now;
+                    cthdlt.TRIGIA_CTHDLT = ttHD.TriGia;
+                    DataProvider.Ins.model.SaveChanges();
+                    //lưu hóa đơn
+                    var hd = DataProvider.Ins.model.HOADON.Where(x => x.MA_HD == HoaDon.MA_HD).SingleOrDefault();
+                    hd.TINHTRANG_HD = true;
+                    hd.TRIGIA_HD = TongTienHD;
+                    DataProvider.Ins.model.SaveChanges();
+                    //sửa lại trạng thái phòng
+                    var phong = DataProvider.Ins.model.PHONG.Where(x => x.MA_PHONG == MaPhong).SingleOrDefault();
+                    phong.TINHTRANG_PHONG = "Trống";
+                    DataProvider.Ins.model.SaveChanges();
+
+                    p.Close();
+                }
             });
 
             CancelCommand = new RelayCommand<Window>((p) => { return p == null ? false : true; }, (p) => { p.Close(); });
@@ -178,7 +230,6 @@ namespace QLKS.ViewModel
                 ListThongTinHD.Clear();
                 TongTienHD = 0;
                 //refersh hd lưu trú
-                ThongTinPhongChonThue = null;
                 //refersh hd ăn uống
                 LoaiPhucVu = null;
                 ListOrder = null;
@@ -228,7 +279,7 @@ namespace QLKS.ViewModel
         public KHACHHANG GetKhachHang(HOADON hoadon)
         {
             if (hoadon == null)
-                return null;
+                return new KHACHHANG();
             var kh = DataProvider.Ins.model.KHACHHANG.Where(x => x.MA_KH == hoadon.MA_KH).SingleOrDefault();
             if (kh != null)
                 return kh;

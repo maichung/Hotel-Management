@@ -20,29 +20,13 @@ namespace QLKS.ViewModel
         
         public ICommand SaveCommand { get; set; }
         public ICommand CancelCommand { get; set; }
-        public ICommand LoadKhachHangCommand { get; set; }
+
 
         public HoaDonLuuTruViewModel()
         {
-            KhachHangThue = new KHACHHANG();
-
-            LoadKhachHangCommand = new RelayCommand<Object>((p) => { return string.IsNullOrEmpty(KhachHangThue.CMND_KH) ? false : true; }, (p) =>
-            {
-                var kh = DataProvider.Ins.model.KHACHHANG.Where(x => x.CMND_KH == KhachHangThue.CMND_KH).SingleOrDefault();
-                if (kh == null)
-                {
-                    KhachHangThue.HOTEN_KH = "";
-                    KhachHangThue.SODIENTHOAI_KH = "";
-                }
-                else
-                {
-                    KhachHangThue.HOTEN_KH = kh.HOTEN_KH;
-                    KhachHangThue.SODIENTHOAI_KH = kh.SODIENTHOAI_KH;
-                }
-            });
+            KhachHangThue = new KHACHHANG();            
 
             CancelCommand = new RelayCommand<Window>((p) => { return p == null ? false : true; }, (p) => { p.Close(); });
-
 
             SaveCommand = new RelayCommand<Window>((p) => 
             {
@@ -51,6 +35,9 @@ namespace QLKS.ViewModel
 
                 var hoadonVM = p.DataContext as HoaDonViewModel;
                 if (hoadonVM.MaPhong == 0)
+                    return false;
+
+                if (hoadonVM.MaHD != 0)
                     return false;
 
                 return true;
