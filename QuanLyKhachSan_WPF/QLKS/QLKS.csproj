@@ -34,6 +34,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="De.TorstenMandelkow.MetroChart, Version=0.9.5818.20693, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ModernUICharts.WPF.Beta.0.9.1\lib\De.TorstenMandelkow.MetroChart.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -145,10 +148,13 @@
     <Compile Include="Model\TAIKHOAN.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Model\ThongTinBaoCaoDichVu.cs" />
+    <Compile Include="Model\ThongTinBaoCaoNam.cs" />
     <Compile Include="Model\ThongTinGiatUi.cs" />
     <Compile Include="Model\ThongTinHoaDon.cs" />
     <Compile Include="Model\ThongTinNhanVien.cs" />
     <Compile Include="Model\ThongTinOrder.cs" />
+    <Compile Include="ViewModel\BaoCaoDichVuViewModel.cs" />
     <Compile Include="ViewModel\BaseViewModel.cs" />
     <Compile Include="ViewModel\DangNhapViewModel.cs" />
     <Compile Include="ViewModel\DiChuyenViewModel.cs" />
