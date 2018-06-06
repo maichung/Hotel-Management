@@ -8,7 +8,7 @@
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:chart="clr-namespace:De.TorstenMandelkow.MetroChart;assembly=De.TorstenMandelkow.MetroChart"
-        Title="Trang chủ" Height="700" Width="1200
+        Title="Trang chủ" Height="800" Width="1200
         " WindowStartupLocation="CenterScreen"
         Name="mainWindow"
         DataContext="{StaticResource MainVM}">
@@ -22,14 +22,19 @@
 
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1*"></ColumnDefinition>
-            <ColumnDefinition Width="3*"></ColumnDefinition>
+            <ColumnDefinition Width="300"></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
         <!-- Tiêu đề menu -->
         <Grid Grid.Column="0" Background="#FF82787E" Margin="0,0,20,0">
-            <Image Source="Resources\Icons\hotel.png" Width="60" Height="60" Margin="50" HorizontalAlignment="Center" VerticalAlignment="Top"></Image>
-            <StackPanel Name="groupButtonTitles" Grid.Column="0" HorizontalAlignment="Left" Height="Auto" Margin="10,160,0,0" VerticalAlignment="Top" Width="Auto">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1.5*"/>
+                <RowDefinition Height="5*"></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <Image Grid.Row="0" Source="Resources\Icons\hotel.png" Width="60" Height="60" HorizontalAlignment="Center" VerticalAlignment="Center"></Image>
+            <StackPanel Grid.Row="1" Name="groupButtonTitles" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <Button Name="btnTrangChu" Height="50" BorderBrush="{x:Null}" Background="{x:Null}" FontSize="18">
                     <Button.Style>
                         <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignRaisedButton}">
@@ -189,7 +194,7 @@
                             <Image Source="Resources\Icons\btnTraCuu.png" Margin="10,10,10,10"></Image>
                         </Grid>
                         <Grid Grid.Column="1">
-                            <TextBlock Text="Tra cứu" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBlock>
+                            <TextBlock Text="Tra cứu, quản lí" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBlock>
                         </Grid>
                     </Grid>
                 </Button>
@@ -221,17 +226,49 @@
                             <Image Source="Resources\Icons\btnBaoCao.png" Margin="10,10,10,10"></Image>
                         </Grid>
                         <Grid Grid.Column="1">
-                            <TextBlock Text="Báo cáo" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBlock>
+                            <TextBlock Text="Báo cáo, thống kê" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBlock>
+                        </Grid>
+                    </Grid>
+                </Button>
+                <Button Name="btnThongTin" Height="50" Margin="0,10,0,0" BorderBrush="{x:Null}" Background="{x:Null}" FontSize="18">
+                    <Button.Style>
+                        <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignRaisedButton}">
+                            <Setter Property="Foreground" Value="#FFB1B1B1"></Setter>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding ChucNangKS}" Value="6">
+                                    <Setter Property="Foreground" Value="White"></Setter>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <i:InvokeCommandAction Command="{Binding btnThongTinCommand}">
+                            </i:InvokeCommandAction>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                    <Grid Width="220">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*"></ColumnDefinition>
+                            <ColumnDefinition Width="2*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid Grid.Column="0">
+                            <Image Source="Resources\Icons\btnThongTinPhanMem.png" Margin="10,10,10,10"></Image>
+                        </Grid>
+                        <Grid Grid.Column="1">
+                            <TextBlock Text="Trợ giúp" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBlock>
                         </Grid>
                     </Grid>
                 </Button>
             </StackPanel>
-            <GridSplitter Height="1" Width="220" IsEnabled="False" Margin="0,120" HorizontalAlignment="Center" VerticalAlignment="Bottom" Background="#FFC1C1C1"></GridSplitter>
+            <GridSplitter Grid.Row="2" Height="1" Width="220" IsEnabled="False" Margin="10" HorizontalAlignment="Center" VerticalAlignment="Top" Background="#FFC1C1C1"></GridSplitter>
             <!-- Tài khoản đăng nhập -->
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,60">
-                <Label DataContext="{StaticResource DangNhapVM}" Content="{Binding NVDangNhap.HOTEN_NV}" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold" Foreground="White"/>
+            <StackPanel Grid.Row="2" Orientation="Horizontal" DataContext="{StaticResource DangNhapVM}" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Label Content="{Binding NVDangNhap.HOTEN_NV}" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" FontFamily="Segoe UI Semibold"/>
+                <GridSplitter IsEnabled="False" Width="1" Margin="1,7,1,7" Background="#FFD6D6D6"></GridSplitter>
+                <Label Content="{Binding NVDangNhap.CHUCVU_NV}" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" FontFamily="Segoe UI Light"/>
                 <GridSplitter IsEnabled="False" Width="1" Margin="10,0,10,0" Background="#FFD6D6D6"></GridSplitter>
-                <Image Height="15" Width="15" Cursor="Hand" Source="Resources\Icons\btnDangXuat.png" ToolTip="Đăng xuất">
+                <Image Height="18" Width="18" Cursor="Hand" Source="Resources\Icons\btnDangXuat.png" ToolTip="Đăng xuất">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="MouseLeftButtonDown">
                             <i:InvokeCommandAction Command="{Binding DangXuatCommand}" CommandParameter="{Binding ElementName=mainWindow}">
@@ -1254,7 +1291,7 @@
                         </Style>
                     </Grid.Style>
                     <Grid>
-                        <Grid Margin="10,120,10,10">
+                        <Grid Margin="0,130,10,10">
                             <TabControl>
                                 <TabItem Header="Báo cáo dịch vụ" DataContext="{StaticResource BaoCaoDichVuVM}">
                                     <Grid>
@@ -1264,9 +1301,16 @@
                                         </Grid.RowDefinitions>
                                         <!-- Button báo cáo -->
                                         <StackPanel Margin="10,25" Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top">
-                                            <Image Height="25" Width="25" Cursor="Hand" Source="Resources\Icons\btnThem.png" ToolTip="In báo cáo"></Image>
+                                            <Image Height="25" Width="25" Cursor="Hand" Source="Resources\Icons\btnLuu.png" ToolTip="Lưu báo cáo">
+                                                <i:Interaction.Triggers>
+                                                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                                                        <i:InvokeCommandAction Command="{Binding SaveCommand}">
+                                                        </i:InvokeCommandAction>
+                                                    </i:EventTrigger>
+                                                </i:Interaction.Triggers>
+                                            </Image>
                                             <GridSplitter IsEnabled="False" Width="1" Margin="10,0,10,0" Background="#FFD6D6D6"></GridSplitter>
-                                            <Image Height="25" Width="25" Cursor="Hand" Source="Resources\Icons\btnXoa.png" ToolTip="Lưu báo cáo"></Image>
+                                            <Image Height="25" Width="25" Cursor="Hand" Source="Resources\Icons\btnIn.png" ToolTip="In báo cáo"></Image>
                                         </StackPanel>
                                         <StackPanel Grid.Row="0" Margin="10,20,0,0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top">
                                             <DatePicker SelectedDate="{Binding NgayBatDau, UpdateSourceTrigger=PropertyChanged}" materialDesign:HintAssist.Hint="Chọn ngày bắt đầu" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" Height="37" Width="150"/>
@@ -1275,31 +1319,17 @@
                                             <Image Margin="30,0,0,0" Height="25" Width="25" Cursor="Hand" Source="Resources\Icons\btnTim.png" ToolTip="Tìm">
                                                 <i:Interaction.Triggers>
                                                     <i:EventTrigger EventName="MouseLeftButtonDown">
-                                                        <i:InvokeCommandAction Command="{Binding HienBaoCaoCommand}">
+                                                        <i:InvokeCommandAction Command="{Binding ShowCommand}">
                                                         </i:InvokeCommandAction>
                                                     </i:EventTrigger>
                                                 </i:Interaction.Triggers>
                                             </Image>
                                         </StackPanel>
                                         <Grid Grid.Row="1">
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="2*"></ColumnDefinition>
-                                                <ColumnDefinition Width="3*"></ColumnDefinition>
-                                            </Grid.ColumnDefinitions>
-                                            <ListView ItemsSource="{Binding ListDichVu}" Grid.Column="0" Margin="10,10,20,70">
-                                                <ListView.View>
-                                                    <GridView>
-                                                        <GridViewColumn Header="Tên dịch vụ" DisplayMemberBinding="{Binding TenDichVu}"/>
-                                                        <GridViewColumn Header="Doanh thu" DisplayMemberBinding="{Binding DoanhThu, StringFormat=N0}"/>
-
-                                                    </GridView>
-                                                </ListView.View>
-                                            </ListView>
-                                            <TextBox Grid.Column="0" materialDesign:HintAssist.Hint="Tổng doanh thu" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding TongDoanhThu, UpdateSourceTrigger=PropertyChanged, StringFormat='N0'}" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="20" Height="37" Width="120" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" FontFamily="Segoe UI Semibold" FontSize="14"></TextBox>
                                             <GridSplitter Grid.Column="1" HorizontalAlignment="Left" IsEnabled="False" Width="1" Margin="0,10,0,10" Background="#FF9B9B9B"></GridSplitter>
-                                            <chart:DoughnutChart Grid.Column="1" ChartSubTitle="Đơn vị tính: VNĐ" ChartTitle="Báo cáo doanh thu dịch vụ">
+                                            <chart:DoughnutChart Name="BaoCaoDichVu" ChartSubTitle="Đơn vị tính: VNĐ" ChartTitle="{Binding TongDoanhThu, UpdateSourceTrigger=PropertyChanged, StringFormat='N0'}">
                                                 <chart:DoughnutChart.Series>
-                                                    <chart:ChartSeries SeriesTitle="Tỉ lệ doanh thu các loại dịch vụ" DisplayMember="TenDichVu" ItemsSource="{Binding Path=ListDichVu}" ValueMember="DoanhThu"/>
+                                                    <chart:ChartSeries  SeriesTitle="Tỉ lệ doanh thu các loại dịch vụ" DisplayMember="TenDichVu" ItemsSource="{Binding Path=ListDichVu}" ValueMember="DoanhThu" ></chart:ChartSeries>
                                                 </chart:DoughnutChart.Series>
                                             </chart:DoughnutChart>
                                         </Grid>
@@ -1361,7 +1391,7 @@
                     </Grid>
                 </Grid>
             </Grid>
-            
+
         </Grid>
     </Grid>
 </Window>
