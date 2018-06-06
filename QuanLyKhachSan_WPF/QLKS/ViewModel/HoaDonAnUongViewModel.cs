@@ -33,9 +33,8 @@ namespace QLKS.ViewModel
                 if (p == null)
                     return false;
 
-                //lấy thông tin phòng chọn thuê và nhân viên làm hóa đơn
                 var hoadonVM = p.DataContext as HoaDonViewModel;
-                if (hoadonVM.TongTien == 0)
+                if (hoadonVM.ListOrder == null || hoadonVM.ListOrder.Count() == 0)
                     return false;
 
                 return true;
@@ -44,8 +43,6 @@ namespace QLKS.ViewModel
                 //lấy thông tin phòng chọn thuê và nhân viên làm hóa đơn
                 var hoadonVM = p.DataContext as HoaDonViewModel;
                 MaHD = hoadonVM.MaHD;
-                LoaiPhucVu = hoadonVM.LoaiPhucVu;
-                TongTien = hoadonVM.TongTien;
                 ListOrder = hoadonVM.ListOrder;
 
                 //Tạo chi tiết hóa đơn lưu trú

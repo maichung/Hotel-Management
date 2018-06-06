@@ -111,20 +111,6 @@ namespace QLKS.ViewModel
                 return true;
             }, (p) =>
             {
-                HOADON hoadon = new HOADON();
-                var cthdlt = DataProvider.Ins.model.CHITIET_HDLT.Where(x => x.MA_PHONG == MaPhong).ToList();
-                foreach (var item in cthdlt)
-                {
-                    var hd = DataProvider.Ins.model.HOADON.Where(x => x.MA_HD == item.MA_HD && x.TINHTRANG_HD == false).SingleOrDefault();
-                    hoadon = hd;
-                }
-                KhachHangThue = new KHACHHANG();
-                var kh = DataProvider.Ins.model.KHACHHANG.Where(x => x.MA_KH == hoadon.MA_KH).SingleOrDefault();
-                KhachHangThue = kh as KHACHHANG;
-                NhanVienLapHD = new NHANVIEN();
-                var nv = DataProvider.Ins.model.NHANVIEN.Where(x => x.MA_NV == hoadon.MA_NV).SingleOrDefault();
-                NhanVienLapHD = nv as NHANVIEN;
-
                 GetThongTinGiatUi();
 
                 HoaDon wd = new HoaDon();
@@ -132,11 +118,12 @@ namespace QLKS.ViewModel
                     return;
                 var hoadonVM = wd.DataContext as HoaDonViewModel;
                 hoadonVM.LoaiHD = (int)HoaDonViewModel.LoaiHoaDon.HoaDonGiatUi;
-                hoadonVM.NhanVienLapHD = NhanVienLapHD;
-                hoadonVM.KhachHangThue = KhachHangThue;
-                hoadonVM.MaHD = hoadon.MA_HD;
-                hoadonVM.MaPhong = MaPhong;
-                hoadonVM.TongTien = ThanhTien;
+                hoadonVM.HoaDon = hoadonVM.GetHoaDon(MaPhong);
+                hoadonVM.NhanVienLapHD = hoadonVM.GetNhanVien(hoadonVM.HoaDon);
+                hoadonVM.KhachHangThue = hoadonVM.GetKhachHang(hoadonVM.HoaDon);
+                hoadonVM.GetThongTinPhongThue(MaPhong);
+
+                hoadonVM.TongTienHDGU = ThanhTien;
                 hoadonVM.TTGiatUi = TTGiatUi;
                 wd.ShowDialog();
                 RefershControlsDVGU();
@@ -164,19 +151,23 @@ namespace QLKS.ViewModel
         void GetThongTinGiatUi()
         {
             LUOTGIATUI luotGiatUi = new LUOTGIATUI();
+            LOAIGIATUI loaiGiatUi = new LOAIGIATUI();
             if (SelectedItem.MA_LOAIGU == 1)
             {
+                luotGiatUi.MA_LOAIGU = 1;
                 luotGiatUi.SOKILOGRAM_LUOTGU = CanNang;
                 luotGiatUi.NGAYBATDAU_LUOTGU = null;
                 luotGiatUi.NGAYKETTHUC_LUOTGU = null;
             }
             else if (SelectedItem.MA_LOAIGU == 2)
             {
+                luotGiatUi.MA_LOAIGU = 2;
                 luotGiatUi.SOKILOGRAM_LUOTGU = 0;
                 luotGiatUi.NGAYBATDAU_LUOTGU = NgayBatDau;
                 luotGiatUi.NGAYKETTHUC_LUOTGU = NgayKetThuc;
             }
-            TTGiatUi = new ThongTinGiatUi() { MaLoaiGiatUi = SelectedItem.MA_LOAIGU, LuotGiatUi = luotGiatUi };
+            var loaigu = DataProvider.Ins.model.LOAIGIATUI.Where(x => x.MA_LOAIGU == luotGiatUi.MA_LOAIGU).SingleOrDefault();
+            TTGiatUi = new ThongTinGiatUi() { LuotGiatUi = luotGiatUi, LoaiGiatUi = loaigu};
         }
 
         void RefershControlsDVGU()

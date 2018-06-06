@@ -31,6 +31,10 @@ namespace QLKS.ViewModel
                 if (p == null)
                     return false;
 
+                var hoadonVM = p.DataContext as HoaDonViewModel;
+                if (hoadonVM.TTGiatUi == null)
+                    return false;
+
                 return true;
             }, (p) =>
             {
@@ -38,24 +42,17 @@ namespace QLKS.ViewModel
                 var hoadonVM = p.DataContext as HoaDonViewModel;
                 MaHD = hoadonVM.MaHD;
                 TTGiatUi = hoadonVM.TTGiatUi;
-                TongTien = hoadonVM.TongTien;
-
+                TongTien = hoadonVM.TongTienHDGU;
                 //Thêm lượt giặt ủi vào csdl
-                var luotgu = new LUOTGIATUI() {
-                    MA_LOAIGU = TTGiatUi.MaLoaiGiatUi,
-                    SOKILOGRAM_LUOTGU = TTGiatUi.LuotGiatUi.SOKILOGRAM_LUOTGU,
-                    NGAYBATDAU_LUOTGU = TTGiatUi.LuotGiatUi.NGAYBATDAU_LUOTGU,
-                    NGAYKETTHUC_LUOTGU = TTGiatUi.LuotGiatUi.NGAYKETTHUC_LUOTGU
-                };
-                DataProvider.Ins.model.LUOTGIATUI.Add(luotgu);
+                DataProvider.Ins.model.LUOTGIATUI.Add(TTGiatUi.LuotGiatUi);
                 DataProvider.Ins.model.SaveChanges();
                 //Thêm chi tiết hóa đơn giặt ủi
-                var chitietHDGU = new CHITIET_HDGU() { MA_HD = MaHD, MA_LUOTGU = luotgu.MA_LUOTGU, TRIGIA_CTHDGU = TongTien };
+                var chitietHDGU = new CHITIET_HDGU() { MA_HD = MaHD, MA_LUOTGU = TTGiatUi.LuotGiatUi.MA_LUOTGU, TRIGIA_CTHDGU = TongTien };
                 DataProvider.Ins.model.CHITIET_HDGU.Add(chitietHDGU);
                 DataProvider.Ins.model.SaveChanges();
 
                 p.Close();
-            });
+            });            
         }
     }
 }

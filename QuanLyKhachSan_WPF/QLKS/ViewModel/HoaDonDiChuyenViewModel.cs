@@ -28,6 +28,10 @@ namespace QLKS.ViewModel
                 if(p == null)
                     return false;
 
+                var hoadonVM = p.DataContext as HoaDonViewModel;
+                if (hoadonVM.ChuyenDi == null)
+                    return false;
+
                 return true;
             }, (p) =>
             {

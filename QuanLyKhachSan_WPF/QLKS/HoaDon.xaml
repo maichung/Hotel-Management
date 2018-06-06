@@ -11,7 +11,12 @@
         Name="mainWindow"
         DataContext="{StaticResource HoaDonVM}"
         Title="Hóa đơn" Height="700" Width="1000" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen">
-
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Closed">
+            <i:InvokeCommandAction Command="{Binding ClosedWindowCommand}"></i:InvokeCommandAction>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition ></ColumnDefinition>
@@ -243,17 +248,48 @@
                     
                     <GroupBox Grid.Column="1" Margin="20,0,0,60" materialDesign:ColorZoneAssist.Mode="Standard" Header="THÔNG TIN THANH TOÁN">
                         <Grid>
-                            <ListView  Margin="0,0,0,60">
-                                <ListView.View>
-                                    <GridView>
-                                        <GridViewColumn Header="STT"/>
-                                        <GridViewColumn Header="Nội dung thanh toán"/>
-                                        <GridViewColumn Header="Trị giá"/>
-                                    </GridView>
-                                </ListView.View>
-                            </ListView>
-                            <TextBox Margin="0,10,0,0" Width="100" Height="37" materialDesign:HintAssist.Hint="Tổng cộng" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  TextWrapping="Wrap" VerticalAlignment="Bottom" HorizontalAlignment="Right" VerticalContentAlignment="Center" HorizontalContentAlignment="Right"></TextBox>
-                        </Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+                                <ListView  Margin="0,0,0,60" ItemsSource="{Binding ListThongTinHD}">
+                                    <ListView.View>
+                                        <GridView>
+                                            <GridViewColumn Header="Nội dung thanh toán" DisplayMemberBinding="{Binding NoiDungHD}"/>
+                                            <GridViewColumn Header="Đơn giá" DisplayMemberBinding="{Binding DonGia, StringFormat='N0'}"/>
+                                            <GridViewColumn Header="Trị giá" DisplayMemberBinding="{Binding TriGia, StringFormat='N0'}"/>
+                                        </GridView>
+                                    </ListView.View>
+
+                                    <ListView.GroupStyle>
+                                        <GroupStyle>
+                                            <GroupStyle.ContainerStyle>
+                                                <Style TargetType="{x:Type GroupItem}">
+                                                    <Setter Property="Template">
+                                                        <Setter.Value>
+                                                            <ControlTemplate>
+                                                                <Expander IsExpanded="False">
+                                                                    <Expander.Header>
+                                                                        <StackPanel Orientation="Horizontal">
+                                                                            <TextBlock Text="{Binding Name}" FontWeight="Bold" Foreground="Gray" FontSize="16" VerticalAlignment="Bottom" />
+                                                                            <TextBlock Text="{Binding ItemCount}" FontSize="16" Foreground="Green" FontWeight="Bold" FontStyle="Italic" Margin="10,0,0,0" VerticalAlignment="Bottom" />
+                                                                            <TextBlock Text=" chi tiết" FontSize="16" Foreground="Silver" FontStyle="Italic" VerticalAlignment="Bottom" />
+                                                                        </StackPanel>
+                                                                    </Expander.Header>
+                                                                    <ItemsPresenter />
+                                                                </Expander>
+                                                            </ControlTemplate>
+                                                        </Setter.Value>
+                                                    </Setter>
+                                                </Style>
+                                            </GroupStyle.ContainerStyle>
+                                        </GroupStyle>
+                                    </ListView.GroupStyle>
+                                </ListView>
+                            </ScrollViewer>
+                            <TextBox Grid.Row="1" Text="{Binding TongTienHD, StringFormat='N0'}" Margin="0,10,0,0" Width="100" Height="37" materialDesign:HintAssist.Hint="Tổng cộng" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  TextWrapping="Wrap" VerticalAlignment="Bottom" HorizontalAlignment="Right" VerticalContentAlignment="Center" HorizontalContentAlignment="Right"></TextBox>
+                        </Grid>                        
                     </GroupBox>
 
                     <StackPanel Orientation="Horizontal" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10,10">
@@ -405,7 +441,7 @@
                                     </GridView>
                                 </ListView.View>
                             </ListView>
-                            <TextBox Text="{Binding TongTien, StringFormat='N0'}" Margin="0,20,0,0" Width="100" Height="37" materialDesign:HintAssist.Hint="Tổng cộng" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  TextWrapping="Wrap" VerticalAlignment="Bottom" HorizontalAlignment="Right" VerticalContentAlignment="Center" HorizontalContentAlignment="Right"></TextBox>
+                            <TextBox Text="{Binding TongTienHDAU, StringFormat='N0'}" Margin="0,20,0,0" Width="100" Height="37" materialDesign:HintAssist.Hint="Tổng cộng" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  TextWrapping="Wrap" VerticalAlignment="Bottom" HorizontalAlignment="Right" VerticalContentAlignment="Center" HorizontalContentAlignment="Right"></TextBox>
                         </StackPanel>
                     </GroupBox>
                     
@@ -458,12 +494,12 @@
                     </StackPanel>
 
                     <GroupBox Grid.Column="1" Margin="10,0,0,60" materialDesign:ColorZoneAssist.Mode="Standard" Header="THÔNG TIN THANH TOÁN">
-                        <StackPanel DataContext="{StaticResource LuotGiatUiVM}">
+                        <StackPanel>
                             <StackPanel.Resources>
                                 <Style x:Key="txtBox" TargetType="TextBox" BasedOn="{StaticResource MaterialDesignFloatingHintTextBox}">
                                     <Setter Property="IsEnabled" Value="True"></Setter>
                                     <Style.Triggers>
-                                        <DataTrigger Binding="{Binding TenLoaiGiatUi}" Value="Theo ngày">
+                                        <DataTrigger Binding="{Binding TTGiatUi.LoaiGiatUi.TEN_LOAIGU}" Value="Theo ngày">
                                             <Setter Property="IsEnabled" Value="False"></Setter>
                                         </DataTrigger>
                                     </Style.Triggers>
@@ -471,7 +507,7 @@
                                 <Style x:Key="dtPicker" TargetType="DatePicker" BasedOn="{StaticResource MaterialDesignFloatingHintDatePicker}">
                                     <Setter Property="IsEnabled" Value="True"></Setter>
                                     <Style.Triggers>
-                                        <DataTrigger Binding="{Binding TenLoaiGiatUi}" Value="Theo kilogram">
+                                        <DataTrigger Binding="{Binding TTGiatUi.LoaiGiatUi.TEN_LOAIGU}" Value="Theo kilogram">
                                             <Setter Property="IsEnabled" Value="False"></Setter>
                                         </DataTrigger>
                                     </Style.Triggers>
@@ -484,14 +520,14 @@
                                     <ColumnDefinition></ColumnDefinition>
                                 </Grid.ColumnDefinitions>
                                 <TextBox Text="{Binding MaPhong}" Grid.Column="0" Margin="0,0,10,10" Height="37" materialDesign:HintAssist.Hint="Mã phòng" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  TextWrapping="Wrap" VerticalContentAlignment="Center"></TextBox>
-                                <TextBox Text="{Binding TenLoaiGiatUi}" Grid.Column="1" Margin="10,0,0,10" Height="37" materialDesign:HintAssist.Hint="Loại giặt ủi" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  TextWrapping="Wrap" VerticalContentAlignment="Center"></TextBox>
+                                <TextBox Text="{Binding TTGiatUi.LoaiGiatUi.TEN_LOAIGU}" Grid.Column="1" Margin="10,0,0,10" Height="37" materialDesign:HintAssist.Hint="Loại giặt ủi" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  TextWrapping="Wrap" VerticalContentAlignment="Center"></TextBox>
                             </Grid>
 
-                            <TextBox Text="{Binding DonGia, StringFormat='N0'}" Grid.Column="1" Margin="0,0,0,10" Height="37" materialDesign:HintAssist.Hint="Đơn giá" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  TextWrapping="Wrap" VerticalContentAlignment="Center"></TextBox>
-                            <TextBox Text="{Binding CanNang}" Grid.Column="1" Margin="0,0,0,10" Height="37" materialDesign:HintAssist.Hint="Cân nặng" Style="{StaticResource txtBox}"  TextWrapping="Wrap" VerticalContentAlignment="Center"></TextBox>
-                            <DatePicker Text="{Binding NgayBatDau, StringFormat='dd/MM/yyyy'}" Margin="0,0,0,10" Height="37" materialDesign:HintAssist.Hint="Ngày bắt đầu" Style="{StaticResource dtPicker}" VerticalContentAlignment="Center"></DatePicker>
-                            <DatePicker Text="{Binding NgayKetThuc, StringFormat='dd/MM/yyyy'}" Margin="0,0,0,10" Height="37" materialDesign:HintAssist.Hint="Ngày kết thúc" Style="{StaticResource dtPicker}" VerticalContentAlignment="Center"></DatePicker>
-                            <TextBox Text="{Binding ThanhTien, StringFormat='N0'}" Margin="0,155,0,0" Width="100" Height="37" materialDesign:HintAssist.Hint="Tổng cộng" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  TextWrapping="Wrap" VerticalAlignment="Bottom" HorizontalAlignment="Right" VerticalContentAlignment="Center" HorizontalContentAlignment="Right"></TextBox>
+                            <TextBox Text="{Binding TTGiatUi.LoaiGiatUi.DONGIA_LOAIGU, StringFormat='N0'}" Grid.Column="1" Margin="0,0,0,10" Height="37" materialDesign:HintAssist.Hint="Đơn giá" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  TextWrapping="Wrap" VerticalContentAlignment="Center"></TextBox>
+                            <TextBox Text="{Binding TTGiatUi.LuotGiatUi.SOKILOGRAM_LUOTGU}" Grid.Column="1" Margin="0,0,0,10" Height="37" materialDesign:HintAssist.Hint="Cân nặng" Style="{StaticResource txtBox}"  TextWrapping="Wrap" VerticalContentAlignment="Center"></TextBox>
+                            <DatePicker Text="{Binding TTGiatUi.LuotGiatUi.NGAYBATDAU_LUOTGU, StringFormat='dd/MM/yyyy'}" Margin="0,0,0,10" Height="37" materialDesign:HintAssist.Hint="Ngày bắt đầu" Style="{StaticResource dtPicker}" VerticalContentAlignment="Center"></DatePicker>
+                            <DatePicker Text="{Binding TTGiatUi.LuotGiatUi.NGAYKETTHUC_LUOTGU, StringFormat='dd/MM/yyyy'}" Margin="0,0,0,10" Height="37" materialDesign:HintAssist.Hint="Ngày kết thúc" Style="{StaticResource dtPicker}" VerticalContentAlignment="Center"></DatePicker>
+                            <TextBox Text="{Binding TongTienHDGU, StringFormat='N0'}" Margin="0,155,0,0" Width="100" Height="37" materialDesign:HintAssist.Hint="Tổng cộng" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  TextWrapping="Wrap" VerticalAlignment="Bottom" HorizontalAlignment="Right" VerticalContentAlignment="Center" HorizontalContentAlignment="Right"></TextBox>
                         </StackPanel>
                     </GroupBox>
 
@@ -544,17 +580,17 @@
                     </StackPanel>
 
                     <GroupBox Grid.Column="1" Margin="10,0,0,60" materialDesign:ColorZoneAssist.Mode="Standard" Header="THÔNG TIN THANH TOÁN">
-                        <StackPanel DataContext="{StaticResource DiChuyenVM}">
+                        <StackPanel>
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition></ColumnDefinition>
                                     <ColumnDefinition></ColumnDefinition>
                                 </Grid.ColumnDefinitions>
                                 <TextBox Text="{Binding MaPhong}" Grid.Column="0" Margin="0,0,10,10" Height="37" materialDesign:HintAssist.Hint="Mã phòng" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  TextWrapping="Wrap" VerticalContentAlignment="Center"></TextBox>
-                                <TextBox Text="{Binding DiemDen}" Grid.Column="1" Margin="10,0,0,10" Height="37" materialDesign:HintAssist.Hint="Điểm đến" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  TextWrapping="Wrap" VerticalContentAlignment="Center"></TextBox>
+                                <TextBox Text="{Binding ChuyenDi.DIEMDEN_CD}" Grid.Column="1" Margin="10,0,0,10" Height="37" materialDesign:HintAssist.Hint="Điểm đến" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  TextWrapping="Wrap" VerticalContentAlignment="Center"></TextBox>
                             </Grid>
-                            <TextBox Text="{Binding DonGia, StringFormat='N0'}" Grid.Column="1" Margin="0,0,0,10" Height="37" materialDesign:HintAssist.Hint="Đơn giá" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  TextWrapping="Wrap" VerticalContentAlignment="Center"></TextBox>
-                            <TextBox Text="{Binding DonGia, StringFormat='N0'}" Margin="0,300,0,0" Width="100" Height="37" materialDesign:HintAssist.Hint="Tổng cộng" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  TextWrapping="Wrap" VerticalAlignment="Bottom" HorizontalAlignment="Right" VerticalContentAlignment="Center" HorizontalContentAlignment="Right"></TextBox>
+                            <TextBox Text="{Binding ChuyenDi.DONGIA_CD, StringFormat='N0'}" Grid.Column="1" Margin="0,0,0,10" Height="37" materialDesign:HintAssist.Hint="Đơn giá" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  TextWrapping="Wrap" VerticalContentAlignment="Center"></TextBox>
+                            <TextBox Text="{Binding TongTienHDDC, StringFormat='N0'}" Margin="0,300,0,0" Width="100" Height="37" materialDesign:HintAssist.Hint="Tổng cộng" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  TextWrapping="Wrap" VerticalAlignment="Bottom" HorizontalAlignment="Right" VerticalContentAlignment="Center" HorizontalContentAlignment="Right"></TextBox>
                         </StackPanel>
                     </GroupBox>
 

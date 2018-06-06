@@ -41,6 +41,9 @@ namespace QLKS.ViewModel
                 }
             });
 
+            CancelCommand = new RelayCommand<Window>((p) => { return p == null ? false : true; }, (p) => { p.Close(); });
+
+
             SaveCommand = new RelayCommand<Window>((p) => 
             {
                 if (p == null || p.DataContext == null)
@@ -50,12 +53,14 @@ namespace QLKS.ViewModel
                 if (hoadonVM.MaPhong == 0)
                     return false;
 
-                if (string.IsNullOrEmpty(KhachHangThue.HOTEN_KH) || string.IsNullOrEmpty(KhachHangThue.CMND_KH))
-                    return false;
-
                 return true;
             }, (p) =>
             {
+                //lấy thông tin phòng chọn thuê và nhân viên làm hóa đơn
+                var hoadonVM = p.DataContext as HoaDonViewModel;
+                ThongTinPhongChonThue = hoadonVM.ThongTinPhongChonThue;
+                NhanVienLapHD = hoadonVM.NhanVienLapHD;
+                KhachHangThue = hoadonVM.KhachHangThue;
                 //kiểm tra xem khách hàng đã có trong csdl của khách sạn hay chưa
                 var khachHang = DataProvider.Ins.model.KHACHHANG.Where(x => x.CMND_KH == KhachHangThue.CMND_KH).SingleOrDefault();
                 if (khachHang == null)
@@ -64,11 +69,7 @@ namespace QLKS.ViewModel
                     DataProvider.Ins.model.KHACHHANG.Add(newKhachHang);
                     DataProvider.Ins.model.SaveChanges();
                     khachHang = DataProvider.Ins.model.KHACHHANG.Where(x => x.CMND_KH == KhachHangThue.CMND_KH).SingleOrDefault();
-                }
-                //lấy thông tin phòng chọn thuê và nhân viên làm hóa đơn
-                var hoadonVM = p.DataContext as HoaDonViewModel;
-                ThongTinPhongChonThue = hoadonVM.ThongTinPhongChonThue;
-                NhanVienLapHD = hoadonVM.NhanVienLapHD;
+                }                
                 //Tạo hóa đơn tổng
                 var hd = new HOADON() { MA_NV = NhanVienLapHD.MA_NV, MA_KH = khachHang.MA_KH, THOIGIANLAP_HD = DateTime.Now, TINHTRANG_HD = false };
                 DataProvider.Ins.model.HOADON.Add(hd);
@@ -84,8 +85,6 @@ namespace QLKS.ViewModel
 
                 p.Close();
             });
-
-            CancelCommand = new RelayCommand<Window>((p) => { return p == null ? false : true; }, (p) => p.Close());
         }
     }
 }
