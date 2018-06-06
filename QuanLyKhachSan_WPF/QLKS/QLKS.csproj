@@ -90,7 +90,6 @@
     <Compile Include="Model\BAOCAONAM.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="Model\BiThuatListViewHDTong.cs" />
     <Compile Include="Model\CHITIET_HDAU.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>

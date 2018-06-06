@@ -40,8 +40,6 @@ namespace QLKS.ViewModel
         public KHACHHANG KhachHangThue { get => _KhachHangThue; set { _KhachHangThue = value; OnPropertyChanged(); } }
         private int _MaPhongChonThue;
         public int MaPhongChonThue { get => _MaPhongChonThue; set { _MaPhongChonThue = value; OnPropertyChanged(); } }
-        private ThongTinPhong _ThongTinPhongChonThue;
-        public ThongTinPhong ThongTinPhongChonThue { get => _ThongTinPhongChonThue; set { _ThongTinPhongChonThue = value; OnPropertyChanged(); } }
 
         public ICommand btnTrangChuCommand { get; set; }
         public ICommand btnDVAnUongCommand { get; set; }
@@ -174,19 +172,17 @@ namespace QLKS.ViewModel
 
                 return true;
             }, (p) =>
-            {
-                var phongChonThue = DataProvider.Ins.model.PHONG.Where(x => x.MA_PHONG == MaPhongChonThue).SingleOrDefault();
-                var loaiPhongChonThue = DataProvider.Ins.model.LOAIPHONG.Where(x => x.MA_LP == phongChonThue.MA_LP).SingleOrDefault();
-                ThongTinPhongChonThue = new ThongTinPhong() { Phong = phongChonThue, LoaiPhong = loaiPhongChonThue };                
-
+            {                              
                 HoaDon hd = new HoaDon();
                 if (hd.DataContext == null)
                     return;
                 var hoadonVM = hd.DataContext as HoaDonViewModel;
                 hoadonVM.LoaiHD = (int)HoaDonViewModel.LoaiHoaDon.HoaDonLuuTru;
+                hoadonVM.HoaDon = hoadonVM.GetHoaDon(MaPhongChonThue);
                 hoadonVM.NhanVienLapHD = NhanVien;
-                hoadonVM.ThongTinPhongChonThue = ThongTinPhongChonThue;
+                hoadonVM.KhachHangThue = hoadonVM.GetKhachHang(hoadonVM.HoaDon);
                 hoadonVM.MaPhong = MaPhongChonThue;
+                hoadonVM.GetThongTinPhongThue(MaPhongChonThue);
                 hd.ShowDialog();
             });
 
@@ -202,25 +198,15 @@ namespace QLKS.ViewModel
                 return false;
             }, (p) =>
             {
-                HOADON hoadon = new HOADON();
-                var cthdlt = DataProvider.Ins.model.CHITIET_HDLT.Where(x => x.MA_PHONG == MaPhongChonThue).ToList();
-                foreach (var item in cthdlt)
-                {
-                    var hd = DataProvider.Ins.model.HOADON.Where(x => x.MA_HD == item.MA_HD && x.TINHTRANG_HD == false).SingleOrDefault();
-                    hoadon = hd;
-                }
-                KhachHangThue = new KHACHHANG();
-                var kh = DataProvider.Ins.model.KHACHHANG.Where(x => x.MA_KH == hoadon.MA_KH).SingleOrDefault();
-                KhachHangThue = kh as KHACHHANG;
-
                 HoaDon wd = new HoaDon();
                 if (wd.DataContext == null)
                     return;
                 var hoadonVM = wd.DataContext as HoaDonViewModel;
                 hoadonVM.LoaiHD = (int)HoaDonViewModel.LoaiHoaDon.HoaDonTong;
-                hoadonVM.NhanVienLapHD = NhanVien;
-                hoadonVM.KhachHangThue = KhachHangThue;
-                hoadonVM.MaPhong = MaPhongChonThue;
+                hoadonVM.HoaDon = hoadonVM.GetHoaDon(MaPhongChonThue);
+                hoadonVM.NhanVienLapHD = hoadonVM.GetNhanVien(hoadonVM.HoaDon);
+                hoadonVM.KhachHangThue = hoadonVM.GetKhachHang(hoadonVM.HoaDon);
+                hoadonVM.GetThongTinPhongThue(MaPhongChonThue);
                 wd.ShowDialog();
             });
         }
