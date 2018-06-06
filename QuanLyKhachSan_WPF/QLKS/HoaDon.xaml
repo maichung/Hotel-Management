@@ -255,7 +255,7 @@
                                 <RowDefinition Height="Auto"></RowDefinition>
                             </Grid.RowDefinitions>
                             <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
-                                <ListView  Margin="0,0,0,60" ItemsSource="{Binding ListThongTinHD}">
+                                <ListView  Margin="0,0,0,60" ItemsSource="{Binding ListThongTinCTHD}">
                                     <ListView.View>
                                         <GridView>
                                             <GridViewColumn Header="Nội dung thanh toán" DisplayMemberBinding="{Binding NoiDungHD}"/>
@@ -342,8 +342,7 @@
                                 <TextBox Text="{Binding KhachHangThue.CMND_KH, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,10" Height="37" materialDesign:HintAssist.Hint="Số CMND" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  TextWrapping="Wrap" VerticalContentAlignment="Center">
                                     <i:Interaction.Triggers>
                                         <i:EventTrigger EventName="TextChanged">
-                                            <i:InvokeCommandAction Command="{Binding LoadKhachHangCommand}">
-                                            </i:InvokeCommandAction>
+                                            <i:InvokeCommandAction Command="{Binding LoadKhachHangCommand}"/>
                                         </i:EventTrigger>
                                     </i:Interaction.Triggers>
                                 </TextBox>

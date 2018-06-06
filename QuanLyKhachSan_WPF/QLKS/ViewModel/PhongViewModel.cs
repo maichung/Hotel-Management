@@ -53,7 +53,6 @@ namespace QLKS.ViewModel
         public ICommand AddCommand { get; set; }
         public ICommand EditCommand { get; set; }
         public ICommand RefreshCommand { get; set; }
-        public ICommand SortLoaiPhongCommand { get; set; }
         public ICommand SortPhongCommand { get; set; }
 
         public PhongViewModel()
@@ -125,32 +124,17 @@ namespace QLKS.ViewModel
                 SelectedTinhTrangPhong = null;
             });
 
-            SortLoaiPhongCommand = new RelayCommand<GridViewColumnHeader>((p) => { return p == null ? false : true; }, (p) => {
-                CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(ListTTPhong);
-                if (sort)
-                {
-                    view.SortDescriptions.Clear();
-                    view.SortDescriptions.Add(new SortDescription("LoaiPhong." + p.Name, ListSortDirection.Ascending));
-                }
-                else
-                {
-                    view.SortDescriptions.Clear();
-                    view.SortDescriptions.Add(new SortDescription("LoaiPhong." + p.Name, ListSortDirection.Descending));
-                }
-                sort = !sort;
-            });
-
             SortPhongCommand = new RelayCommand<GridViewColumnHeader>((p) => { return p == null ? false : true; }, (p) => {
                 CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(ListTTPhong);
                 if (sort)
                 {
                     view.SortDescriptions.Clear();
-                    view.SortDescriptions.Add(new SortDescription("Phong." + p.Name, ListSortDirection.Ascending));
+                    view.SortDescriptions.Add(new SortDescription(p.Tag.ToString(), ListSortDirection.Ascending));
                 }
                 else
                 {
                     view.SortDescriptions.Clear();
-                    view.SortDescriptions.Add(new SortDescription("Phong." + p.Name, ListSortDirection.Descending));
+                    view.SortDescriptions.Add(new SortDescription(p.Tag.ToString(), ListSortDirection.Descending));
                 }
                 sort = !sort;
             });

@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -36,10 +37,10 @@ namespace QLKS.ViewModel
         private HOADON _HoaDon;
         public HOADON HoaDon { get => _HoaDon; set { _HoaDon = value; OnPropertyChanged(); } }
         //Show hóa đơn tổng
-        private ObservableCollection<ThongTinHoaDon> _ListThongTinHD;
-        public ObservableCollection<ThongTinHoaDon> ListThongTinHD { get => _ListThongTinHD; set { _ListThongTinHD = value; OnPropertyChanged(); } }
-        private ThongTinHoaDon _ThongTinHD;
-        public ThongTinHoaDon ThongTinHD { get => _ThongTinHD; set { _ThongTinHD = value; OnPropertyChanged(); } }
+        private ObservableCollection<ThongTinChiTietHoaDon> _ListThongTinCTHD;
+        public ObservableCollection<ThongTinChiTietHoaDon> ListThongTinCTHD { get => _ListThongTinCTHD; set { _ListThongTinCTHD = value; OnPropertyChanged(); } }
+        private ThongTinChiTietHoaDon _ThongTinCTHD;
+        public ThongTinChiTietHoaDon ThongTinCTHD { get => _ThongTinCTHD; set { _ThongTinCTHD = value; OnPropertyChanged(); } }
         private long _TongTienHD;
         public long TongTienHD { get => _TongTienHD; set { _TongTienHD = value; OnPropertyChanged(); } }
 
@@ -66,6 +67,13 @@ namespace QLKS.ViewModel
         public CHUYENDI ChuyenDi { get => _ChuyenDi; set { _ChuyenDi = value; OnPropertyChanged(); } }
         private long _TongTienHDDC;
         public long TongTienHDDC { get => _TongTienHDDC; set { _TongTienHDDC = value; OnPropertyChanged(); } }
+        
+        //Tra cứu hóa đơn
+        private ObservableCollection<ThongTinHoaDon> _ListThongTinHoaDon;
+        public ObservableCollection<ThongTinHoaDon> ListThongTinHoaDon { get => _ListThongTinHoaDon; set { _ListThongTinHoaDon = value; OnPropertyChanged(); } }
+        private string _SearchHoaDon;
+        public string SearchHoaDon { get => _SearchHoaDon; set { _SearchHoaDon = value; OnPropertyChanged(); } }
+        public bool sort;
 
         public ICommand btnHDTongCommand { get; set; }
         public ICommand btnHDLuuTruCommand { get; set; }
@@ -79,11 +87,15 @@ namespace QLKS.ViewModel
         public ICommand CancelCommand { get; set; }
         public ICommand ClosedWindowCommand { get; set; }
 
+        public ICommand SearchTTHoaDonCommand { get; set; }
+        public ICommand SortTTHoaDonCommand { get; set; }
+
         public HoaDonViewModel()
         {
+            #region Xử lý thao tác với hóa đơn
             ThoiGianLapHD = DateTime.Now;
-            ListThongTinHD = new ObservableCollection<ThongTinHoaDon>();
-            ThongTinHD = new ThongTinHoaDon();
+            ListThongTinCTHD = new ObservableCollection<ThongTinChiTietHoaDon>();
+            ThongTinCTHD = new ThongTinChiTietHoaDon();
             TongTienHD = 0;
 
             btnHDTongCommand = new RelayCommand<Object>((p) => { return true; }, (p) => LoaiHD = (int)LoaiHoaDon.HoaDonTong);
@@ -94,7 +106,7 @@ namespace QLKS.ViewModel
 
             LoadHoaDonTongCommand = new RelayCommand<Object>((p) => 
             {
-                if (ListThongTinHD.Count() != 0)
+                if (ListThongTinCTHD.Count() != 0)
                     return false;
 
                 return true;
@@ -104,64 +116,64 @@ namespace QLKS.ViewModel
                 var hdlt = DataProvider.Ins.model.CHITIET_HDLT.Where(x => x.MA_HD == HoaDon.MA_HD).SingleOrDefault();
                 DateTime tgTraPhong = DateTime.Now;
                 TimeSpan timehdlt = tgTraPhong.Subtract((DateTime)hdlt.THOIGIANNHAN_PHONG);
-                ThongTinHD.LoaiHoaDon = "Hóa đơn lưu trú";
-                ThongTinHD.NoiDungHD = "Phòng " + hdlt.MA_PHONG + "\nThời gian nhận phòng " + hdlt.THOIGIANNHAN_PHONG + "\nThời gian trả phòng " + tgTraPhong;
-                ThongTinHD.DonGia = (int)ThongTinPhongChonThue.LoaiPhong.DONGIA_LP;
-                ThongTinHD.TriGia = (int)ThongTinPhongChonThue.LoaiPhong.DONGIA_LP * (int)(timehdlt.TotalDays + 1);
-                ListThongTinHD.Add(ThongTinHD);
+                ThongTinCTHD.LoaiHoaDon = "Hóa đơn lưu trú";
+                ThongTinCTHD.NoiDungHD = "Phòng " + hdlt.MA_PHONG + "\nThời gian nhận phòng " + hdlt.THOIGIANNHAN_PHONG + "\nThời gian trả phòng " + tgTraPhong;
+                ThongTinCTHD.DonGia = (int)ThongTinPhongChonThue.LoaiPhong.DONGIA_LP;
+                ThongTinCTHD.TriGia = (int)ThongTinPhongChonThue.LoaiPhong.DONGIA_LP * (int)(timehdlt.TotalDays + 1);
+                ListThongTinCTHD.Add(ThongTinCTHD);
                 //lấy hóa đơn ăn uống
                 var listHDAU = DataProvider.Ins.model.CHITIET_HDAU.Where(x => x.MA_HD == HoaDon.MA_HD).ToList();
                 foreach (CHITIET_HDAU item in listHDAU)
                 {
-                    ThongTinHD = new ThongTinHoaDon();
+                    ThongTinCTHD = new ThongTinChiTietHoaDon();
                     var mathang = DataProvider.Ins.model.MATHANG.Where(x => x.MA_MH == item.MA_MH).SingleOrDefault();
-                    ThongTinHD.LoaiHoaDon = "Hóa đơn ăn uống";
-                    ThongTinHD.NoiDungHD = mathang.TEN_MH + " - SL " + item.SOLUONG_MH;
-                    ThongTinHD.DonGia = (int)mathang.DONGIA_MH;
-                    ThongTinHD.TriGia = (int)item.TRIGIA_CTHDAU;
-                    ListThongTinHD.Add(ThongTinHD);
+                    ThongTinCTHD.LoaiHoaDon = "Hóa đơn ăn uống";
+                    ThongTinCTHD.NoiDungHD = mathang.TEN_MH + " - SL " + item.SOLUONG_MH;
+                    ThongTinCTHD.DonGia = (int)mathang.DONGIA_MH;
+                    ThongTinCTHD.TriGia = (int)item.TRIGIA_CTHDAU;
+                    ListThongTinCTHD.Add(ThongTinCTHD);
                 }
                 //lấy hóa đơn giặt ủi
                 var listHDGU = DataProvider.Ins.model.CHITIET_HDGU.Where(x => x.MA_HD == HoaDon.MA_HD).ToList();
                 foreach (CHITIET_HDGU item in listHDGU)
                 {
-                    ThongTinHD = new ThongTinHoaDon();
+                    ThongTinCTHD = new ThongTinChiTietHoaDon();
                     var luotgu = DataProvider.Ins.model.LUOTGIATUI.Where(x => x.MA_LUOTGU == item.MA_LUOTGU).SingleOrDefault();
                     var loaigu = DataProvider.Ins.model.LOAIGIATUI.Where(x => x.MA_LOAIGU == luotgu.MA_LOAIGU).SingleOrDefault();
-                    ThongTinHD.LoaiHoaDon = "Hóa đơn giặt ủi";
+                    ThongTinCTHD.LoaiHoaDon = "Hóa đơn giặt ủi";
                     if(loaigu.MA_LOAIGU == 1)
                     {
-                        ThongTinHD.NoiDungHD = loaigu.TEN_LOAIGU + " - SL " + luotgu.SOKILOGRAM_LUOTGU + " Kg";
-                        ThongTinHD.DonGia = (int)loaigu.DONGIA_LOAIGU;
+                        ThongTinCTHD.NoiDungHD = loaigu.TEN_LOAIGU + " - SL " + luotgu.SOKILOGRAM_LUOTGU + " Kg";
+                        ThongTinCTHD.DonGia = (int)loaigu.DONGIA_LOAIGU;
                     }else if (loaigu.MA_LOAIGU == 2)
                     {
                         DateTime ngaykt = (DateTime)luotgu.NGAYKETTHUC_LUOTGU;
                         TimeSpan timehdgu = ngaykt.Subtract((DateTime)luotgu.NGAYBATDAU_LUOTGU);
-                        ThongTinHD.NoiDungHD = loaigu.TEN_LOAIGU + " - SL " + (int)(timehdgu.TotalDays + 1) + " Ngày";
-                        ThongTinHD.DonGia = (int)loaigu.DONGIA_LOAIGU;
+                        ThongTinCTHD.NoiDungHD = loaigu.TEN_LOAIGU + " - SL " + (int)(timehdgu.TotalDays + 1) + " Ngày";
+                        ThongTinCTHD.DonGia = (int)loaigu.DONGIA_LOAIGU;
                     }
-                    ThongTinHD.TriGia = (int)item.TRIGIA_CTHDGU;
-                    ListThongTinHD.Add(ThongTinHD);
+                    ThongTinCTHD.TriGia = (int)item.TRIGIA_CTHDGU;
+                    ListThongTinCTHD.Add(ThongTinCTHD);
                 }
                 //lấy hóa đơn di chuyển
                 var listHDDC = DataProvider.Ins.model.CHITIET_HDDC.Where(x => x.MA_HD == HoaDon.MA_HD).ToList();
                 foreach (CHITIET_HDDC item in listHDDC)
                 {
-                    ThongTinHD = new ThongTinHoaDon();
+                    ThongTinCTHD = new ThongTinChiTietHoaDon();
                     var chuyendi = DataProvider.Ins.model.CHUYENDI.Where(x => x.MA_CD == item.MA_CD).SingleOrDefault();
-                    ThongTinHD.LoaiHoaDon = "Hóa đơn di chuyển";
-                    ThongTinHD.NoiDungHD = chuyendi.DIEMDEN_CD;
-                    ThongTinHD.DonGia = (int)chuyendi.DONGIA_CD;
-                    ThongTinHD.TriGia = (int)item.TRIGIA_CTHDDC;
-                    ListThongTinHD.Add(ThongTinHD);
+                    ThongTinCTHD.LoaiHoaDon = "Hóa đơn di chuyển";
+                    ThongTinCTHD.NoiDungHD = chuyendi.DIEMDEN_CD;
+                    ThongTinCTHD.DonGia = (int)chuyendi.DONGIA_CD;
+                    ThongTinCTHD.TriGia = (int)item.TRIGIA_CTHDDC;
+                    ListThongTinCTHD.Add(ThongTinCTHD);
                 }
 
-                foreach (var item in ListThongTinHD)
+                foreach (var item in ListThongTinCTHD)
                 {
                     TongTienHD += item.TriGia;
                 }
 
-                CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(ListThongTinHD);
+                CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(ListThongTinCTHD);
                 view.GroupDescriptions.Clear();
                 view.GroupDescriptions.Add(new PropertyGroupDescription("LoaiHoaDon"));
             });
@@ -185,7 +197,7 @@ namespace QLKS.ViewModel
 
             PayCommand = new RelayCommand<Window>((p) => 
             {
-                if (p == null || HoaDon == null || ListThongTinHD == null || ListThongTinHD.Count() == 0)
+                if (p == null || HoaDon == null || ListThongTinCTHD == null || ListThongTinCTHD.Count() == 0)
                     return false;
 
                 return true;
@@ -195,18 +207,18 @@ namespace QLKS.ViewModel
                 if (result == MessageBoxResult.Yes)
                 {
                     //lưu chi tiết hóa đơn
-                    ThongTinHoaDon ttHD = new ThongTinHoaDon();
-                    foreach (var item in ListThongTinHD)
+                    ThongTinChiTietHoaDon ttCTHD = new ThongTinChiTietHoaDon();
+                    foreach (var item in ListThongTinCTHD)
                     {
                         if (item.LoaiHoaDon == "Hóa đơn lưu trú")
                         {
-                            ttHD = item;
+                            ttCTHD = item;
                             break;
                         }
                     }
                     var cthdlt = DataProvider.Ins.model.CHITIET_HDLT.Where(x => x.MA_HD == HoaDon.MA_HD).SingleOrDefault();
                     cthdlt.THOIGIANTRA_PHONG = DateTime.Now;
-                    cthdlt.TRIGIA_CTHDLT = ttHD.TriGia;
+                    cthdlt.TRIGIA_CTHDLT = ttCTHD.TriGia;
                     DataProvider.Ins.model.SaveChanges();
                     //lưu hóa đơn
                     var hd = DataProvider.Ins.model.HOADON.Where(x => x.MA_HD == HoaDon.MA_HD).SingleOrDefault();
@@ -227,9 +239,8 @@ namespace QLKS.ViewModel
             ClosedWindowCommand = new RelayCommand<Object>((p) => { return true; }, (p) => 
             {
                 //refersh hd tổng
-                ListThongTinHD.Clear();
+                ListThongTinCTHD.Clear();
                 TongTienHD = 0;
-                //refersh hd lưu trú
                 //refersh hd ăn uống
                 LoaiPhucVu = null;
                 ListOrder = null;
@@ -241,6 +252,46 @@ namespace QLKS.ViewModel
                 ChuyenDi = null;
                 TongTienHDDC = 0;
             });
+            #endregion
+
+            #region Tra cứu hóa đơn
+            GetThongTinHoaDon();
+            sort = false;
+
+            SearchTTHoaDonCommand = new RelayCommand<Object>((p) => { return true; }, (p) =>
+            {
+                if (string.IsNullOrEmpty(SearchHoaDon))
+                {
+                    CollectionViewSource.GetDefaultView(ListThongTinHoaDon).Filter = (all) => { return true; };
+                }
+                else
+                {
+                    CollectionViewSource.GetDefaultView(ListThongTinHoaDon).Filter = (searchHoaDon) =>
+                    {
+                        return (searchHoaDon as ThongTinHoaDon).HoaDon.MA_HD.ToString().IndexOf(SearchHoaDon, StringComparison.OrdinalIgnoreCase) >= 0 ||
+                               (searchHoaDon as ThongTinHoaDon).TenNhanVien.IndexOf(SearchHoaDon, StringComparison.OrdinalIgnoreCase) >= 0 ||
+                               (searchHoaDon as ThongTinHoaDon).TenKhachHang.IndexOf(SearchHoaDon, StringComparison.OrdinalIgnoreCase) >= 0 ||
+                               (searchHoaDon as ThongTinHoaDon).TinhTrang.IndexOf(SearchHoaDon, StringComparison.OrdinalIgnoreCase) >= 0;
+                    };
+                }
+            });
+
+            SortTTHoaDonCommand = new RelayCommand<GridViewColumnHeader>((p) => { return p == null ? false : true; }, (p) =>
+            {
+                CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(ListThongTinHoaDon);
+                if (sort)
+                {
+                    view.SortDescriptions.Clear();
+                    view.SortDescriptions.Add(new SortDescription(p.Tag.ToString(), ListSortDirection.Ascending));
+                }
+                else
+                {
+                    view.SortDescriptions.Clear();
+                    view.SortDescriptions.Add(new SortDescription(p.Tag.ToString(), ListSortDirection.Descending));
+                }
+                sort = !sort;
+            });
+            #endregion
         }
 
         public void GetThongTinPhongThue(int maphong)
@@ -284,6 +335,27 @@ namespace QLKS.ViewModel
             if (kh != null)
                 return kh;
             return null;
+        }
+
+        void GetThongTinHoaDon()
+        {
+            ListThongTinHoaDon = new ObservableCollection<ThongTinHoaDon>();
+            var listTTHD = from hd in DataProvider.Ins.model.HOADON
+                           join nv in DataProvider.Ins.model.NHANVIEN
+                           on hd.MA_NV equals nv.MA_NV
+                           join kh in DataProvider.Ins.model.KHACHHANG
+                           on hd.MA_KH equals kh.MA_KH
+                           select new ThongTinHoaDon()
+                           {
+                               HoaDon = hd,
+                               TenNhanVien = nv.HOTEN_NV,
+                               TenKhachHang = kh.HOTEN_KH,
+                               TinhTrang = (bool)hd.TINHTRANG_HD ? "Đã thanh toán" : "Chưa thanh toán"
+                           };
+            foreach (ThongTinHoaDon item in listTTHD)
+            {
+                ListThongTinHoaDon.Add(item);
+            }
         }
     }
 }

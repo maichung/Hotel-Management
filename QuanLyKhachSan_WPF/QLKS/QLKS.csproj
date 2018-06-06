@@ -149,6 +149,7 @@
     </Compile>
     <Compile Include="Model\ThongTinBaoCaoDichVu.cs" />
     <Compile Include="Model\ThongTinBaoCaoNam.cs" />
+    <Compile Include="Model\ThongTinChiTietHoaDon.cs" />
     <Compile Include="Model\ThongTinGiatUi.cs" />
     <Compile Include="Model\ThongTinHoaDon.cs" />
     <Compile Include="Model\ThongTinNhanVien.cs" />
