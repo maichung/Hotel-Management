@@ -41,7 +41,7 @@ namespace QLKS.ViewModel
                 ChuyenDi = hoadonVM.ChuyenDi;
 
                 //Thêm chi tiết hóa đơn giặt ủi
-                var chitietHDDC = new CHITIET_HDDC() { MA_HD = MaHD, MA_CD = ChuyenDi.MA_CD, TRIGIA_CTHDDC = ChuyenDi.DONGIA_CD };
+                var chitietHDDC = new CHITIET_HDDC() { MA_HD = MaHD, MA_CD = ChuyenDi.MA_CD, TRIGIA_CTHDDC = ChuyenDi.DONGIA_CD, THOIGIANLAP_CTHDDC = DateTime.Now };
                 DataProvider.Ins.model.CHITIET_HDDC.Add(chitietHDDC);
                 DataProvider.Ins.model.SaveChanges();
 

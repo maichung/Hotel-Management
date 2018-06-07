@@ -12,5 +12,6 @@ namespace QLKS.Model
         public string NoiDungHD { get; set; }
         public int DonGia { get; set; }
         public int TriGia { get; set; }
+        public DateTime ThoiGian { get; set; }
     }
 }

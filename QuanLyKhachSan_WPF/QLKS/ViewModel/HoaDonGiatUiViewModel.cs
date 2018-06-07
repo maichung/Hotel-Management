@@ -47,7 +47,7 @@ namespace QLKS.ViewModel
                 DataProvider.Ins.model.LUOTGIATUI.Add(TTGiatUi.LuotGiatUi);
                 DataProvider.Ins.model.SaveChanges();
                 //Thêm chi tiết hóa đơn giặt ủi
-                var chitietHDGU = new CHITIET_HDGU() { MA_HD = MaHD, MA_LUOTGU = TTGiatUi.LuotGiatUi.MA_LUOTGU, TRIGIA_CTHDGU = TongTien };
+                var chitietHDGU = new CHITIET_HDGU() { MA_HD = MaHD, MA_LUOTGU = TTGiatUi.LuotGiatUi.MA_LUOTGU, TRIGIA_CTHDGU = TongTien, THOIGIANLAP_CTHDGU = DateTime.Now };
                 DataProvider.Ins.model.CHITIET_HDGU.Add(chitietHDGU);
                 DataProvider.Ins.model.SaveChanges();
 

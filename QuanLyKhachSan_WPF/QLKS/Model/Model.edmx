@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="QLKS_IS201Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="QLKS_IS201Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="BAOCAODICHVU">
           <Key>
             <PropertyRef Name="MA_BCDV" />
@@ -49,6 +49,7 @@
           <Property Name="MA_MH" Type="int" Nullable="false" />
           <Property Name="SOLUONG_MH" Type="int" />
           <Property Name="TRIGIA_CTHDAU" Type="money" />
+          <Property Name="THOIGIANLAP_CTHDAU" Type="smalldatetime" />
         </EntityType>
         <EntityType Name="CHITIET_HDDC">
           <Key>
@@ -58,6 +59,7 @@
           <Property Name="MA_HD" Type="int" Nullable="false" />
           <Property Name="MA_CD" Type="int" Nullable="false" />
           <Property Name="TRIGIA_CTHDDC" Type="money" />
+          <Property Name="THOIGIANLAP_CTHDDC" Type="smalldatetime" />
         </EntityType>
         <EntityType Name="CHITIET_HDGU">
           <Key>
@@ -67,6 +69,7 @@
           <Property Name="MA_HD" Type="int" Nullable="false" />
           <Property Name="MA_LUOTGU" Type="int" Nullable="false" />
           <Property Name="TRIGIA_CTHDGU" Type="money" />
+          <Property Name="THOIGIANLAP_CTHDGU" Type="smalldatetime" />
         </EntityType>
         <EntityType Name="CHITIET_HDLT">
           <Key>
@@ -398,8 +401,7 @@
             <End Role="PHONG" EntitySet="PHONG" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="QLKS_IS201Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -449,6 +451,7 @@
           <Property Name="TRIGIA_CTHDAU" Type="Decimal" Precision="19" Scale="4" />
           <NavigationProperty Name="MATHANG" Relationship="Self.FK_CHITIET__CHITIET_H_MATHANG" FromRole="CHITIET_HDAU" ToRole="MATHANG" />
           <NavigationProperty Name="HOADON" Relationship="Self.FK_CHITIET_HDAU_HOADON" FromRole="CHITIET_HDAU" ToRole="HOADON" />
+          <Property Name="THOIGIANLAP_CTHDAU" Type="DateTime" Precision="0" />
         </EntityType>
         <EntityType Name="CHITIET_HDDC">
           <Key>
@@ -460,6 +463,7 @@
           <Property Name="TRIGIA_CTHDDC" Type="Decimal" Precision="19" Scale="4" />
           <NavigationProperty Name="CHUYENDI" Relationship="Self.FK_CHITIET__CHITIET_H_CHUYENDI" FromRole="CHITIET_HDDC" ToRole="CHUYENDI" />
           <NavigationProperty Name="HOADON" Relationship="Self.FK_CHITIET_HDDC_HOADON" FromRole="CHITIET_HDDC" ToRole="HOADON" />
+          <Property Name="THOIGIANLAP_CTHDDC" Type="DateTime" Precision="0" />
         </EntityType>
         <EntityType Name="CHITIET_HDGU">
           <Key>
@@ -471,6 +475,7 @@
           <Property Name="TRIGIA_CTHDGU" Type="Decimal" Precision="19" Scale="4" />
           <NavigationProperty Name="LUOTGIATUI" Relationship="Self.FK_CHITIET__CHITIET_H_LUOTGIAT" FromRole="CHITIET_HDGU" ToRole="LUOTGIATUI" />
           <NavigationProperty Name="HOADON" Relationship="Self.FK_CHITIET_HDGU_HOADON" FromRole="CHITIET_HDGU" ToRole="HOADON" />
+          <Property Name="THOIGIANLAP_CTHDGU" Type="DateTime" Precision="0" />
         </EntityType>
         <EntityType Name="CHITIET_HDLT">
           <Key>
@@ -868,6 +873,7 @@
           <EntitySetMapping Name="CHITIET_HDAU">
             <EntityTypeMapping TypeName="QLKS_IS201Model.CHITIET_HDAU">
               <MappingFragment StoreEntitySet="CHITIET_HDAU">
+                <ScalarProperty Name="THOIGIANLAP_CTHDAU" ColumnName="THOIGIANLAP_CTHDAU" />
                 <ScalarProperty Name="MA_CTHDAU" ColumnName="MA_CTHDAU" />
                 <ScalarProperty Name="MA_HD" ColumnName="MA_HD" />
                 <ScalarProperty Name="MA_MH" ColumnName="MA_MH" />
@@ -879,6 +885,7 @@
           <EntitySetMapping Name="CHITIET_HDDC">
             <EntityTypeMapping TypeName="QLKS_IS201Model.CHITIET_HDDC">
               <MappingFragment StoreEntitySet="CHITIET_HDDC">
+                <ScalarProperty Name="THOIGIANLAP_CTHDDC" ColumnName="THOIGIANLAP_CTHDDC" />
                 <ScalarProperty Name="MA_CTHDDC" ColumnName="MA_CTHDDC" />
                 <ScalarProperty Name="MA_HD" ColumnName="MA_HD" />
                 <ScalarProperty Name="MA_CD" ColumnName="MA_CD" />
@@ -889,6 +896,7 @@
           <EntitySetMapping Name="CHITIET_HDGU">
             <EntityTypeMapping TypeName="QLKS_IS201Model.CHITIET_HDGU">
               <MappingFragment StoreEntitySet="CHITIET_HDGU">
+                <ScalarProperty Name="THOIGIANLAP_CTHDGU" ColumnName="THOIGIANLAP_CTHDGU" />
                 <ScalarProperty Name="MA_CTHDGU" ColumnName="MA_CTHDGU" />
                 <ScalarProperty Name="MA_HD" ColumnName="MA_HD" />
                 <ScalarProperty Name="MA_LUOTGU" ColumnName="MA_LUOTGU" />

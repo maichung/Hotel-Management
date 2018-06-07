@@ -18,6 +18,7 @@ namespace QLKS.Model
         public int MA_HD { get; set; }
         public int MA_CD { get; set; }
         public Nullable<decimal> TRIGIA_CTHDDC { get; set; }
+        public Nullable<System.DateTime> THOIGIANLAP_CTHDDC { get; set; }
     
         public virtual CHUYENDI CHUYENDI { get; set; }
         public virtual HOADON HOADON { get; set; }

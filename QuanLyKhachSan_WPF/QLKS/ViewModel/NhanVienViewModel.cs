@@ -7,6 +7,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
@@ -144,6 +145,7 @@ namespace QLKS.ViewModel
 
                 ListTTNhanVien.Add(new ThongTinNhanVien() { TaiKhoan = taiKhoan, NhanVien = nhanVien });
 
+                MessageBox.Show("Thêm thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
                 p.Password = string.Empty;
                 RefershControls();
             });
@@ -157,7 +159,7 @@ namespace QLKS.ViewModel
                     SelectedChucVu == null || SelectedGioiTinh == null || SelectedItem == null)
                     return false;
 
-                var listTTNV = DataProvider.Ins.model.TAIKHOAN.Where(x => x.MA_TK == SelectedItem.NhanVien.MA_TK);
+                var listTTNV = DataProvider.Ins.model.TAIKHOAN.Where(x => x.TENDANGNHAP_TK == TenDangNhap);
                 if (listTTNV != null && listTTNV.Count() != 0)
                     return true;
 
@@ -182,6 +184,7 @@ namespace QLKS.ViewModel
                 nhanVien.NGAYVAOLAM_NV = NgayVaoLam;
                 DataProvider.Ins.model.SaveChanges();
 
+                MessageBox.Show("Sửa thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
                 p.Password = string.Empty;
                 RefershControls();
             });

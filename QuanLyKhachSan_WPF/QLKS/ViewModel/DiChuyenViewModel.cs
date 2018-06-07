@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
@@ -101,12 +102,11 @@ namespace QLKS.ViewModel
                                (searchChuyenDi as CHUYENDI).DONGIA_CD.ToString().IndexOf(SearchChuyenDi, StringComparison.OrdinalIgnoreCase) >= 0;
                     };
                 }
-
             });
 
             AddCommand = new RelayCommand<Object>((p) =>
             {
-                if (String.IsNullOrEmpty(DiemDen) || String.IsNullOrEmpty(DonGia.ToString()))
+                if (String.IsNullOrEmpty(DiemDen) || String.IsNullOrEmpty(DonGia.ToString()) || DonGia == 0)
                 {
                     return false;
                 }
@@ -121,11 +121,17 @@ namespace QLKS.ViewModel
                 var cd = new CHUYENDI() { DIEMDEN_CD = DiemDen, DONGIA_CD = DonGia };
                 DataProvider.Ins.model.CHUYENDI.Add(cd);
                 DataProvider.Ins.model.SaveChanges();
+
+                ListChuyenDi.Add(cd);
+
+                MessageBox.Show("Thêm thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+                RefershControlsTCQL();
             });
 
             EditCommand = new RelayCommand<Object>((p) =>
             {
-                if (String.IsNullOrEmpty(DiemDen) || String.IsNullOrEmpty(DonGia.ToString()) || SelectedItem == null)
+                if (String.IsNullOrEmpty(DiemDen) || String.IsNullOrEmpty(DonGia.ToString())
+                 || DonGia == 0 || SelectedItem == null)
                 {
                     return false;
                 }
@@ -141,9 +147,15 @@ namespace QLKS.ViewModel
                 cd.DIEMDEN_CD = DiemDen;
                 cd.DONGIA_CD = DonGia;
                 DataProvider.Ins.model.SaveChanges();
+
+                MessageBox.Show("Sửa thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+                RefershControlsTCQL();
             });
 
-            RefreshCommand = new RelayCommand<Object>((p) =>{ return true; }, (p) => { DiemDen = null; DonGia = 0; });
+            RefreshCommand = new RelayCommand<Object>((p) =>{ return true; }, (p) => 
+            {
+                RefershControlsTCQL();
+            });
 
             SortChuyenDiCommand = new RelayCommand<GridViewColumnHeader>((p) => { return p == null ? false : true; }, (p) =>
             {
@@ -186,6 +198,12 @@ namespace QLKS.ViewModel
             SelectedItem = null;
             DonGia = 0;
             DiemDen = null;
+        }
+
+        void RefershControlsTCQL()
+        {
+            DiemDen = null;
+            DonGia = 0;
         }
     }
 }

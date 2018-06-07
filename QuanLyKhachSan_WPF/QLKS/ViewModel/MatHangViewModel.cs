@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
@@ -267,7 +268,7 @@ namespace QLKS.ViewModel
 
             ShowHDAnUongCommand = new RelayCommand<Object>((p) =>
             {
-                if (SelectedPhong == null || SelectedLoaiPhucVu == null || ListOrder == null || ListOrder.Count() == 0)
+                if (SelectedPhong == null || ListOrder == null || ListOrder.Count() == 0)
                     return false;
 
                 return true;
@@ -310,7 +311,7 @@ namespace QLKS.ViewModel
 
             AddMatHangCommand = new RelayCommand<Object>((p) =>
             {
-                if (string.IsNullOrEmpty(TenMatHang) || string.IsNullOrEmpty(DonGia.ToString()))
+                if (string.IsNullOrEmpty(TenMatHang) || string.IsNullOrEmpty(DonGia.ToString()) || DonGia == 0)
                     return false;
 
                 var listMatHang = DataProvider.Ins.model.MATHANG.Where(x => x.TEN_MH == TenMatHang);
@@ -325,11 +326,15 @@ namespace QLKS.ViewModel
                 DataProvider.Ins.model.SaveChanges();
 
                 ListMatHang.Add(matHang);
+
+                MessageBox.Show("Thêm thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+                RefershControlsTCQL();
             });
 
             EditMatHangCommand = new RelayCommand<Object>((p) =>
             {
-                if (string.IsNullOrEmpty(TenMatHang) || string.IsNullOrEmpty(DonGia.ToString()) || SelectedItem == null)
+                if (string.IsNullOrEmpty(TenMatHang) || string.IsNullOrEmpty(DonGia.ToString())
+                 || DonGia == 0 || SelectedItem == null)
                     return false;
 
                 var listMatHang = DataProvider.Ins.model.MATHANG.Where(x => x.TEN_MH == TenMatHang);
@@ -344,13 +349,14 @@ namespace QLKS.ViewModel
                 matHang.DONGIA_MH = DonGia;
                 matHang.NGAYNHAP_MH = NgayNhap;
                 DataProvider.Ins.model.SaveChanges();
+
+                MessageBox.Show("Sửa thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+                RefershControlsTCQL();
             });
 
             RefreshCommand = new RelayCommand<Object>((p) => { return true; }, (p) =>
             {
-                DonGia = 0;
-                TenMatHang = null;
-                NgayNhap = null;
+                RefershControlsTCQL();
             });
 
             SortMatHangTCQLCommand = new RelayCommand<GridViewColumnHeader>((p) => { return p == null ? false : true; }, (p) => {
@@ -398,6 +404,13 @@ namespace QLKS.ViewModel
             TongSoLuongMHDC = 0;
 
             SelectedItem = null;
+        }
+
+        void RefershControlsTCQL()
+        {
+            DonGia = 0;
+            TenMatHang = null;
+            NgayNhap = null;
         }
     }
 }

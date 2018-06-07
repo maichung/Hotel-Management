@@ -23,16 +23,12 @@ namespace QLKS.ViewModel
 
         private ObservableCollection<ThongTinPhong> _ListTTPhong;
         public ObservableCollection<ThongTinPhong> ListTTPhong { get => _ListTTPhong; set { _ListTTPhong = value; OnPropertyChanged(); } }
-        private ObservableCollection<ThongTinPhong> _ListTTPhongDangThue;
-        public ObservableCollection<ThongTinPhong> ListTTPhongDangThue { get => _ListTTPhongDangThue; set { _ListTTPhongDangThue = value; OnPropertyChanged(); } }
         private int _TongSoPhong;
         public int TongSoPhong { get => _TongSoPhong; set { _TongSoPhong = value; OnPropertyChanged(); } }
         private int _SoPhongTrong;
         public int SoPhongTrong { get => _SoPhongTrong; set { _SoPhongTrong = value; OnPropertyChanged(); } }
         private int _SoPhongDangThue;
         public int SoPhongDangThue { get => _SoPhongDangThue; set { _SoPhongDangThue = value; OnPropertyChanged(); } }
-        private int _SoPhongDatTruoc;
-        public int SoPhongDatTruoc { get => _SoPhongDatTruoc; set { _SoPhongDatTruoc = value; OnPropertyChanged(); } }
 
         private NHANVIEN _NhanVien;
         public NHANVIEN NhanVien { get => _NhanVien; set { _NhanVien = value; OnPropertyChanged(); } }
@@ -52,7 +48,6 @@ namespace QLKS.ViewModel
         public ICommand LoadTatCaPhongCommand { get; set; }
         public ICommand LoadPhongTrongCommand { get; set; }
         public ICommand LoadPhongDangThueCommand { get; set; }
-        public ICommand LoadPhongDaDatTruocCommand { get; set; }
 
         public ICommand DangXuatCommand { get; set; }
 
@@ -116,7 +111,6 @@ namespace QLKS.ViewModel
                   TongSoPhong = ListTTPhong.Count();
                   SoPhongTrong = ListTTPhong.Where(x => x.Phong.TINHTRANG_PHONG == "Trống").Count();
                   SoPhongDangThue = ListTTPhong.Where(x => x.Phong.TINHTRANG_PHONG == "Đang thuê").Count();
-                  SoPhongDatTruoc = ListTTPhong.Where(x => x.Phong.TINHTRANG_PHONG == "Đã đặt trước").Count();
               });
 
             DangXuatCommand = new RelayCommand<Window>((p) => { return true; }, (p) =>
@@ -145,13 +139,6 @@ namespace QLKS.ViewModel
             {
                 ListTTPhong = LoadTTPhong("Đang thuê");
             });
-
-            LoadPhongDaDatTruocCommand = new RelayCommand<Object>((p) => { return true; }, (p) =>
-            {
-                ListTTPhong = LoadTTPhong("Đã đặt trước");
-            });
-
-            ListTTPhongDangThue = LoadTTPhong("Đang thuê");
             #endregion
 
             MaPhongChonThue = 0;

@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
@@ -66,7 +67,7 @@ namespace QLKS.ViewModel
             });
 
             AddCommand = new RelayCommand<Object>((p) => {
-                if (string.IsNullOrEmpty(TenLoaiPhong) || string.IsNullOrEmpty(DonGia.ToString()))
+                if (string.IsNullOrEmpty(TenLoaiPhong) || string.IsNullOrEmpty(DonGia.ToString()) || DonGia == 0)
                     return false;
 
                 var listLoaiPhong = DataProvider.Ins.model.LOAIPHONG.Where(x => x.TEN_LP == TenLoaiPhong);
@@ -76,15 +77,18 @@ namespace QLKS.ViewModel
                 return true;
             }, (p) => {
                 var loaiPhong = new LOAIPHONG() { TEN_LP = TenLoaiPhong, DONGIA_LP = DonGia };
-
                 DataProvider.Ins.model.LOAIPHONG.Add(loaiPhong);
                 DataProvider.Ins.model.SaveChanges();
 
                 ListLoaiPhong.Add(loaiPhong);
+
+                MessageBox.Show("Thêm thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+                RefershControls();
             });
 
             EditCommand = new RelayCommand<Object>((p) => {
-                if (string.IsNullOrEmpty(TenLoaiPhong) || string.IsNullOrEmpty(DonGia.ToString()) || SelectedItem == null)
+                if (string.IsNullOrEmpty(TenLoaiPhong) || string.IsNullOrEmpty(DonGia.ToString())
+                 || DonGia == 0 || SelectedItem == null)
                     return false;
 
                 var listLoaiPhong = DataProvider.Ins.model.LOAIPHONG.Where(x => x.MA_LP == SelectedItem.MA_LP);
@@ -97,12 +101,14 @@ namespace QLKS.ViewModel
                 loaiPhong.TEN_LP = TenLoaiPhong;
                 loaiPhong.DONGIA_LP = DonGia;
                 DataProvider.Ins.model.SaveChanges();
+
+                MessageBox.Show("Sửa thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+                RefershControls();
             });
 
             RefreshCommand = new RelayCommand<Object>((p) => { return true; }, (p) =>
             {
-                TenLoaiPhong = null;
-                DonGia = 0;
+                RefershControls();
             });
 
             SortLoaiPhongCommand = new RelayCommand<GridViewColumnHeader>((p) => { return p == null ? false : true; }, (p) =>
@@ -120,6 +126,12 @@ namespace QLKS.ViewModel
                 }
                 sort = !sort;
             });
+        }
+
+        void RefershControls()
+        {
+            TenLoaiPhong = null;
+            DonGia = 0;
         }
     }
 }

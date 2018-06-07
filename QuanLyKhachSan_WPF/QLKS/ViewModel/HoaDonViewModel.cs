@@ -24,6 +24,10 @@ namespace QLKS.ViewModel
         public int LoaiHD { get => _LoaiHD; set { _LoaiHD = value; OnPropertyChanged(); } }
         private DateTime _ThoiGianLapHD;
         public DateTime ThoiGianLapHD { get => _ThoiGianLapHD; set { _ThoiGianLapHD = value; OnPropertyChanged(); } }
+        private DateTime _Time;
+        public DateTime Time { get => _Time; set { _Time = value; OnPropertyChanged(); } }
+        public int Ngay;
+        public int Gio;
 
         //Truyền thông tin qua những hd dịch vụ
         private int _MaHD;
@@ -94,6 +98,7 @@ namespace QLKS.ViewModel
         {
             #region Xử lý thao tác với hóa đơn
             ThoiGianLapHD = DateTime.Now;
+            Time = DateTime.Parse(DateTime.Now.TimeOfDay.ToString());
             ListThongTinCTHD = new ObservableCollection<ThongTinChiTietHoaDon>();
             ThongTinCTHD = new ThongTinChiTietHoaDon();
             TongTienHD = 0;
@@ -112,14 +117,17 @@ namespace QLKS.ViewModel
                 return true;
             }, (p) =>
             {
+                Ngay = 0;
+                Gio = 0;
                 //lấy hóa đơn lưu trú
                 var hdlt = DataProvider.Ins.model.CHITIET_HDLT.Where(x => x.MA_HD == HoaDon.MA_HD).SingleOrDefault();
-                DateTime tgTraPhong = DateTime.Now;
-                TimeSpan timehdlt = tgTraPhong.Subtract((DateTime)hdlt.THOIGIANNHAN_PHONG);
+                TimeSpan timehdlt = DateTime.Now.Subtract((DateTime)hdlt.THOIGIANNHAN_PHONG);
+                GetThoiGianThuePhong(timehdlt.Hours + 1);
                 ThongTinCTHD.LoaiHoaDon = "Hóa đơn lưu trú";
-                ThongTinCTHD.NoiDungHD = "Phòng " + hdlt.MA_PHONG + "\nThời gian nhận phòng " + hdlt.THOIGIANNHAN_PHONG + "\nThời gian trả phòng " + tgTraPhong;
+                ThongTinCTHD.NoiDungHD = "Phòng " + hdlt.MA_PHONG + "\nThời gian nhận phòng " + hdlt.THOIGIANNHAN_PHONG + "\nThời gian trả phòng " + DateTime.Now;
                 ThongTinCTHD.DonGia = (int)ThongTinPhongChonThue.LoaiPhong.DONGIA_LP;
-                ThongTinCTHD.TriGia = (int)ThongTinPhongChonThue.LoaiPhong.DONGIA_LP * (int)(timehdlt.TotalDays + 1);
+                ThongTinCTHD.TriGia = (int)ThongTinPhongChonThue.LoaiPhong.DONGIA_LP * (Ngay * 10 + Gio);
+                ThongTinCTHD.ThoiGian = (DateTime)hdlt.THOIGIANNHAN_PHONG;
                 ListThongTinCTHD.Add(ThongTinCTHD);
                 //lấy hóa đơn ăn uống
                 var listHDAU = DataProvider.Ins.model.CHITIET_HDAU.Where(x => x.MA_HD == HoaDon.MA_HD).ToList();
@@ -131,6 +139,7 @@ namespace QLKS.ViewModel
                     ThongTinCTHD.NoiDungHD = mathang.TEN_MH + " - SL " + item.SOLUONG_MH;
                     ThongTinCTHD.DonGia = (int)mathang.DONGIA_MH;
                     ThongTinCTHD.TriGia = (int)item.TRIGIA_CTHDAU;
+                    ThongTinCTHD.ThoiGian = (DateTime)item.THOIGIANLAP_CTHDAU;
                     ListThongTinCTHD.Add(ThongTinCTHD);
                 }
                 //lấy hóa đơn giặt ủi
@@ -153,6 +162,7 @@ namespace QLKS.ViewModel
                         ThongTinCTHD.DonGia = (int)loaigu.DONGIA_LOAIGU;
                     }
                     ThongTinCTHD.TriGia = (int)item.TRIGIA_CTHDGU;
+                    ThongTinCTHD.ThoiGian = (DateTime)item.THOIGIANLAP_CTHDGU;
                     ListThongTinCTHD.Add(ThongTinCTHD);
                 }
                 //lấy hóa đơn di chuyển
@@ -165,6 +175,7 @@ namespace QLKS.ViewModel
                     ThongTinCTHD.NoiDungHD = chuyendi.DIEMDEN_CD;
                     ThongTinCTHD.DonGia = (int)chuyendi.DONGIA_CD;
                     ThongTinCTHD.TriGia = (int)item.TRIGIA_CTHDDC;
+                    ThongTinCTHD.ThoiGian = (DateTime)item.THOIGIANLAP_CTHDDC;
                     ListThongTinCTHD.Add(ThongTinCTHD);
                 }
 
@@ -355,6 +366,28 @@ namespace QLKS.ViewModel
             foreach (ThongTinHoaDon item in listTTHD)
             {
                 ListThongTinHoaDon.Add(item);
+            }
+        }
+
+        void GetThoiGianThuePhong(int hours)
+        {
+            int ngay = hours / 24;
+            int gio = hours % 24;
+            if (ngay >= 1)
+            {
+                Ngay += ngay;
+                GetThoiGianThuePhong(gio);
+            }
+            else
+            {
+                if (gio >= 8)
+                {
+                    Ngay += 1;
+                }
+                else
+                {
+                    Gio = gio;
+                }
             }
         }
     }

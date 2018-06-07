@@ -295,9 +295,6 @@
                     <GridSplitter IsEnabled="False" Width="1" Margin="10,0,10,0" Background="#FFD6D6D6"></GridSplitter>
                     <Label Height="25" Width="auto" Content="Đang thuê:" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"></Label>
                     <Button Margin="5,0,5,0" Command="{Binding LoadPhongDangThueCommand}" Height="25" Width="50" Content="{Binding SoPhongDangThue}" Background="#FFA58A72" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" BorderBrush="{x:Null}" FontSize="12" ></Button>
-                    <GridSplitter IsEnabled="False" Width="1" Margin="10,0,10,0" Background="#FFD6D6D6"></GridSplitter>
-                    <Label Height="25" Width="auto" Content="Đã đặt trước:" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"></Label>
-                    <Button Margin="5,0,5,0" Command="{Binding LoadPhongDaDatTruocCommand}" Height="25" Width="50" Content="{Binding SoPhongDatTruoc}" Background="#FFEDA5A5" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" BorderBrush="{x:Null}" Foreground="#DDFFFFFF" FontSize="12" ></Button>
                 </StackPanel>
 
                 <ScrollViewer Name="SrViewTrangChu" Margin="5,170,20,20">
@@ -449,7 +446,7 @@
                                                     <WrapPanel>
                                                         <Button Height="20" Command="{Binding ElementName=lstOrder, Path=DataContext.BotSLCommand}" Content="{materialDesign:PackIcon Kind=Minus}" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#DD000000" FontWeight="Bold" FontSize="10" HorizontalAlignment="Center" VerticalAlignment="Center"
                                                                 IsEnabled="{Binding RelativeSource={RelativeSource AncestorType={x:Type ListViewItem}}, Path=IsSelected}"></Button>
-                                                        <TextBlock Text="{Binding SoLuong}" HorizontalAlignment="Center" VerticalAlignment="Top" TextAlignment="Center"></TextBlock>
+                                                        <TextBlock Width="20" Text="{Binding SoLuong}" HorizontalAlignment="Center" VerticalAlignment="Top" TextAlignment="Center"></TextBlock>
                                                         <Button Height="20" Command="{Binding ElementName=lstOrder, Path=DataContext.ThemSLCommand}" Content="{materialDesign:PackIcon Kind=Plus}" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#DD000000" FontWeight="Bold" FontSize="10"  HorizontalAlignment="Center" VerticalAlignment="Center"
                                                                 IsEnabled="{Binding RelativeSource={RelativeSource AncestorType={x:Type ListViewItem}}, Path=IsSelected}"></Button>
                                                     </WrapPanel>
@@ -647,7 +644,7 @@
                                         <i:Interaction.Triggers>
                                             <i:EventTrigger EventName="MouseLeftButtonDown">
                                                 <i:InvokeCommandAction Command="{Binding EditCommand}"
-                                                                       CommandParameter="{Binding ElementName=imgEditNhanVien}">
+                                                                       CommandParameter="{Binding ElementName=pwBoxMatKhau}">
                                                 </i:InvokeCommandAction>
                                             </i:EventTrigger>
                                         </i:Interaction.Triggers>

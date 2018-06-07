@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
@@ -81,14 +82,13 @@ namespace QLKS.ViewModel
             }, (p) =>
             {
                 var khachHang = new KHACHHANG() { HOTEN_KH = TenKhachHang, SODIENTHOAI_KH = SoDienThoai, CMND_KH = CMND };
-
                 DataProvider.Ins.model.KHACHHANG.Add(khachHang);
                 DataProvider.Ins.model.SaveChanges();
 
                 ListKhachHang.Add(khachHang);
-                TenKhachHang = "";
-                SoDienThoai = "";
-                CMND = "";
+
+                MessageBox.Show("Thêm thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+                RefershControls();
             });
 
             EditCommand = new RelayCommand<Object>((p) =>
@@ -108,13 +108,14 @@ namespace QLKS.ViewModel
                 khachHang.SODIENTHOAI_KH = SoDienThoai;
                 khachHang.CMND_KH = CMND;
                 DataProvider.Ins.model.SaveChanges();
+
+                MessageBox.Show("Sửa thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+                RefershControls();
             });
 
             RefreshCommand = new RelayCommand<Object>((p) => { return true; }, (p) =>
             {
-                TenKhachHang = null;
-                SoDienThoai = null;
-                CMND = null;
+                RefershControls();
             });
 
             SortKhachHangCommand = new RelayCommand<GridViewColumnHeader>((p) => { return p == null ? false : true; }, (p) =>
@@ -132,6 +133,13 @@ namespace QLKS.ViewModel
                 }
                 sort = !sort;
             });
+        }
+
+        void RefershControls()
+        {
+            TenKhachHang = null;
+            SoDienThoai = null;
+            CMND = null;
         }
     }
 }

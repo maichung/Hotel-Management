@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
@@ -89,12 +90,14 @@ namespace QLKS.ViewModel
                 return true;
             }, (p) => {                
                 var phong = new PHONG() { MA_PHONG = MaPhong, MA_LP = SelectedLoaiPhong.MA_LP, TINHTRANG_PHONG = SelectedTinhTrangPhong };
-
                 DataProvider.Ins.model.PHONG.Add(phong);
                 DataProvider.Ins.model.SaveChanges();
                 //lấy loại phòng từ phòng vừa thêm vào và tạo ra thongtinphong sau đó thêm vào list
                 var loaiPhong = DataProvider.Ins.model.LOAIPHONG.Where(x => x.MA_LP == phong.MA_LP).SingleOrDefault();
                 ListTTPhong.Add(new ThongTinPhong() { Phong = phong, LoaiPhong = loaiPhong });
+
+                MessageBox.Show("Thêm thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+                RefershControls();
             });
 
             EditCommand = new RelayCommand<Object>((p) =>
@@ -115,13 +118,14 @@ namespace QLKS.ViewModel
                 phong.TINHTRANG_PHONG = SelectedTinhTrangPhong;
                 SelectedItem.LoaiPhong = DataProvider.Ins.model.LOAIPHONG.Where(x => x.MA_LP == SelectedLoaiPhong.MA_LP).SingleOrDefault();
                 DataProvider.Ins.model.SaveChanges();
+
+                MessageBox.Show("Sửa thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+                RefershControls();
             });
 
             RefreshCommand = new RelayCommand<Object>((p) => { return true; }, (p) =>
             {
-                MaPhong = 0;
-                SelectedLoaiPhong = null;
-                SelectedTinhTrangPhong = null;
+                RefershControls();
             });
 
             SortPhongCommand = new RelayCommand<GridViewColumnHeader>((p) => { return p == null ? false : true; }, (p) => {
@@ -155,6 +159,13 @@ namespace QLKS.ViewModel
             {
                 ListTTPhong.Add(item);
             }
+        }
+
+        void RefershControls()
+        {
+            MaPhong = 0;
+            SelectedLoaiPhong = null;
+            SelectedTinhTrangPhong = null;
         }
     }
 }

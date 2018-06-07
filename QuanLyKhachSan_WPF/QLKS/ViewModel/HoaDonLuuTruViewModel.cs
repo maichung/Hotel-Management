@@ -17,7 +17,7 @@ namespace QLKS.ViewModel
         public NHANVIEN NhanVienLapHD { get => _NhanVienLapHD; set { _NhanVienLapHD = value; OnPropertyChanged(); } }
         private KHACHHANG _KhachHangThue;
         public KHACHHANG KhachHangThue { get => _KhachHangThue; set { _KhachHangThue = value; OnPropertyChanged(); } }
-        
+
         public ICommand SaveCommand { get; set; }
         public ICommand CancelCommand { get; set; }
 
@@ -35,6 +35,9 @@ namespace QLKS.ViewModel
 
                 var hoadonVM = p.DataContext as HoaDonViewModel;
                 if (hoadonVM.MaPhong == 0)
+                    return false;
+
+                if (hoadonVM.MaHD == 0 && (string.IsNullOrEmpty(hoadonVM.KhachHangThue.CMND_KH) || string.IsNullOrEmpty(hoadonVM.KhachHangThue.HOTEN_KH)))
                     return false;
 
                 if (hoadonVM.MaHD != 0)
