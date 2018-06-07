@@ -45,6 +45,7 @@ namespace QLKS.ViewModel
 
         public ICommand SearchKhachHangCommand { get; set; }
         public ICommand AddCommand { get; set; }
+        public ICommand DeleteCommand { get; set; }
         public ICommand EditCommand { get; set; }
         public ICommand RefreshCommand { get; set; }
         public ICommand SortKhachHangCommand { get; set; }
@@ -72,11 +73,17 @@ namespace QLKS.ViewModel
             AddCommand = new RelayCommand<Object>((p) =>
             {
                 if (string.IsNullOrEmpty(TenKhachHang) || string.IsNullOrEmpty(CMND))
+                {
+                    MessageBox.Show("Vui lòng nhập đầy đủ thông tin khách hàng muốn thêm!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
                     return false;
+                }                    
 
                 var listKhachHang = DataProvider.Ins.model.KHACHHANG.Where(x => x.CMND_KH == CMND);
                 if (listKhachHang == null || listKhachHang.Count() != 0)
+                {
+                    MessageBox.Show("Khách hàng đã tồn tại!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
                     return false;
+                }                    
 
                 return true;
             }, (p) =>
@@ -91,10 +98,49 @@ namespace QLKS.ViewModel
                 RefershControls();
             });
 
+            DeleteCommand = new RelayCommand<Object>((p) =>
+            {
+                if (string.IsNullOrEmpty(TenKhachHang) || string.IsNullOrEmpty(CMND) || SelectedItem == null)
+                {
+                    MessageBox.Show("Vui lòng chọn khách hàng muốn xóa!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return false;
+                }                    
+
+                var listKhachHang = DataProvider.Ins.model.KHACHHANG.Where(x => x.MA_KH == SelectedItem.MA_KH);
+                if (listKhachHang != null && listKhachHang.Count() != 0)
+                    return true;
+
+                return false;
+            }, (p) =>
+            {
+                using (var transactions = DataProvider.Ins.model.Database.BeginTransaction())
+                {
+                    try
+                    {
+                        var khachHang = DataProvider.Ins.model.KHACHHANG.Where(x => x.MA_KH == SelectedItem.MA_KH).FirstOrDefault();
+                        DataProvider.Ins.model.KHACHHANG.Remove(khachHang);
+                        DataProvider.Ins.model.SaveChanges();
+
+                        transactions.Commit();
+                        RemoveKhachHang(khachHang.MA_KH);
+                        MessageBox.Show("Xóa thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+                        RefershControls();
+                    }
+                    catch (Exception e)
+                    {
+                        MessageBox.Show(e + "\n\tXóa không thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
+                        transactions.Rollback();
+                    }
+                }                
+            });
+
             EditCommand = new RelayCommand<Object>((p) =>
             {
                 if (string.IsNullOrEmpty(TenKhachHang) || string.IsNullOrEmpty(CMND) || SelectedItem == null)
+                {
+                    MessageBox.Show("Vui lòng chọn khách hàng muốn sửa!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
                     return false;
+                }                    
 
                 var listKhachHang = DataProvider.Ins.model.KHACHHANG.Where(x => x.MA_KH == SelectedItem.MA_KH);
                 if (listKhachHang != null && listKhachHang.Count() != 0)
@@ -133,6 +179,20 @@ namespace QLKS.ViewModel
                 }
                 sort = !sort;
             });
+        }
+
+        void RemoveKhachHang(int makh)
+        {
+            if (ListKhachHang == null || ListKhachHang.Count() == 0)
+                return;
+            foreach (KHACHHANG item in ListKhachHang)
+            {
+                if (item.MA_KH == makh)
+                {
+                    ListKhachHang.Remove(item);
+                    return;
+                }
+            }
         }
 
         void RefershControls()

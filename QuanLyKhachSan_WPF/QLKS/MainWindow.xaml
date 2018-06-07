@@ -407,13 +407,13 @@
                             <ListView.View>
                                 <GridView>
                                     <GridViewColumn DisplayMemberBinding="{Binding TEN_MH}">
-                                        <GridViewColumnHeader Name="TEN_MH" Command="{Binding SortMHDVAUCommand}" CommandParameter="{Binding ElementName=TEN_MH}" VerticalAlignment="Center" HorizontalAlignment="Center">Tên hàng hóa</GridViewColumnHeader>
+                                        <GridViewColumnHeader Tag="TEN_MH" Command="{Binding SortMatHangDVAUCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" VerticalAlignment="Center" HorizontalAlignment="Center">Tên hàng hóa</GridViewColumnHeader>
                                     </GridViewColumn>
                                     <GridViewColumn DisplayMemberBinding="{Binding DONGIA_MH, StringFormat='N0'}">
-                                        <GridViewColumnHeader Name="DONGIA_MH" Command="{Binding SortMHDVAUCommand}" CommandParameter="{Binding ElementName=DONGIA_MH}" VerticalAlignment="Center" HorizontalAlignment="Center">Đơn giá</GridViewColumnHeader>
+                                        <GridViewColumnHeader Tag="DONGIA_MH" Command="{Binding SortMatHangDVAUCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" VerticalAlignment="Center" HorizontalAlignment="Center">Đơn giá</GridViewColumnHeader>
                                     </GridViewColumn>
                                     <GridViewColumn DisplayMemberBinding="{Binding NGAYNHAP_MH, StringFormat='dd/MM/yyyy'}">
-                                        <GridViewColumnHeader Name="NGAYNHAP_MH" Command="{Binding SortMHDVAUCommand}" CommandParameter="{Binding ElementName=NGAYNHAP_MH}" VerticalAlignment="Center" HorizontalAlignment="Center">Ngày nhập</GridViewColumnHeader>
+                                        <GridViewColumnHeader Tag="NGAYNHAP_MH" Command="{Binding SortMatHangDVAUCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" VerticalAlignment="Center" HorizontalAlignment="Center">Ngày nhập</GridViewColumnHeader>
                                     </GridViewColumn>
                                 </GridView>
                             </ListView.View>
@@ -427,18 +427,18 @@
                         </ListView>
 
                         <Grid Grid.Column="1" Margin="10,0,0,0">
-                            <ComboBox materialDesign:HintAssist.Hint="Chọn loại phục vụ" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Width="150" Margin="0,10,10,20" VerticalAlignment="Top" HorizontalAlignment="Left"
-                                      ItemsSource="{Binding ListLoaiPhucVu}" SelectedItem="{Binding SelectedLoaiPhucVu, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                            <Label Content="Danh sách đã chọn:" Margin="0,60,10,20" VerticalAlignment="Top"></Label>
+                            <!--<ComboBox materialDesign:HintAssist.Hint="Chọn loại phục vụ" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Width="150" Margin="0,10,10,20" VerticalAlignment="Top" HorizontalAlignment="Left"
+                                      ItemsSource="{Binding ListLoaiPhucVu}" SelectedItem="{Binding SelectedLoaiPhucVu, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>-->
+                            <Label Content="Danh sách đã chọn:" Margin="0,10,10,20" VerticalAlignment="Top"></Label>
 
-                            <ListView Name="lstOrder" Margin="0,90,0,0" ItemsSource="{Binding ListOrder}" SelectedItem="{Binding SelectedItemOrder, Mode=OneWayToSource}" >
+                            <ListView Name="lstOrder" Margin="0,40,0,0" ItemsSource="{Binding ListOrder}" SelectedItem="{Binding SelectedItemOrder, Mode=OneWayToSource}" >
                                 <ListView.View>
                                     <GridView>
                                         <GridViewColumn DisplayMemberBinding="{Binding MatHang.TEN_MH}">
-                                            <GridViewColumnHeader Name="TEN_MH1" Command="{Binding SortMHOrderCommand}" CommandParameter="{Binding ElementName=TEN_MH1}" VerticalAlignment="Center" HorizontalAlignment="Center">Tên hàng hóa</GridViewColumnHeader>
+                                            <GridViewColumnHeader Tag="MatHang.TEN_MH" Command="{Binding SortMatHangOrderCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" VerticalAlignment="Center" HorizontalAlignment="Center">Tên hàng hóa</GridViewColumnHeader>
                                         </GridViewColumn>
                                         <GridViewColumn DisplayMemberBinding="{Binding MatHang.DONGIA_MH, StringFormat='N0'}">
-                                            <GridViewColumnHeader Name="DONGIA_MH1" Command="{Binding SortMHOrderCommand}" CommandParameter="{Binding ElementName=DONGIA_MH1}" VerticalAlignment="Center" HorizontalAlignment="Center">Đơn giá</GridViewColumnHeader>
+                                            <GridViewColumnHeader Tag="MatHang.DONGIA_MH" Command="{Binding SortMatHangOrderCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" VerticalAlignment="Center" HorizontalAlignment="Center">Đơn giá</GridViewColumnHeader>
                                         </GridViewColumn>
                                         <GridViewColumn>
                                             <GridViewColumn.CellTemplate>
@@ -452,10 +452,10 @@
                                                     </WrapPanel>
                                                 </DataTemplate>
                                             </GridViewColumn.CellTemplate>
-                                            <GridViewColumnHeader Name="SoLuong" Command="{Binding SortOrderCommand}" CommandParameter="{Binding ElementName=SoLuong}" VerticalAlignment="Center" HorizontalAlignment="Center">Số lượng</GridViewColumnHeader>
+                                            <GridViewColumnHeader Tag="SoLuong" Command="{Binding SortMatHangOrderCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" VerticalAlignment="Center" HorizontalAlignment="Center">Số lượng</GridViewColumnHeader>
                                         </GridViewColumn>
                                         <GridViewColumn DisplayMemberBinding="{Binding ThanhTien, StringFormat='N0'}">
-                                            <GridViewColumnHeader Name="ThanhTien" Command="{Binding SortOrderCommand}" CommandParameter="{Binding ElementName=ThanhTien}" VerticalAlignment="Center" HorizontalAlignment="Center">Thành tiền</GridViewColumnHeader>
+                                            <GridViewColumnHeader Tag="ThanhTien" Command="{Binding SortMatHangOrderCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" VerticalAlignment="Center" HorizontalAlignment="Center">Thành tiền</GridViewColumnHeader>
                                         </GridViewColumn>
                                     </GridView>
                                 </ListView.View>
@@ -637,8 +637,8 @@
                                             </i:EventTrigger>
                                         </i:Interaction.Triggers>
                                     </Image>
-                                    <GridSplitter IsEnabled="False" Width="1" Margin="10,0,10,0" Background="#FFD6D6D6"></GridSplitter>
-                                    <Image Height="25" Width="25" Cursor="Hand" Source="Resources\Icons\btnXoa.png" ToolTip="Xóa"></Image>
+                                    <!--<GridSplitter IsEnabled="False" Width="1" Margin="10,0,10,0" Background="#FFD6D6D6"></GridSplitter>
+                                    <Image Height="25" Width="25" Cursor="Hand" Source="Resources\Icons\btnXoa.png" ToolTip="Xóa"></Image>-->
                                     <GridSplitter IsEnabled="False" Width="1" Margin="10,0,10,0" Background="#FFD6D6D6"></GridSplitter>
                                     <Image Name="imgEditNhanVien" Height="25" Width="25" Cursor="Hand" Source="Resources\Icons\btnSua.png" ToolTip="Sửa">
                                         <i:Interaction.Triggers>
@@ -726,24 +726,26 @@
                         <TabItem Header="Khách hàng" DataContext="{StaticResource KhachHangVM}">
                             <Grid>
                                 <StackPanel Margin="10,10" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top" >
-                                    <Image Name="imgAddKhachHang" Height="25" Width="25" Cursor="Hand" Source="Resources\Icons\btnThem.png" ToolTip="Thêm">
+                                    <Image Height="25" Width="25" Cursor="Hand" Source="Resources\Icons\btnThem.png" ToolTip="Thêm">
                                         <i:Interaction.Triggers>
                                             <i:EventTrigger EventName="MouseLeftButtonDown">
-                                                <i:InvokeCommandAction Command="{Binding AddCommand}"
-                                                                       CommandParameter="{Binding ElementName=imgAddKhachHang}">
-                                                </i:InvokeCommandAction>
+                                                <i:InvokeCommandAction Command="{Binding AddCommand}"/>
                                             </i:EventTrigger>
                                         </i:Interaction.Triggers>
                                     </Image>
                                     <GridSplitter IsEnabled="False" Width="1" Margin="10,0,10,0" Background="#FFD6D6D6"></GridSplitter>
-                                    <Image Height="25" Width="25" Cursor="Hand" Source="Resources\Icons\btnXoa.png" ToolTip="Xóa"></Image>
-                                    <GridSplitter IsEnabled="False" Width="1" Margin="10,0,10,0" Background="#FFD6D6D6"></GridSplitter>
-                                    <Image Name="imgEditKhachHang" Height="25" Width="25" Cursor="Hand" Source="Resources\Icons\btnSua.png" ToolTip="Sửa">
+                                    <Image Height="25" Width="25" Cursor="Hand" Source="Resources\Icons\btnXoa.png" ToolTip="Xóa">
                                         <i:Interaction.Triggers>
                                             <i:EventTrigger EventName="MouseLeftButtonDown">
-                                                <i:InvokeCommandAction Command="{Binding EditCommand}"
-                                                                       CommandParameter="{Binding ElementName=imgEditKhachHang}">
-                                                </i:InvokeCommandAction>
+                                                <i:InvokeCommandAction Command="{Binding DeleteCommand}"/>
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                    </Image>
+                                    <GridSplitter IsEnabled="False" Width="1" Margin="10,0,10,0" Background="#FFD6D6D6"></GridSplitter>
+                                    <Image Height="25" Width="25" Cursor="Hand" Source="Resources\Icons\btnSua.png" ToolTip="Sửa">
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="MouseLeftButtonDown">
+                                                <i:InvokeCommandAction Command="{Binding EditCommand}"/>
                                             </i:EventTrigger>
                                         </i:Interaction.Triggers>
                                     </Image>
@@ -799,9 +801,8 @@
                                     </ListView>
                                     <StackPanel Grid.Column="1" Margin="10,0,10,10">
                                         <TextBox Margin="0,0,0,10"  Height="37" materialDesign:HintAssist.Hint="Họ tên" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding TenKhachHang, UpdateSourceTrigger=PropertyChanged}" VerticalContentAlignment="Center"></TextBox>
-                                        <TextBox Margin="0,0,0,10"  Height="37" materialDesign:HintAssist.Hint="Số điện thoại" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding SoDienThoai, UpdateSourceTrigger=PropertyChanged}" VerticalContentAlignment="Center"></TextBox>
-                                        <TextBox Margin="0,0,0,10"  Height="37" materialDesign:HintAssist.Hint="Số CMND" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding CMND, UpdateSourceTrigger=PropertyChanged}" VerticalContentAlignment="Center"></TextBox>
-
+                                        <TextBox Margin="0,0,0,10"  Height="37" materialDesign:HintAssist.Hint="Số điện thoại" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding SoDienThoai, UpdateSourceTrigger=PropertyChanged}" MaxLength="14" VerticalContentAlignment="Center"></TextBox>
+                                        <TextBox Margin="0,0,0,10"  Height="37" materialDesign:HintAssist.Hint="Số CMND" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding CMND, UpdateSourceTrigger=PropertyChanged}" MaxLength="11" VerticalContentAlignment="Center"></TextBox>
                                     </StackPanel>
 
                                 </Grid>
@@ -813,21 +814,23 @@
                                     <Image Name="imgAddPhong" Height="25" Width="25" Cursor="Hand" Source="Resources\Icons\btnThem.png" ToolTip="Thêm">
                                         <i:Interaction.Triggers>
                                             <i:EventTrigger EventName="MouseLeftButtonDown">
-                                                <i:InvokeCommandAction Command="{Binding AddCommand}"
-                                                                       CommandParameter="{Binding ElementName=imgAddPhong}">
-                                                </i:InvokeCommandAction>
+                                                <i:InvokeCommandAction Command="{Binding AddCommand}"/>
                                             </i:EventTrigger>
                                         </i:Interaction.Triggers>
                                     </Image>
                                     <GridSplitter IsEnabled="False" Width="1" Margin="10,0,10,0" Background="#FFD6D6D6"></GridSplitter>
-                                    <Image Height="25" Width="25" Cursor="Hand" Source="Resources\Icons\btnXoa.png" ToolTip="Xóa"></Image>
+                                    <Image Height="25" Width="25" Cursor="Hand" Source="Resources\Icons\btnXoa.png" ToolTip="Xóa">
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="MouseLeftButtonDown">
+                                                <i:InvokeCommandAction Command="{Binding DeleteCommand}"/>
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                    </Image>
                                     <GridSplitter IsEnabled="False" Width="1" Margin="10,0,10,0" Background="#FFD6D6D6"></GridSplitter>
                                     <Image Name="imgEditPhong" Height="25" Width="25" Cursor="Hand" Source="Resources\Icons\btnSua.png" ToolTip="Sửa">
                                         <i:Interaction.Triggers>
                                             <i:EventTrigger EventName="MouseLeftButtonDown">
-                                                <i:InvokeCommandAction Command="{Binding EditCommand}"
-                                                                       CommandParameter="{Binding ElementName=imgEditPhong}">
-                                                </i:InvokeCommandAction>
+                                                <i:InvokeCommandAction Command="{Binding EditCommand}"/>
                                             </i:EventTrigger>
                                         </i:Interaction.Triggers>
                                     </Image>
@@ -896,21 +899,23 @@
                                     <Image Name="imgAddLoaiPhong" Height="25" Width="25" Cursor="Hand" Source="Resources\Icons\btnThem.png" ToolTip="Thêm">
                                         <i:Interaction.Triggers>
                                             <i:EventTrigger EventName="MouseLeftButtonDown">
-                                                <i:InvokeCommandAction Command="{Binding AddCommand}"
-                                                                       CommandParameter="{Binding ElementName=imgAddLoaiPhong}">
-                                                </i:InvokeCommandAction>
+                                                <i:InvokeCommandAction Command="{Binding AddCommand}"/>
                                             </i:EventTrigger>
                                         </i:Interaction.Triggers>
                                     </Image>
                                     <GridSplitter IsEnabled="False" Width="1" Margin="10,0,10,0" Background="#FFD6D6D6"></GridSplitter>
-                                    <Image Height="25" Width="25" Cursor="Hand" Source="Resources\Icons\btnXoa.png" ToolTip="Xóa"></Image>
+                                    <Image Height="25" Width="25" Cursor="Hand" Source="Resources\Icons\btnXoa.png" ToolTip="Xóa">
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="MouseLeftButtonDown">
+                                                <i:InvokeCommandAction Command="{Binding DeleteCommand}"/>
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                    </Image>
                                     <GridSplitter IsEnabled="False" Width="1" Margin="10,0,10,0" Background="#FFD6D6D6"></GridSplitter>
                                     <Image Name="imgEditLoaiPhong" Height="25" Width="25" Cursor="Hand" Source="Resources\Icons\btnSua.png" ToolTip="Sửa">
                                         <i:Interaction.Triggers>
                                             <i:EventTrigger EventName="MouseLeftButtonDown">
-                                                <i:InvokeCommandAction Command="{Binding EditCommand}"
-                                                                       CommandParameter="{Binding ElementName=imgEditLoaiPhong}">
-                                                </i:InvokeCommandAction>
+                                                <i:InvokeCommandAction Command="{Binding EditCommand}"/>
                                             </i:EventTrigger>
                                         </i:Interaction.Triggers>
                                     </Image>
@@ -918,8 +923,7 @@
                                     <Image Height="25" Width="25" Cursor="Hand" Source="Resources\Icons\btnLamMoi.png" ToolTip="Làm mới">
                                         <i:Interaction.Triggers>
                                             <i:EventTrigger EventName="MouseLeftButtonDown">
-                                                <i:InvokeCommandAction Command="{Binding RefreshCommand}">
-                                                </i:InvokeCommandAction>
+                                                <i:InvokeCommandAction Command="{Binding RefreshCommand}"/>
                                             </i:EventTrigger>
                                         </i:Interaction.Triggers>
                                     </Image>
@@ -1023,7 +1027,13 @@
                                         </i:Interaction.Triggers>
                                     </Image>
                                     <GridSplitter IsEnabled="False" Width="1" Margin="10,0,10,0" Background="#FFD6D6D6"></GridSplitter>
-                                    <Image Height="25" Width="25" Cursor="Hand" Source="Resources\Icons\btnXoa.png" ToolTip="Xóa"></Image>
+                                    <Image Height="25" Width="25" Cursor="Hand" Source="Resources\Icons\btnXoa.png" ToolTip="Xóa">
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="MouseLeftButtonDown">
+                                                <i:InvokeCommandAction Command="{Binding DeleteMatHangCommand}"/>
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                    </Image>
                                     <GridSplitter IsEnabled="False" Width="1" Margin="10,0,10,0" Background="#FFD6D6D6"></GridSplitter>
                                     <Image Name="imgEditMatHang" Height="25" Width="25" Cursor="Hand" Source="Resources\Icons\btnSua.png" ToolTip="Sửa">
                                         <i:Interaction.Triggers>
@@ -1036,8 +1046,7 @@
                                     <Image Height="25" Width="25" Cursor="Hand" Source="Resources\Icons\btnLamMoi.png" ToolTip="Làm mới">
                                         <i:Interaction.Triggers>
                                             <i:EventTrigger EventName="MouseLeftButtonDown">
-                                                <i:InvokeCommandAction Command="{Binding RefreshCommand}">
-                                                </i:InvokeCommandAction>
+                                                <i:InvokeCommandAction Command="{Binding RefreshCommand}"/>
                                             </i:EventTrigger>
                                         </i:Interaction.Triggers>
                                     </Image>
@@ -1093,22 +1102,26 @@
                         <TabItem Header="Loại giặt ủi" DataContext="{StaticResource LoaiGiatUiVM}">
                             <Grid>
                                 <StackPanel Margin="10,10" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top" >
-                                    <Image Height="25" Width="25" Cursor="Hand" Source="Resources\Icons\btnThem.png" ToolTip="Thêm">
+                                    <!--<Image Height="25" Width="25" Cursor="Hand" Source="Resources\Icons\btnThem.png" ToolTip="Thêm">
                                         <i:Interaction.Triggers>
                                             <i:EventTrigger EventName="MouseLeftButtonDown">
-                                                <i:InvokeCommandAction Command="{Binding AddCommand}">
-                                                </i:InvokeCommandAction>
+                                                <i:InvokeCommandAction Command="{Binding AddCommand}"/>
                                             </i:EventTrigger>
                                         </i:Interaction.Triggers>
                                     </Image>
                                     <GridSplitter IsEnabled="False" Width="1" Margin="10,0,10,0" Background="#FFD6D6D6"></GridSplitter>
-                                    <Image Height="25" Width="25" Cursor="Hand" Source="Resources\Icons\btnXoa.png" ToolTip="Xóa"></Image>
-                                    <GridSplitter IsEnabled="False" Width="1" Margin="10,0,10,0" Background="#FFD6D6D6"></GridSplitter>
+                                    <Image Height="25" Width="25" Cursor="Hand" Source="Resources\Icons\btnXoa.png" ToolTip="Xóa">
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="MouseLeftButtonDown">
+                                                <i:InvokeCommandAction Command="{Binding DeleteCommand}"/>
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                    </Image>
+                                    <GridSplitter IsEnabled="False" Width="1" Margin="10,0,10,0" Background="#FFD6D6D6"></GridSplitter>-->
                                     <Image Height="25" Width="25" Cursor="Hand" Source="Resources\Icons\btnSua.png" ToolTip="Sửa">
                                         <i:Interaction.Triggers>
                                             <i:EventTrigger EventName="MouseLeftButtonDown">
-                                                <i:InvokeCommandAction Command="{Binding EditCommand}">
-                                                </i:InvokeCommandAction>
+                                                <i:InvokeCommandAction Command="{Binding EditCommand}"/>
                                             </i:EventTrigger>
                                         </i:Interaction.Triggers>
                                     </Image>
@@ -1116,8 +1129,7 @@
                                     <Image Height="25" Width="25" Cursor="Hand" Source="Resources\Icons\btnLamMoi.png" ToolTip="Làm mới">
                                         <i:Interaction.Triggers>
                                             <i:EventTrigger EventName="MouseLeftButtonDown">
-                                                <i:InvokeCommandAction Command="{Binding RefreshCommand}">
-                                                </i:InvokeCommandAction>
+                                                <i:InvokeCommandAction Command="{Binding RefreshCommand}"/>
                                             </i:EventTrigger>
                                         </i:Interaction.Triggers>
                                     </Image>
@@ -1171,19 +1183,23 @@
                                     <Image Height="25" Width="25" Cursor="Hand" Source="Resources\Icons\btnThem.png" ToolTip="Thêm">
                                         <i:Interaction.Triggers>
                                             <i:EventTrigger EventName="MouseLeftButtonDown">
-                                                <i:InvokeCommandAction Command="{Binding AddCommand}">
-                                                </i:InvokeCommandAction>
+                                                <i:InvokeCommandAction Command="{Binding AddCommand}"/>
                                             </i:EventTrigger>
                                         </i:Interaction.Triggers>
                                     </Image>
                                     <GridSplitter IsEnabled="False" Width="1" Margin="10,0,10,0" Background="#FFD6D6D6"></GridSplitter>
-                                    <Image Height="25" Width="25" Cursor="Hand" Source="Resources\Icons\btnXoa.png" ToolTip="Xóa"></Image>
+                                    <Image Height="25" Width="25" Cursor="Hand" Source="Resources\Icons\btnXoa.png" ToolTip="Xóa">
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="MouseLeftButtonDown">
+                                                <i:InvokeCommandAction Command="{Binding DeleteCommand}"/>
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                    </Image>
                                     <GridSplitter IsEnabled="False" Width="1" Margin="10,0,10,0" Background="#FFD6D6D6"></GridSplitter>
                                     <Image Height="25" Width="25" Cursor="Hand" Source="Resources\Icons\btnSua.png" ToolTip="Sửa">
                                         <i:Interaction.Triggers>
                                             <i:EventTrigger EventName="MouseLeftButtonDown">
-                                                <i:InvokeCommandAction Command="{Binding EditCommand}">
-                                                </i:InvokeCommandAction>
+                                                <i:InvokeCommandAction Command="{Binding EditCommand}"/>
                                             </i:EventTrigger>
                                         </i:Interaction.Triggers>
                                     </Image>
@@ -1191,8 +1207,7 @@
                                     <Image Height="25" Width="25" Cursor="Hand" Source="Resources\Icons\btnLamMoi.png" ToolTip="Làm mới">
                                         <i:Interaction.Triggers>
                                             <i:EventTrigger EventName="MouseLeftButtonDown">
-                                                <i:InvokeCommandAction Command="{Binding RefreshCommand}">
-                                                </i:InvokeCommandAction>
+                                                <i:InvokeCommandAction Command="{Binding RefreshCommand}"/>
                                             </i:EventTrigger>
                                         </i:Interaction.Triggers>
                                     </Image>

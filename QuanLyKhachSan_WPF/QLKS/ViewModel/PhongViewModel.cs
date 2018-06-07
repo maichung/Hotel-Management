@@ -52,6 +52,7 @@ namespace QLKS.ViewModel
 
         public ICommand SearchPhongCommand { get; set; }
         public ICommand AddCommand { get; set; }
+        public ICommand DeleteCommand { get; set; }
         public ICommand EditCommand { get; set; }
         public ICommand RefreshCommand { get; set; }
         public ICommand SortPhongCommand { get; set; }
@@ -79,13 +80,20 @@ namespace QLKS.ViewModel
                 }
             });
 
-            AddCommand = new RelayCommand<Object>((p) => {
+            AddCommand = new RelayCommand<Object>((p) => 
+            {
                 if (string.IsNullOrEmpty(MaPhong.ToString()) || SelectedLoaiPhong == null || SelectedTinhTrangPhong == null)
+                {
+                    MessageBox.Show("Vui lòng nhập đầy đủ thông tin phòng muốn thêm!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
                     return false;
+                }                    
 
                 var listPhong = DataProvider.Ins.model.PHONG.Where(x => x.MA_PHONG == MaPhong);
                 if (listPhong == null || listPhong.Count() != 0)
+                {
+                    MessageBox.Show("Phòng đã tồn tại!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
                     return false;
+                }                    
 
                 return true;
             }, (p) => {                
@@ -100,16 +108,58 @@ namespace QLKS.ViewModel
                 RefershControls();
             });
 
-            EditCommand = new RelayCommand<Object>((p) =>
+            DeleteCommand = new RelayCommand<Object>((p) =>
             {
-                if (string.IsNullOrEmpty(MaPhong.ToString()) || SelectedItem == null || 
+                if (string.IsNullOrEmpty(MaPhong.ToString()) || SelectedItem == null ||
                     SelectedLoaiPhong == null || SelectedTinhTrangPhong == null)
+                {
+                    MessageBox.Show("Vui lòng chọn phòng muốn xóa!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
                     return false;
+                }
 
                 var listPhong = DataProvider.Ins.model.PHONG.Where(x => x.MA_PHONG == MaPhong);
                 if (listPhong != null && listPhong.Count() != 0)
                     return true;
 
+                MessageBox.Show("Phòng không tồn tại!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return false;
+            }, (p) =>
+            {
+                using (var transactions = DataProvider.Ins.model.Database.BeginTransaction())
+                {
+                    try
+                    {
+                        var phong = DataProvider.Ins.model.PHONG.Where(x => x.MA_PHONG == SelectedItem.Phong.MA_PHONG).FirstOrDefault();
+                        DataProvider.Ins.model.PHONG.Remove(phong);
+                        DataProvider.Ins.model.SaveChanges();
+
+                        transactions.Commit();
+                        RemovePhong(phong.MA_PHONG);
+                        MessageBox.Show("Xóa thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+                        RefershControls();
+                    }
+                    catch (Exception e)
+                    {
+                        MessageBox.Show(e + "\n\tXóa không thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
+                        transactions.Rollback();
+                    }
+                }
+            });
+
+            EditCommand = new RelayCommand<Object>((p) =>
+            {
+                if (string.IsNullOrEmpty(MaPhong.ToString()) || SelectedItem == null || 
+                    SelectedLoaiPhong == null || SelectedTinhTrangPhong == null)
+                {
+                    MessageBox.Show("Vui lòng chọn phòng muốn sửa!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return false;
+                }                    
+
+                var listPhong = DataProvider.Ins.model.PHONG.Where(x => x.MA_PHONG == MaPhong);
+                if (listPhong != null && listPhong.Count() != 0)
+                    return true;
+
+                MessageBox.Show("Phòng không tồn tại!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return false;
             }, (p) =>
             {
@@ -158,6 +208,20 @@ namespace QLKS.ViewModel
             foreach (ThongTinPhong item in listTTPhong)
             {
                 ListTTPhong.Add(item);
+            }
+        }
+
+        void RemovePhong(int map)
+        {
+            if (ListTTPhong == null || ListTTPhong.Count() == 0)
+                return;
+            foreach (ThongTinPhong item in ListTTPhong)
+            {
+                if (item.Phong.MA_PHONG == map)
+                {
+                    ListTTPhong.Remove(item);
+                    return;
+                }
             }
         }
 

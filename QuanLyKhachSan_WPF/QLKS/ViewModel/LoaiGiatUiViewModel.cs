@@ -91,16 +91,20 @@ namespace QLKS.ViewModel
             {
                 if (string.IsNullOrEmpty(TenLoaiGiatUi) || string.IsNullOrEmpty(DonGia.ToString())
                  || DonGia == 0 || SelectedItem == null)
+                {
+                    MessageBox.Show("Vui lòng chọn loại giặt ủi muốn sửa!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
                     return false;
+                }
 
-                var listLoaiGiatUi = DataProvider.Ins.model.LOAIGIATUI.Where(x => x.MA_LOAIGU == SelectedItem.MA_LOAIGU);
+                var listLoaiGiatUi = DataProvider.Ins.model.LOAIGIATUI.Where(x => x.TEN_LOAIGU == TenLoaiGiatUi);
                 if (listLoaiGiatUi != null && listLoaiGiatUi.Count() != 0)
                     return true;
 
+                MessageBox.Show("Loại giặt ủi không tồn tại!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return false;
             }, (p) =>
             {
-                var loaiGiatUi = DataProvider.Ins.model.LOAIGIATUI.Where(x => x.MA_LOAIGU == SelectedItem.MA_LOAIGU).SingleOrDefault();
+                var loaiGiatUi = DataProvider.Ins.model.LOAIGIATUI.Where(x => x.TEN_LOAIGU == TenLoaiGiatUi).SingleOrDefault();
                 loaiGiatUi.TEN_LOAIGU = TenLoaiGiatUi;
                 loaiGiatUi.DONGIA_LOAIGU = DonGia;
                 DataProvider.Ins.model.SaveChanges();

@@ -112,13 +112,19 @@ namespace QLKS.ViewModel
                 if (p == null)
                     return false;
 
-                if (string.IsNullOrEmpty(TenDangNhap) || string.IsNullOrEmpty(MatKhau) || string.IsNullOrEmpty(TenNhanVien) || 
+                if (string.IsNullOrEmpty(TenDangNhap) || string.IsNullOrEmpty(MatKhau) || string.IsNullOrEmpty(TenNhanVien) ||
                 SelectedChucVu == null || SelectedGioiTinh == null)
+                {
+                    MessageBox.Show("Vui lòng nhập đầy đủ thông tin nhân viên muốn thêm!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
                     return false;
+                }
 
                 var listTenDangNhap = DataProvider.Ins.model.TAIKHOAN.Where(x => x.TENDANGNHAP_TK == TenDangNhap);
                 if (listTenDangNhap == null || listTenDangNhap.Count() != 0)
+                {
+                    MessageBox.Show("Tài khoản đã tồn tại!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
                     return false;
+                }
 
                 return true;
             }, (p) =>
@@ -157,12 +163,16 @@ namespace QLKS.ViewModel
 
                 if (string.IsNullOrEmpty(TenDangNhap) || string.IsNullOrEmpty(TenNhanVien) ||
                     SelectedChucVu == null || SelectedGioiTinh == null || SelectedItem == null)
+                {
+                    MessageBox.Show("Vui lòng chọn nhân viên muốn sửa!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
                     return false;
+                }
 
                 var listTTNV = DataProvider.Ins.model.TAIKHOAN.Where(x => x.TENDANGNHAP_TK == TenDangNhap);
                 if (listTTNV != null && listTTNV.Count() != 0)
                     return true;
 
+                MessageBox.Show("Tài khoản không tồn tại!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return false;
             }, (p) =>
             {

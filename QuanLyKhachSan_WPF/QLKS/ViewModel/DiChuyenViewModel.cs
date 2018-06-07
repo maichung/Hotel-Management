@@ -55,6 +55,7 @@ namespace QLKS.ViewModel
         public ICommand ShowHDDiChuyenCommand { get; set; }
         public ICommand SearchChuyenDiCommand { get; set; }
         public ICommand AddCommand { get; set; }
+        public ICommand DeleteCommand { get; set; }
         public ICommand EditCommand { get; set; }
         public ICommand RefreshCommand { get; set; }
         public ICommand SortChuyenDiCommand { get; set; }
@@ -67,7 +68,10 @@ namespace QLKS.ViewModel
             ShowHDDiChuyenCommand = new RelayCommand<Object>((p) =>
             {
                 if (DonGia == 0 || SelectedPhong == null || SelectedItem == null)
+                {
+                    MessageBox.Show("Vui lòng chọn phòng và chuyến đi!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
                     return false;
+                }
 
                 return true;
             }, (p) =>
@@ -108,13 +112,17 @@ namespace QLKS.ViewModel
             {
                 if (String.IsNullOrEmpty(DiemDen) || String.IsNullOrEmpty(DonGia.ToString()) || DonGia == 0)
                 {
+                    MessageBox.Show("Vui lòng nhập đầy đủ thông tin chuyến đi muốn thêm!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
                     return false;
                 }
+
                 var cd = DataProvider.Ins.model.CHUYENDI.Where(x => x.DIEMDEN_CD == DiemDen);
                 if (cd == null || cd.Count() != 0)
                 {
+                    MessageBox.Show("Chuyến đi đã tồn tại!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
                     return false;
                 }
+
                 return true;
             }, (p) =>
             {
@@ -128,18 +136,58 @@ namespace QLKS.ViewModel
                 RefershControlsTCQL();
             });
 
+            DeleteCommand = new RelayCommand<Object>((p) =>
+            {
+                if (String.IsNullOrEmpty(DiemDen) || String.IsNullOrEmpty(DonGia.ToString())
+                 || DonGia == 0 || SelectedItem == null)
+                {
+                    MessageBox.Show("Vui lòng chọn chuyến đi muốn xóa!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return false;
+                }
+
+                var cd = DataProvider.Ins.model.CHUYENDI.Where(x => x.DIEMDEN_CD == DiemDen);
+                if (cd != null && cd.Count() != 0)
+                    return true;
+
+                MessageBox.Show("Chuyến đi không tồn tại!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return false;
+            }, (p) =>
+            {
+                using (var transactions = DataProvider.Ins.model.Database.BeginTransaction())
+                {
+                    try
+                    {
+                        var chuyendi = DataProvider.Ins.model.CHUYENDI.Where(x => x.MA_CD == SelectedItem.MA_CD).FirstOrDefault();
+                        DataProvider.Ins.model.CHUYENDI.Remove(chuyendi);
+                        DataProvider.Ins.model.SaveChanges();
+
+                        transactions.Commit();
+                        RemoveChuyenDi(chuyendi.MA_CD);
+                        MessageBox.Show("Xóa thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+                        RefershControlsTCQL();
+                    }
+                    catch (Exception e)
+                    {
+                        MessageBox.Show(e + "\n\tXóa không thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
+                        transactions.Rollback();
+                    }
+                }
+            });
+
             EditCommand = new RelayCommand<Object>((p) =>
             {
                 if (String.IsNullOrEmpty(DiemDen) || String.IsNullOrEmpty(DonGia.ToString())
                  || DonGia == 0 || SelectedItem == null)
                 {
+                    MessageBox.Show("Vui lòng chọn chuyến đi muốn sửa!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
                     return false;
                 }
+
                 var cd = DataProvider.Ins.model.CHUYENDI.Where(x => x.DIEMDEN_CD == DiemDen);
                 if (cd != null && cd.Count() != 0)
-                {
                     return true;
-                }
+
+                MessageBox.Show("Chuyến đi không tồn tại!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return false;
             }, (p) =>
             {
@@ -189,6 +237,20 @@ namespace QLKS.ViewModel
             foreach (ThongTinPhong item in listTTPhongdangthue)
             {
                 ListTTPhongDangThue.Add(item);
+            }
+        }
+
+        void RemoveChuyenDi(int mach)
+        {
+            if (ListChuyenDi == null || ListChuyenDi.Count() == 0)
+                return;
+            foreach (CHUYENDI item in ListChuyenDi)
+            {
+                if (item.MA_CD == mach)
+                {
+                    ListChuyenDi.Remove(item);
+                    return;
+                }
             }
         }
 

@@ -151,11 +151,17 @@ namespace QLKS.ViewModel
             ThuePhongCommand = new RelayCommand<Button>((p) => 
             {
                 if (MaPhongChonThue == 0)
+                {
+                    MessageBox.Show("Vui lòng chọn phòng muốn thuê!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
                     return false;
+                }
 
                 var phong = DataProvider.Ins.model.PHONG.Where(x => x.MA_PHONG == MaPhongChonThue).SingleOrDefault();
                 if (phong == null || phong.TINHTRANG_PHONG != "Trống")
+                {
+                    MessageBox.Show("Phòng đã cho thuê, vui lòng chọn phòng khác!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
                     return false;
+                }
 
                 return true;
             }, (p) =>
@@ -176,12 +182,16 @@ namespace QLKS.ViewModel
             ShowHDTongCommand = new RelayCommand<Object>((p) =>
             {
                 if (MaPhongChonThue == 0)
+                {
+                    MessageBox.Show("Vui lòng chọn phòng muốn thanh toán!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
                     return false;
+                }
 
                 var phong = DataProvider.Ins.model.PHONG.Where(x => x.MA_PHONG == MaPhongChonThue).SingleOrDefault();
                 if (phong != null && phong.TINHTRANG_PHONG == "Đang thuê")
                     return true;
 
+                MessageBox.Show("Phòng đang trống không thể thanh toán!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return false;
             }, (p) =>
             {

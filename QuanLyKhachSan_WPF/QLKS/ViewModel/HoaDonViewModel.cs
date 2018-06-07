@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Transactions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -53,8 +54,8 @@ namespace QLKS.ViewModel
         public ThongTinPhong ThongTinPhongChonThue { get => _ThongTinPhongChonThue; set { _ThongTinPhongChonThue = value; OnPropertyChanged(); } }
 
         //Truyền thông tin qua hd ăn uống
-        private string _LoaiPhucVu;
-        public string LoaiPhucVu { get => _LoaiPhucVu; set { _LoaiPhucVu = value; OnPropertyChanged(); } }
+        //private string _LoaiPhucVu;
+        //public string LoaiPhucVu { get => _LoaiPhucVu; set { _LoaiPhucVu = value; OnPropertyChanged(); } }
         private ObservableCollection<ThongTinOrder> _ListOrder;
         public ObservableCollection<ThongTinOrder> ListOrder { get => _ListOrder; set { _ListOrder = value; OnPropertyChanged(); } }
         private long _TongTienHDAU;
@@ -214,35 +215,48 @@ namespace QLKS.ViewModel
                 return true;
             }, (p) =>
             {
-                MessageBoxResult result = MessageBox.Show("Tổng tiền cần thanh toán: " + TongTienHD.ToString("N0") + " VNĐ", "Thanh toán", MessageBoxButton.YesNo, MessageBoxImage.Question);
-                if (result == MessageBoxResult.Yes)
+                try
                 {
-                    //lưu chi tiết hóa đơn
-                    ThongTinChiTietHoaDon ttCTHD = new ThongTinChiTietHoaDon();
-                    foreach (var item in ListThongTinCTHD)
+                    using (TransactionScope ts = new TransactionScope())
                     {
-                        if (item.LoaiHoaDon == "Hóa đơn lưu trú")
+                        MessageBoxResult result = MessageBox.Show("Tổng tiền cần thanh toán: " + TongTienHD.ToString("N0") + " VNĐ", "Thanh toán", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                        if (result == MessageBoxResult.Yes)
                         {
-                            ttCTHD = item;
-                            break;
+                            //lưu chi tiết hóa đơn
+                            ThongTinChiTietHoaDon ttCTHD = new ThongTinChiTietHoaDon();
+                            foreach (var item in ListThongTinCTHD)
+                            {
+                                if (item.LoaiHoaDon == "Hóa đơn lưu trú")
+                                {
+                                    ttCTHD = item;
+                                    break;
+                                }
+                            }
+                            var cthdlt = DataProvider.Ins.model.CHITIET_HDLT.Where(x => x.MA_HD == HoaDon.MA_HD).SingleOrDefault();
+                            cthdlt.THOIGIANTRA_PHONG = DateTime.Now;
+                            cthdlt.TRIGIA_CTHDLT = ttCTHD.TriGia;
+                            DataProvider.Ins.model.SaveChanges();
+                            //lưu hóa đơn
+                            var hd = DataProvider.Ins.model.HOADON.Where(x => x.MA_HD == HoaDon.MA_HD).SingleOrDefault();
+                            hd.TINHTRANG_HD = true;
+                            hd.TRIGIA_HD = TongTienHD;
+                            DataProvider.Ins.model.SaveChanges();
+                            //sửa lại trạng thái phòng
+                            var phong = DataProvider.Ins.model.PHONG.Where(x => x.MA_PHONG == MaPhong).SingleOrDefault();
+                            phong.TINHTRANG_PHONG = "Trống";
+                            DataProvider.Ins.model.SaveChanges();
+
+                            ts.Complete();
+                            MessageBox.Show("Thanh toán thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
                         }
                     }
-                    var cthdlt = DataProvider.Ins.model.CHITIET_HDLT.Where(x => x.MA_HD == HoaDon.MA_HD).SingleOrDefault();
-                    cthdlt.THOIGIANTRA_PHONG = DateTime.Now;
-                    cthdlt.TRIGIA_CTHDLT = ttCTHD.TriGia;
-                    DataProvider.Ins.model.SaveChanges();
-                    //lưu hóa đơn
-                    var hd = DataProvider.Ins.model.HOADON.Where(x => x.MA_HD == HoaDon.MA_HD).SingleOrDefault();
-                    hd.TINHTRANG_HD = true;
-                    hd.TRIGIA_HD = TongTienHD;
-                    DataProvider.Ins.model.SaveChanges();
-                    //sửa lại trạng thái phòng
-                    var phong = DataProvider.Ins.model.PHONG.Where(x => x.MA_PHONG == MaPhong).SingleOrDefault();
-                    phong.TINHTRANG_PHONG = "Trống";
-                    DataProvider.Ins.model.SaveChanges();
-
-                    p.Close();
                 }
+                catch (Exception e)
+                {
+                    MessageBox.Show(e + "\nThanh toán không thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
+                }
+
+                p.Close();
             });
 
             CancelCommand = new RelayCommand<Window>((p) => { return p == null ? false : true; }, (p) => { p.Close(); });
@@ -253,7 +267,7 @@ namespace QLKS.ViewModel
                 ListThongTinCTHD.Clear();
                 TongTienHD = 0;
                 //refersh hd ăn uống
-                LoaiPhucVu = null;
+                //LoaiPhucVu = null;
                 ListOrder = null;
                 TongTienHDAU = 0;
                 //refersh hd giặt ủi

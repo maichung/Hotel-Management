@@ -24,10 +24,10 @@ namespace QLKS.ViewModel
         private ObservableCollection<ThongTinOrder> _ListOrder;
         public ObservableCollection<ThongTinOrder> ListOrder { get => _ListOrder; set { _ListOrder = value; OnPropertyChanged(); } }
         //Load tất cả item loại phuc vụ cho cmbLoaiPhucVu
-        private ObservableCollection<string> _ListLoaiPhucVu;
-        public ObservableCollection<string> ListLoaiPhucVu { get => _ListLoaiPhucVu; set { _ListLoaiPhucVu = value; OnPropertyChanged(); } }
-        private string _SelectedLoaiPhucVu;
-        public string SelectedLoaiPhucVu { get => _SelectedLoaiPhucVu; set { _SelectedLoaiPhucVu = value; OnPropertyChanged(); } }
+        //private ObservableCollection<string> _ListLoaiPhucVu;
+        //public ObservableCollection<string> ListLoaiPhucVu { get => _ListLoaiPhucVu; set { _ListLoaiPhucVu = value; OnPropertyChanged(); } }
+        //private string _SelectedLoaiPhucVu;
+        //public string SelectedLoaiPhucVu { get => _SelectedLoaiPhucVu; set { _SelectedLoaiPhucVu = value; OnPropertyChanged(); } }
         //Lấy thông tin mặt hàng khi nhân viên muốn quản lý
         private MATHANG _SelectedItemMH;
         public MATHANG SelectedItemMH { get => _SelectedItemMH; set { _SelectedItemMH = value; OnPropertyChanged(); } }
@@ -101,13 +101,13 @@ namespace QLKS.ViewModel
         public ICommand DeleteOrderCommand { get; set; }
         public ICommand ThemSLCommand { get; set; }
         public ICommand BotSLCommand { get; set; }
-        public ICommand SortMHDVAUCommand { get; set; }
-        public ICommand SortMHOrderCommand { get; set; }
-        public ICommand SortOrderCommand { get; set; }
+        public ICommand SortMatHangDVAUCommand { get; set; }
+        public ICommand SortMatHangOrderCommand { get; set; }
         public ICommand ShowHDAnUongCommand { get; set; }
         //Tra cứu và quản lý
         public ICommand SearchMatHangCommand { get; set; }
         public ICommand AddMatHangCommand { get; set; }
+        public ICommand DeleteMatHangCommand { get; set; }
         public ICommand EditMatHangCommand { get; set; }
         public ICommand RefreshCommand { get; set; }
         public ICommand SortMatHangTCQLCommand { get; set; }
@@ -119,22 +119,28 @@ namespace QLKS.ViewModel
             ListOrder = new ObservableCollection<ThongTinOrder>();
             TongTien = 0;
             TongSoLuongMHDC = 0; //tính ra tổng số lượng mặt hàng đã chọn khi order
-            string[] arrayLPV = new string[] { "Tại phòng", "Tại sảnh ăn uống" };
-            ListLoaiPhucVu = new ObservableCollection<string>(arrayLPV);
+            //string[] arrayLPV = new string[] { "Tại phòng", "Tại sảnh ăn uống" };
+            //ListLoaiPhucVu = new ObservableCollection<string>(arrayLPV);
             sort = false; //sắp xếp column item
 
             #region Dịch vụ ăn uống
             AddOrderCommand = new RelayCommand<Object>((p) =>
             {
                 if (SelectedItemMH == null)
+                {
+                    MessageBox.Show("Vui lòng chọn mặt hàng muốn mua!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
                     return false;
+                }
 
                 if (ListOrder.Count != 0)
                 {
                     foreach (ThongTinOrder item in ListOrder)
                     {
                         if (SelectedItemMH.MA_MH == item.MatHang.MA_MH)
+                        {
+                            MessageBox.Show("Mặt hàng đã được chọn!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
                             return false;
+                        }
                     }
                 }
 
@@ -150,8 +156,11 @@ namespace QLKS.ViewModel
             DeleteOrderCommand = new RelayCommand<Object>((p) =>
             {
                 if (SelectedItemOrder == null)
+                {
+                    MessageBox.Show("Vui lòng chọn mặt hàng đã chọn muốn xóa!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
                     return false;
-
+                }
+                
                 return true;
             }, (p) =>
             {
@@ -220,48 +229,33 @@ namespace QLKS.ViewModel
                 }
             });
 
-            SortMHDVAUCommand = new RelayCommand<GridViewColumnHeader>((p) => { return p == null ? false : true; }, (p) => {
+            SortMatHangDVAUCommand = new RelayCommand<GridViewColumnHeader>((p) => { return p == null ? false : true; }, (p) => {
                 CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(ListMatHang);
                 if (sort)
                 {
                     view.SortDescriptions.Clear();
-                    view.SortDescriptions.Add(new SortDescription(p.Name, ListSortDirection.Ascending));
+                    view.SortDescriptions.Add(new SortDescription(p.Tag.ToString(), ListSortDirection.Ascending));
                 }
                 else
                 {
                     view.SortDescriptions.Clear();
-                    view.SortDescriptions.Add(new SortDescription(p.Name, ListSortDirection.Descending));
+                    view.SortDescriptions.Add(new SortDescription(p.Tag.ToString(), ListSortDirection.Descending));
                 }
                 sort = !sort;
             });
 
-            SortMHOrderCommand = new RelayCommand<GridViewColumnHeader>((p) => { return p == null ? false : true; }, (p) => {
-                CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(ListOrder);
-                if (sort)
-                {
-                    view.SortDescriptions.Clear();
-                    view.SortDescriptions.Add(new SortDescription("MatHang." + p.Name.Remove(p.Name.Length - 1), ListSortDirection.Ascending));
-                }
-                else
-                {
-                    view.SortDescriptions.Clear();
-                    view.SortDescriptions.Add(new SortDescription("MatHang." + p.Name.Remove(p.Name.Length - 1), ListSortDirection.Descending));
-                }
-                sort = !sort;
-            });
-
-            SortOrderCommand = new RelayCommand<GridViewColumnHeader>((p) => { return p == null ? false : true; }, (p) => {
+            SortMatHangOrderCommand = new RelayCommand<GridViewColumnHeader>((p) => { return p == null ? false : true; }, (p) => {
                 CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(ListOrder);
                 if (sort)
                 {
                     view.SortDescriptions.Clear();
                     if(p.Name == "")
-                    view.SortDescriptions.Add(new SortDescription(p.Name, ListSortDirection.Ascending));
+                    view.SortDescriptions.Add(new SortDescription(p.Tag.ToString(), ListSortDirection.Ascending));
                 }
                 else
                 {
                     view.SortDescriptions.Clear();
-                    view.SortDescriptions.Add(new SortDescription(p.Name, ListSortDirection.Descending));
+                    view.SortDescriptions.Add(new SortDescription(p.Tag.ToString(), ListSortDirection.Descending));
                 }
                 sort = !sort;
             });
@@ -269,7 +263,10 @@ namespace QLKS.ViewModel
             ShowHDAnUongCommand = new RelayCommand<Object>((p) =>
             {
                 if (SelectedPhong == null || ListOrder == null || ListOrder.Count() == 0)
+                {
+                    MessageBox.Show("Vui lòng chọn phòng và mặt hàng muốn mua!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
                     return false;
+                }                    
 
                 return true;
             }, (p) =>
@@ -285,7 +282,7 @@ namespace QLKS.ViewModel
                 hoadonVM.GetThongTinPhongThue(MaPhong);
 
                 hoadonVM.TongTienHDAU = TongTien;
-                hoadonVM.LoaiPhucVu = SelectedLoaiPhucVu;
+                //hoadonVM.LoaiPhucVu = SelectedLoaiPhucVu;
                 hoadonVM.ListOrder = ListOrder;                
                 wd.ShowDialog();
                 RefershControlsDVAU();
@@ -312,11 +309,17 @@ namespace QLKS.ViewModel
             AddMatHangCommand = new RelayCommand<Object>((p) =>
             {
                 if (string.IsNullOrEmpty(TenMatHang) || string.IsNullOrEmpty(DonGia.ToString()) || DonGia == 0)
+                {
+                    MessageBox.Show("Vui lòng nhập đầy đủ thông tin mặt hàng muốn thêm!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
                     return false;
+                }                    
 
                 var listMatHang = DataProvider.Ins.model.MATHANG.Where(x => x.TEN_MH == TenMatHang);
                 if (listMatHang == null || listMatHang.Count() != 0)
+                {
+                    MessageBox.Show("Mặt hàng đã tồn tại!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
                     return false;
+                }
 
                 return true;
             }, (p) =>
@@ -331,16 +334,58 @@ namespace QLKS.ViewModel
                 RefershControlsTCQL();
             });
 
-            EditMatHangCommand = new RelayCommand<Object>((p) =>
+            DeleteMatHangCommand = new RelayCommand<Object>((p) =>
             {
                 if (string.IsNullOrEmpty(TenMatHang) || string.IsNullOrEmpty(DonGia.ToString())
                  || DonGia == 0 || SelectedItem == null)
+                {
+                    MessageBox.Show("Vui lòng chọn mặt hàng muốn xóa!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
                     return false;
+                }
 
                 var listMatHang = DataProvider.Ins.model.MATHANG.Where(x => x.TEN_MH == TenMatHang);
                 if (listMatHang != null && listMatHang.Count() != 0)
                     return true;
 
+                MessageBox.Show("Mặt hàng không tồn tại!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return false;
+            }, (p) =>
+            {
+                using (var transactions = DataProvider.Ins.model.Database.BeginTransaction())
+                {
+                    try
+                    {
+                        var mathang = DataProvider.Ins.model.MATHANG.Where(x => x.MA_MH == SelectedItem.MA_MH).FirstOrDefault();
+                        DataProvider.Ins.model.MATHANG.Remove(mathang);
+                        DataProvider.Ins.model.SaveChanges();
+
+                        transactions.Commit();
+                        RemoveMatHang(mathang.MA_MH);
+                        MessageBox.Show("Xóa thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+                        RefershControlsTCQL();
+                    }
+                    catch (Exception e)
+                    {
+                        MessageBox.Show(e + "\n\tXóa không thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
+                        transactions.Rollback();
+                    }
+                }
+            });
+
+            EditMatHangCommand = new RelayCommand<Object>((p) =>
+            {
+                if (string.IsNullOrEmpty(TenMatHang) || string.IsNullOrEmpty(DonGia.ToString())
+                 || DonGia == 0 || SelectedItem == null)
+                {
+                    MessageBox.Show("Vui lòng chọn mặt hàng muốn sửa!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return false;
+                }
+
+                var listMatHang = DataProvider.Ins.model.MATHANG.Where(x => x.TEN_MH == TenMatHang);
+                if (listMatHang != null && listMatHang.Count() != 0)
+                    return true;
+
+                MessageBox.Show("Mặt hàng không tồn tại!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return false;
             }, (p) =>
             {
@@ -394,10 +439,24 @@ namespace QLKS.ViewModel
             }
         }
 
+        void RemoveMatHang(int mamh)
+        {
+            if (ListMatHang == null || ListMatHang.Count() == 0)
+                return;
+            foreach (MATHANG item in ListMatHang)
+            {
+                if (item.MA_MH == mamh)
+                {
+                    ListMatHang.Remove(item);
+                    return;
+                }
+            }
+        }
+
         void RefershControlsDVAU()
         {
             SelectedPhong = null;
-            SelectedLoaiPhucVu = null;
+            //SelectedLoaiPhucVu = null;
             ListOrder.Clear();
             SelectedItemOrder = null;
             TongTien = 0;

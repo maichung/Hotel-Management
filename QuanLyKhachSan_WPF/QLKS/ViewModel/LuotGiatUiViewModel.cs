@@ -6,6 +6,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
@@ -106,7 +107,10 @@ namespace QLKS.ViewModel
             ShowHDGiatUiCommand = new RelayCommand<Object>((p) =>
             {
                 if (ThanhTien == 0 || SelectedPhong == null || SelectedItem == null)
+                {
+                    MessageBox.Show("Vui lòng điền đầy đủ thông tin!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
                     return false;
+                }
 
                 return true;
             }, (p) =>

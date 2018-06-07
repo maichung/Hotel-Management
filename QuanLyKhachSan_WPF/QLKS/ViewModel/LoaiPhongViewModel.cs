@@ -42,6 +42,7 @@ namespace QLKS.ViewModel
 
         public ICommand SearchLoaiPhongCommand { get; set; }
         public ICommand AddCommand { get; set; }
+        public ICommand DeleteCommand { get; set; }
         public ICommand EditCommand { get; set; }
         public ICommand RefreshCommand { get; set; }
         public ICommand SortLoaiPhongCommand { get; set; }
@@ -66,13 +67,20 @@ namespace QLKS.ViewModel
 
             });
 
-            AddCommand = new RelayCommand<Object>((p) => {
+            AddCommand = new RelayCommand<Object>((p) => 
+            {
                 if (string.IsNullOrEmpty(TenLoaiPhong) || string.IsNullOrEmpty(DonGia.ToString()) || DonGia == 0)
+                {
+                    MessageBox.Show("Vui lòng nhập đầy đủ thông tin loại phòng muốn thêm!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
                     return false;
+                }                    
 
                 var listLoaiPhong = DataProvider.Ins.model.LOAIPHONG.Where(x => x.TEN_LP == TenLoaiPhong);
                 if (listLoaiPhong == null || listLoaiPhong.Count() != 0)
+                {
+                    MessageBox.Show("Loại phòng đã tồn tại!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
                     return false;
+                }
 
                 return true;
             }, (p) => {
@@ -86,10 +94,51 @@ namespace QLKS.ViewModel
                 RefershControls();
             });
 
-            EditCommand = new RelayCommand<Object>((p) => {
+            DeleteCommand = new RelayCommand<Object>((p) =>
+            {
                 if (string.IsNullOrEmpty(TenLoaiPhong) || string.IsNullOrEmpty(DonGia.ToString())
                  || DonGia == 0 || SelectedItem == null)
+                {
+                    MessageBox.Show("Vui lòng chọn loại phòng muốn xóa!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
                     return false;
+                }
+
+                var listLoaiPhong = DataProvider.Ins.model.LOAIPHONG.Where(x => x.MA_LP == SelectedItem.MA_LP);
+                if (listLoaiPhong != null && listLoaiPhong.Count() != 0)
+                    return true;
+
+                return false;
+            }, (p) =>
+            {
+                using (var transactions = DataProvider.Ins.model.Database.BeginTransaction())
+                {
+                    try
+                    {
+                        var loaiphong = DataProvider.Ins.model.LOAIPHONG.Where(x => x.MA_LP == SelectedItem.MA_LP).FirstOrDefault();
+                        DataProvider.Ins.model.LOAIPHONG.Remove(loaiphong);
+                        DataProvider.Ins.model.SaveChanges();
+
+                        transactions.Commit();
+                        RemoveLoaiPhong(loaiphong.MA_LP);
+                        MessageBox.Show("Xóa thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+                        RefershControls();
+                    }
+                    catch (Exception e)
+                    {
+                        MessageBox.Show(e + "\n\tXóa không thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
+                        transactions.Rollback();
+                    }
+                }
+            });
+
+            EditCommand = new RelayCommand<Object>((p) => 
+            {
+                if (string.IsNullOrEmpty(TenLoaiPhong) || string.IsNullOrEmpty(DonGia.ToString())
+                 || DonGia == 0 || SelectedItem == null)
+                {
+                    MessageBox.Show("Vui lòng chọn loại phòng muốn sửa!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return false;
+                }
 
                 var listLoaiPhong = DataProvider.Ins.model.LOAIPHONG.Where(x => x.MA_LP == SelectedItem.MA_LP);
                 if (listLoaiPhong != null && listLoaiPhong.Count() != 0)
@@ -126,6 +175,20 @@ namespace QLKS.ViewModel
                 }
                 sort = !sort;
             });
+        }
+
+        void RemoveLoaiPhong(int malp)
+        {
+            if (ListLoaiPhong == null || ListLoaiPhong.Count() == 0)
+                return;
+            foreach (LOAIPHONG item in ListLoaiPhong)
+            {
+                if (item.MA_LP == malp)
+                {
+                    ListLoaiPhong.Remove(item);
+                    return;
+                }
+            }
         }
 
         void RefershControls()
