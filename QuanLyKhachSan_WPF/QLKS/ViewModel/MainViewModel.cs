@@ -171,9 +171,13 @@ namespace QLKS.ViewModel
                     return;
                 var hoadonVM = hd.DataContext as HoaDonViewModel;
                 hoadonVM.LoaiHD = (int)HoaDonViewModel.LoaiHoaDon.HoaDonLuuTru;
-                hoadonVM.HoaDon = hoadonVM.GetHoaDon(MaPhongChonThue);
+                //hoadonVM.HoaDon = hoadonVM.GetHoaDon(MaPhongChonThue);
                 hoadonVM.NhanVienLapHD = NhanVien;
-                hoadonVM.KhachHangThue = hoadonVM.GetKhachHang(hoadonVM.HoaDon);
+                //if (hoadonVM.GetKhachHang(hoadonVM.HoaDon) != null)
+                //{
+                //    hoadonVM.KhachHangThue = hoadonVM.GetKhachHang(hoadonVM.HoaDon);
+                //    hoadonVM.CMND_KH = hoadonVM.KhachHangThue.CMND_KH;
+                //}
                 hoadonVM.MaPhong = MaPhongChonThue;
                 hoadonVM.GetThongTinPhongThue(MaPhongChonThue);
                 hd.ShowDialog();

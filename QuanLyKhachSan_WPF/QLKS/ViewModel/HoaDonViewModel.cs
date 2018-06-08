@@ -23,6 +23,8 @@ namespace QLKS.ViewModel
 
         private int _LoaiHD;
         public int LoaiHD { get => _LoaiHD; set { _LoaiHD = value; OnPropertyChanged(); } }
+        private string _CMND_KH;
+        public string CMND_KH { get => _CMND_KH; set { _CMND_KH = value; OnPropertyChanged(); LoadKhachHangByCMND(); } }
         private DateTime _ThoiGianLapHD;
         public DateTime ThoiGianLapHD { get => _ThoiGianLapHD; set { _ThoiGianLapHD = value; OnPropertyChanged(); } }
         private DateTime _Time;
@@ -87,7 +89,6 @@ namespace QLKS.ViewModel
         public ICommand btnHDDiChuyenCommand { get; set; }
 
         public ICommand LoadHoaDonTongCommand { get; set; }
-        public ICommand LoadKhachHangCommand { get; set; }
         public ICommand PayCommand { get; set; }
         public ICommand CancelCommand { get; set; }
         public ICommand ClosedWindowCommand { get; set; }
@@ -100,6 +101,7 @@ namespace QLKS.ViewModel
             #region Xử lý thao tác với hóa đơn
             ThoiGianLapHD = DateTime.Now;
             Time = DateTime.Parse(DateTime.Now.TimeOfDay.ToString());
+            KhachHangThue = new KHACHHANG();
             ListThongTinCTHD = new ObservableCollection<ThongTinChiTietHoaDon>();
             ThongTinCTHD = new ThongTinChiTietHoaDon();
             TongTienHD = 0;
@@ -127,7 +129,7 @@ namespace QLKS.ViewModel
                 ThongTinCTHD.LoaiHoaDon = "Hóa đơn lưu trú";
                 ThongTinCTHD.NoiDungHD = "Phòng " + hdlt.MA_PHONG + "\nThời gian nhận phòng " + hdlt.THOIGIANNHAN_PHONG + "\nThời gian trả phòng " + DateTime.Now;
                 ThongTinCTHD.DonGia = (int)ThongTinPhongChonThue.LoaiPhong.DONGIA_LP;
-                ThongTinCTHD.TriGia = (int)ThongTinPhongChonThue.LoaiPhong.DONGIA_LP * (Ngay * 10 + Gio);
+                ThongTinCTHD.TriGia = (int)ThongTinPhongChonThue.LoaiPhong.DONGIA_LP * (Ngay * 5 + Gio);
                 ThongTinCTHD.ThoiGian = (DateTime)hdlt.THOIGIANNHAN_PHONG;
                 ListThongTinCTHD.Add(ThongTinCTHD);
                 //lấy hóa đơn ăn uống
@@ -190,23 +192,6 @@ namespace QLKS.ViewModel
                 view.GroupDescriptions.Add(new PropertyGroupDescription("LoaiHoaDon"));
             });
 
-            LoadKhachHangCommand = new RelayCommand<Object>((p) => 
-            {
-                return string.IsNullOrEmpty(KhachHangThue.CMND_KH) ? false : true; }, (p) =>
-            {
-                var kh = DataProvider.Ins.model.KHACHHANG.Where(x => x.CMND_KH == KhachHangThue.CMND_KH).SingleOrDefault();
-                if (kh == null)
-                {
-                    KhachHangThue.HOTEN_KH = "";
-                    KhachHangThue.SODIENTHOAI_KH = "";
-                }
-                else
-                {
-                    KhachHangThue.HOTEN_KH = kh.HOTEN_KH;
-                    KhachHangThue.SODIENTHOAI_KH = kh.SODIENTHOAI_KH;
-                }
-            });
-
             PayCommand = new RelayCommand<Window>((p) => 
             {
                 if (p == null || HoaDon == null || ListThongTinCTHD == null || ListThongTinCTHD.Count() == 0)
@@ -266,6 +251,7 @@ namespace QLKS.ViewModel
                 //refersh hd tổng
                 ListThongTinCTHD.Clear();
                 TongTienHD = 0;
+                MaHD = 0;
                 //refersh hd ăn uống
                 //LoaiPhucVu = null;
                 ListOrder = null;
@@ -346,19 +332,23 @@ namespace QLKS.ViewModel
         {
             if(hoadon == null)
                 return null;
+
             var nv = DataProvider.Ins.model.NHANVIEN.Where(x => x.MA_NV == hoadon.MA_NV).SingleOrDefault();
             if (nv != null)
                 return nv;
+
             return null;
         }
 
         public KHACHHANG GetKhachHang(HOADON hoadon)
         {
             if (hoadon == null)
-                return new KHACHHANG();
+                return null;
+                
             var kh = DataProvider.Ins.model.KHACHHANG.Where(x => x.MA_KH == hoadon.MA_KH).SingleOrDefault();
             if (kh != null)
                 return kh;
+
             return null;
         }
 
@@ -403,6 +393,22 @@ namespace QLKS.ViewModel
                     Gio = gio;
                 }
             }
+        }
+
+        public void LoadKhachHangByCMND()
+        {
+            var kh = DataProvider.Ins.model.KHACHHANG.Where(x => x.CMND_KH == CMND_KH).SingleOrDefault();
+            if (kh == null)
+            {
+                KhachHangThue.HOTEN_KH = "";
+                KhachHangThue.SODIENTHOAI_KH = "";
+            }
+            else
+            {
+                KhachHangThue.HOTEN_KH = kh.HOTEN_KH;
+                KhachHangThue.SODIENTHOAI_KH = kh.SODIENTHOAI_KH;                
+            }
+            KhachHangThue.CMND_KH = CMND_KH;
         }
     }
 }

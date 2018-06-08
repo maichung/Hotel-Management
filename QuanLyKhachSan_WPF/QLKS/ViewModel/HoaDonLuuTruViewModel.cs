@@ -40,7 +40,6 @@ namespace QLKS.ViewModel
 
                 if (hoadonVM.MaHD == 0 && (string.IsNullOrEmpty(hoadonVM.KhachHangThue.CMND_KH) || string.IsNullOrEmpty(hoadonVM.KhachHangThue.HOTEN_KH)))
                 {
-                    MessageBox.Show("Vui lòng điền đầy đủ thông tin khách hàng!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
                     return false;
                 }
 

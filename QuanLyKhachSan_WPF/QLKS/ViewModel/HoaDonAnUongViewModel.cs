@@ -53,6 +53,7 @@ namespace QLKS.ViewModel
                 }
                 DataProvider.Ins.model.SaveChanges();
 
+                MessageBox.Show("Lưu thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
                 p.Close();
             });
         }

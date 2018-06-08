@@ -45,6 +45,7 @@ namespace QLKS.ViewModel
                 DataProvider.Ins.model.CHITIET_HDDC.Add(chitietHDDC);
                 DataProvider.Ins.model.SaveChanges();
 
+                MessageBox.Show("Lưu thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
                 p.Close();
             });
         }
