@@ -1,4 +1,5 @@
 ﻿using QLKS.Model;
+using SAPBusinessObjects.WPF.Viewer;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -13,11 +14,14 @@ namespace QLKS.ViewModel
 {
     class BaoCaoDichVuViewModel : BaseViewModel
     {
-        private ObservableCollection<ThongTinBaoCaoDichVu> _ListDichVu;
-        public ObservableCollection<ThongTinBaoCaoDichVu> ListDichVu { get => _ListDichVu; set { _ListDichVu = value; OnPropertyChanged(); } }
-
+        private ObservableCollection<ThongTinBaoCao> _ListDichVu;
+        public ObservableCollection<ThongTinBaoCao> ListDichVu { get => _ListDichVu; set { _ListDichVu = value; OnPropertyChanged(); } }
+        private NHANVIEN _NhanVien;
+        public NHANVIEN NhanVien { get => _NhanVien; set { _NhanVien = value; OnPropertyChanged(); } }
         private int _TongDoanhThu;
         public int TongDoanhThu { get => _TongDoanhThu; set { _TongDoanhThu = value; OnPropertyChanged(); } }
+        private string _TieuDeBieuDo;
+        public string TieuDeBieuDo { get => _TieuDeBieuDo; set { _TieuDeBieuDo = value; OnPropertyChanged(); } }
         private int _LuuTru;
         public int LuuTru { get => _LuuTru; set { _LuuTru = value; OnPropertyChanged(); } }
         private int _AnUong;
@@ -35,6 +39,8 @@ namespace QLKS.ViewModel
 
         public ICommand ShowCommand { get; set; }
         public ICommand SaveCommand { get; set; }
+        public ICommand PrintCommand { get; set; }
+        public ICommand LoadReportCommand { get; set; }
 
         public BaoCaoDichVuViewModel()
         {
@@ -44,7 +50,10 @@ namespace QLKS.ViewModel
             ShowCommand = new RelayCommand<Object>((p) =>
             {
                 if (NgayBatDau == null || NgayKetThuc == null)
+                {
+                    MessageBox.Show("Vui lòng chọn đầy đủ ngày bắt đầu và ngày kết thúc!", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Warning);
                     return false;
+                }
                 if (NgayBatDau > NgayKetThuc)
                 {
                     MessageBox.Show("Ngày kết thúc phải sau ngày bắt đầu, vui lòng chọn lại!", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Warning);
@@ -54,8 +63,9 @@ namespace QLKS.ViewModel
             }, (p) =>
             {
                 NgayKetThucReal = NgayKetThuc.AddDays(1);
-
-                ListDichVu = new ObservableCollection<ThongTinBaoCaoDichVu>();
+                TongDoanhThu = 0;
+                TieuDeBieuDo = string.Empty;
+                ListDichVu = new ObservableCollection<ThongTinBaoCao>();
 
                 var tong = (from hd in DataProvider.Ins.model.HOADON
                             where (hd.THOIGIANLAP_HD >= NgayBatDau) && (hd.THOIGIANLAP_HD < NgayKetThucReal)
@@ -63,45 +73,76 @@ namespace QLKS.ViewModel
                 if (tong == null)
                 {
                     ListDichVu = null;
-                    MessageBox.Show("Không có báo cáo trong khoảng thời gia đã chọn!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show("Không có báo cáo trong khoảng thời gian đã chọn!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
                     return;
                 }
                 TongDoanhThu = (int)tong;
+                TieuDeBieuDo = "Tổng doanh thu: " + TongDoanhThu.ToString("N0");
 
+                #region Tính doanh thu từng loại dịch vụ
                 var anuong = (from hd in DataProvider.Ins.model.HOADON
                               join au in DataProvider.Ins.model.CHITIET_HDAU
                               on hd.MA_HD equals au.MA_HD
                               where (hd.THOIGIANLAP_HD >= NgayBatDau) && (hd.THOIGIANLAP_HD < NgayKetThucReal)
                               select au.TRIGIA_CTHDAU).Sum();
-                AnUong = (int)anuong;
+                if (anuong == null)
+                {
+                    AnUong = 0;
+                }
+                else
+                {
+                    AnUong = (int)anuong;
+                }
 
                 var luutru = (from hd in DataProvider.Ins.model.HOADON
                               join lt in DataProvider.Ins.model.CHITIET_HDLT
                               on hd.MA_HD equals lt.MA_HD
                               where (hd.THOIGIANLAP_HD >= NgayBatDau) && (hd.THOIGIANLAP_HD < NgayKetThucReal)
                               select lt.TRIGIA_CTHDLT).Sum();
-                LuuTru = (int)luutru;
+                if (luutru == null)
+                {
+                    LuuTru = 0;
+                }
+                else
+                {
+                    LuuTru = (int)luutru;
+                }
 
                 var dichuyen = (from hd in DataProvider.Ins.model.HOADON
                                 join dc in DataProvider.Ins.model.CHITIET_HDDC
                                 on hd.MA_HD equals dc.MA_HD
                                 where (hd.THOIGIANLAP_HD >= NgayBatDau) && (hd.THOIGIANLAP_HD < NgayKetThucReal)
                                 select dc.TRIGIA_CTHDDC).Sum();
-                DiChuyen = (int)dichuyen;
+                if (dichuyen == null)
+                {
+                    DiChuyen = 0;
+                }
+                else
+                {
+                    DiChuyen = (int)dichuyen;
+                }
 
                 var giatui = (from hd in DataProvider.Ins.model.HOADON
                               join gu in DataProvider.Ins.model.CHITIET_HDGU
                               on hd.MA_HD equals gu.MA_HD
                               where (hd.THOIGIANLAP_HD >= NgayBatDau) && (hd.THOIGIANLAP_HD < NgayKetThucReal)
                               select gu.TRIGIA_CTHDGU).Sum();
-                GiatUi = (int)giatui;
+                if (giatui == null)
+                {
+                    GiatUi = 0;
+                }
+                else
+                {
+                    GiatUi = (int)giatui;
+                }
+                #endregion
 
-                ListDichVu.Add(new ThongTinBaoCaoDichVu() { TenDichVu = "Lưu trú", DoanhThu = LuuTru });
-                ListDichVu.Add(new ThongTinBaoCaoDichVu() { TenDichVu = "Ăn uống", DoanhThu = AnUong });
-                ListDichVu.Add(new ThongTinBaoCaoDichVu() { TenDichVu = "Giặt ủi", DoanhThu = GiatUi });
-                ListDichVu.Add(new ThongTinBaoCaoDichVu() { TenDichVu = "Di chuyển", DoanhThu = DiChuyen });
+                ListDichVu.Add(new ThongTinBaoCao() { Item = "Lưu trú", DoanhThu = LuuTru, TiLe = (double)LuuTru / TongDoanhThu });
+                ListDichVu.Add(new ThongTinBaoCao() { Item = "Ăn uống", DoanhThu = AnUong, TiLe = (double)AnUong / TongDoanhThu });
+                ListDichVu.Add(new ThongTinBaoCao() { Item = "Giặt ủi", DoanhThu = GiatUi, TiLe = (double)GiatUi / TongDoanhThu });
+                ListDichVu.Add(new ThongTinBaoCao() { Item = "Di chuyển", DoanhThu = DiChuyen, TiLe = (double)DiChuyen / TongDoanhThu });
             });
-            
+
             SaveCommand = new RelayCommand<Object>((p) =>
             {
                 if (ListDichVu != null)
@@ -124,6 +165,38 @@ namespace QLKS.ViewModel
                 MessageBox.Show("Lưu báo cáo thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
             });
 
+            PrintCommand = new RelayCommand<Window>((p) =>
+              {
+                  if (p == null || p.DataContext == null)
+                      return false;
+
+                  if (ListDichVu != null)
+                      return true;
+                  MessageBox.Show("Không có báo cáo, vui lòng xuất báo cáo trước khi in!", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Warning);
+                  return false;
+              }, (p) =>
+              {
+                  var MainVM = p.DataContext as MainViewModel;
+                  NhanVien = MainVM.NhanVien;
+                  DichVuReport rp = new DichVuReport();
+                  rp.ShowDialog();
+              });
+
+            LoadReportCommand = new RelayCommand<CrystalReportsViewer>((p) =>
+            {
+                if (p == null)
+                    return false;
+                return true;
+            }, (p) =>
+            {
+                DoanhThuDichVuReport rp = new DoanhThuDichVuReport();
+                rp.SetDataSource(ListDichVu);
+                rp.SetParameterValue("txtNgayBatDau", NgayBatDau);
+                rp.SetParameterValue("txtNgayKetThuc", NgayKetThuc);
+                rp.SetParameterValue("txtTongDoanhThu", TongDoanhThu);
+                rp.SetParameterValue("txtNhanVien", NhanVien.HOTEN_NV);
+                p.ViewerCore.ReportSource = rp;
+            });
         }
     }
 }

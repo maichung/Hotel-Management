@@ -94,7 +94,7 @@ namespace QLKS.ViewModel
 
             LoadHoaDonTongCommand = new RelayCommand<Object>((p) => 
             {
-                if (ListThongTinHD.Count() != 0)
+                if (ListThongTinHD.Count() != 0 || HoaDon == null)
                     return false;
 
                 return true;

@@ -10,25 +10,30 @@
         
         Name="mainWindow"
         DataContext="{StaticResource HoaDonVM}"
-        Title="Hóa đơn" Height="700" Width="1000" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen">
+        Title="Hóa đơn" Height="750" Width="1100" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen">
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Closed">
             <i:InvokeCommandAction Command="{Binding ClosedWindowCommand}">
-                
+
             </i:InvokeCommandAction>
         </i:EventTrigger>
     </i:Interaction.Triggers>
-    
+
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition ></ColumnDefinition>
-            <ColumnDefinition Width="2.5*" ></ColumnDefinition>
+            <ColumnDefinition Width="300" ></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
         <!-- Tiêu đề menu -->
         <Grid Grid.Column="0" Background="#FF82787E" Margin="0,0,0,0">
-            <Image Source="Resources\Icons\hotel.png" Width="60" Height="60" Margin="50" HorizontalAlignment="Center" VerticalAlignment="Top"></Image>
-            <StackPanel Name="groupButtonTitles" Grid.Column="0" HorizontalAlignment="Left" Height="Auto" Margin="0,160,0,0" VerticalAlignment="Top" Width="Auto">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1.5*"/>
+                <RowDefinition Height="5*"></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <Image Grid.Row="0" Source="Resources\Icons\hotel.png" Width="60" Height="60" HorizontalAlignment="Center" VerticalAlignment="Center"></Image>
+            <StackPanel Name="groupButtonTitles" Grid.Row="1" Margin="0,30" HorizontalAlignment="Left" VerticalAlignment="Top">
                 <Button Name="btnHDTong" Height="50" BorderBrush="{x:Null}" Background="{x:Null}" FontSize="18">
                     <Button.Style>
                         <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignRaisedButton}">
@@ -40,14 +45,12 @@
                             </Style.Triggers>
                         </Style>
                     </Button.Style>
-
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="Click">
                             <i:InvokeCommandAction Command="{Binding btnHDTongCommand}">
                             </i:InvokeCommandAction>
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
-
                     <Grid Width="250" >
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="1*"></ColumnDefinition>
@@ -190,11 +193,13 @@
                     </Grid>
                 </Button>
             </StackPanel>
-            <GridSplitter Height="1" Width="220" IsEnabled="False" Margin="0,120" HorizontalAlignment="Center" VerticalAlignment="Bottom" Background="#FFC1C1C1"></GridSplitter>
-            
+            <GridSplitter Grid.Row="2" Height="1" Width="220" IsEnabled="False" Margin="10" HorizontalAlignment="Center" VerticalAlignment="Top" Background="#FFC1C1C1"></GridSplitter>
             <!-- Tài khoản đăng nhập -->
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,60">
-                <Label DataContext="{StaticResource DangNhapVM}" Content="{Binding NVDangNhap.HOTEN_NV}" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold" Foreground="White"/>
+            <StackPanel Grid.Row="2" Orientation="Horizontal" DataContext="{StaticResource DangNhapVM}" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Label Content="{Binding NVDangNhap.HOTEN_NV}" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" FontFamily="Segoe UI Semibold"/>
+                <GridSplitter IsEnabled="False" Width="1" Margin="1,7,1,7" Background="#FFD6D6D6"></GridSplitter>
+                <Label Content="{Binding NVDangNhap.CHUCVU_NV}" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" FontFamily="Segoe UI Light"/>
+                
             </StackPanel>
         </Grid>
 
@@ -210,8 +215,8 @@
                             </DataTrigger>
                         </Style.Triggers>
                     </Style>
-                </Grid.Style>                
-                
+                </Grid.Style>
+
                 <!-- Tiêu đề hóa đơn-->
                 <Label Content="HÓA ĐƠN TỔNG" Margin="30"  VerticalAlignment="Top" HorizontalAlignment="Center" Grid.Column="1" FontSize="22" Foreground="#FF5E6572" FontFamily="Segoe UI Semibold"/>
 
@@ -238,7 +243,7 @@
                                 <TextBox Text="{Binding NhanVienLapHD.HOTEN_NV}" Margin="0,0,0,10" Height="37" materialDesign:HintAssist.Hint="Nhân viên lập hóa đơn" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  TextWrapping="Wrap" VerticalContentAlignment="Center"></TextBox>
                             </StackPanel>
                         </GroupBox>
-                        
+
                         <GroupBox Margin="0,20,0,0" materialDesign:ColorZoneAssist.Mode="Standard" Header="THÔNG TIN KHÁCH HÀNG">
                             <StackPanel>
                                 <TextBox Text="{Binding KhachHangThue.HOTEN_KH}" Margin="0,0,0,10" Height="37" materialDesign:HintAssist.Hint="Họ tên khách hàng" Style="{StaticResource MaterialDesignFloatingHintTextBox}" TextWrapping="Wrap" VerticalContentAlignment="Center"></TextBox>
@@ -247,7 +252,7 @@
                             </StackPanel>
                         </GroupBox>
                     </StackPanel>
-                    
+
                     <GroupBox Grid.Column="1" Margin="20,0,0,60" materialDesign:ColorZoneAssist.Mode="Standard" Header="THÔNG TIN THANH TOÁN">
                         <Grid>
                             <Grid.RowDefinitions>
@@ -291,7 +296,7 @@
                                 </ListView>
                             </ScrollViewer>
                             <TextBox Grid.Row="1" Text="{Binding TongTienHD, StringFormat='N0'}" Margin="0,10,0,0" Width="100" Height="37" materialDesign:HintAssist.Hint="Tổng cộng" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  TextWrapping="Wrap" VerticalAlignment="Bottom" HorizontalAlignment="Right" VerticalContentAlignment="Center" HorizontalContentAlignment="Right"></TextBox>
-                        </Grid>                        
+                        </Grid>
                     </GroupBox>
 
                     <StackPanel Orientation="Horizontal" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10,10">
@@ -324,7 +329,7 @@
                         <ColumnDefinition/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
-                    
+
                     <StackPanel Grid.Column="0" Margin="0,0,10,0">
                         <GroupBox materialDesign:ColorZoneAssist.Mode="Standard" Header="THÔNG TIN HÓA ĐƠN">
                             <StackPanel>
@@ -334,7 +339,7 @@
                                 <TextBox Text="{Binding NhanVienLapHD.HOTEN_NV}" Margin="0,0,0,10" Height="37" materialDesign:HintAssist.Hint="Nhân viên lập hóa đơn" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  TextWrapping="Wrap" VerticalContentAlignment="Center"></TextBox>
                             </StackPanel>
                         </GroupBox>
-                        
+
                         <GroupBox Margin="0,20,0,0" materialDesign:ColorZoneAssist.Mode="Standard" Header="THÔNG TIN KHÁCH HÀNG">
                             <StackPanel>
                                 <TextBox Text="{Binding KhachHangThue.HOTEN_KH, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,10" Height="37" materialDesign:HintAssist.Hint="Họ tên khách hàng" Style="{StaticResource MaterialDesignFloatingHintTextBox}" TextWrapping="Wrap" VerticalContentAlignment="Center"></TextBox>
@@ -394,8 +399,8 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
                         <ColumnDefinition Width="2*"></ColumnDefinition>
-                    </Grid.ColumnDefinitions>                    
-                    
+                    </Grid.ColumnDefinitions>
+
                     <StackPanel Grid.Column="0">
                         <GroupBox materialDesign:ColorZoneAssist.Mode="Standard" Header="THÔNG TIN HÓA ĐƠN">
                             <StackPanel>
@@ -413,7 +418,7 @@
                             </StackPanel>
                         </GroupBox>
                     </StackPanel>
-                    
+
                     <GroupBox Grid.Column="1" Margin="20,0,0,60" materialDesign:ColorZoneAssist.Mode="Standard" Header="THÔNG TIN THANH TOÁN">
                         <StackPanel>
                             <Grid>
@@ -446,7 +451,7 @@
                             <TextBox Text="{Binding TongTienHDAU, StringFormat='N0'}" Margin="0,20,0,0" Width="100" Height="37" materialDesign:HintAssist.Hint="Tổng cộng" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  TextWrapping="Wrap" VerticalAlignment="Bottom" HorizontalAlignment="Right" VerticalContentAlignment="Center" HorizontalContentAlignment="Right"></TextBox>
                         </StackPanel>
                     </GroupBox>
-                    
+
                     <StackPanel DataContext="{StaticResource HoaDonAnUongVM}" Orientation="Horizontal" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10,10">
                         <Button Command="{Binding CancelCommand}" CommandParameter="{Binding ElementName=mainWindow}" Margin="0,0,10,0" Width="80" BorderBrush="{x:Null}" Content="Hủy" FontSize="12" Background="White" Foreground="#FF9B9B9B"/>
                         <Button Command="{Binding SaveCommand}" CommandParameter="{Binding ElementName=mainWindow}" Margin="0,0,10,0" Width="80" BorderBrush="{x:Null}" Content="Lưu" FontSize="12" Background="#FFA58A72"/>
@@ -604,6 +609,6 @@
                 </Grid>
             </Grid>
         </Grid>
-        
+
     </Grid>
 </Window>
