@@ -70,6 +70,7 @@
     <Reference Include="System.Security" />
     <Reference Include="System.Web" />
     <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Transactions" />
     <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Windows.Interactivity.WPF.2.0.20525\lib\net40\System.Windows.Interactivity.dll</HintPath>
     </Reference>
@@ -184,6 +185,7 @@
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\ThongTinBaoCao.cs" />
+    <Compile Include="Model\ThongTinChiTietHoaDon.cs" />
     <Compile Include="Model\ThongTinGiatUi.cs" />
     <Compile Include="Model\ThongTinHoaDon.cs" />
     <Compile Include="Model\ThongTinNhanVien.cs" />
@@ -368,7 +370,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\DataSources\" />
-    <Folder Include="View\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Model\Model.Context.tt">

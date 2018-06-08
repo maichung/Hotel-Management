@@ -239,13 +239,13 @@
                             <StackPanel>
                                 <TextBox Text="{Binding MaHD}" Margin="0,0,0,10" Height="37" materialDesign:HintAssist.Hint="Mã hóa đơn" Style="{StaticResource MaterialDesignFloatingHintTextBox}" TextWrapping="Wrap" VerticalContentAlignment="Center"></TextBox>
                                 <DatePicker SelectedDate="{Binding ThoiGianLapHD, StringFormat='dd/MM/yyyy'}" Margin="0,0,0,10" Height="37" materialDesign:HintAssist.Hint="Ngày lập hóa đơn" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" VerticalContentAlignment="Center"></DatePicker>
-                                <materialDesign:TimePicker SelectedTime="{Binding ThoiGianLapHD, StringFormat='hh:mm:ss'}" Margin="0,0,0,10" Is24Hours="True" Height="37" materialDesign:HintAssist.Hint="Thời gian lập hóa đơn" Style="{StaticResource MaterialDesignFloatingHintTimePicker}" VerticalContentAlignment="Center"></materialDesign:TimePicker>
+                                <materialDesign:TimePicker SelectedTime="{Binding Time}" Margin="0,0,0,10" Is24Hours="True" Height="37" materialDesign:HintAssist.Hint="Thời gian lập hóa đơn" Style="{StaticResource MaterialDesignFloatingHintTimePicker}" VerticalContentAlignment="Center"></materialDesign:TimePicker>
                                 <TextBox Text="{Binding NhanVienLapHD.HOTEN_NV}" Margin="0,0,0,10" Height="37" materialDesign:HintAssist.Hint="Nhân viên lập hóa đơn" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  TextWrapping="Wrap" VerticalContentAlignment="Center"></TextBox>
                             </StackPanel>
                         </GroupBox>
 
                         <GroupBox Margin="0,20,0,0" materialDesign:ColorZoneAssist.Mode="Standard" Header="THÔNG TIN KHÁCH HÀNG">
-                            <StackPanel>
+                            <StackPanel IsEnabled="False">
                                 <TextBox Text="{Binding KhachHangThue.HOTEN_KH}" Margin="0,0,0,10" Height="37" materialDesign:HintAssist.Hint="Họ tên khách hàng" Style="{StaticResource MaterialDesignFloatingHintTextBox}" TextWrapping="Wrap" VerticalContentAlignment="Center"></TextBox>
                                 <TextBox Text="{Binding KhachHangThue.SODIENTHOAI_KH}" Margin="0,0,0,10" Height="37" materialDesign:HintAssist.Hint="Số điện thoại" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  TextWrapping="Wrap" VerticalContentAlignment="Center"></TextBox>
                                 <TextBox Text="{Binding KhachHangThue.CMND_KH}" Margin="0,0,0,10" Height="37" materialDesign:HintAssist.Hint="Số CMND" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  TextWrapping="Wrap" VerticalContentAlignment="Center"></TextBox>
@@ -260,11 +260,12 @@
                                 <RowDefinition Height="Auto"></RowDefinition>
                             </Grid.RowDefinitions>
                             <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
-                                <ListView  Margin="0,0,0,60" ItemsSource="{Binding ListThongTinHD}">
+                                <ListView  Margin="0,0,0,60" ItemsSource="{Binding ListThongTinCTHD}">
                                     <ListView.View>
                                         <GridView>
                                             <GridViewColumn Header="Nội dung thanh toán" DisplayMemberBinding="{Binding NoiDungHD}"/>
                                             <GridViewColumn Header="Đơn giá" DisplayMemberBinding="{Binding DonGia, StringFormat='N0'}"/>
+                                            <GridViewColumn Header="Thời gian" DisplayMemberBinding="{Binding ThoiGian, StringFormat='dd/MM/yyyy'}"/>
                                             <GridViewColumn Header="Trị giá" DisplayMemberBinding="{Binding TriGia, StringFormat='N0'}"/>
                                         </GridView>
                                     </ListView.View>
@@ -301,7 +302,6 @@
 
                     <StackPanel Orientation="Horizontal" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10,10">
                         <Button Command="{Binding CancelCommand}" CommandParameter="{Binding ElementName=mainWindow}" Margin="0,0,10,0" Width="80" BorderBrush="{x:Null}" Content="Hủy" FontSize="12" Background="White" Foreground="#FF9B9B9B"/>
-                        <Button Command="{Binding SaveCommand}" CommandParameter="{Binding ElementName=mainWindow}" Margin="0,0,10,0" Width="80" BorderBrush="{x:Null}" Content="Lưu" FontSize="12" Background="#FFA58A72"/>
                         <Button Command="{Binding PayCommand}" CommandParameter="{Binding ElementName=mainWindow}" Width="100" BorderBrush="{x:Null}" Content="Thanh toán" FontSize="12" Background="#FF5E6572"/>
                     </StackPanel>
                 </Grid>
@@ -333,47 +333,43 @@
                     <StackPanel Grid.Column="0" Margin="0,0,10,0">
                         <GroupBox materialDesign:ColorZoneAssist.Mode="Standard" Header="THÔNG TIN HÓA ĐƠN">
                             <StackPanel>
-                                <TextBox Text="{Binding MaHD}" Margin="0,0,0,10" Height="37" materialDesign:HintAssist.Hint="Mã hóa đơn" Style="{StaticResource MaterialDesignFloatingHintTextBox}" TextWrapping="Wrap" VerticalContentAlignment="Center"></TextBox>
+                                <TextBox Name="txBoxMaHD" Text="{Binding MaHD}" Margin="0,0,0,10" Height="37" materialDesign:HintAssist.Hint="Mã hóa đơn" Style="{StaticResource MaterialDesignFloatingHintTextBox}" TextWrapping="Wrap" VerticalContentAlignment="Center"></TextBox>
                                 <DatePicker SelectedDate="{Binding ThoiGianLapHD, StringFormat='dd/MM/yyyy'}" Margin="0,0,0,10" Height="37" materialDesign:HintAssist.Hint="Ngày lập hóa đơn" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" VerticalContentAlignment="Center"></DatePicker>
-                                <materialDesign:TimePicker SelectedTime="{Binding ThoiGianLapHD, StringFormat='hh:mm:ss'}" Margin="0,5,0,10" Is24Hours="True" Height="37" materialDesign:HintAssist.Hint="Thời gian lập hóa đơn" Style="{StaticResource MaterialDesignFloatingHintTimePicker}" VerticalContentAlignment="Center"></materialDesign:TimePicker>
+                                <materialDesign:TimePicker SelectedTime="{Binding Time}" Margin="0,5,0,10" Is24Hours="True" Height="37" materialDesign:HintAssist.Hint="Thời gian lập hóa đơn" Style="{StaticResource MaterialDesignFloatingHintTimePicker}" VerticalContentAlignment="Center"></materialDesign:TimePicker>
                                 <TextBox Text="{Binding NhanVienLapHD.HOTEN_NV}" Margin="0,0,0,10" Height="37" materialDesign:HintAssist.Hint="Nhân viên lập hóa đơn" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  TextWrapping="Wrap" VerticalContentAlignment="Center"></TextBox>
                             </StackPanel>
                         </GroupBox>
 
                         <GroupBox Margin="0,20,0,0" materialDesign:ColorZoneAssist.Mode="Standard" Header="THÔNG TIN KHÁCH HÀNG">
                             <StackPanel>
+                                <StackPanel.Resources>
+                                    <Style TargetType="StackPanel">
+                                        <Setter Property="IsEnabled" Value="False"></Setter>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding ElementName=txBoxMaHD, Path=Text}" Value="0">
+                                                <Setter Property="IsEnabled" Value="True"></Setter>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </StackPanel.Resources>
                                 <TextBox Text="{Binding KhachHangThue.HOTEN_KH, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,10" Height="37" materialDesign:HintAssist.Hint="Họ tên khách hàng" Style="{StaticResource MaterialDesignFloatingHintTextBox}" TextWrapping="Wrap" VerticalContentAlignment="Center"></TextBox>
-                                <TextBox Text="{Binding KhachHangThue.SODIENTHOAI_KH, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,10" Height="37" materialDesign:HintAssist.Hint="Số điện thoại" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  TextWrapping="Wrap" VerticalContentAlignment="Center"></TextBox>
-                                <TextBox Text="{Binding KhachHangThue.CMND_KH, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,10" Height="37" materialDesign:HintAssist.Hint="Số CMND" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  TextWrapping="Wrap" VerticalContentAlignment="Center">
-                                    <i:Interaction.Triggers>
-                                        <i:EventTrigger EventName="TextChanged">
-                                            <i:InvokeCommandAction Command="{Binding LoadKhachHangCommand}">
-                                            </i:InvokeCommandAction>
-                                        </i:EventTrigger>
-                                    </i:Interaction.Triggers>
-                                </TextBox>
+                                <TextBox Text="{Binding KhachHangThue.SODIENTHOAI_KH, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,10" Height="37" MaxLength="14" materialDesign:HintAssist.Hint="Số điện thoại" Style="{StaticResource MaterialDesignFloatingHintTextBox}" TextWrapping="Wrap" VerticalContentAlignment="Center"></TextBox>
+                                <TextBox Text="{Binding CMND_KH, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,10" Height="37" MaxLength="11" materialDesign:HintAssist.Hint="Số CMND" Style="{StaticResource MaterialDesignFloatingHintTextBox}" TextWrapping="Wrap" VerticalContentAlignment="Center"></TextBox>
                             </StackPanel>
                         </GroupBox>
                     </StackPanel>
 
                     <GroupBox Grid.Column="1" Margin="10,0,0,0" materialDesign:ColorZoneAssist.Mode="Standard" Header="THÔNG TIN THANH TOÁN">
-                        <StackPanel>
+                        <StackPanel>                            
                             <TextBox Text="{Binding ThongTinPhongChonThue.Phong.MA_PHONG}" Margin="0,0,0,10" Height="37" materialDesign:HintAssist.Hint="Mã phòng" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  TextWrapping="Wrap" VerticalContentAlignment="Center"/>
                             <TextBox Text="{Binding ThongTinPhongChonThue.LoaiPhong.TEN_LP}" Margin="0,0,0,10" Height="37" materialDesign:HintAssist.Hint="Loại phòng" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  TextWrapping="Wrap" VerticalContentAlignment="Center"></TextBox>
                             <TextBox Text="{Binding ThongTinPhongChonThue.LoaiPhong.DONGIA_LP, StringFormat='N0'}" Margin="0,0,0,10" Height="37" materialDesign:HintAssist.Hint="Đơn giá" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  TextWrapping="Wrap" VerticalContentAlignment="Center"></TextBox>
-                            <CheckBox Margin="0,0,0,10" Height="37" Content="Đặt phòng trước" VerticalContentAlignment="Center"></CheckBox>
-                            <DatePicker Margin="0,0,0,10" Height="37" materialDesign:HintAssist.Hint="Ngày nhận phòng" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" VerticalContentAlignment="Center"></DatePicker>
-                            <materialDesign:TimePicker Margin="0,5,0,10" Is24Hours="True" Height="37" materialDesign:HintAssist.Hint="Thời gian nhận phòng" Style="{StaticResource MaterialDesignFloatingHintTimePicker}" VerticalContentAlignment="Center"></materialDesign:TimePicker>
-                            <DatePicker Margin="0,0,0,10" Height="37" materialDesign:HintAssist.Hint="Ngày trả phòng" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" VerticalContentAlignment="Center"></DatePicker>
-                            <materialDesign:TimePicker Margin="0,5,0,10" Is24Hours="True" Height="37" materialDesign:HintAssist.Hint="Thời gian trả phòng" Style="{StaticResource MaterialDesignFloatingHintTimePicker}" VerticalContentAlignment="Center"></materialDesign:TimePicker>
-                            <TextBox Margin="0,10,0,0" Width="100" Height="37" materialDesign:HintAssist.Hint="Tổng cộng" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  TextWrapping="Wrap" VerticalAlignment="Bottom" HorizontalAlignment="Right" VerticalContentAlignment="Center" HorizontalContentAlignment="Right"></TextBox>
-                        </StackPanel>
+                            </StackPanel>
                     </GroupBox>
 
                     <StackPanel Name="panelHDLuuTru" DataContext="{StaticResource HoaDonLuuTruVM}" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10,10">
                         <Button Command="{Binding CancelCommand}" CommandParameter="{Binding ElementName=mainWindow}" Margin="0,0,10,0" Width="80" BorderBrush="{x:Null}" Content="Hủy" FontSize="12" Background="White" Foreground="#FF9B9B9B"/>
                         <Button Command="{Binding SaveCommand}" CommandParameter="{Binding ElementName=mainWindow}" Margin="0,0,10,0" Width="80" BorderBrush="{x:Null}" Content="Lưu" FontSize="12" Background="#FFA58A72"/>
-                        <Button Command="{Binding PayCommand}" CommandParameter="{Binding ElementName=mainWindow}" Width="100" BorderBrush="{x:Null}" Content="Thanh toán" FontSize="12" Background="#FF5E6572"/>
                     </StackPanel>
                 </Grid>
             </Grid>
@@ -406,12 +402,12 @@
                             <StackPanel>
                                 <TextBox  Text="{Binding MaHD}" Margin="0,0,0,10" Height="37" materialDesign:HintAssist.Hint="Mã hóa đơn" Style="{StaticResource MaterialDesignFloatingHintTextBox}" TextWrapping="Wrap" VerticalContentAlignment="Center"></TextBox>
                                 <DatePicker SelectedDate="{Binding ThoiGianLapHD, StringFormat='dd/MM/yyyy'}" Margin="0,0,0,10" Height="37" materialDesign:HintAssist.Hint="Ngày lập hóa đơn" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" VerticalContentAlignment="Center"></DatePicker>
-                                <materialDesign:TimePicker SelectedTime="{Binding ThoiGianLapHD, StringFormat='hh:mm:ss'}" Margin="0,0,0,10" Is24Hours="True" Height="37" materialDesign:HintAssist.Hint="Thời gian lập hóa đơn" Style="{StaticResource MaterialDesignFloatingHintTimePicker}" VerticalContentAlignment="Center"></materialDesign:TimePicker>
+                                <materialDesign:TimePicker SelectedTime="{Binding Time}" Margin="0,0,0,10" Is24Hours="True" Height="37" materialDesign:HintAssist.Hint="Thời gian lập hóa đơn" Style="{StaticResource MaterialDesignFloatingHintTimePicker}" VerticalContentAlignment="Center"></materialDesign:TimePicker>
                                 <TextBox Text="{Binding NhanVienLapHD.HOTEN_NV}" Margin="0,0,0,10" Height="37" materialDesign:HintAssist.Hint="Nhân viên lập hóa đơn" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  TextWrapping="Wrap" VerticalContentAlignment="Center"></TextBox>
                             </StackPanel>
                         </GroupBox>
                         <GroupBox Margin="0,20,0,0" materialDesign:ColorZoneAssist.Mode="Standard" Header="THÔNG TIN KHÁCH HÀNG">
-                            <StackPanel>
+                            <StackPanel IsEnabled="False">
                                 <TextBox Text="{Binding KhachHangThue.HOTEN_KH}" Margin="0,0,0,10" Height="37" materialDesign:HintAssist.Hint="Họ tên khách hàng" Style="{StaticResource MaterialDesignFloatingHintTextBox}" TextWrapping="Wrap" VerticalContentAlignment="Center"></TextBox>
                                 <TextBox Text="{Binding KhachHangThue.SODIENTHOAI_KH}" Margin="0,0,0,10" Height="37" materialDesign:HintAssist.Hint="Số điện thoại" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  TextWrapping="Wrap" VerticalContentAlignment="Center"></TextBox>
                                 <TextBox Text="{Binding KhachHangThue.CMND_KH}" Margin="0,0,0,10" Height="37" materialDesign:HintAssist.Hint="Số CMND" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  TextWrapping="Wrap" VerticalContentAlignment="Center"></TextBox>
@@ -427,9 +423,9 @@
                                     <ColumnDefinition></ColumnDefinition>
                                 </Grid.ColumnDefinitions>
                                 <TextBox Text="{Binding MaPhong}" Grid.Column="0" Margin="0,0,10,10" Height="37" materialDesign:HintAssist.Hint="Mã phòng" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  TextWrapping="Wrap" VerticalContentAlignment="Center"></TextBox>
-                                <TextBox Text="{Binding LoaiPhucVu}" Grid.Column="1" Margin="10,0,0,10" Height="37" materialDesign:HintAssist.Hint="Loại phục vụ" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  TextWrapping="Wrap" VerticalContentAlignment="Center"></TextBox>
+                                <!--<TextBox Text="{Binding LoaiPhucVu}" Grid.Column="1" Margin="10,0,0,10" Height="37" materialDesign:HintAssist.Hint="Loại phục vụ" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  TextWrapping="Wrap" VerticalContentAlignment="Center"></TextBox>-->
                             </Grid>
-                            <CheckBox Grid.Column="1" Margin="0,0,0,10" Height="37" Content="Phụ thu 10% tổng hóa đơn"  VerticalContentAlignment="Center" IsEnabled="False"/>
+                            <!--<CheckBox Grid.Column="1" Margin="0,0,0,10" Height="37" Content="Phụ thu 10% tổng hóa đơn"  VerticalContentAlignment="Center" IsEnabled="False"/>-->
                             <ListView Height="280" ItemsSource="{Binding ListOrder}">
                                 <ListView.View>
                                     <GridView>
@@ -455,7 +451,6 @@
                     <StackPanel DataContext="{StaticResource HoaDonAnUongVM}" Orientation="Horizontal" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10,10">
                         <Button Command="{Binding CancelCommand}" CommandParameter="{Binding ElementName=mainWindow}" Margin="0,0,10,0" Width="80" BorderBrush="{x:Null}" Content="Hủy" FontSize="12" Background="White" Foreground="#FF9B9B9B"/>
                         <Button Command="{Binding SaveCommand}" CommandParameter="{Binding ElementName=mainWindow}" Margin="0,0,10,0" Width="80" BorderBrush="{x:Null}" Content="Lưu" FontSize="12" Background="#FFA58A72"/>
-                        <Button Command="{Binding PayCommand}" CommandParameter="{Binding ElementName=mainWindow}" Width="100" BorderBrush="{x:Null}" Content="Thanh toán" FontSize="12" Background="#FF5E6572"/>
                     </StackPanel>
                 </Grid>
             </Grid>
@@ -487,12 +482,12 @@
                             <StackPanel>
                                 <TextBox Text="{Binding MaHD}" Margin="0,0,0,10" Height="37" materialDesign:HintAssist.Hint="Mã hóa đơn" Style="{StaticResource MaterialDesignFloatingHintTextBox}" TextWrapping="Wrap" VerticalContentAlignment="Center"></TextBox>
                                 <DatePicker SelectedDate="{Binding ThoiGianLapHD, StringFormat='dd/MM/yyyy'}" Margin="0,0,0,10" Height="37" materialDesign:HintAssist.Hint="Ngày lập hóa đơn" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" VerticalContentAlignment="Center"></DatePicker>
-                                <materialDesign:TimePicker SelectedTime="{Binding ThoiGianLapHD, StringFormat='hh:mm:ss'}" Margin="0,0,0,10" Is24Hours="True" Height="37" materialDesign:HintAssist.Hint="Thời gian lập hóa đơn" Style="{StaticResource MaterialDesignFloatingHintTimePicker}" VerticalContentAlignment="Center"></materialDesign:TimePicker>
+                                <materialDesign:TimePicker SelectedTime="{Binding Time}" Margin="0,0,0,10" Is24Hours="True" Height="37" materialDesign:HintAssist.Hint="Thời gian lập hóa đơn" Style="{StaticResource MaterialDesignFloatingHintTimePicker}" VerticalContentAlignment="Center"></materialDesign:TimePicker>
                                 <TextBox Text="{Binding NhanVienLapHD.HOTEN_NV}" Margin="0,0,0,10" Height="37" materialDesign:HintAssist.Hint="Nhân viên lập hóa đơn" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  TextWrapping="Wrap" VerticalContentAlignment="Center"></TextBox>
                             </StackPanel>
                         </GroupBox>
                         <GroupBox Margin="0,20,0,0" materialDesign:ColorZoneAssist.Mode="Standard" Header="THÔNG TIN KHÁCH HÀNG">
-                            <StackPanel>
+                            <StackPanel IsEnabled="False">
                                 <TextBox Text="{Binding KhachHangThue.HOTEN_KH}" Margin="0,0,0,10" Height="37" materialDesign:HintAssist.Hint="Họ tên khách hàng" Style="{StaticResource MaterialDesignFloatingHintTextBox}" TextWrapping="Wrap" VerticalContentAlignment="Center"></TextBox>
                                 <TextBox Text="{Binding KhachHangThue.SODIENTHOAI_KH}" Margin="0,0,0,10" Height="37" materialDesign:HintAssist.Hint="Số điện thoại" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  TextWrapping="Wrap" VerticalContentAlignment="Center"></TextBox>
                                 <TextBox Text="{Binding KhachHangThue.CMND_KH}" Margin="0,0,0,10" Height="37" materialDesign:HintAssist.Hint="Số CMND" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  TextWrapping="Wrap" VerticalContentAlignment="Center"></TextBox>
@@ -541,7 +536,6 @@
                     <StackPanel DataContext="{StaticResource HoaDonGiatUiVM}" Orientation="Horizontal" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10,10">
                         <Button Command="{Binding CancelCommand}" CommandParameter="{Binding ElementName=mainWindow}" Margin="0,0,10,0" Width="80" BorderBrush="{x:Null}" Content="Hủy" FontSize="12" Background="White" Foreground="#FF9B9B9B"/>
                         <Button Command="{Binding SaveCommand}" CommandParameter="{Binding ElementName=mainWindow}" Margin="0,0,10,0" Width="80" BorderBrush="{x:Null}" Content="Lưu" FontSize="12" Background="#FFA58A72"/>
-                        <Button Command="{Binding PayCommand}" CommandParameter="{Binding ElementName=mainWindow}" Width="100" BorderBrush="{x:Null}" Content="Thanh toán" FontSize="12" Background="#FF5E6572"/>
                     </StackPanel>
                 </Grid>
             </Grid>
@@ -573,15 +567,15 @@
                             <StackPanel>
                                 <TextBox Text="{Binding MaHD}" Margin="0,0,0,10" Height="37" materialDesign:HintAssist.Hint="Mã hóa đơn" Style="{StaticResource MaterialDesignFloatingHintTextBox}" TextWrapping="Wrap" VerticalContentAlignment="Center"></TextBox>
                                 <DatePicker SelectedDate="{Binding ThoiGianLapHD, StringFormat='dd/MM/yyyy'}" Margin="0,0,0,10" Height="37" materialDesign:HintAssist.Hint="Ngày lập hóa đơn" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" VerticalContentAlignment="Center"></DatePicker>
-                                <materialDesign:TimePicker SelectedTime="{Binding ThoiGianLapHD, StringFormat='hh:mm:ss'}" Margin="0,0,0,10" Is24Hours="True" Height="37" materialDesign:HintAssist.Hint="Thời gian lập hóa đơn" Style="{StaticResource MaterialDesignFloatingHintTimePicker}" VerticalContentAlignment="Center"></materialDesign:TimePicker>
+                                <materialDesign:TimePicker SelectedTime="{Binding Time}" Margin="0,0,0,10" Is24Hours="True" Height="37" materialDesign:HintAssist.Hint="Thời gian lập hóa đơn" Style="{StaticResource MaterialDesignFloatingHintTimePicker}" VerticalContentAlignment="Center"></materialDesign:TimePicker>
                                 <TextBox Text="{Binding NhanVienLapHD.HOTEN_NV}" Margin="0,0,0,10" Height="37" materialDesign:HintAssist.Hint="Nhân viên lập hóa đơn" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  TextWrapping="Wrap" VerticalContentAlignment="Center"></TextBox>
                             </StackPanel>
                         </GroupBox>
                         <GroupBox Margin="0,20,0,0" materialDesign:ColorZoneAssist.Mode="Standard" Header="THÔNG TIN KHÁCH HÀNG">
-                            <StackPanel>
+                            <StackPanel IsEnabled="False">
                                 <TextBox Text="{Binding KhachHangThue.HOTEN_KH}" Margin="0,0,0,10" Height="37" materialDesign:HintAssist.Hint="Họ tên khách hàng" Style="{StaticResource MaterialDesignFloatingHintTextBox}" TextWrapping="Wrap" VerticalContentAlignment="Center"></TextBox>
-                                <TextBox Text="{Binding KhachHangThue.SODIENTHOAI_KH}" Margin="0,0,0,10" Height="37" materialDesign:HintAssist.Hint="Số điện thoại" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  TextWrapping="Wrap" VerticalContentAlignment="Center"></TextBox>
-                                <TextBox Text="{Binding KhachHangThue.CMND_KH}" Margin="0,0,0,10" Height="37" materialDesign:HintAssist.Hint="Số CMND" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  TextWrapping="Wrap" VerticalContentAlignment="Center"></TextBox>
+                                <TextBox Text="{Binding KhachHangThue.SODIENTHOAI_KH}" Margin="0,0,0,10" Height="37" materialDesign:HintAssist.Hint="Số điện thoại" Style="{StaticResource MaterialDesignFloatingHintTextBox}" TextWrapping="Wrap" VerticalContentAlignment="Center"></TextBox>
+                                <TextBox Text="{Binding KhachHangThue.CMND_KH}" Margin="0,0,0,10" Height="37" materialDesign:HintAssist.Hint="Số CMND" Style="{StaticResource MaterialDesignFloatingHintTextBox}" TextWrapping="Wrap" VerticalContentAlignment="Center"></TextBox>
                             </StackPanel>
                         </GroupBox>
                     </StackPanel>
@@ -604,7 +598,6 @@
                     <StackPanel DataContext="{StaticResource HoaDonDiChuyenVM}" Orientation="Horizontal" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10,10">
                         <Button Command="{Binding CancelCommand}" CommandParameter="{Binding ElementName=mainWindow}" Margin="0,0,10,0" Width="80" BorderBrush="{x:Null}" Content="Hủy" FontSize="12" Background="White" Foreground="#FF9B9B9B"/>
                         <Button Command="{Binding SaveCommand}" CommandParameter="{Binding ElementName=mainWindow}" Margin="0,0,10,0" Width="80" BorderBrush="{x:Null}" Content="Lưu" FontSize="12" Background="#FFA58A72"/>
-                        <Button Command="{Binding PayCommand}" CommandParameter="{Binding ElementName=mainWindow}" Width="100" BorderBrush="{x:Null}" Content="Thanh toán" FontSize="12" Background="#FF5E6572"/>
                     </StackPanel>
                 </Grid>
             </Grid>

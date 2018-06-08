@@ -7,6 +7,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
@@ -111,13 +112,19 @@ namespace QLKS.ViewModel
                 if (p == null)
                     return false;
 
-                if (string.IsNullOrEmpty(TenDangNhap) || string.IsNullOrEmpty(MatKhau) || string.IsNullOrEmpty(TenNhanVien) || 
+                if (string.IsNullOrEmpty(TenDangNhap) || string.IsNullOrEmpty(MatKhau) || string.IsNullOrEmpty(TenNhanVien) ||
                 SelectedChucVu == null || SelectedGioiTinh == null)
+                {
+                    MessageBox.Show("Vui lòng nhập đầy đủ thông tin nhân viên muốn thêm!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
                     return false;
+                }
 
                 var listTenDangNhap = DataProvider.Ins.model.TAIKHOAN.Where(x => x.TENDANGNHAP_TK == TenDangNhap);
                 if (listTenDangNhap == null || listTenDangNhap.Count() != 0)
+                {
+                    MessageBox.Show("Tài khoản đã tồn tại!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
                     return false;
+                }
 
                 return true;
             }, (p) =>
@@ -144,6 +151,7 @@ namespace QLKS.ViewModel
 
                 ListTTNhanVien.Add(new ThongTinNhanVien() { TaiKhoan = taiKhoan, NhanVien = nhanVien });
 
+                MessageBox.Show("Thêm thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
                 p.Password = string.Empty;
                 RefershControls();
             });
@@ -155,12 +163,16 @@ namespace QLKS.ViewModel
 
                 if (string.IsNullOrEmpty(TenDangNhap) || string.IsNullOrEmpty(TenNhanVien) ||
                     SelectedChucVu == null || SelectedGioiTinh == null || SelectedItem == null)
+                {
+                    MessageBox.Show("Vui lòng chọn nhân viên muốn sửa!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
                     return false;
+                }
 
-                var listTTNV = DataProvider.Ins.model.TAIKHOAN.Where(x => x.MA_TK == SelectedItem.NhanVien.MA_TK);
+                var listTTNV = DataProvider.Ins.model.TAIKHOAN.Where(x => x.TENDANGNHAP_TK == TenDangNhap);
                 if (listTTNV != null && listTTNV.Count() != 0)
                     return true;
 
+                MessageBox.Show("Tài khoản không tồn tại!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return false;
             }, (p) =>
             {
@@ -182,6 +194,7 @@ namespace QLKS.ViewModel
                 nhanVien.NGAYVAOLAM_NV = NgayVaoLam;
                 DataProvider.Ins.model.SaveChanges();
 
+                MessageBox.Show("Sửa thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
                 p.Password = string.Empty;
                 RefershControls();
             });
@@ -198,12 +211,12 @@ namespace QLKS.ViewModel
                 if (sort)
                 {
                     view.SortDescriptions.Clear();
-                    view.SortDescriptions.Add(new SortDescription("NhanVien." + p.Name, ListSortDirection.Ascending));
+                    view.SortDescriptions.Add(new SortDescription(p.Tag.ToString(), ListSortDirection.Ascending));
                 }
                 else
                 {
                     view.SortDescriptions.Clear();
-                    view.SortDescriptions.Add(new SortDescription("NhanVien." + p.Name, ListSortDirection.Descending));
+                    view.SortDescriptions.Add(new SortDescription(p.Tag.ToString(), ListSortDirection.Descending));
                 }
                 sort = !sort;
             });

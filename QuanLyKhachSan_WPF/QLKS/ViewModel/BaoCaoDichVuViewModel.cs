@@ -68,7 +68,7 @@ namespace QLKS.ViewModel
                 ListDichVu = new ObservableCollection<ThongTinBaoCao>();
 
                 var tong = (from hd in DataProvider.Ins.model.HOADON
-                            where (hd.THOIGIANLAP_HD >= NgayBatDau) && (hd.THOIGIANLAP_HD < NgayKetThucReal)
+                            where (hd.THOIGIANLAP_HD >= NgayBatDau) && (hd.THOIGIANLAP_HD < NgayKetThucReal) && (hd.TINHTRANG_HD==true)
                             select hd.TRIGIA_HD).Sum();
                 if (tong == null)
                 {
@@ -83,7 +83,7 @@ namespace QLKS.ViewModel
                 var anuong = (from hd in DataProvider.Ins.model.HOADON
                               join au in DataProvider.Ins.model.CHITIET_HDAU
                               on hd.MA_HD equals au.MA_HD
-                              where (hd.THOIGIANLAP_HD >= NgayBatDau) && (hd.THOIGIANLAP_HD < NgayKetThucReal)
+                              where (hd.THOIGIANLAP_HD >= NgayBatDau) && (hd.THOIGIANLAP_HD < NgayKetThucReal) && (hd.TINHTRANG_HD == true)
                               select au.TRIGIA_CTHDAU).Sum();
                 if (anuong == null)
                 {
@@ -97,7 +97,7 @@ namespace QLKS.ViewModel
                 var luutru = (from hd in DataProvider.Ins.model.HOADON
                               join lt in DataProvider.Ins.model.CHITIET_HDLT
                               on hd.MA_HD equals lt.MA_HD
-                              where (hd.THOIGIANLAP_HD >= NgayBatDau) && (hd.THOIGIANLAP_HD < NgayKetThucReal)
+                              where (hd.THOIGIANLAP_HD >= NgayBatDau) && (hd.THOIGIANLAP_HD < NgayKetThucReal) && (hd.TINHTRANG_HD == true)
                               select lt.TRIGIA_CTHDLT).Sum();
                 if (luutru == null)
                 {
@@ -111,7 +111,7 @@ namespace QLKS.ViewModel
                 var dichuyen = (from hd in DataProvider.Ins.model.HOADON
                                 join dc in DataProvider.Ins.model.CHITIET_HDDC
                                 on hd.MA_HD equals dc.MA_HD
-                                where (hd.THOIGIANLAP_HD >= NgayBatDau) && (hd.THOIGIANLAP_HD < NgayKetThucReal)
+                                where (hd.THOIGIANLAP_HD >= NgayBatDau) && (hd.THOIGIANLAP_HD < NgayKetThucReal) && (hd.TINHTRANG_HD == true)
                                 select dc.TRIGIA_CTHDDC).Sum();
                 if (dichuyen == null)
                 {
@@ -125,7 +125,7 @@ namespace QLKS.ViewModel
                 var giatui = (from hd in DataProvider.Ins.model.HOADON
                               join gu in DataProvider.Ins.model.CHITIET_HDGU
                               on hd.MA_HD equals gu.MA_HD
-                              where (hd.THOIGIANLAP_HD >= NgayBatDau) && (hd.THOIGIANLAP_HD < NgayKetThucReal)
+                              where (hd.THOIGIANLAP_HD >= NgayBatDau) && (hd.THOIGIANLAP_HD < NgayKetThucReal) && (hd.TINHTRANG_HD == true)
                               select gu.TRIGIA_CTHDGU).Sum();
                 if (giatui == null)
                 {

@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
@@ -41,6 +42,7 @@ namespace QLKS.ViewModel
 
         public ICommand SearchLoaiPhongCommand { get; set; }
         public ICommand AddCommand { get; set; }
+        public ICommand DeleteCommand { get; set; }
         public ICommand EditCommand { get; set; }
         public ICommand RefreshCommand { get; set; }
         public ICommand SortLoaiPhongCommand { get; set; }
@@ -65,27 +67,78 @@ namespace QLKS.ViewModel
 
             });
 
-            AddCommand = new RelayCommand<Object>((p) => {
-                if (string.IsNullOrEmpty(TenLoaiPhong) || string.IsNullOrEmpty(DonGia.ToString()))
+            AddCommand = new RelayCommand<Object>((p) => 
+            {
+                if (string.IsNullOrEmpty(TenLoaiPhong) || string.IsNullOrEmpty(DonGia.ToString()) || DonGia == 0)
+                {
+                    MessageBox.Show("Vui lòng nhập đầy đủ thông tin loại phòng muốn thêm!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
                     return false;
+                }                    
 
                 var listLoaiPhong = DataProvider.Ins.model.LOAIPHONG.Where(x => x.TEN_LP == TenLoaiPhong);
                 if (listLoaiPhong == null || listLoaiPhong.Count() != 0)
+                {
+                    MessageBox.Show("Loại phòng đã tồn tại!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
                     return false;
+                }
 
                 return true;
             }, (p) => {
                 var loaiPhong = new LOAIPHONG() { TEN_LP = TenLoaiPhong, DONGIA_LP = DonGia };
-
                 DataProvider.Ins.model.LOAIPHONG.Add(loaiPhong);
                 DataProvider.Ins.model.SaveChanges();
 
                 ListLoaiPhong.Add(loaiPhong);
+
+                MessageBox.Show("Thêm thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+                RefershControls();
             });
 
-            EditCommand = new RelayCommand<Object>((p) => {
-                if (string.IsNullOrEmpty(TenLoaiPhong) || string.IsNullOrEmpty(DonGia.ToString()) || SelectedItem == null)
+            DeleteCommand = new RelayCommand<Object>((p) =>
+            {
+                if (string.IsNullOrEmpty(TenLoaiPhong) || string.IsNullOrEmpty(DonGia.ToString())
+                 || DonGia == 0 || SelectedItem == null)
+                {
+                    MessageBox.Show("Vui lòng chọn loại phòng muốn xóa!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
                     return false;
+                }
+
+                var listLoaiPhong = DataProvider.Ins.model.LOAIPHONG.Where(x => x.MA_LP == SelectedItem.MA_LP);
+                if (listLoaiPhong != null && listLoaiPhong.Count() != 0)
+                    return true;
+
+                return false;
+            }, (p) =>
+            {
+                using (var transactions = DataProvider.Ins.model.Database.BeginTransaction())
+                {
+                    try
+                    {
+                        var loaiphong = DataProvider.Ins.model.LOAIPHONG.Where(x => x.MA_LP == SelectedItem.MA_LP).FirstOrDefault();
+                        DataProvider.Ins.model.LOAIPHONG.Remove(loaiphong);
+                        DataProvider.Ins.model.SaveChanges();
+
+                        transactions.Commit();
+                        RemoveLoaiPhong(loaiphong.MA_LP);
+                        MessageBox.Show("Xóa thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+                        RefershControls();
+                    }
+                    catch (Exception e)
+                    {
+                        MessageBox.Show("Xóa không thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
+                        transactions.Rollback();
+                    }
+                }
+            });
+
+            EditCommand = new RelayCommand<Object>((p) => 
+            {
+                if (string.IsNullOrEmpty(TenLoaiPhong) || string.IsNullOrEmpty(DonGia.ToString())
+                 || DonGia == 0 || SelectedItem == null)
+                {
+                    MessageBox.Show("Vui lòng chọn loại phòng muốn sửa!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return false;
+                }
 
                 var listLoaiPhong = DataProvider.Ins.model.LOAIPHONG.Where(x => x.MA_LP == SelectedItem.MA_LP);
                 if (listLoaiPhong != null && listLoaiPhong.Count() != 0)
@@ -97,12 +150,14 @@ namespace QLKS.ViewModel
                 loaiPhong.TEN_LP = TenLoaiPhong;
                 loaiPhong.DONGIA_LP = DonGia;
                 DataProvider.Ins.model.SaveChanges();
+
+                MessageBox.Show("Sửa thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+                RefershControls();
             });
 
             RefreshCommand = new RelayCommand<Object>((p) => { return true; }, (p) =>
             {
-                TenLoaiPhong = null;
-                DonGia = 0;
+                RefershControls();
             });
 
             SortLoaiPhongCommand = new RelayCommand<GridViewColumnHeader>((p) => { return p == null ? false : true; }, (p) =>
@@ -111,15 +166,35 @@ namespace QLKS.ViewModel
                 if (sort)
                 {
                     view.SortDescriptions.Clear();
-                    view.SortDescriptions.Add(new SortDescription(p.Name.Remove(p.Name.Length - 1), ListSortDirection.Ascending));
+                    view.SortDescriptions.Add(new SortDescription(p.Tag.ToString(), ListSortDirection.Ascending));
                 }
                 else
                 {
                     view.SortDescriptions.Clear();
-                    view.SortDescriptions.Add(new SortDescription(p.Name.Remove(p.Name.Length - 1), ListSortDirection.Descending));
+                    view.SortDescriptions.Add(new SortDescription(p.Tag.ToString(), ListSortDirection.Descending));
                 }
                 sort = !sort;
             });
+        }
+
+        void RemoveLoaiPhong(int malp)
+        {
+            if (ListLoaiPhong == null || ListLoaiPhong.Count() == 0)
+                return;
+            foreach (LOAIPHONG item in ListLoaiPhong)
+            {
+                if (item.MA_LP == malp)
+                {
+                    ListLoaiPhong.Remove(item);
+                    return;
+                }
+            }
+        }
+
+        void RefershControls()
+        {
+            TenLoaiPhong = null;
+            DonGia = 0;
         }
     }
 }

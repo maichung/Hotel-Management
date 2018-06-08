@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
@@ -51,9 +52,9 @@ namespace QLKS.ViewModel
 
         public ICommand SearchPhongCommand { get; set; }
         public ICommand AddCommand { get; set; }
+        public ICommand DeleteCommand { get; set; }
         public ICommand EditCommand { get; set; }
         public ICommand RefreshCommand { get; set; }
-        public ICommand SortLoaiPhongCommand { get; set; }
         public ICommand SortPhongCommand { get; set; }
 
         public PhongViewModel()
@@ -79,35 +80,86 @@ namespace QLKS.ViewModel
                 }
             });
 
-            AddCommand = new RelayCommand<Object>((p) => {
+            AddCommand = new RelayCommand<Object>((p) => 
+            {
                 if (string.IsNullOrEmpty(MaPhong.ToString()) || SelectedLoaiPhong == null || SelectedTinhTrangPhong == null)
+                {
+                    MessageBox.Show("Vui lòng nhập đầy đủ thông tin phòng muốn thêm!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
                     return false;
+                }                    
 
                 var listPhong = DataProvider.Ins.model.PHONG.Where(x => x.MA_PHONG == MaPhong);
                 if (listPhong == null || listPhong.Count() != 0)
+                {
+                    MessageBox.Show("Phòng đã tồn tại!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
                     return false;
+                }                    
 
                 return true;
             }, (p) => {                
                 var phong = new PHONG() { MA_PHONG = MaPhong, MA_LP = SelectedLoaiPhong.MA_LP, TINHTRANG_PHONG = SelectedTinhTrangPhong };
-
                 DataProvider.Ins.model.PHONG.Add(phong);
                 DataProvider.Ins.model.SaveChanges();
                 //lấy loại phòng từ phòng vừa thêm vào và tạo ra thongtinphong sau đó thêm vào list
                 var loaiPhong = DataProvider.Ins.model.LOAIPHONG.Where(x => x.MA_LP == phong.MA_LP).SingleOrDefault();
                 ListTTPhong.Add(new ThongTinPhong() { Phong = phong, LoaiPhong = loaiPhong });
+
+                MessageBox.Show("Thêm thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+                RefershControls();
+            });
+
+            DeleteCommand = new RelayCommand<Object>((p) =>
+            {
+                if (string.IsNullOrEmpty(MaPhong.ToString()) || SelectedItem == null ||
+                    SelectedLoaiPhong == null || SelectedTinhTrangPhong == null)
+                {
+                    MessageBox.Show("Vui lòng chọn phòng muốn xóa!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return false;
+                }
+
+                var listPhong = DataProvider.Ins.model.PHONG.Where(x => x.MA_PHONG == MaPhong);
+                if (listPhong != null && listPhong.Count() != 0)
+                    return true;
+
+                MessageBox.Show("Phòng không tồn tại!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return false;
+            }, (p) =>
+            {
+                using (var transactions = DataProvider.Ins.model.Database.BeginTransaction())
+                {
+                    try
+                    {
+                        var phong = DataProvider.Ins.model.PHONG.Where(x => x.MA_PHONG == SelectedItem.Phong.MA_PHONG).FirstOrDefault();
+                        DataProvider.Ins.model.PHONG.Remove(phong);
+                        DataProvider.Ins.model.SaveChanges();
+
+                        transactions.Commit();
+                        RemovePhong(phong.MA_PHONG);
+                        MessageBox.Show("Xóa thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+                        RefershControls();
+                    }
+                    catch (Exception e)
+                    {
+                        MessageBox.Show("Xóa không thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
+                        transactions.Rollback();
+                    }
+                }
             });
 
             EditCommand = new RelayCommand<Object>((p) =>
             {
                 if (string.IsNullOrEmpty(MaPhong.ToString()) || SelectedItem == null || 
                     SelectedLoaiPhong == null || SelectedTinhTrangPhong == null)
+                {
+                    MessageBox.Show("Vui lòng chọn phòng muốn sửa!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
                     return false;
+                }                    
 
                 var listPhong = DataProvider.Ins.model.PHONG.Where(x => x.MA_PHONG == MaPhong);
                 if (listPhong != null && listPhong.Count() != 0)
                     return true;
 
+                MessageBox.Show("Phòng không tồn tại!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return false;
             }, (p) =>
             {
@@ -116,28 +168,14 @@ namespace QLKS.ViewModel
                 phong.TINHTRANG_PHONG = SelectedTinhTrangPhong;
                 SelectedItem.LoaiPhong = DataProvider.Ins.model.LOAIPHONG.Where(x => x.MA_LP == SelectedLoaiPhong.MA_LP).SingleOrDefault();
                 DataProvider.Ins.model.SaveChanges();
+
+                MessageBox.Show("Sửa thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+                RefershControls();
             });
 
             RefreshCommand = new RelayCommand<Object>((p) => { return true; }, (p) =>
             {
-                MaPhong = 0;
-                SelectedLoaiPhong = null;
-                SelectedTinhTrangPhong = null;
-            });
-
-            SortLoaiPhongCommand = new RelayCommand<GridViewColumnHeader>((p) => { return p == null ? false : true; }, (p) => {
-                CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(ListTTPhong);
-                if (sort)
-                {
-                    view.SortDescriptions.Clear();
-                    view.SortDescriptions.Add(new SortDescription("LoaiPhong." + p.Name, ListSortDirection.Ascending));
-                }
-                else
-                {
-                    view.SortDescriptions.Clear();
-                    view.SortDescriptions.Add(new SortDescription("LoaiPhong." + p.Name, ListSortDirection.Descending));
-                }
-                sort = !sort;
+                RefershControls();
             });
 
             SortPhongCommand = new RelayCommand<GridViewColumnHeader>((p) => { return p == null ? false : true; }, (p) => {
@@ -145,12 +183,12 @@ namespace QLKS.ViewModel
                 if (sort)
                 {
                     view.SortDescriptions.Clear();
-                    view.SortDescriptions.Add(new SortDescription("Phong." + p.Name, ListSortDirection.Ascending));
+                    view.SortDescriptions.Add(new SortDescription(p.Tag.ToString(), ListSortDirection.Ascending));
                 }
                 else
                 {
                     view.SortDescriptions.Clear();
-                    view.SortDescriptions.Add(new SortDescription("Phong." + p.Name, ListSortDirection.Descending));
+                    view.SortDescriptions.Add(new SortDescription(p.Tag.ToString(), ListSortDirection.Descending));
                 }
                 sort = !sort;
             });
@@ -171,6 +209,27 @@ namespace QLKS.ViewModel
             {
                 ListTTPhong.Add(item);
             }
+        }
+
+        void RemovePhong(int map)
+        {
+            if (ListTTPhong == null || ListTTPhong.Count() == 0)
+                return;
+            foreach (ThongTinPhong item in ListTTPhong)
+            {
+                if (item.Phong.MA_PHONG == map)
+                {
+                    ListTTPhong.Remove(item);
+                    return;
+                }
+            }
+        }
+
+        void RefershControls()
+        {
+            MaPhong = 0;
+            SelectedLoaiPhong = null;
+            SelectedTinhTrangPhong = null;
         }
     }
 }

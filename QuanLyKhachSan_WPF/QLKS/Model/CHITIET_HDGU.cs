@@ -18,6 +18,7 @@ namespace QLKS.Model
         public int MA_HD { get; set; }
         public int MA_LUOTGU { get; set; }
         public Nullable<decimal> TRIGIA_CTHDGU { get; set; }
+        public Nullable<System.DateTime> THOIGIANLAP_CTHDGU { get; set; }
     
         public virtual LUOTGIATUI LUOTGIATUI { get; set; }
         public virtual HOADON HOADON { get; set; }

@@ -331,9 +331,6 @@
                     <GridSplitter IsEnabled="False" Width="1" Margin="10,0,10,0" Background="#FFD6D6D6"></GridSplitter>
                     <Label Height="25" Width="auto" Content="Đang thuê:" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"></Label>
                     <Button Margin="5,0,5,0" Command="{Binding LoadPhongDangThueCommand}" Height="25" Width="50" Content="{Binding SoPhongDangThue}" Background="#FFA58A72" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" BorderBrush="{x:Null}" FontSize="12" ></Button>
-                    <GridSplitter IsEnabled="False" Width="1" Margin="10,0,10,0" Background="#FFD6D6D6"></GridSplitter>
-                    <Label Height="25" Width="auto" Content="Đã đặt trước:" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"></Label>
-                    <Button Margin="5,0,5,0" Command="{Binding LoadPhongDaDatTruocCommand}" Height="25" Width="50" Content="{Binding SoPhongDatTruoc}" Background="#FFEDA5A5" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" BorderBrush="{x:Null}" Foreground="#DDFFFFFF" FontSize="12" ></Button>
                 </StackPanel>
 
                 <ScrollViewer Name="SrViewTrangChu" Margin="5,170,20,20">
@@ -446,13 +443,13 @@
                             <ListView.View>
                                 <GridView>
                                     <GridViewColumn DisplayMemberBinding="{Binding TEN_MH}">
-                                        <GridViewColumnHeader Name="TEN_MH" Command="{Binding SortMHDVAUCommand}" CommandParameter="{Binding ElementName=TEN_MH}" VerticalAlignment="Center" HorizontalAlignment="Center">Tên hàng hóa</GridViewColumnHeader>
+                                        <GridViewColumnHeader Tag="TEN_MH" Command="{Binding SortMatHangDVAUCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" VerticalAlignment="Center" HorizontalAlignment="Center">Tên hàng hóa</GridViewColumnHeader>
                                     </GridViewColumn>
                                     <GridViewColumn DisplayMemberBinding="{Binding DONGIA_MH, StringFormat='N0'}">
-                                        <GridViewColumnHeader Name="DONGIA_MH" Command="{Binding SortMHDVAUCommand}" CommandParameter="{Binding ElementName=DONGIA_MH}" VerticalAlignment="Center" HorizontalAlignment="Center">Đơn giá</GridViewColumnHeader>
+                                        <GridViewColumnHeader Tag="DONGIA_MH" Command="{Binding SortMatHangDVAUCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" VerticalAlignment="Center" HorizontalAlignment="Center">Đơn giá</GridViewColumnHeader>
                                     </GridViewColumn>
                                     <GridViewColumn DisplayMemberBinding="{Binding NGAYNHAP_MH, StringFormat='dd/MM/yyyy'}">
-                                        <GridViewColumnHeader Name="NGAYNHAP_MH" Command="{Binding SortMHDVAUCommand}" CommandParameter="{Binding ElementName=NGAYNHAP_MH}" VerticalAlignment="Center" HorizontalAlignment="Center">Ngày nhập</GridViewColumnHeader>
+                                        <GridViewColumnHeader Tag="NGAYNHAP_MH" Command="{Binding SortMatHangDVAUCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" VerticalAlignment="Center" HorizontalAlignment="Center">Ngày nhập</GridViewColumnHeader>
                                     </GridViewColumn>
                                 </GridView>
                             </ListView.View>
@@ -466,18 +463,18 @@
                         </ListView>
 
                         <Grid Grid.Column="1" Margin="10,0,0,0">
-                            <ComboBox materialDesign:HintAssist.Hint="Chọn loại phục vụ" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Width="150" Margin="0,10,10,20" VerticalAlignment="Top" HorizontalAlignment="Left"
-                                      ItemsSource="{Binding ListLoaiPhucVu}" SelectedItem="{Binding SelectedLoaiPhucVu, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                            <Label Content="Danh sách đã chọn:" Margin="0,60,10,20" VerticalAlignment="Top"></Label>
+                            <!--<ComboBox materialDesign:HintAssist.Hint="Chọn loại phục vụ" Style="{StaticResource MaterialDesignFloatingHintComboBox}" Width="150" Margin="0,10,10,20" VerticalAlignment="Top" HorizontalAlignment="Left"
+                                      ItemsSource="{Binding ListLoaiPhucVu}" SelectedItem="{Binding SelectedLoaiPhucVu, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>-->
+                            <Label Content="Danh sách đã chọn:" Margin="0,10,10,20" VerticalAlignment="Top"></Label>
 
-                            <ListView Name="lstOrder" Margin="0,90,0,0" ItemsSource="{Binding ListOrder}" SelectedItem="{Binding SelectedItemOrder, Mode=OneWayToSource}" >
+                            <ListView Name="lstOrder" Margin="0,40,0,0" ItemsSource="{Binding ListOrder}" SelectedItem="{Binding SelectedItemOrder, Mode=OneWayToSource}" >
                                 <ListView.View>
                                     <GridView>
                                         <GridViewColumn DisplayMemberBinding="{Binding MatHang.TEN_MH}">
-                                            <GridViewColumnHeader Name="TEN_MH1" Command="{Binding SortMHOrderCommand}" CommandParameter="{Binding ElementName=TEN_MH1}" VerticalAlignment="Center" HorizontalAlignment="Center">Tên hàng hóa</GridViewColumnHeader>
+                                            <GridViewColumnHeader Tag="MatHang.TEN_MH" Command="{Binding SortMatHangOrderCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" VerticalAlignment="Center" HorizontalAlignment="Center">Tên hàng hóa</GridViewColumnHeader>
                                         </GridViewColumn>
                                         <GridViewColumn DisplayMemberBinding="{Binding MatHang.DONGIA_MH, StringFormat='N0'}">
-                                            <GridViewColumnHeader Name="DONGIA_MH1" Command="{Binding SortMHOrderCommand}" CommandParameter="{Binding ElementName=DONGIA_MH1}" VerticalAlignment="Center" HorizontalAlignment="Center">Đơn giá</GridViewColumnHeader>
+                                            <GridViewColumnHeader Tag="MatHang.DONGIA_MH" Command="{Binding SortMatHangOrderCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" VerticalAlignment="Center" HorizontalAlignment="Center">Đơn giá</GridViewColumnHeader>
                                         </GridViewColumn>
                                         <GridViewColumn>
                                             <GridViewColumn.CellTemplate>
@@ -485,16 +482,16 @@
                                                     <WrapPanel>
                                                         <Button Height="20" Command="{Binding ElementName=lstOrder, Path=DataContext.BotSLCommand}" Content="{materialDesign:PackIcon Kind=Minus}" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#DD000000" FontWeight="Bold" FontSize="10" HorizontalAlignment="Center" VerticalAlignment="Center"
                                                                 IsEnabled="{Binding RelativeSource={RelativeSource AncestorType={x:Type ListViewItem}}, Path=IsSelected}"></Button>
-                                                        <TextBlock Text="{Binding SoLuong}" HorizontalAlignment="Center" VerticalAlignment="Top" TextAlignment="Center"></TextBlock>
+                                                        <TextBlock Width="20" Text="{Binding SoLuong}" HorizontalAlignment="Center" VerticalAlignment="Top" TextAlignment="Center"></TextBlock>
                                                         <Button Height="20" Command="{Binding ElementName=lstOrder, Path=DataContext.ThemSLCommand}" Content="{materialDesign:PackIcon Kind=Plus}" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#DD000000" FontWeight="Bold" FontSize="10"  HorizontalAlignment="Center" VerticalAlignment="Center"
                                                                 IsEnabled="{Binding RelativeSource={RelativeSource AncestorType={x:Type ListViewItem}}, Path=IsSelected}"></Button>
                                                     </WrapPanel>
                                                 </DataTemplate>
                                             </GridViewColumn.CellTemplate>
-                                            <GridViewColumnHeader Name="SoLuong" Command="{Binding SortOrderCommand}" CommandParameter="{Binding ElementName=SoLuong}" VerticalAlignment="Center" HorizontalAlignment="Center">Số lượng</GridViewColumnHeader>
+                                            <GridViewColumnHeader Tag="SoLuong" Command="{Binding SortMatHangOrderCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" VerticalAlignment="Center" HorizontalAlignment="Center">Số lượng</GridViewColumnHeader>
                                         </GridViewColumn>
                                         <GridViewColumn DisplayMemberBinding="{Binding ThanhTien, StringFormat='N0'}">
-                                            <GridViewColumnHeader Name="ThanhTien" Command="{Binding SortOrderCommand}" CommandParameter="{Binding ElementName=ThanhTien}" VerticalAlignment="Center" HorizontalAlignment="Center">Thành tiền</GridViewColumnHeader>
+                                            <GridViewColumnHeader Tag="ThanhTien" Command="{Binding SortMatHangOrderCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" VerticalAlignment="Center" HorizontalAlignment="Center">Thành tiền</GridViewColumnHeader>
                                         </GridViewColumn>
                                     </GridView>
                                 </ListView.View>
@@ -676,14 +673,14 @@
                                             </i:EventTrigger>
                                         </i:Interaction.Triggers>
                                     </Image>
-                                    <GridSplitter IsEnabled="False" Width="1" Margin="10,0,10,0" Background="#FFD6D6D6"></GridSplitter>
-                                    <Image Height="25" Width="25" Cursor="Hand" Source="Resources\Icons\btnXoa.png" ToolTip="Xóa"></Image>
+                                    <!--<GridSplitter IsEnabled="False" Width="1" Margin="10,0,10,0" Background="#FFD6D6D6"></GridSplitter>
+                                    <Image Height="25" Width="25" Cursor="Hand" Source="Resources\Icons\btnXoa.png" ToolTip="Xóa"></Image>-->
                                     <GridSplitter IsEnabled="False" Width="1" Margin="10,0,10,0" Background="#FFD6D6D6"></GridSplitter>
                                     <Image Name="imgEditNhanVien" Height="25" Width="25" Cursor="Hand" Source="Resources\Icons\btnSua.png" ToolTip="Sửa">
                                         <i:Interaction.Triggers>
                                             <i:EventTrigger EventName="MouseLeftButtonDown">
                                                 <i:InvokeCommandAction Command="{Binding EditCommand}"
-                                                                       CommandParameter="{Binding ElementName=imgEditNhanVien}">
+                                                                       CommandParameter="{Binding ElementName=pwBoxMatKhau}">
                                                 </i:InvokeCommandAction>
                                             </i:EventTrigger>
                                         </i:Interaction.Triggers>
@@ -725,16 +722,16 @@
                                         <ListView.View>
                                             <GridView>
                                                 <GridViewColumn DisplayMemberBinding="{Binding NhanVien.MA_NV}" >
-                                                    <GridViewColumnHeader Name="MA_NV" Command="{Binding SortNhanVienCommand}" CommandParameter="{Binding ElementName=MA_NV}" VerticalAlignment="Center" HorizontalAlignment="Center">ID</GridViewColumnHeader>
+                                                    <GridViewColumnHeader Tag="NhanVien.MA_NV" Command="{Binding SortNhanVienCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" VerticalAlignment="Center" HorizontalAlignment="Center">ID</GridViewColumnHeader>
                                                 </GridViewColumn>
                                                 <GridViewColumn DisplayMemberBinding="{Binding NhanVien.HOTEN_NV}">
-                                                    <GridViewColumnHeader Name="HOTEN_NV" Command="{Binding SortNhanVienCommand}" CommandParameter="{Binding ElementName=HOTEN_NV}" VerticalAlignment="Center" HorizontalAlignment="Center">Họ tên</GridViewColumnHeader>
+                                                    <GridViewColumnHeader Tag="NhanVien.HOTEN_NV" Command="{Binding SortNhanVienCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" VerticalAlignment="Center" HorizontalAlignment="Center">Họ tên</GridViewColumnHeader>
                                                 </GridViewColumn>
                                                 <GridViewColumn DisplayMemberBinding="{Binding NhanVien.SODIENTHOAI_NV}">
-                                                    <GridViewColumnHeader Name="SODIENTHOAI_NV" Command="{Binding SortNhanVienCommand}" CommandParameter="{Binding ElementName=SODIENTHOAI_NV}" VerticalAlignment="Center" HorizontalAlignment="Center">Số điện thoại</GridViewColumnHeader>
+                                                    <GridViewColumnHeader Tag="NhanVien.SODIENTHOAI_NV" Command="{Binding SortNhanVienCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" VerticalAlignment="Center" HorizontalAlignment="Center">Số điện thoại</GridViewColumnHeader>
                                                 </GridViewColumn>
                                                 <GridViewColumn DisplayMemberBinding="{Binding NhanVien.CHUCVU_NV}">
-                                                    <GridViewColumnHeader Name="CHUCVU_NV" Command="{Binding SortNhanVienCommand}" CommandParameter="{Binding ElementName=CHUCVU_NV}" VerticalAlignment="Center" HorizontalAlignment="Center">Chức vụ</GridViewColumnHeader>
+                                                    <GridViewColumnHeader Tag="NhanVien.CHUCVU_NV" Command="{Binding SortNhanVienCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" VerticalAlignment="Center" HorizontalAlignment="Center">Chức vụ</GridViewColumnHeader>
                                                 </GridViewColumn>
                                             </GridView>
                                         </ListView.View>
@@ -765,24 +762,26 @@
                         <TabItem Header="Khách hàng" DataContext="{StaticResource KhachHangVM}">
                             <Grid>
                                 <StackPanel Margin="10,10" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top" >
-                                    <Image Name="imgAddKhachHang" Height="25" Width="25" Cursor="Hand" Source="Resources\Icons\btnThem.png" ToolTip="Thêm">
+                                    <Image Height="25" Width="25" Cursor="Hand" Source="Resources\Icons\btnThem.png" ToolTip="Thêm">
                                         <i:Interaction.Triggers>
                                             <i:EventTrigger EventName="MouseLeftButtonDown">
-                                                <i:InvokeCommandAction Command="{Binding AddCommand}"
-                                                                       CommandParameter="{Binding ElementName=imgAddKhachHang}">
-                                                </i:InvokeCommandAction>
+                                                <i:InvokeCommandAction Command="{Binding AddCommand}"/>
                                             </i:EventTrigger>
                                         </i:Interaction.Triggers>
                                     </Image>
                                     <GridSplitter IsEnabled="False" Width="1" Margin="10,0,10,0" Background="#FFD6D6D6"></GridSplitter>
-                                    <Image Height="25" Width="25" Cursor="Hand" Source="Resources\Icons\btnXoa.png" ToolTip="Xóa"></Image>
-                                    <GridSplitter IsEnabled="False" Width="1" Margin="10,0,10,0" Background="#FFD6D6D6"></GridSplitter>
-                                    <Image Name="imgEditKhachHang" Height="25" Width="25" Cursor="Hand" Source="Resources\Icons\btnSua.png" ToolTip="Sửa">
+                                    <Image Height="25" Width="25" Cursor="Hand" Source="Resources\Icons\btnXoa.png" ToolTip="Xóa">
                                         <i:Interaction.Triggers>
                                             <i:EventTrigger EventName="MouseLeftButtonDown">
-                                                <i:InvokeCommandAction Command="{Binding EditCommand}"
-                                                                       CommandParameter="{Binding ElementName=imgEditKhachHang}">
-                                                </i:InvokeCommandAction>
+                                                <i:InvokeCommandAction Command="{Binding DeleteCommand}"/>
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                    </Image>
+                                    <GridSplitter IsEnabled="False" Width="1" Margin="10,0,10,0" Background="#FFD6D6D6"></GridSplitter>
+                                    <Image Height="25" Width="25" Cursor="Hand" Source="Resources\Icons\btnSua.png" ToolTip="Sửa">
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="MouseLeftButtonDown">
+                                                <i:InvokeCommandAction Command="{Binding EditCommand}"/>
                                             </i:EventTrigger>
                                         </i:Interaction.Triggers>
                                     </Image>
@@ -822,25 +821,24 @@
                                         <ListView.View>
                                             <GridView>
                                                 <GridViewColumn DisplayMemberBinding="{Binding MA_KH}">
-                                                    <GridViewColumnHeader Name="MA_KH" Command="{Binding SortKhachHangCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" VerticalAlignment="Center" HorizontalAlignment="Center">ID</GridViewColumnHeader>
+                                                    <GridViewColumnHeader Tag="MA_KH" Command="{Binding SortKhachHangCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" VerticalAlignment="Center" HorizontalAlignment="Center">ID</GridViewColumnHeader>
                                                 </GridViewColumn>
                                                 <GridViewColumn DisplayMemberBinding="{Binding HOTEN_KH}">
-                                                    <GridViewColumnHeader Name="HOTEN_KH" Command="{Binding SortKhachHangCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" VerticalAlignment="Center" HorizontalAlignment="Center">Họ tên</GridViewColumnHeader>
+                                                    <GridViewColumnHeader Tag="HOTEN_KH" Command="{Binding SortKhachHangCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" VerticalAlignment="Center" HorizontalAlignment="Center">Họ tên</GridViewColumnHeader>
                                                 </GridViewColumn>
                                                 <GridViewColumn DisplayMemberBinding="{Binding SODIENTHOAI_KH}">
-                                                    <GridViewColumnHeader Name="SODIENTHOAI_KH" Command="{Binding SortKhachHangCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" VerticalAlignment="Center" HorizontalAlignment="Center">Số điện thoại</GridViewColumnHeader>
+                                                    <GridViewColumnHeader Tag="SODIENTHOAI_KH" Command="{Binding SortKhachHangCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" VerticalAlignment="Center" HorizontalAlignment="Center">Số điện thoại</GridViewColumnHeader>
                                                 </GridViewColumn>
                                                 <GridViewColumn DisplayMemberBinding="{Binding CMND_KH}">
-                                                    <GridViewColumnHeader Name="CMND_KH" Command="{Binding SortKhachHangCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" VerticalAlignment="Center" HorizontalAlignment="Center">Số CMND</GridViewColumnHeader>
+                                                    <GridViewColumnHeader Tag="CMND_KH" Command="{Binding SortKhachHangCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" VerticalAlignment="Center" HorizontalAlignment="Center">Số CMND</GridViewColumnHeader>
                                                 </GridViewColumn>
                                             </GridView>
                                         </ListView.View>
                                     </ListView>
                                     <StackPanel Grid.Column="1" Margin="10,0,10,10">
                                         <TextBox Margin="0,0,0,10"  Height="37" materialDesign:HintAssist.Hint="Họ tên" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding TenKhachHang, UpdateSourceTrigger=PropertyChanged}" VerticalContentAlignment="Center"></TextBox>
-                                        <TextBox Margin="0,0,0,10"  Height="37" materialDesign:HintAssist.Hint="Số điện thoại" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding SoDienThoai, UpdateSourceTrigger=PropertyChanged}" VerticalContentAlignment="Center"></TextBox>
-                                        <TextBox Margin="0,0,0,10"  Height="37" materialDesign:HintAssist.Hint="Số CMND" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding CMND, UpdateSourceTrigger=PropertyChanged}" VerticalContentAlignment="Center"></TextBox>
-
+                                        <TextBox Margin="0,0,0,10"  Height="37" materialDesign:HintAssist.Hint="Số điện thoại" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding SoDienThoai, UpdateSourceTrigger=PropertyChanged}" MaxLength="14" VerticalContentAlignment="Center"></TextBox>
+                                        <TextBox Margin="0,0,0,10"  Height="37" materialDesign:HintAssist.Hint="Số CMND" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding CMND, UpdateSourceTrigger=PropertyChanged}" MaxLength="11" VerticalContentAlignment="Center"></TextBox>
                                     </StackPanel>
 
                                 </Grid>
@@ -852,21 +850,23 @@
                                     <Image Name="imgAddPhong" Height="25" Width="25" Cursor="Hand" Source="Resources\Icons\btnThem.png" ToolTip="Thêm">
                                         <i:Interaction.Triggers>
                                             <i:EventTrigger EventName="MouseLeftButtonDown">
-                                                <i:InvokeCommandAction Command="{Binding AddCommand}"
-                                                                       CommandParameter="{Binding ElementName=imgAddPhong}">
-                                                </i:InvokeCommandAction>
+                                                <i:InvokeCommandAction Command="{Binding AddCommand}"/>
                                             </i:EventTrigger>
                                         </i:Interaction.Triggers>
                                     </Image>
                                     <GridSplitter IsEnabled="False" Width="1" Margin="10,0,10,0" Background="#FFD6D6D6"></GridSplitter>
-                                    <Image Height="25" Width="25" Cursor="Hand" Source="Resources\Icons\btnXoa.png" ToolTip="Xóa"></Image>
+                                    <Image Height="25" Width="25" Cursor="Hand" Source="Resources\Icons\btnXoa.png" ToolTip="Xóa">
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="MouseLeftButtonDown">
+                                                <i:InvokeCommandAction Command="{Binding DeleteCommand}"/>
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                    </Image>
                                     <GridSplitter IsEnabled="False" Width="1" Margin="10,0,10,0" Background="#FFD6D6D6"></GridSplitter>
                                     <Image Name="imgEditPhong" Height="25" Width="25" Cursor="Hand" Source="Resources\Icons\btnSua.png" ToolTip="Sửa">
                                         <i:Interaction.Triggers>
                                             <i:EventTrigger EventName="MouseLeftButtonDown">
-                                                <i:InvokeCommandAction Command="{Binding EditCommand}"
-                                                                       CommandParameter="{Binding ElementName=imgEditPhong}">
-                                                </i:InvokeCommandAction>
+                                                <i:InvokeCommandAction Command="{Binding EditCommand}"/>
                                             </i:EventTrigger>
                                         </i:Interaction.Triggers>
                                     </Image>
@@ -905,16 +905,16 @@
                                         <ListView.View>
                                             <GridView>
                                                 <GridViewColumn DisplayMemberBinding="{Binding Phong.MA_PHONG}">
-                                                    <GridViewColumnHeader Name="MA_PHONG" Command="{Binding SortPhongCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" VerticalAlignment="Center" HorizontalAlignment="Center">Mã phòng</GridViewColumnHeader>
+                                                    <GridViewColumnHeader Tag="Phong.MA_PHONG" Command="{Binding SortPhongCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" VerticalAlignment="Center" HorizontalAlignment="Center">Mã phòng</GridViewColumnHeader>
                                                 </GridViewColumn>
                                                 <GridViewColumn DisplayMemberBinding="{Binding LoaiPhong.TEN_LP}">
-                                                    <GridViewColumnHeader Name="TEN_LP" Command="{Binding SortLoaiPhongCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" VerticalAlignment="Center" HorizontalAlignment="Center">Loại phòng</GridViewColumnHeader>
+                                                    <GridViewColumnHeader Tag="LoaiPhong.TEN_LP" Command="{Binding SortPhongCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" VerticalAlignment="Center" HorizontalAlignment="Center">Loại phòng</GridViewColumnHeader>
                                                 </GridViewColumn>
                                                 <GridViewColumn DisplayMemberBinding="{Binding Phong.TINHTRANG_PHONG}">
-                                                    <GridViewColumnHeader Name="TINHTRANG_PHONG" Command="{Binding SortPhongCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" VerticalAlignment="Center" HorizontalAlignment="Center">Tình trạng phòng</GridViewColumnHeader>
+                                                    <GridViewColumnHeader Tag="Phong.TINHTRANG_PHONG" Command="{Binding SortPhongCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" VerticalAlignment="Center" HorizontalAlignment="Center">Tình trạng phòng</GridViewColumnHeader>
                                                 </GridViewColumn>
                                                 <GridViewColumn DisplayMemberBinding="{Binding LoaiPhong.DONGIA_LP, StringFormat='N0'}">
-                                                    <GridViewColumnHeader Name="DONGIA_LP" Command="{Binding SortLoaiPhongCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" VerticalAlignment="Center" HorizontalAlignment="Center">Đơn giá</GridViewColumnHeader>
+                                                    <GridViewColumnHeader Tag="LoaiPhong.DONGIA_LP" Command="{Binding SortPhongCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" VerticalAlignment="Center" HorizontalAlignment="Center">Đơn giá</GridViewColumnHeader>
                                                 </GridViewColumn>
                                             </GridView>
                                         </ListView.View>
@@ -935,21 +935,23 @@
                                     <Image Name="imgAddLoaiPhong" Height="25" Width="25" Cursor="Hand" Source="Resources\Icons\btnThem.png" ToolTip="Thêm">
                                         <i:Interaction.Triggers>
                                             <i:EventTrigger EventName="MouseLeftButtonDown">
-                                                <i:InvokeCommandAction Command="{Binding AddCommand}"
-                                                                       CommandParameter="{Binding ElementName=imgAddLoaiPhong}">
-                                                </i:InvokeCommandAction>
+                                                <i:InvokeCommandAction Command="{Binding AddCommand}"/>
                                             </i:EventTrigger>
                                         </i:Interaction.Triggers>
                                     </Image>
                                     <GridSplitter IsEnabled="False" Width="1" Margin="10,0,10,0" Background="#FFD6D6D6"></GridSplitter>
-                                    <Image Height="25" Width="25" Cursor="Hand" Source="Resources\Icons\btnXoa.png" ToolTip="Xóa"></Image>
+                                    <Image Height="25" Width="25" Cursor="Hand" Source="Resources\Icons\btnXoa.png" ToolTip="Xóa">
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="MouseLeftButtonDown">
+                                                <i:InvokeCommandAction Command="{Binding DeleteCommand}"/>
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                    </Image>
                                     <GridSplitter IsEnabled="False" Width="1" Margin="10,0,10,0" Background="#FFD6D6D6"></GridSplitter>
                                     <Image Name="imgEditLoaiPhong" Height="25" Width="25" Cursor="Hand" Source="Resources\Icons\btnSua.png" ToolTip="Sửa">
                                         <i:Interaction.Triggers>
                                             <i:EventTrigger EventName="MouseLeftButtonDown">
-                                                <i:InvokeCommandAction Command="{Binding EditCommand}"
-                                                                       CommandParameter="{Binding ElementName=imgEditLoaiPhong}">
-                                                </i:InvokeCommandAction>
+                                                <i:InvokeCommandAction Command="{Binding EditCommand}"/>
                                             </i:EventTrigger>
                                         </i:Interaction.Triggers>
                                     </Image>
@@ -957,8 +959,7 @@
                                     <Image Height="25" Width="25" Cursor="Hand" Source="Resources\Icons\btnLamMoi.png" ToolTip="Làm mới">
                                         <i:Interaction.Triggers>
                                             <i:EventTrigger EventName="MouseLeftButtonDown">
-                                                <i:InvokeCommandAction Command="{Binding RefreshCommand}">
-                                                </i:InvokeCommandAction>
+                                                <i:InvokeCommandAction Command="{Binding RefreshCommand}"/>
                                             </i:EventTrigger>
                                         </i:Interaction.Triggers>
                                     </Image>
@@ -988,13 +989,13 @@
                                         <ListView.View>
                                             <GridView>
                                                 <GridViewColumn DisplayMemberBinding="{Binding MA_LP}">
-                                                    <GridViewColumnHeader Name="MA_LP1" Command="{Binding SortLoaiPhongCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" VerticalAlignment="Center" HorizontalAlignment="Center">ID</GridViewColumnHeader>
+                                                    <GridViewColumnHeader Tag="MA_LP" Command="{Binding SortLoaiPhongCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" VerticalAlignment="Center" HorizontalAlignment="Center">ID</GridViewColumnHeader>
                                                 </GridViewColumn>
                                                 <GridViewColumn DisplayMemberBinding="{Binding TEN_LP}">
-                                                    <GridViewColumnHeader Name="TEN_LP1" Command="{Binding SortLoaiPhongCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" VerticalAlignment="Center" HorizontalAlignment="Center">Tên loại phòng</GridViewColumnHeader>
+                                                    <GridViewColumnHeader Tag="TEN_LP" Command="{Binding SortLoaiPhongCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" VerticalAlignment="Center" HorizontalAlignment="Center">Tên loại phòng</GridViewColumnHeader>
                                                 </GridViewColumn>
                                                 <GridViewColumn DisplayMemberBinding="{Binding DONGIA_LP, StringFormat='N0'}">
-                                                    <GridViewColumnHeader Name="DONGIA_LP1" Command="{Binding SortLoaiPhongCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" VerticalAlignment="Center" HorizontalAlignment="Center">Đơn giá</GridViewColumnHeader>
+                                                    <GridViewColumnHeader Tag="DONGIA_LP" Command="{Binding SortLoaiPhongCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" VerticalAlignment="Center" HorizontalAlignment="Center">Đơn giá</GridViewColumnHeader>
                                                 </GridViewColumn>
                                             </GridView>
                                         </ListView.View>
@@ -1006,28 +1007,48 @@
                                 </Grid>
                             </Grid>
                         </TabItem>
-                        <TabItem Header="Hóa đơn">
-                            <Grid>
-                                <StackPanel Margin="10,10" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top" >
-                                    <Image Height="25" Width="25" Cursor="Hand" Source="Resources\Icons\btnThem.png" ToolTip="Thêm"></Image>
-                                    <GridSplitter IsEnabled="False" Width="1" Margin="10,0,10,0" Background="#FFD6D6D6"></GridSplitter>
-                                    <Image Height="25" Width="25" Cursor="Hand" Source="Resources\Icons\btnXoa.png" ToolTip="Xóa"></Image>
-                                    <GridSplitter IsEnabled="False" Width="1" Margin="10,0,10,0" Background="#FFD6D6D6"></GridSplitter>
-                                    <Image Height="25" Width="25" Cursor="Hand" Source="Resources\Icons\btnSua.png" ToolTip="Sửa"></Image>
-                                    <GridSplitter IsEnabled="False" Width="1" Margin="10,0,10,0" Background="#FFD6D6D6"></GridSplitter>
-                                    <Image Height="25" Width="25" Cursor="Hand" Source="Resources\Icons\btnLamMoi.png" ToolTip="Làm mới">
+                        <TabItem Header="Hóa đơn" DataContext="{StaticResource HoaDonVM}">
+                            <Grid>                                                               
+                                <StackPanel Margin="10,10" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" >
+                                    <TextBox materialDesign:HintAssist.Hint="Tìm kiếm" Height="25" Width="250" VerticalContentAlignment="Center" 
+                                             Text="{Binding SearchHoaDon, UpdateSourceTrigger=PropertyChanged}">
                                         <i:Interaction.Triggers>
-                                            <i:EventTrigger EventName="MouseLeftButtonDown">
-                                                <i:InvokeCommandAction Command="{Binding RefreshCommand}">
-                                                </i:InvokeCommandAction>
+                                            <i:EventTrigger EventName="TextChanged">
+                                                <i:InvokeCommandAction Command="{Binding SearchTTHoaDonCommand}"/>
                                             </i:EventTrigger>
                                         </i:Interaction.Triggers>
-                                    </Image>
-                                </StackPanel>
-                                <StackPanel Margin="10,10" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" >
-                                    <TextBox materialDesign:HintAssist.Hint="Tìm kiếm" Height="25" Width="250" VerticalContentAlignment="Center" ></TextBox>
+                                    </TextBox>
                                     <Image Height="25" Width="25" Margin="10,0,0,0" Cursor="Hand" Source="Resources\Icons\btnTim.png" ToolTip="Tìm"></Image>
                                 </StackPanel>
+
+                                <Grid Margin="0,50,0,0">
+                                    <GridSplitter IsEnabled="False" Width="1" Margin="0,10,10,10" Background="#FFD6D6D6"></GridSplitter>
+                                    <ListView Name="listHoaDon" Margin="10,0,30,10"
+                                              ItemsSource="{Binding ListThongTinHoaDon}">
+                                        <ListView.View>
+                                            <GridView>
+                                                <GridViewColumn DisplayMemberBinding="{Binding HoaDon.MA_HD}">
+                                                    <GridViewColumnHeader Tag="HoaDon.MA_HD" Command="{Binding SortTTHoaDonCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" VerticalAlignment="Center" HorizontalAlignment="Center">Mã hóa đơn</GridViewColumnHeader>
+                                                </GridViewColumn>
+                                                <GridViewColumn DisplayMemberBinding="{Binding TenNhanVien}">
+                                                    <GridViewColumnHeader Tag="TenNhanVien" Command="{Binding SortTTHoaDonCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" VerticalAlignment="Center" HorizontalAlignment="Center">Tên nhân viên</GridViewColumnHeader>
+                                                </GridViewColumn>
+                                                <GridViewColumn DisplayMemberBinding="{Binding TenKhachHang}">
+                                                    <GridViewColumnHeader Tag="TenKhachHang" Command="{Binding SortTTHoaDonCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" VerticalAlignment="Center" HorizontalAlignment="Center">Tên khách hàng</GridViewColumnHeader>
+                                                </GridViewColumn>
+                                                <GridViewColumn DisplayMemberBinding="{Binding HoaDon.THOIGIANLAP_HD, StringFormat='dd/MM/yyyy'}">
+                                                    <GridViewColumnHeader Tag="HoaDon.THOIGIANLAP_HD" Command="{Binding SortTTHoaDonCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" VerticalAlignment="Center" HorizontalAlignment="Center">Thời gian lập</GridViewColumnHeader>
+                                                </GridViewColumn>
+                                                <GridViewColumn DisplayMemberBinding="{Binding TinhTrang}">
+                                                    <GridViewColumnHeader Tag="TinhTrang" Command="{Binding SortTTHoaDonCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" VerticalAlignment="Center" HorizontalAlignment="Center">Tình trạng</GridViewColumnHeader>
+                                                </GridViewColumn>
+                                                <GridViewColumn DisplayMemberBinding="{Binding HoaDon.TRIGIA_HD, StringFormat='N0'}">
+                                                    <GridViewColumnHeader Tag="HoaDon.TRIGIA_HD" Command="{Binding SortTTHoaDonCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" VerticalAlignment="Center" HorizontalAlignment="Center">Trị giá</GridViewColumnHeader>
+                                                </GridViewColumn>
+                                            </GridView>
+                                        </ListView.View>
+                                    </ListView>                                    
+                                </Grid>
                             </Grid>
 
                         </TabItem>
@@ -1042,7 +1063,13 @@
                                         </i:Interaction.Triggers>
                                     </Image>
                                     <GridSplitter IsEnabled="False" Width="1" Margin="10,0,10,0" Background="#FFD6D6D6"></GridSplitter>
-                                    <Image Height="25" Width="25" Cursor="Hand" Source="Resources\Icons\btnXoa.png" ToolTip="Xóa"></Image>
+                                    <Image Height="25" Width="25" Cursor="Hand" Source="Resources\Icons\btnXoa.png" ToolTip="Xóa">
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="MouseLeftButtonDown">
+                                                <i:InvokeCommandAction Command="{Binding DeleteMatHangCommand}"/>
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                    </Image>
                                     <GridSplitter IsEnabled="False" Width="1" Margin="10,0,10,0" Background="#FFD6D6D6"></GridSplitter>
                                     <Image Name="imgEditMatHang" Height="25" Width="25" Cursor="Hand" Source="Resources\Icons\btnSua.png" ToolTip="Sửa">
                                         <i:Interaction.Triggers>
@@ -1055,8 +1082,7 @@
                                     <Image Height="25" Width="25" Cursor="Hand" Source="Resources\Icons\btnLamMoi.png" ToolTip="Làm mới">
                                         <i:Interaction.Triggers>
                                             <i:EventTrigger EventName="MouseLeftButtonDown">
-                                                <i:InvokeCommandAction Command="{Binding RefreshCommand}">
-                                                </i:InvokeCommandAction>
+                                                <i:InvokeCommandAction Command="{Binding RefreshCommand}"/>
                                             </i:EventTrigger>
                                         </i:Interaction.Triggers>
                                     </Image>
@@ -1086,16 +1112,16 @@
                                         <ListView.View>
                                             <GridView>
                                                 <GridViewColumn DisplayMemberBinding="{Binding MA_MH}">
-                                                    <GridViewColumnHeader Name="MA_MH2" Command="{Binding SortMatHangTCQLCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" VerticalAlignment="Center" HorizontalAlignment="Center">ID</GridViewColumnHeader>
+                                                    <GridViewColumnHeader Tag="MA_MH" Command="{Binding SortMatHangTCQLCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" VerticalAlignment="Center" HorizontalAlignment="Center">ID</GridViewColumnHeader>
                                                 </GridViewColumn>
                                                 <GridViewColumn DisplayMemberBinding="{Binding TEN_MH}">
-                                                    <GridViewColumnHeader Name="TEN_MH2" Command="{Binding SortMatHangTCQLCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" VerticalAlignment="Center" HorizontalAlignment="Center">Tên mặt hàng</GridViewColumnHeader>
+                                                    <GridViewColumnHeader Tag="TEN_MH" Command="{Binding SortMatHangTCQLCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" VerticalAlignment="Center" HorizontalAlignment="Center">Tên mặt hàng</GridViewColumnHeader>
                                                 </GridViewColumn>
                                                 <GridViewColumn DisplayMemberBinding="{Binding DONGIA_MH, StringFormat='N0'}">
-                                                    <GridViewColumnHeader Name="DONGIA_MH2" Command="{Binding SortMatHangTCQLCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" VerticalAlignment="Center" HorizontalAlignment="Center">Đơn giá</GridViewColumnHeader>
+                                                    <GridViewColumnHeader Tag="DONGIA_MH" Command="{Binding SortMatHangTCQLCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" VerticalAlignment="Center" HorizontalAlignment="Center">Đơn giá</GridViewColumnHeader>
                                                 </GridViewColumn>
                                                 <GridViewColumn DisplayMemberBinding="{Binding NGAYNHAP_MH, StringFormat='dd/MM/yyyy'}">
-                                                    <GridViewColumnHeader Name="NGAYNHAP_MH2" Command="{Binding SortMatHangTCQLCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" VerticalAlignment="Center" HorizontalAlignment="Center">Ngày nhập</GridViewColumnHeader>
+                                                    <GridViewColumnHeader Tag="NGAYNHAP_MH" Command="{Binding SortMatHangTCQLCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" VerticalAlignment="Center" HorizontalAlignment="Center">Ngày nhập</GridViewColumnHeader>
                                                 </GridViewColumn>
                                             </GridView>
                                         </ListView.View>
@@ -1112,22 +1138,26 @@
                         <TabItem Header="Loại giặt ủi" DataContext="{StaticResource LoaiGiatUiVM}">
                             <Grid>
                                 <StackPanel Margin="10,10" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top" >
-                                    <Image Height="25" Width="25" Cursor="Hand" Source="Resources\Icons\btnThem.png" ToolTip="Thêm">
+                                    <!--<Image Height="25" Width="25" Cursor="Hand" Source="Resources\Icons\btnThem.png" ToolTip="Thêm">
                                         <i:Interaction.Triggers>
                                             <i:EventTrigger EventName="MouseLeftButtonDown">
-                                                <i:InvokeCommandAction Command="{Binding AddCommand}">
-                                                </i:InvokeCommandAction>
+                                                <i:InvokeCommandAction Command="{Binding AddCommand}"/>
                                             </i:EventTrigger>
                                         </i:Interaction.Triggers>
                                     </Image>
                                     <GridSplitter IsEnabled="False" Width="1" Margin="10,0,10,0" Background="#FFD6D6D6"></GridSplitter>
-                                    <Image Height="25" Width="25" Cursor="Hand" Source="Resources\Icons\btnXoa.png" ToolTip="Xóa"></Image>
-                                    <GridSplitter IsEnabled="False" Width="1" Margin="10,0,10,0" Background="#FFD6D6D6"></GridSplitter>
+                                    <Image Height="25" Width="25" Cursor="Hand" Source="Resources\Icons\btnXoa.png" ToolTip="Xóa">
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="MouseLeftButtonDown">
+                                                <i:InvokeCommandAction Command="{Binding DeleteCommand}"/>
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                    </Image>
+                                    <GridSplitter IsEnabled="False" Width="1" Margin="10,0,10,0" Background="#FFD6D6D6"></GridSplitter>-->
                                     <Image Height="25" Width="25" Cursor="Hand" Source="Resources\Icons\btnSua.png" ToolTip="Sửa">
                                         <i:Interaction.Triggers>
                                             <i:EventTrigger EventName="MouseLeftButtonDown">
-                                                <i:InvokeCommandAction Command="{Binding EditCommand}">
-                                                </i:InvokeCommandAction>
+                                                <i:InvokeCommandAction Command="{Binding EditCommand}"/>
                                             </i:EventTrigger>
                                         </i:Interaction.Triggers>
                                     </Image>
@@ -1135,8 +1165,7 @@
                                     <Image Height="25" Width="25" Cursor="Hand" Source="Resources\Icons\btnLamMoi.png" ToolTip="Làm mới">
                                         <i:Interaction.Triggers>
                                             <i:EventTrigger EventName="MouseLeftButtonDown">
-                                                <i:InvokeCommandAction Command="{Binding RefreshCommand}">
-                                                </i:InvokeCommandAction>
+                                                <i:InvokeCommandAction Command="{Binding RefreshCommand}"/>
                                             </i:EventTrigger>
                                         </i:Interaction.Triggers>
                                     </Image>
@@ -1166,13 +1195,13 @@
                                         <ListView.View>
                                             <GridView>
                                                 <GridViewColumn DisplayMemberBinding="{Binding MA_LOAIGU}">
-                                                    <GridViewColumnHeader Name="MA_LOAIGU" Command="{Binding SortLoaiGiatUiCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" VerticalAlignment="Center" HorizontalAlignment="Center">ID</GridViewColumnHeader>
+                                                    <GridViewColumnHeader Tag="MA_LOAIGU" Command="{Binding SortLoaiGiatUiCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" VerticalAlignment="Center" HorizontalAlignment="Center">ID</GridViewColumnHeader>
                                                 </GridViewColumn>
                                                 <GridViewColumn DisplayMemberBinding="{Binding TEN_LOAIGU}">
-                                                    <GridViewColumnHeader Name="TEN_LOAIGU" Command="{Binding SortLoaiGiatUiCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" VerticalAlignment="Center" HorizontalAlignment="Center">Tên loại giặt ủi</GridViewColumnHeader>
+                                                    <GridViewColumnHeader Tag="TEN_LOAIGU" Command="{Binding SortLoaiGiatUiCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" VerticalAlignment="Center" HorizontalAlignment="Center">Tên loại giặt ủi</GridViewColumnHeader>
                                                 </GridViewColumn>
                                                 <GridViewColumn DisplayMemberBinding="{Binding DONGIA_LOAIGU, StringFormat='N0'}">
-                                                    <GridViewColumnHeader Name="DONGIA_LOAIGU" Command="{Binding SortLoaiGiatUiCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" VerticalAlignment="Center" HorizontalAlignment="Center">Đơn giá</GridViewColumnHeader>
+                                                    <GridViewColumnHeader Tag="DONGIA_LOAIGU" Command="{Binding SortLoaiGiatUiCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" VerticalAlignment="Center" HorizontalAlignment="Center">Đơn giá</GridViewColumnHeader>
                                                 </GridViewColumn>
                                             </GridView>
                                         </ListView.View>
@@ -1190,19 +1219,23 @@
                                     <Image Height="25" Width="25" Cursor="Hand" Source="Resources\Icons\btnThem.png" ToolTip="Thêm">
                                         <i:Interaction.Triggers>
                                             <i:EventTrigger EventName="MouseLeftButtonDown">
-                                                <i:InvokeCommandAction Command="{Binding AddCommand}">
-                                                </i:InvokeCommandAction>
+                                                <i:InvokeCommandAction Command="{Binding AddCommand}"/>
                                             </i:EventTrigger>
                                         </i:Interaction.Triggers>
                                     </Image>
                                     <GridSplitter IsEnabled="False" Width="1" Margin="10,0,10,0" Background="#FFD6D6D6"></GridSplitter>
-                                    <Image Height="25" Width="25" Cursor="Hand" Source="Resources\Icons\btnXoa.png" ToolTip="Xóa"></Image>
+                                    <Image Height="25" Width="25" Cursor="Hand" Source="Resources\Icons\btnXoa.png" ToolTip="Xóa">
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="MouseLeftButtonDown">
+                                                <i:InvokeCommandAction Command="{Binding DeleteCommand}"/>
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                    </Image>
                                     <GridSplitter IsEnabled="False" Width="1" Margin="10,0,10,0" Background="#FFD6D6D6"></GridSplitter>
                                     <Image Height="25" Width="25" Cursor="Hand" Source="Resources\Icons\btnSua.png" ToolTip="Sửa">
                                         <i:Interaction.Triggers>
                                             <i:EventTrigger EventName="MouseLeftButtonDown">
-                                                <i:InvokeCommandAction Command="{Binding EditCommand}">
-                                                </i:InvokeCommandAction>
+                                                <i:InvokeCommandAction Command="{Binding EditCommand}"/>
                                             </i:EventTrigger>
                                         </i:Interaction.Triggers>
                                     </Image>
@@ -1210,8 +1243,7 @@
                                     <Image Height="25" Width="25" Cursor="Hand" Source="Resources\Icons\btnLamMoi.png" ToolTip="Làm mới">
                                         <i:Interaction.Triggers>
                                             <i:EventTrigger EventName="MouseLeftButtonDown">
-                                                <i:InvokeCommandAction Command="{Binding RefreshCommand}">
-                                                </i:InvokeCommandAction>
+                                                <i:InvokeCommandAction Command="{Binding RefreshCommand}"/>
                                             </i:EventTrigger>
                                         </i:Interaction.Triggers>
                                     </Image>
@@ -1241,13 +1273,13 @@
                                         <ListView.View>
                                             <GridView>
                                                 <GridViewColumn DisplayMemberBinding="{Binding MA_CD}">
-                                                    <GridViewColumnHeader Name="MA_CD" Command="{Binding SortChuyenDiCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" VerticalAlignment="Center" HorizontalAlignment="Center">ID</GridViewColumnHeader>
+                                                    <GridViewColumnHeader Tag="MA_CD" Command="{Binding SortChuyenDiCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" VerticalAlignment="Center" HorizontalAlignment="Center">ID</GridViewColumnHeader>
                                                 </GridViewColumn>
                                                 <GridViewColumn DisplayMemberBinding="{Binding DIEMDEN_CD}">
-                                                    <GridViewColumnHeader Name="DIEMDEN_CD" Command="{Binding SortChuyenDiCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" VerticalAlignment="Center" HorizontalAlignment="Center">Điểm đến</GridViewColumnHeader>
+                                                    <GridViewColumnHeader Tag="DIEMDEN_CD" Command="{Binding SortChuyenDiCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" VerticalAlignment="Center" HorizontalAlignment="Center">Điểm đến</GridViewColumnHeader>
                                                 </GridViewColumn>
                                                 <GridViewColumn DisplayMemberBinding="{Binding DONGIA_CD, StringFormat='N0'}">
-                                                    <GridViewColumnHeader Name="DONGIA_CD" Command="{Binding SortChuyenDiCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" VerticalAlignment="Center" HorizontalAlignment="Center">Đơn giá</GridViewColumnHeader>
+                                                    <GridViewColumnHeader Tag="DONGIA_CD" Command="{Binding SortChuyenDiCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" VerticalAlignment="Center" HorizontalAlignment="Center">Đơn giá</GridViewColumnHeader>
                                                 </GridViewColumn>
                                             </GridView>
                                         </ListView.View>

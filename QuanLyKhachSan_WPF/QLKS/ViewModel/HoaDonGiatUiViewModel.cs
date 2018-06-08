@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Transactions;
 using System.Windows;
 using System.Windows.Input;
 
@@ -38,18 +39,31 @@ namespace QLKS.ViewModel
                 return true;
             }, (p) =>
             {
-                //lấy thông tin phòng chọn thuê và nhân viên làm hóa đơn
-                var hoadonVM = p.DataContext as HoaDonViewModel;
-                MaHD = hoadonVM.MaHD;
-                TTGiatUi = hoadonVM.TTGiatUi;
-                TongTien = hoadonVM.TongTienHDGU;
-                //Thêm lượt giặt ủi vào csdl
-                DataProvider.Ins.model.LUOTGIATUI.Add(TTGiatUi.LuotGiatUi);
-                DataProvider.Ins.model.SaveChanges();
-                //Thêm chi tiết hóa đơn giặt ủi
-                var chitietHDGU = new CHITIET_HDGU() { MA_HD = MaHD, MA_LUOTGU = TTGiatUi.LuotGiatUi.MA_LUOTGU, TRIGIA_CTHDGU = TongTien };
-                DataProvider.Ins.model.CHITIET_HDGU.Add(chitietHDGU);
-                DataProvider.Ins.model.SaveChanges();
+                try
+                {
+                    using (TransactionScope ts = new TransactionScope())
+                    {
+                        //lấy thông tin phòng chọn thuê và nhân viên làm hóa đơn
+                        var hoadonVM = p.DataContext as HoaDonViewModel;
+                        MaHD = hoadonVM.MaHD;
+                        TTGiatUi = hoadonVM.TTGiatUi;
+                        TongTien = hoadonVM.TongTienHDGU;
+                        //Thêm lượt giặt ủi vào csdl
+                        DataProvider.Ins.model.LUOTGIATUI.Add(TTGiatUi.LuotGiatUi);
+                        DataProvider.Ins.model.SaveChanges();
+                        //Thêm chi tiết hóa đơn giặt ủi
+                        var chitietHDGU = new CHITIET_HDGU() { MA_HD = MaHD, MA_LUOTGU = TTGiatUi.LuotGiatUi.MA_LUOTGU, TRIGIA_CTHDGU = TongTien, THOIGIANLAP_CTHDGU = DateTime.Now };
+                        DataProvider.Ins.model.CHITIET_HDGU.Add(chitietHDGU);
+                        DataProvider.Ins.model.SaveChanges();
+
+                        ts.Complete();
+                        MessageBox.Show("Lưu thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+                    }
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show(e + "\n\tLưu không thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
+                }
 
                 p.Close();
             });            

@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
@@ -40,7 +41,7 @@ namespace QLKS.ViewModel
         public bool sort;
 
         public ICommand SearchLoaiGiatUiCommand { get; set; }
-        public ICommand AddCommand { get; set; }
+        //public ICommand AddCommand { get; set; }
         public ICommand EditCommand { get; set; }
         public ICommand RefreshCommand { get; set; }
         public ICommand SortLoaiGiatUiCommand { get; set; }
@@ -66,48 +67,55 @@ namespace QLKS.ViewModel
 
             });
 
-            AddCommand = new RelayCommand<Object>((p) =>
-            {
-                if (string.IsNullOrEmpty(TenLoaiGiatUi) || string.IsNullOrEmpty(DonGia.ToString()))
-                    return false;
+            //AddCommand = new RelayCommand<Object>((p) =>
+            //{
+            //    if (string.IsNullOrEmpty(TenLoaiGiatUi) || string.IsNullOrEmpty(DonGia.ToString()))
+            //        return false;
 
-                var listLoaiGiatUi = DataProvider.Ins.model.LOAIGIATUI.Where(x => x.TEN_LOAIGU == TenLoaiGiatUi);
-                if (listLoaiGiatUi == null || listLoaiGiatUi.Count() != 0)
-                    return false;
+            //    var listLoaiGiatUi = DataProvider.Ins.model.LOAIGIATUI.Where(x => x.TEN_LOAIGU == TenLoaiGiatUi);
+            //    if (listLoaiGiatUi == null || listLoaiGiatUi.Count() != 0)
+            //        return false;
 
-                return true;
-            }, (p) =>
-            {
-                var loaiGiatUi = new LOAIGIATUI() { TEN_LOAIGU = TenLoaiGiatUi, DONGIA_LOAIGU = DonGia };
+            //    return true;
+            //}, (p) =>
+            //{
+            //    var loaiGiatUi = new LOAIGIATUI() { TEN_LOAIGU = TenLoaiGiatUi, DONGIA_LOAIGU = DonGia };
 
-                DataProvider.Ins.model.LOAIGIATUI.Add(loaiGiatUi);
-                DataProvider.Ins.model.SaveChanges();
+            //    DataProvider.Ins.model.LOAIGIATUI.Add(loaiGiatUi);
+            //    DataProvider.Ins.model.SaveChanges();
 
-                ListLoaiGiatUi.Add(loaiGiatUi);
-            });
+            //    ListLoaiGiatUi.Add(loaiGiatUi);
+            //});
 
             EditCommand = new RelayCommand<Object>((p) =>
             {
-                if (string.IsNullOrEmpty(TenLoaiGiatUi) || string.IsNullOrEmpty(DonGia.ToString()) || SelectedItem == null)
+                if (string.IsNullOrEmpty(TenLoaiGiatUi) || string.IsNullOrEmpty(DonGia.ToString())
+                 || DonGia == 0 || SelectedItem == null)
+                {
+                    MessageBox.Show("Vui lòng chọn loại giặt ủi muốn sửa!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
                     return false;
+                }
 
-                var listLoaiGiatUi = DataProvider.Ins.model.LOAIGIATUI.Where(x => x.MA_LOAIGU == SelectedItem.MA_LOAIGU);
+                var listLoaiGiatUi = DataProvider.Ins.model.LOAIGIATUI.Where(x => x.TEN_LOAIGU == TenLoaiGiatUi);
                 if (listLoaiGiatUi != null && listLoaiGiatUi.Count() != 0)
                     return true;
 
+                MessageBox.Show("Loại giặt ủi không tồn tại!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return false;
             }, (p) =>
             {
-                var loaiGiatUi = DataProvider.Ins.model.LOAIGIATUI.Where(x => x.MA_LOAIGU == SelectedItem.MA_LOAIGU).SingleOrDefault();
+                var loaiGiatUi = DataProvider.Ins.model.LOAIGIATUI.Where(x => x.TEN_LOAIGU == TenLoaiGiatUi).SingleOrDefault();
                 loaiGiatUi.TEN_LOAIGU = TenLoaiGiatUi;
                 loaiGiatUi.DONGIA_LOAIGU = DonGia;
                 DataProvider.Ins.model.SaveChanges();
+
+                MessageBox.Show("Sửa thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+                RefershControls();
             });
 
             RefreshCommand = new RelayCommand<Object>((p) => { return true; }, (p) =>
             {
-                TenLoaiGiatUi = null;
-                DonGia = 0;
+                RefershControls();
             });
 
             SortLoaiGiatUiCommand = new RelayCommand<GridViewColumnHeader>((p) => { return p == null ? false : true; }, (p) =>
@@ -116,16 +124,21 @@ namespace QLKS.ViewModel
                 if (sort)
                 {
                     view.SortDescriptions.Clear();
-                    view.SortDescriptions.Add(new SortDescription(p.Name, ListSortDirection.Ascending));
+                    view.SortDescriptions.Add(new SortDescription(p.Tag.ToString(), ListSortDirection.Ascending));
                 }
                 else
                 {
                     view.SortDescriptions.Clear();
-                    view.SortDescriptions.Add(new SortDescription(p.Name, ListSortDirection.Descending));
+                    view.SortDescriptions.Add(new SortDescription(p.Tag.ToString(), ListSortDirection.Descending));
                 }
                 sort = !sort;
             });
+        }
 
+        void RefershControls()
+        {
+            TenLoaiGiatUi = null;
+            DonGia = 0;
         }
     }
 }

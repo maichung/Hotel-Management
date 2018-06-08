@@ -54,7 +54,7 @@ namespace QLKS.ViewModel
                    ListDoanhThuThang = null;
 
                    var tong = (from hd in DataProvider.Ins.model.HOADON
-                               where hd.THOIGIANLAP_HD.Value.Year == Nam
+                               where (hd.THOIGIANLAP_HD.Value.Year == Nam) && (hd.TINHTRANG_HD == true)
                                select hd.TRIGIA_HD).Sum();
                    if (tong == null)
                    {
@@ -69,7 +69,7 @@ namespace QLKS.ViewModel
                    for (int i = 1; i <= ListThang.Count(); i++)
                    {
                        var thang = (from hd in DataProvider.Ins.model.HOADON
-                                    where (hd.THOIGIANLAP_HD.Value.Year == Nam) && (hd.THOIGIANLAP_HD.Value.Month == i)
+                                    where (hd.THOIGIANLAP_HD.Value.Year == Nam) && (hd.THOIGIANLAP_HD.Value.Month == i) && (hd.TINHTRANG_HD == true)
                                     select hd.TRIGIA_HD).Sum();
                        if (thang == null)
                        {

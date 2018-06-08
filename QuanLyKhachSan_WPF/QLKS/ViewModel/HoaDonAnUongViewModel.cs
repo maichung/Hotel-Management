@@ -48,11 +48,12 @@ namespace QLKS.ViewModel
                 //Tạo chi tiết hóa đơn lưu trú
                 foreach (ThongTinOrder item in ListOrder)
                 {
-                    var chitietHDAU = new CHITIET_HDAU() { MA_HD = MaHD, MA_MH = item.MatHang.MA_MH, SOLUONG_MH = item.SoLuong, TRIGIA_CTHDAU = item.ThanhTien };
+                    var chitietHDAU = new CHITIET_HDAU() { MA_HD = MaHD, MA_MH = item.MatHang.MA_MH, SOLUONG_MH = item.SoLuong, TRIGIA_CTHDAU = item.ThanhTien, THOIGIANLAP_CTHDAU = DateTime.Now };
                     DataProvider.Ins.model.CHITIET_HDAU.Add(chitietHDAU);
                 }
                 DataProvider.Ins.model.SaveChanges();
 
+                MessageBox.Show("Lưu thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
                 p.Close();
             });
         }
