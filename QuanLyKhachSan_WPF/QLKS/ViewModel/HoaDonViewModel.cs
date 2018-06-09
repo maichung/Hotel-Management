@@ -399,12 +399,7 @@ namespace QLKS.ViewModel
         public void LoadKhachHangByCMND()
         {
             var kh = DataProvider.Ins.model.KHACHHANG.Where(x => x.CMND_KH == CMND_KH).SingleOrDefault();
-            if (kh == null)
-            {
-                KhachHangThue.HOTEN_KH = "";
-                KhachHangThue.SODIENTHOAI_KH = "";
-            }
-            else
+            if(kh!=null)
             {
                 KhachHangThue.HOTEN_KH = kh.HOTEN_KH;
                 KhachHangThue.SODIENTHOAI_KH = kh.SODIENTHOAI_KH;                

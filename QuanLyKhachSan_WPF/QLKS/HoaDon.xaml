@@ -33,8 +33,8 @@
                 <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
             <Image Grid.Row="0" Source="Resources\Icons\hotel.png" Width="60" Height="60" HorizontalAlignment="Center" VerticalAlignment="Center"></Image>
-            <StackPanel Name="groupButtonTitles" Grid.Row="1" Margin="0,30" HorizontalAlignment="Left" VerticalAlignment="Top">
-                <Button Name="btnHDTong" Height="50" BorderBrush="{x:Null}" Background="{x:Null}" FontSize="18">
+            <StackPanel Background="#11FFFFFF" Margin="10,30" Name="groupButtonTitles" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Top">
+                <Button Name="btnHDTong" Height="50" BorderBrush="{x:Null}" Background="{x:Null}" FontSize="16">
                     <Button.Style>
                         <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignRaisedButton}">
                             <Setter Property="Foreground" Value="#FFB1B1B1"></Setter>
@@ -54,17 +54,28 @@
                     <Grid Width="250" >
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="1*"></ColumnDefinition>
-                            <ColumnDefinition Width="2*"></ColumnDefinition>
+                            <ColumnDefinition Width="3*"></ColumnDefinition>
                         </Grid.ColumnDefinitions>
                         <Grid Grid.Column="0">
-                            <Image Source="Resources\Icons\btnHDTong.png" Margin="10,10,10,10"></Image>
+                            <Image Margin="10,10,10,10">
+                                <Image.Style>
+                                    <Style TargetType="Image">
+                                        <Setter Property="Source" Value="Resources\Icons\btnHDTong.png"></Setter>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding LoaiHD}" Value="0">
+                                                <Setter Property="Source" Value="Resources\Icons\btnHDTong2.png"></Setter>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Image.Style>
+                            </Image>
                         </Grid>
                         <Grid Grid.Column="1">
-                            <TextBlock Text="Hóa đơn tổng" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBlock>
+                            <TextBlock Text="HÓA ĐƠN TỔNG" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBlock>
                         </Grid>
                     </Grid>
                 </Button>
-                <Button Name="btnHDLuuTru" Height="50" Margin="0,10,0,0" BorderBrush="{x:Null}" Background="{x:Null}" FontSize="18">
+                <Button Name="btnHDLuuTru" Height="50" Margin="0,10,0,0" BorderBrush="{x:Null}" Background="{x:Null}" FontSize="16">
                     <Button.Style>
                         <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignRaisedButton}">
                             <Setter Property="Foreground" Value="#FFB1B1B1"></Setter>
@@ -83,20 +94,31 @@
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
 
-                    <Grid Width="250">
+                    <Grid Width="250" >
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="1*"></ColumnDefinition>
-                            <ColumnDefinition Width="2*"></ColumnDefinition>
+                            <ColumnDefinition Width="3*"></ColumnDefinition>
                         </Grid.ColumnDefinitions>
                         <Grid Grid.Column="0">
-                            <Image Source="Resources\Icons\btnHDLuuTru.png" Margin="10,10,10,10"></Image>
+                            <Image Margin="10,10,10,10">
+                                <Image.Style>
+                                    <Style TargetType="Image">
+                                        <Setter Property="Source" Value="Resources\Icons\btnHDLuuTru.png"></Setter>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding LoaiHD}" Value="1">
+                                                <Setter Property="Source" Value="Resources\Icons\btnHDLuuTru2.png"></Setter>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Image.Style>
+                            </Image>
                         </Grid>
                         <Grid Grid.Column="1">
-                            <TextBlock Text="Hóa đơn lưu trú" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBlock>
+                            <TextBlock Text="HÓA ĐƠN LƯU TRÚ" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBlock>
                         </Grid>
                     </Grid>
                 </Button>
-                <Button Name="btnHDAnUong" Height="50" Margin="0,10,0,0" BorderBrush="{x:Null}" Background="{x:Null}" FontSize="18">
+                <Button Name="btnHDAnUong" Height="50" Margin="0,10,0,0" BorderBrush="{x:Null}" Background="{x:Null}" FontSize="16">
                     <Button.Style>
                         <Style TargetType="Button"  BasedOn="{StaticResource MaterialDesignRaisedButton}">
                             <Setter Property="Foreground" Value="#FFB1B1B1"></Setter>
@@ -115,20 +137,31 @@
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
 
-                    <Grid Width="250">
+                    <Grid Width="250" >
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="1*"></ColumnDefinition>
-                            <ColumnDefinition Width="2*"></ColumnDefinition>
+                            <ColumnDefinition Width="3*"></ColumnDefinition>
                         </Grid.ColumnDefinitions>
                         <Grid Grid.Column="0">
-                            <Image Source="Resources\Icons\btnAnUong.png" Margin="10,10,10,10"></Image>
+                            <Image Margin="10,10,10,10">
+                                <Image.Style>
+                                    <Style TargetType="Image">
+                                        <Setter Property="Source" Value="Resources\Icons\btnAnUong.png"></Setter>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding LoaiHD}" Value="2">
+                                                <Setter Property="Source" Value="Resources\Icons\btnAnUong2.png"></Setter>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Image.Style>
+                            </Image>
                         </Grid>
                         <Grid Grid.Column="1">
-                            <TextBlock Text="Hóa đơn ăn uống" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBlock>
+                            <TextBlock Text="HÓA ĐƠN ĂN UỐNG" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBlock>
                         </Grid>
                     </Grid>
                 </Button>
-                <Button Name="btnHDGiatUi" Height="50" Margin="0,10,0,0" BorderBrush="{x:Null}" Background="{x:Null}" FontSize="18">
+                <Button Name="btnHDGiatUi" Height="50" Margin="0,10,0,0" BorderBrush="{x:Null}" Background="{x:Null}" FontSize="16">
                     <Button.Style>
                         <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignRaisedButton}">
                             <Setter Property="Foreground" Value="#FFB1B1B1"></Setter>
@@ -147,20 +180,31 @@
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
 
-                    <Grid Width="250">
+                    <Grid Width="250" >
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="1*"></ColumnDefinition>
-                            <ColumnDefinition Width="2*"></ColumnDefinition>
+                            <ColumnDefinition Width="3*"></ColumnDefinition>
                         </Grid.ColumnDefinitions>
                         <Grid Grid.Column="0">
-                            <Image Source="Resources\Icons\btnGiatUi.png" Margin="10,10,10,10"></Image>
+                            <Image Margin="10,10,10,10">
+                                <Image.Style>
+                                    <Style TargetType="Image">
+                                        <Setter Property="Source" Value="Resources\Icons\btnGiatUi.png"></Setter>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding LoaiHD}" Value="3">
+                                                <Setter Property="Source" Value="Resources\Icons\btnGiatUi2.png"></Setter>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Image.Style>
+                            </Image>
                         </Grid>
                         <Grid Grid.Column="1">
-                            <TextBlock Text="Hóa đơn giặt ủi" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBlock>
+                            <TextBlock Text="HÓA ĐƠN GIẶT ỦI" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBlock>
                         </Grid>
                     </Grid>
                 </Button>
-                <Button Name="btnHDDiChuyen" Height="50" Margin="0,10,0,0" BorderBrush="{x:Null}" Background="{x:Null}" FontSize="18">
+                <Button Name="btnHDDiChuyen" Height="50" Margin="0,10,0,0" BorderBrush="{x:Null}" Background="{x:Null}" FontSize="16">
                     <Button.Style>
                         <Style TargetType="Button"  BasedOn="{StaticResource MaterialDesignRaisedButton}">
                             <Setter Property="Foreground" Value="#FFB1B1B1"></Setter>
@@ -179,16 +223,27 @@
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
 
-                    <Grid Width="250">
+                    <Grid Width="250" >
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="1*"></ColumnDefinition>
-                            <ColumnDefinition Width="2*"></ColumnDefinition>
+                            <ColumnDefinition Width="3*"></ColumnDefinition>
                         </Grid.ColumnDefinitions>
                         <Grid Grid.Column="0">
-                            <Image Source="Resources\Icons\btnDiChuyen.png" Margin="10,10,10,10"></Image>
+                            <Image Margin="10,10,10,10">
+                                <Image.Style>
+                                    <Style TargetType="Image">
+                                        <Setter Property="Source" Value="Resources\Icons\btnDiChuyen.png"></Setter>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding LoaiHD}" Value="4">
+                                                <Setter Property="Source" Value="Resources\Icons\btnDiChuyen2.png"></Setter>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Image.Style>
+                            </Image>
                         </Grid>
                         <Grid Grid.Column="1">
-                            <TextBlock Text="Hóa đơn di chuyển" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBlock>
+                            <TextBlock Text="HÓA ĐƠN DI CHUYỂN" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBlock>
                         </Grid>
                     </Grid>
                 </Button>
@@ -199,7 +254,7 @@
                 <Label Content="{Binding NVDangNhap.HOTEN_NV}" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" FontFamily="Segoe UI Semibold"/>
                 <GridSplitter IsEnabled="False" Width="1" Margin="1,7,1,7" Background="#FFD6D6D6"></GridSplitter>
                 <Label Content="{Binding NVDangNhap.CHUCVU_NV}" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" FontFamily="Segoe UI Light"/>
-                
+
             </StackPanel>
         </Grid>
 
@@ -360,11 +415,11 @@
                     </StackPanel>
 
                     <GroupBox Grid.Column="1" Margin="10,0,0,0" materialDesign:ColorZoneAssist.Mode="Standard" Header="THÔNG TIN THANH TOÁN">
-                        <StackPanel>                            
+                        <StackPanel>
                             <TextBox Text="{Binding ThongTinPhongChonThue.Phong.MA_PHONG}" Margin="0,0,0,10" Height="37" materialDesign:HintAssist.Hint="Mã phòng" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  TextWrapping="Wrap" VerticalContentAlignment="Center"/>
                             <TextBox Text="{Binding ThongTinPhongChonThue.LoaiPhong.TEN_LP}" Margin="0,0,0,10" Height="37" materialDesign:HintAssist.Hint="Loại phòng" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  TextWrapping="Wrap" VerticalContentAlignment="Center"></TextBox>
                             <TextBox Text="{Binding ThongTinPhongChonThue.LoaiPhong.DONGIA_LP, StringFormat='N0'}" Margin="0,0,0,10" Height="37" materialDesign:HintAssist.Hint="Đơn giá" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  TextWrapping="Wrap" VerticalContentAlignment="Center"></TextBox>
-                            </StackPanel>
+                        </StackPanel>
                     </GroupBox>
 
                     <StackPanel Name="panelHDLuuTru" DataContext="{StaticResource HoaDonLuuTruVM}" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10,10">
