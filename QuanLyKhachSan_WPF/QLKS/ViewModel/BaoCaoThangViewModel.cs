@@ -45,7 +45,7 @@ namespace QLKS.ViewModel
               {
                   if (string.IsNullOrEmpty(Nam.ToString()) || string.IsNullOrEmpty(SelectedThang.ToString()))
                   {
-                      MessageBox.Show("Vui lòng nhập năm và chọn tháng cần lập báo cáo!", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Warning);
+                      MessageBox.Show("Vui lòng nhập năm và chọn tháng cần lập báo cáo!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
                       return false;
                   }
                   return true;
@@ -91,7 +91,7 @@ namespace QLKS.ViewModel
 
                 if (ListDoanhThuNgay != null)
                     return true;
-                MessageBox.Show("Không có báo cáo, vui lòng xuất báo cáo trước khi in!", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show("Không có báo cáo, vui lòng xuất báo cáo trước khi in!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return false;
             }, (p) =>
             {

@@ -51,12 +51,12 @@ namespace QLKS.ViewModel
             {
                 if (NgayBatDau == null || NgayKetThuc == null)
                 {
-                    MessageBox.Show("Vui lòng chọn đầy đủ ngày bắt đầu và ngày kết thúc!", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    MessageBox.Show("Vui lòng chọn đầy đủ ngày bắt đầu và ngày kết thúc!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
                     return false;
                 }
                 if (NgayBatDau > NgayKetThuc)
                 {
-                    MessageBox.Show("Ngày kết thúc phải sau ngày bắt đầu, vui lòng chọn lại!", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    MessageBox.Show("Ngày kết thúc phải sau ngày bắt đầu, vui lòng chọn lại!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
                     return false;
                 }
                 return true;
@@ -147,7 +147,7 @@ namespace QLKS.ViewModel
             {
                 if (ListDichVu != null)
                     return true;
-                MessageBox.Show("Không có báo cáo, vui lòng xuất báo cáo trước khi lưu!", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show("Không có báo cáo, vui lòng xuất báo cáo trước khi lưu!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return false;
             }, (p) =>
             {
@@ -172,7 +172,7 @@ namespace QLKS.ViewModel
 
                   if (ListDichVu != null)
                       return true;
-                  MessageBox.Show("Không có báo cáo, vui lòng xuất báo cáo trước khi in!", "Lỗi", MessageBoxButton.OK, MessageBoxImage.Warning);
+                  MessageBox.Show("Không có báo cáo, vui lòng xuất báo cáo trước khi in!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
                   return false;
               }, (p) =>
               {

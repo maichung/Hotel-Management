@@ -146,13 +146,16 @@ namespace QLKS.ViewModel
             ChonPhongCommand = new RelayCommand<Button>((p) => { return p == null ? false : true; }, (p) =>
             {
                 MaPhongChonThue = Int32.Parse(p.Tag.ToString());
+                //Color color = (Color)ColorConverter.ConvertFromString("#5E6572");
+                //p.Background = new SolidColorBrush(color);
+                //p.Foreground = Brushes.White;
             });
 
             ThuePhongCommand = new RelayCommand<Button>((p) => 
             {
                 if (MaPhongChonThue == 0)
                 {
-                    MessageBox.Show("Vui lòng chọn phòng muốn thuê!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    MessageBox.Show("Vui lòng chọn phòng cần thuê!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
                     return false;
                 }
 
