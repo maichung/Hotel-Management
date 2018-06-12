@@ -26,14 +26,14 @@
         </Grid.ColumnDefinitions>
 
         <!-- Tiêu đề menu -->
-        <Grid Grid.Column="0" Background="#FF82787E" Margin="0,0,20,0">
+        <Grid Grid.Column="0" Background="#82787E" Margin="0,0,20,0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="1.5*"/>
                 <RowDefinition Height="5*"></RowDefinition>
                 <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
             <Image Grid.Row="0" Source="Resources\Icons\hotel.png" Width="60" Height="60" HorizontalAlignment="Center" VerticalAlignment="Center"></Image>
-            <StackPanel Background="#11FFFFFF" Margin="10,30" Name="groupButtonTitles" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Top">
+            <StackPanel Margin="10,30" Name="groupButtonTitles" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Top">
                 <Button Name="btnTrangChu" Height="50" BorderBrush="{x:Null}" Background="{x:Null}" FontSize="16">
                     <Button.Style>
                         <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignRaisedButton}">
