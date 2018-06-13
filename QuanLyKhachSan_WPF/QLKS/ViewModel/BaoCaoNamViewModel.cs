@@ -3,11 +3,14 @@ using SAPBusinessObjects.WPF.Viewer;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Input;
 
 namespace QLKS.ViewModel
@@ -27,7 +30,15 @@ namespace QLKS.ViewModel
         public string TieuDeBieuDo { get => _TieuDeBieuDo; set { _TieuDeBieuDo = value; OnPropertyChanged(); } }
         private ObservableCollection<int> _ListThang;
         public ObservableCollection<int> ListThang { get => _ListThang; set { _ListThang = value; OnPropertyChanged(); } }
-
+        
+        //Tra cứu báo cáo năm
+        private ObservableCollection<BAOCAONAM> _ListBaoCaoNam;
+        public ObservableCollection<BAOCAONAM> ListBaoCaoNam { get => _ListBaoCaoNam; set { _ListBaoCaoNam = value; OnPropertyChanged(); } }
+        private string _SearchBaoCaoNam;
+        public string SearchBaoCaoNam { get => _SearchBaoCaoNam; set { _SearchBaoCaoNam = value; OnPropertyChanged(); } }
+        public bool sort;
+        public ICommand SearchBaoCaoNamCommand { get; set; }
+        public ICommand SortBaoCaoNamCommand { get; set; }
         public ICommand ShowCommand { get; set; }
         public ICommand SaveCommand { get; set; }
         public ICommand PrintCommand { get; set; }
@@ -38,7 +49,43 @@ namespace QLKS.ViewModel
             int[] thangs = new int[12];
             ListThang = new ObservableCollection<int>(thangs);
             Nam = DateTime.Now.Year;
+            ListBaoCaoNam = new ObservableCollection<BAOCAONAM>(DataProvider.Ins.model.BAOCAONAM);
 
+            SearchBaoCaoNamCommand = new RelayCommand<Object>((p) => { return true; }, (p) =>
+            {
+                if (string.IsNullOrEmpty(SearchBaoCaoNam))
+                {
+                    CollectionViewSource.GetDefaultView(ListBaoCaoNam).Filter = (all) => { return true; };
+                }
+                else
+                {
+                    CollectionViewSource.GetDefaultView(ListBaoCaoNam).Filter = (searchBaoCaoNam) =>
+                    {
+                        return (searchBaoCaoNam as BAOCAONAM).MA_BCN.ToString().IndexOf(SearchBaoCaoNam, StringComparison.OrdinalIgnoreCase) >= 0 ||
+                               (searchBaoCaoNam as BAOCAONAM).THOIGIANLAP_BCN.Value.Year.ToString().IndexOf(SearchBaoCaoNam, StringComparison.OrdinalIgnoreCase) >= 0 ||
+                               (searchBaoCaoNam as BAOCAONAM).THOIGIANLAP_BCN.Value.Month.ToString().IndexOf(SearchBaoCaoNam, StringComparison.OrdinalIgnoreCase) >= 0 ||
+                               (searchBaoCaoNam as BAOCAONAM).THOIGIANLAP_BCN.Value.Day.ToString().IndexOf(SearchBaoCaoNam, StringComparison.OrdinalIgnoreCase) >= 0||
+                               (searchBaoCaoNam as BAOCAONAM).NAM_BCN.ToString().IndexOf(SearchBaoCaoNam, StringComparison.OrdinalIgnoreCase) >= 0;
+                    };
+                }
+
+            });
+
+            SortBaoCaoNamCommand = new RelayCommand<GridViewColumnHeader>((p) => { return p == null ? false : true; }, (p) =>
+            {
+                CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(ListBaoCaoNam);
+                if (sort)
+                {
+                    view.SortDescriptions.Clear();
+                    view.SortDescriptions.Add(new SortDescription(p.Tag.ToString(), ListSortDirection.Ascending));
+                }
+                else
+                {
+                    view.SortDescriptions.Clear();
+                    view.SortDescriptions.Add(new SortDescription(p.Tag.ToString(), ListSortDirection.Descending));
+                }
+                sort = !sort;
+            });
             ShowCommand = new RelayCommand<Object>((p) =>
               {
                   if (string.IsNullOrEmpty(Nam.ToString()))

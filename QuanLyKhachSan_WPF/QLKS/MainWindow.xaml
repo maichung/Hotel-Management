@@ -356,7 +356,7 @@
         </Grid>
 
         <!-- Tiêu đề phần mềm-->
-        <Label Content="HỆ THỐNG QUẢN LÝ KHÁCH SẠN" Margin="30"  VerticalAlignment="Top" HorizontalAlignment="Center" Grid.Column="1" FontSize="22" Foreground="#FF5E6572" FontFamily="Segoe UI Semibold"/>
+        <TextBlock Text="PHẦN MỀM QUẢN LÝ KHÁCH SẠN" Margin="30"  VerticalAlignment="Top" HorizontalAlignment="Center" Grid.Column="1" FontSize="26" Foreground="#FF5E6572" FontFamily="Segoe UI Semibold"/>
 
         <!-- Nội dung -->
         <Grid Name="gridColumn2" Grid.Column="1">
@@ -462,7 +462,7 @@
             </Grid>
 
             <!-- Grid Ăn uống -->
-            <Grid>
+            <Grid >
                 <Grid.Style>
                     <Style TargetType="Grid">
                         <Setter Property="Visibility" Value="Hidden"></Setter>
@@ -521,28 +521,41 @@
 
                         <GridSplitter Grid.Column="0" HorizontalAlignment="Right" IsEnabled="False" Width="1" Margin="0" Background="#FFD6D6D6"></GridSplitter>
                         <GroupBox  Grid.Column="0" materialDesign:ColorZoneAssist.Mode="Light" Header="DANH SÁCH MẶT HÀNG">
-                            <ListView Name="lstHangHoa" ItemsSource="{Binding ListMatHang}" SelectedItem="{Binding SelectedItemMH, Mode=OneWayToSource}">
-                                <ListView.View>
-                                    <GridView>
-                                        <GridViewColumn DisplayMemberBinding="{Binding TEN_MH}">
-                                            <GridViewColumnHeader Tag="TEN_MH" Command="{Binding SortMatHangDVAUCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" VerticalAlignment="Center" HorizontalAlignment="Center">Tên hàng hóa</GridViewColumnHeader>
-                                        </GridViewColumn>
-                                        <GridViewColumn DisplayMemberBinding="{Binding DONGIA_MH, StringFormat='N0'}">
-                                            <GridViewColumnHeader Tag="DONGIA_MH" Command="{Binding SortMatHangDVAUCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" VerticalAlignment="Center" HorizontalAlignment="Center">Đơn giá</GridViewColumnHeader>
-                                        </GridViewColumn>
-                                        <GridViewColumn DisplayMemberBinding="{Binding NGAYNHAP_MH, StringFormat='dd/MM/yyyy'}">
-                                            <GridViewColumnHeader Tag="NGAYNHAP_MH" Command="{Binding SortMatHangDVAUCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" VerticalAlignment="Center" HorizontalAlignment="Center">Ngày nhập</GridViewColumnHeader>
-                                        </GridViewColumn>
-                                    </GridView>
-                                </ListView.View>
+                            <Grid>
+                                <StackPanel Margin="0,10,0,0" Orientation="Horizontal" VerticalAlignment="Top">
+                                    <TextBox materialDesign:HintAssist.Hint="Tìm kiếm" Height="25" Width="250" VerticalContentAlignment="Center" HorizontalAlignment="Stretch"
+                                             Text="{Binding SearchMatHang, UpdateSourceTrigger=PropertyChanged}">
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="TextChanged">
+                                                <i:InvokeCommandAction Command="{Binding SearchMatHangCommand}"/>
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                    </TextBox>
+                                    <Image Height="25" Width="25" Margin="10,0,0,0" Cursor="Hand" Source="Resources\Icons\btnTim.png" ToolTip="Tìm"></Image>
+                                </StackPanel>
+                                <ListView Margin="0,50,0,0" Name="lstHangHoa" ItemsSource="{Binding ListMatHang}" SelectedItem="{Binding SelectedItemMH, Mode=OneWayToSource}">
+                                    <ListView.View>
+                                        <GridView>
+                                            <GridViewColumn DisplayMemberBinding="{Binding TEN_MH}">
+                                                <GridViewColumnHeader Tag="TEN_MH" Command="{Binding SortMatHangDVAUCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" VerticalAlignment="Center" HorizontalAlignment="Center">Tên hàng hóa</GridViewColumnHeader>
+                                            </GridViewColumn>
+                                            <GridViewColumn DisplayMemberBinding="{Binding DONGIA_MH, StringFormat='N0'}">
+                                                <GridViewColumnHeader Tag="DONGIA_MH" Command="{Binding SortMatHangDVAUCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" VerticalAlignment="Center" HorizontalAlignment="Center">Đơn giá</GridViewColumnHeader>
+                                            </GridViewColumn>
+                                            <GridViewColumn DisplayMemberBinding="{Binding NGAYNHAP_MH, StringFormat='dd/MM/yyyy'}">
+                                                <GridViewColumnHeader Tag="NGAYNHAP_MH" Command="{Binding SortMatHangDVAUCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" VerticalAlignment="Center" HorizontalAlignment="Center">Ngày nhập</GridViewColumnHeader>
+                                            </GridViewColumn>
+                                        </GridView>
+                                    </ListView.View>
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="MouseDoubleClick">
+                                            <i:InvokeCommandAction Command="{Binding AddOrderCommand}">
+                                            </i:InvokeCommandAction>
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
+                                </ListView>
+                            </Grid>
 
-                                <i:Interaction.Triggers>
-                                    <i:EventTrigger EventName="MouseDoubleClick">
-                                        <i:InvokeCommandAction Command="{Binding AddOrderCommand}">
-                                        </i:InvokeCommandAction>
-                                    </i:EventTrigger>
-                                </i:Interaction.Triggers>
-                            </ListView>
                         </GroupBox>
                         <GroupBox Grid.Column="1" Margin="10,0,0,0" materialDesign:ColorZoneAssist.Mode="Light" Header="DANH SÁCH ĐÃ CHỌN">
                             <ListView Name="lstOrder" ItemsSource="{Binding ListOrder}" SelectedItem="{Binding SelectedItemOrder, Mode=OneWayToSource}" >
@@ -632,8 +645,9 @@
                             <ColumnDefinition></ColumnDefinition>
                             <ColumnDefinition Width="2*"></ColumnDefinition>
                         </Grid.ColumnDefinitions>
+
                         <GroupBox materialDesign:ColorZoneAssist.Mode="Light" Grid.Column="0" Header="THÔNG TIN DỊCH VỤ">
-                            <StackPanel Margin="20,30,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200">
+                            <StackPanel >
                                 <ComboBox Margin="0,0,0,15" Height="40" materialDesign:HintAssist.Hint="Chọn loại giặt ủi" Style="{StaticResource MaterialDesignFloatingHintComboBox}" 
                                   Name="cboxLoaiGiatUi" ItemsSource="{Binding ListLoaiGiatUi}" DisplayMemberPath="TEN_LOAIGU" SelectedItem="{Binding SelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                                     <i:Interaction.Triggers>
@@ -643,7 +657,6 @@
                                         </i:EventTrigger>
                                     </i:Interaction.Triggers>
                                 </ComboBox>
-
                                 <TextBox Margin="0,0,0,15" Height="40" materialDesign:HintAssist.Hint="Cân nặng" Style="{StaticResource txtBox}"
                                  Text="{Binding CanNang, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Name="tboxCanNang" TextWrapping="Wrap" VerticalContentAlignment="Center">
                                     <i:Interaction.Triggers>
@@ -652,7 +665,6 @@
                                         </i:EventTrigger>
                                     </i:Interaction.Triggers>
                                 </TextBox>
-
                                 <DatePicker Margin="0,0,0,15"  Height="37" materialDesign:HintAssist.Hint="Ngày bắt đầu" Style="{StaticResource dtPicker}" Name="dateNgayBatDau" VerticalContentAlignment="Center" FirstDayOfWeek="Monday"
                                     SelectedDate="{Binding NgayBatDau, UpdateSourceTrigger=PropertyChanged}">
                                     <i:Interaction.Triggers>
@@ -661,7 +673,6 @@
                                         </i:EventTrigger>
                                     </i:Interaction.Triggers>
                                 </DatePicker>
-
                                 <DatePicker Margin="0,0,0,15"  Height="37" materialDesign:HintAssist.Hint="Ngày kết thúc" Style="{StaticResource dtPicker}"  Name="dateNgayKetThuc" VerticalContentAlignment="Center" FirstDayOfWeek="Monday"
                                     SelectedDate="{Binding NgayKetThuc, UpdateSourceTrigger=PropertyChanged}">
                                     <i:Interaction.Triggers>
@@ -673,6 +684,15 @@
                                 <TextBox Margin="0,0,0,15" Height="40" materialDesign:HintAssist.Hint="Đơn giá" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  Text="{Binding DonGia, Mode=TwoWay, StringFormat='N0', UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap" VerticalContentAlignment="Center"/>
                             </StackPanel>
                         </GroupBox>
+                        <Grid Grid.Column="1">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="2*"></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Image Grid.Row="0" Height="250" VerticalAlignment="Center" Source="Resources\Icons\wm.png"></Image>
+                            <TextBlock Padding="10" Margin="70,0,70,0" Grid.Row="1" TextWrapping="Wrap" Text="Những bộ trang phục được giặt ủi sạch sẽ, tươm tất giúp khách hàng cảm thấy thoải mái, tự tin và yên tâm hơn khi công tác hay du lịch trong thời gian ở lại khách sạn." 
+                                       VerticalAlignment="Top" HorizontalAlignment="Center" Grid.Column="1" Foreground="#FF9B9B9B" FontSize="16" TextAlignment="Justify" FontStyle="Italic" LineHeight="24"/>
+                        </Grid>
                     </Grid>
                 </Grid>
             </Grid>
@@ -722,6 +742,15 @@
                                 <TextBox Margin="0,0,0,15" Height="37" materialDesign:HintAssist.Hint="Đơn giá" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  Text="{Binding DonGia, Mode=TwoWay, StringFormat='N0', UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap" VerticalContentAlignment="Center"/>
                             </StackPanel>
                         </GroupBox>
+                        <Grid Grid.Column="1">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="2*"></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Image Grid.Row="0" Height="250" VerticalAlignment="Center" Source="Resources\Icons\car.png"></Image>
+                            <TextBlock Padding="10" Margin="70,0,70,0" Grid.Row="1" TextWrapping="Wrap" Text="Các chuyến xe đưa đón đến sân bay, bến xe, ga tàu hoặc những địa điểm theo yêu cầu được phục vụ bởi những tài xế nhiều kinh nghiệm, cẩn thận và chu đáo chắc chắn sẽ khiến khách hàng quay lại khách sạn vào những lần sau." 
+                                       VerticalAlignment="Top" HorizontalAlignment="Center" Grid.Column="1" Foreground="#FF9B9B9B" FontSize="16" TextAlignment="Justify" FontStyle="Italic" LineHeight="24"/>
+                        </Grid>
                     </Grid>
                 </Grid>
             </Grid>
@@ -795,47 +824,49 @@
                                         <ColumnDefinition></ColumnDefinition>
                                     </Grid.ColumnDefinitions>
 
-                                    <GridSplitter IsEnabled="False" Width="1" Margin="0,10,10,10" Background="#FFD6D6D6"></GridSplitter>
-                                    <ListView Name="listNhanVien" Grid.Column="0" Margin="10,0,30,10"
+                                    <GroupBox Grid.Column="0" Margin="10,0,10,10" materialDesign:ColorZoneAssist.Mode="Light" Header="DANH SÁCH NHÂN VIÊN">
+                                        <ListView Name="listNhanVien" 
                                               ItemsSource="{Binding ListTTNhanVien}"
                                               SelectedItem="{Binding SelectedItem, Mode=OneWayToSource}">
-                                        <ListView.View>
-                                            <GridView>
-                                                <GridViewColumn DisplayMemberBinding="{Binding NhanVien.MA_NV}" >
-                                                    <GridViewColumnHeader Tag="NhanVien.MA_NV" Command="{Binding SortNhanVienCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" VerticalAlignment="Center" HorizontalAlignment="Center">ID</GridViewColumnHeader>
-                                                </GridViewColumn>
-                                                <GridViewColumn DisplayMemberBinding="{Binding NhanVien.HOTEN_NV}">
-                                                    <GridViewColumnHeader Width="150" Tag="NhanVien.HOTEN_NV" Command="{Binding SortNhanVienCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" VerticalAlignment="Center" HorizontalAlignment="Center">Họ tên</GridViewColumnHeader>
-                                                </GridViewColumn>
-                                                <GridViewColumn DisplayMemberBinding="{Binding NhanVien.SODIENTHOAI_NV}">
-                                                    <GridViewColumnHeader Tag="NhanVien.SODIENTHOAI_NV" Command="{Binding SortNhanVienCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" VerticalAlignment="Center" HorizontalAlignment="Center">Số điện thoại</GridViewColumnHeader>
-                                                </GridViewColumn>
-                                                <GridViewColumn DisplayMemberBinding="{Binding NhanVien.CHUCVU_NV}">
-                                                    <GridViewColumnHeader Tag="NhanVien.CHUCVU_NV" Command="{Binding SortNhanVienCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" VerticalAlignment="Center" HorizontalAlignment="Center">Chức vụ</GridViewColumnHeader>
-                                                </GridViewColumn>
-                                            </GridView>
-                                        </ListView.View>
-                                    </ListView>
-                                    <StackPanel Grid.Column="1" Margin="10,0,10,10">
-                                        <TextBox Margin="0,0,0,10"  Height="40" materialDesign:HintAssist.Hint="Tên đăng nhập" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding TenDangNhap, UpdateSourceTrigger=PropertyChanged}" VerticalContentAlignment="Center"></TextBox>
-                                        <PasswordBox Name="pwBoxMatKhau" Margin="0,0,0,10" Height="40" materialDesign:HintAssist.Hint="Mật khẩu" Style="{StaticResource MaterialDesignFloatingHintPasswordBox}" VerticalContentAlignment="Center">
-                                            <i:Interaction.Triggers>
-                                                <i:EventTrigger EventName="PasswordChanged">
-                                                    <i:InvokeCommandAction Command="{Binding PasswordChangedCommand}"
+                                            <ListView.View>
+                                                <GridView>
+                                                    <GridViewColumn DisplayMemberBinding="{Binding NhanVien.MA_NV}" >
+                                                        <GridViewColumnHeader Tag="NhanVien.MA_NV" Command="{Binding SortNhanVienCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" VerticalAlignment="Center" HorizontalAlignment="Center">ID</GridViewColumnHeader>
+                                                    </GridViewColumn>
+                                                    <GridViewColumn DisplayMemberBinding="{Binding NhanVien.HOTEN_NV}">
+                                                        <GridViewColumnHeader Width="150" Tag="NhanVien.HOTEN_NV" Command="{Binding SortNhanVienCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" VerticalAlignment="Center" HorizontalAlignment="Center">Họ tên</GridViewColumnHeader>
+                                                    </GridViewColumn>
+                                                    <GridViewColumn DisplayMemberBinding="{Binding NhanVien.SODIENTHOAI_NV}">
+                                                        <GridViewColumnHeader Tag="NhanVien.SODIENTHOAI_NV" Command="{Binding SortNhanVienCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" VerticalAlignment="Center" HorizontalAlignment="Center">Số điện thoại</GridViewColumnHeader>
+                                                    </GridViewColumn>
+                                                    <GridViewColumn DisplayMemberBinding="{Binding NhanVien.CHUCVU_NV}">
+                                                        <GridViewColumnHeader Tag="NhanVien.CHUCVU_NV" Command="{Binding SortNhanVienCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" VerticalAlignment="Center" HorizontalAlignment="Center">Chức vụ</GridViewColumnHeader>
+                                                    </GridViewColumn>
+                                                </GridView>
+                                            </ListView.View>
+                                        </ListView>
+                                    </GroupBox>
+                                    <GroupBox materialDesign:ColorZoneAssist.Mode="Light" Header="THÔNG TIN NHÂN VIÊN" Grid.Column="1" Margin="10,0,10,10">
+                                        <StackPanel >
+                                            <TextBox Margin="0,0,0,10"  Height="40" materialDesign:HintAssist.Hint="Tên đăng nhập" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding TenDangNhap, UpdateSourceTrigger=PropertyChanged}" VerticalContentAlignment="Center"></TextBox>
+                                            <PasswordBox Name="pwBoxMatKhau" Margin="0,0,0,10" Height="40" materialDesign:HintAssist.Hint="Mật khẩu" Style="{StaticResource MaterialDesignFloatingHintPasswordBox}" VerticalContentAlignment="Center">
+                                                <i:Interaction.Triggers>
+                                                    <i:EventTrigger EventName="PasswordChanged">
+                                                        <i:InvokeCommandAction Command="{Binding PasswordChangedCommand}"
                                                        CommandParameter="{Binding ElementName=pwBoxMatKhau}"/>
-                                                </i:EventTrigger>
-                                            </i:Interaction.Triggers>
-                                        </PasswordBox>
-                                        <TextBox Margin="0,0,0,10" Height="37" materialDesign:HintAssist.Hint="Họ tên" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding TenNhanVien, UpdateSourceTrigger=PropertyChanged}" VerticalContentAlignment="Center"></TextBox>
-                                        <ComboBox Margin="0,0,0,10" Height="40" materialDesign:HintAssist.Hint="Giới tính" Style="{StaticResource MaterialDesignFloatingHintComboBox}" ItemsSource="{Binding ListGioiTinh}" SelectedItem="{Binding SelectedGioiTinh, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalContentAlignment="Center" IsEditable="True"></ComboBox>
-                                        <DatePicker Margin="0,0,0,10" Height="37" materialDesign:HintAssist.Hint="Ngày sinh" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" SelectedDate="{Binding NgaySinh, UpdateSourceTrigger=PropertyChanged}" VerticalContentAlignment="Center"></DatePicker>
-                                        <TextBox Margin="0,0,0,10" Height="37" materialDesign:HintAssist.Hint="Số điện thoại" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding SoDienThoai, UpdateSourceTrigger=PropertyChanged}" VerticalContentAlignment="Center"></TextBox>
-                                        <TextBox Margin="0,0,0,10" Height="37" materialDesign:HintAssist.Hint="Địa chỉ" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding DiaChi, UpdateSourceTrigger=PropertyChanged}" VerticalContentAlignment="Center"></TextBox>
-                                        <ComboBox Margin="0,0,0,10" Height="40" materialDesign:HintAssist.Hint="Chức vụ" Style="{StaticResource MaterialDesignFloatingHintComboBox}" ItemsSource="{Binding ListChucVu}" SelectedItem="{Binding SelectedChucVu, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalContentAlignment="Center" IsEditable="True"></ComboBox>
-                                        <DatePicker Margin="0,0,0,10" Height="37" materialDesign:HintAssist.Hint="Ngày vào làm" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" SelectedDate="{Binding NgayVaoLam, UpdateSourceTrigger=PropertyChanged}" VerticalContentAlignment="Center"></DatePicker>
+                                                    </i:EventTrigger>
+                                                </i:Interaction.Triggers>
+                                            </PasswordBox>
+                                            <TextBox Margin="0,0,0,10" Height="37" materialDesign:HintAssist.Hint="Họ tên" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding TenNhanVien, UpdateSourceTrigger=PropertyChanged}" VerticalContentAlignment="Center"></TextBox>
+                                            <ComboBox Margin="0,0,0,10" Height="40" materialDesign:HintAssist.Hint="Giới tính" Style="{StaticResource MaterialDesignFloatingHintComboBox}" ItemsSource="{Binding ListGioiTinh}" SelectedItem="{Binding SelectedGioiTinh, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalContentAlignment="Center" IsEditable="True"></ComboBox>
+                                            <DatePicker Margin="0,0,0,10" Height="37" materialDesign:HintAssist.Hint="Ngày sinh" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" SelectedDate="{Binding NgaySinh, UpdateSourceTrigger=PropertyChanged}" VerticalContentAlignment="Center"></DatePicker>
+                                            <TextBox Margin="0,0,0,10" Height="37" materialDesign:HintAssist.Hint="Số điện thoại" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding SoDienThoai, UpdateSourceTrigger=PropertyChanged}" VerticalContentAlignment="Center"></TextBox>
+                                            <TextBox Margin="0,0,0,10" Height="37" materialDesign:HintAssist.Hint="Địa chỉ" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding DiaChi, UpdateSourceTrigger=PropertyChanged}" VerticalContentAlignment="Center"></TextBox>
+                                            <ComboBox Margin="0,0,0,10" Height="40" materialDesign:HintAssist.Hint="Chức vụ" Style="{StaticResource MaterialDesignFloatingHintComboBox}" ItemsSource="{Binding ListChucVu}" SelectedItem="{Binding SelectedChucVu, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalContentAlignment="Center" IsEditable="True"></ComboBox>
+                                            <DatePicker Margin="0,0,0,10" Height="37" materialDesign:HintAssist.Hint="Ngày vào làm" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" SelectedDate="{Binding NgayVaoLam, UpdateSourceTrigger=PropertyChanged}" VerticalContentAlignment="Center"></DatePicker>
 
-                                    </StackPanel>
-
+                                        </StackPanel>
+                                    </GroupBox>
                                 </Grid>
                             </Grid>
                         </TabItem>
@@ -893,34 +924,35 @@
                                         <ColumnDefinition Width="2*"></ColumnDefinition>
                                         <ColumnDefinition></ColumnDefinition>
                                     </Grid.ColumnDefinitions>
-
-                                    <GridSplitter IsEnabled="False" Width="1" Margin="0,10,10,10" Background="#FFD6D6D6"></GridSplitter>
-                                    <ListView Name="listKhachHang" Grid.Column="0" Margin="10,0,30,10"
+                                    <GroupBox Grid.Column="0" Margin="10,0,10,10" materialDesign:ColorZoneAssist.Mode="Light" Header="DANH SÁCH KHÁCH HÀNG">
+                                        <ListView Name="listKhachHang" 
                                               ItemsSource="{Binding ListKhachHang}"
                                               SelectedItem="{Binding SelectedItem, Mode=OneWayToSource}">
-                                        <ListView.View>
-                                            <GridView>
-                                                <GridViewColumn DisplayMemberBinding="{Binding MA_KH}">
-                                                    <GridViewColumnHeader Tag="MA_KH" Command="{Binding SortKhachHangCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" VerticalAlignment="Center" HorizontalAlignment="Center">ID</GridViewColumnHeader>
-                                                </GridViewColumn>
-                                                <GridViewColumn DisplayMemberBinding="{Binding HOTEN_KH}">
-                                                    <GridViewColumnHeader Tag="HOTEN_KH" Command="{Binding SortKhachHangCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" VerticalAlignment="Center" HorizontalAlignment="Center">Họ tên</GridViewColumnHeader>
-                                                </GridViewColumn>
-                                                <GridViewColumn DisplayMemberBinding="{Binding SODIENTHOAI_KH}">
-                                                    <GridViewColumnHeader Tag="SODIENTHOAI_KH" Command="{Binding SortKhachHangCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" VerticalAlignment="Center" HorizontalAlignment="Center">Số điện thoại</GridViewColumnHeader>
-                                                </GridViewColumn>
-                                                <GridViewColumn DisplayMemberBinding="{Binding CMND_KH}">
-                                                    <GridViewColumnHeader Tag="CMND_KH" Command="{Binding SortKhachHangCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" VerticalAlignment="Center" HorizontalAlignment="Center">Số CMND</GridViewColumnHeader>
-                                                </GridViewColumn>
-                                            </GridView>
-                                        </ListView.View>
-                                    </ListView>
-                                    <StackPanel Grid.Column="1" Margin="10,0,10,10">
-                                        <TextBox Margin="0,0,0,10"  Height="37" materialDesign:HintAssist.Hint="Họ tên" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding TenKhachHang, UpdateSourceTrigger=PropertyChanged}" VerticalContentAlignment="Center"></TextBox>
-                                        <TextBox Margin="0,0,0,10"  Height="37" materialDesign:HintAssist.Hint="Số điện thoại" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding SoDienThoai, UpdateSourceTrigger=PropertyChanged}" MaxLength="14" VerticalContentAlignment="Center"></TextBox>
-                                        <TextBox Margin="0,0,0,10"  Height="37" materialDesign:HintAssist.Hint="Số CMND" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding CMND, UpdateSourceTrigger=PropertyChanged}" MaxLength="11" VerticalContentAlignment="Center"></TextBox>
-                                    </StackPanel>
-
+                                            <ListView.View>
+                                                <GridView>
+                                                    <GridViewColumn DisplayMemberBinding="{Binding MA_KH}">
+                                                        <GridViewColumnHeader Tag="MA_KH" Command="{Binding SortKhachHangCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" VerticalAlignment="Center" HorizontalAlignment="Center">ID</GridViewColumnHeader>
+                                                    </GridViewColumn>
+                                                    <GridViewColumn DisplayMemberBinding="{Binding HOTEN_KH}">
+                                                        <GridViewColumnHeader Tag="HOTEN_KH" Command="{Binding SortKhachHangCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" VerticalAlignment="Center" HorizontalAlignment="Center">Họ tên</GridViewColumnHeader>
+                                                    </GridViewColumn>
+                                                    <GridViewColumn DisplayMemberBinding="{Binding SODIENTHOAI_KH}">
+                                                        <GridViewColumnHeader Tag="SODIENTHOAI_KH" Command="{Binding SortKhachHangCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" VerticalAlignment="Center" HorizontalAlignment="Center">Số điện thoại</GridViewColumnHeader>
+                                                    </GridViewColumn>
+                                                    <GridViewColumn DisplayMemberBinding="{Binding CMND_KH}">
+                                                        <GridViewColumnHeader Tag="CMND_KH" Command="{Binding SortKhachHangCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" VerticalAlignment="Center" HorizontalAlignment="Center">Số CMND</GridViewColumnHeader>
+                                                    </GridViewColumn>
+                                                </GridView>
+                                            </ListView.View>
+                                        </ListView>
+                                    </GroupBox>
+                                    <GroupBox materialDesign:ColorZoneAssist.Mode="Light" Header="THÔNG TIN KHÁCH HÀNG" Grid.Column="1" Margin="10,0,10,10">
+                                        <StackPanel>
+                                            <TextBox Margin="0,0,0,10"  Height="37" materialDesign:HintAssist.Hint="Họ tên" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding TenKhachHang, UpdateSourceTrigger=PropertyChanged}" VerticalContentAlignment="Center"></TextBox>
+                                            <TextBox Margin="0,0,0,10"  Height="37" materialDesign:HintAssist.Hint="Số điện thoại" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding SoDienThoai, UpdateSourceTrigger=PropertyChanged}" MaxLength="14" VerticalContentAlignment="Center"></TextBox>
+                                            <TextBox Margin="0,0,0,10"  Height="37" materialDesign:HintAssist.Hint="Số CMND" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding CMND, UpdateSourceTrigger=PropertyChanged}" MaxLength="11" VerticalContentAlignment="Center"></TextBox>
+                                        </StackPanel>
+                                    </GroupBox>  
                                 </Grid>
                             </Grid>
                         </TabItem>
@@ -978,33 +1010,37 @@
                                         <ColumnDefinition Width="2*"></ColumnDefinition>
                                         <ColumnDefinition></ColumnDefinition>
                                     </Grid.ColumnDefinitions>
-                                    <GridSplitter IsEnabled="False" Width="1" Margin="0,10,10,10" Background="#FFD6D6D6"></GridSplitter>
-                                    <ListView Name="listPhong" Grid.Column="0" Margin="10,0,30,10"
+                                    <GroupBox Grid.Column="0" Margin="10,0,10,10" materialDesign:ColorZoneAssist.Mode="Light" Header="DANH SÁCH PHÒNG">
+                                        <ListView Name="listPhong"
                                               ItemsSource="{Binding ListTTPhong}"
                                               SelectedItem="{Binding SelectedItem, Mode=OneWayToSource}">
-                                        <ListView.View>
-                                            <GridView>
-                                                <GridViewColumn DisplayMemberBinding="{Binding Phong.MA_PHONG}">
-                                                    <GridViewColumnHeader Tag="Phong.MA_PHONG" Command="{Binding SortPhongCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" VerticalAlignment="Center" HorizontalAlignment="Center">Mã phòng</GridViewColumnHeader>
-                                                </GridViewColumn>
-                                                <GridViewColumn DisplayMemberBinding="{Binding LoaiPhong.TEN_LP}">
-                                                    <GridViewColumnHeader Tag="LoaiPhong.TEN_LP" Command="{Binding SortPhongCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" VerticalAlignment="Center" HorizontalAlignment="Center">Loại phòng</GridViewColumnHeader>
-                                                </GridViewColumn>
-                                                <GridViewColumn DisplayMemberBinding="{Binding Phong.TINHTRANG_PHONG}">
-                                                    <GridViewColumnHeader Tag="Phong.TINHTRANG_PHONG" Command="{Binding SortPhongCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" VerticalAlignment="Center" HorizontalAlignment="Center">Tình trạng phòng</GridViewColumnHeader>
-                                                </GridViewColumn>
-                                                <GridViewColumn DisplayMemberBinding="{Binding LoaiPhong.DONGIA_LP, StringFormat='N0'}">
-                                                    <GridViewColumnHeader Tag="LoaiPhong.DONGIA_LP" Command="{Binding SortPhongCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" VerticalAlignment="Center" HorizontalAlignment="Center">Đơn giá</GridViewColumnHeader>
-                                                </GridViewColumn>
-                                            </GridView>
-                                        </ListView.View>
-                                    </ListView>
-                                    <StackPanel Grid.Column="1" Margin="10,0,10,10">
-                                        <TextBox Margin="0,0,0,10"  Height="37" materialDesign:HintAssist.Hint="Mã phòng" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding MaPhong, UpdateSourceTrigger=PropertyChanged}" VerticalContentAlignment="Center"></TextBox>
-                                        <ComboBox Margin="0,0,0,10"  Height="40" materialDesign:HintAssist.Hint="Loại phòng" Style="{StaticResource MaterialDesignFloatingHintComboBox}" ItemsSource="{Binding ListLoaiPhong}" VerticalContentAlignment="Center" IsEditable="True"
+                                            <ListView.View>
+                                                <GridView>
+                                                    <GridViewColumn DisplayMemberBinding="{Binding Phong.MA_PHONG}">
+                                                        <GridViewColumnHeader Tag="Phong.MA_PHONG" Command="{Binding SortPhongCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" VerticalAlignment="Center" HorizontalAlignment="Center">Mã phòng</GridViewColumnHeader>
+                                                    </GridViewColumn>
+                                                    <GridViewColumn DisplayMemberBinding="{Binding LoaiPhong.TEN_LP}">
+                                                        <GridViewColumnHeader Tag="LoaiPhong.TEN_LP" Command="{Binding SortPhongCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" VerticalAlignment="Center" HorizontalAlignment="Center">Loại phòng</GridViewColumnHeader>
+                                                    </GridViewColumn>
+                                                    <GridViewColumn DisplayMemberBinding="{Binding Phong.TINHTRANG_PHONG}">
+                                                        <GridViewColumnHeader Tag="Phong.TINHTRANG_PHONG" Command="{Binding SortPhongCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" VerticalAlignment="Center" HorizontalAlignment="Center">Tình trạng phòng</GridViewColumnHeader>
+                                                    </GridViewColumn>
+                                                    <GridViewColumn DisplayMemberBinding="{Binding LoaiPhong.DONGIA_LP, StringFormat='N0'}">
+                                                        <GridViewColumnHeader Tag="LoaiPhong.DONGIA_LP" Command="{Binding SortPhongCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" VerticalAlignment="Center" HorizontalAlignment="Center">Đơn giá</GridViewColumnHeader>
+                                                    </GridViewColumn>
+                                                </GridView>
+                                            </ListView.View>
+                                        </ListView>
+                                    </GroupBox>
+                                    <GroupBox materialDesign:ColorZoneAssist.Mode="Light" Header="THÔNG TIN PHÒNG" Grid.Column="1" Margin="10,0,10,10">
+                                        <StackPanel>
+                                            <TextBox Margin="0,0,0,10"  Height="37" materialDesign:HintAssist.Hint="Mã phòng" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding MaPhong, UpdateSourceTrigger=PropertyChanged}" VerticalContentAlignment="Center"></TextBox>
+                                            <ComboBox Margin="0,0,0,10"  Height="40" materialDesign:HintAssist.Hint="Loại phòng" Style="{StaticResource MaterialDesignFloatingHintComboBox}" ItemsSource="{Binding ListLoaiPhong}" VerticalContentAlignment="Center" IsEditable="True"
                                                   DisplayMemberPath="TEN_LP" SelectedItem="{Binding SelectedLoaiPhong, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></ComboBox>
-                                        <ComboBox Margin="0,0,0,10"  Height="40" materialDesign:HintAssist.Hint="Tình trạng phòng" Style="{StaticResource MaterialDesignFloatingHintComboBox}" ItemsSource="{Binding ListTinhTrangPhong}" SelectedItem="{Binding SelectedTinhTrangPhong, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalContentAlignment="Center" IsEditable="True"></ComboBox>
-                                    </StackPanel>
+                                            <ComboBox Margin="0,0,0,10"  Height="40" materialDesign:HintAssist.Hint="Tình trạng phòng" Style="{StaticResource MaterialDesignFloatingHintComboBox}" ItemsSource="{Binding ListTinhTrangPhong}" SelectedItem="{Binding SelectedTinhTrangPhong, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalContentAlignment="Center" IsEditable="True"></ComboBox>
+                                        </StackPanel>
+                                    </GroupBox>
+                                    
 
                                 </Grid>
                             </Grid>
@@ -1062,28 +1098,31 @@
                                         <ColumnDefinition Width="2*"></ColumnDefinition>
                                         <ColumnDefinition></ColumnDefinition>
                                     </Grid.ColumnDefinitions>
-                                    <GridSplitter IsEnabled="False" Width="1" Margin="0,10,10,10" Background="#FFD6D6D6"></GridSplitter>
-                                    <ListView Name="listLoaiPhong" Grid.Column="0" Margin="10,0,30,10"
+                                    <GroupBox Grid.Column="0" Margin="10,0,10,10" materialDesign:ColorZoneAssist.Mode="Light" Header="DANH SÁCH LOẠI PHÒNG">
+                                        <ListView Name="listLoaiPhong"
                                               ItemsSource="{Binding ListLoaiPhong}"
                                               SelectedItem="{Binding SelectedItem, Mode=OneWayToSource}">
-                                        <ListView.View>
-                                            <GridView>
-                                                <GridViewColumn DisplayMemberBinding="{Binding MA_LP}">
-                                                    <GridViewColumnHeader Tag="MA_LP" Command="{Binding SortLoaiPhongCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" VerticalAlignment="Center" HorizontalAlignment="Center">ID</GridViewColumnHeader>
-                                                </GridViewColumn>
-                                                <GridViewColumn DisplayMemberBinding="{Binding TEN_LP}">
-                                                    <GridViewColumnHeader Tag="TEN_LP" Command="{Binding SortLoaiPhongCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" VerticalAlignment="Center" HorizontalAlignment="Center">Tên loại phòng</GridViewColumnHeader>
-                                                </GridViewColumn>
-                                                <GridViewColumn DisplayMemberBinding="{Binding DONGIA_LP, StringFormat='N0'}">
-                                                    <GridViewColumnHeader Tag="DONGIA_LP" Command="{Binding SortLoaiPhongCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" VerticalAlignment="Center" HorizontalAlignment="Center">Đơn giá</GridViewColumnHeader>
-                                                </GridViewColumn>
-                                            </GridView>
-                                        </ListView.View>
-                                    </ListView>
-                                    <StackPanel Grid.Column="1" Margin="10,0,10,10">
-                                        <TextBox Margin="0,0,0,10"  Height="37" materialDesign:HintAssist.Hint="Tên loại phòng" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding TenLoaiPhong, UpdateSourceTrigger=PropertyChanged}" VerticalContentAlignment="Center"></TextBox>
-                                        <TextBox Margin="0,0,0,10"  Height="37" materialDesign:HintAssist.Hint="Đơn giá" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding DonGia, StringFormat='N0', UpdateSourceTrigger=PropertyChanged}" VerticalContentAlignment="Center"></TextBox>
-                                    </StackPanel>
+                                            <ListView.View>
+                                                <GridView>
+                                                    <GridViewColumn DisplayMemberBinding="{Binding MA_LP}">
+                                                        <GridViewColumnHeader Tag="MA_LP" Command="{Binding SortLoaiPhongCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" VerticalAlignment="Center" HorizontalAlignment="Center">ID</GridViewColumnHeader>
+                                                    </GridViewColumn>
+                                                    <GridViewColumn DisplayMemberBinding="{Binding TEN_LP}">
+                                                        <GridViewColumnHeader Tag="TEN_LP" Command="{Binding SortLoaiPhongCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" VerticalAlignment="Center" HorizontalAlignment="Center">Tên loại phòng</GridViewColumnHeader>
+                                                    </GridViewColumn>
+                                                    <GridViewColumn DisplayMemberBinding="{Binding DONGIA_LP, StringFormat='N0'}">
+                                                        <GridViewColumnHeader Tag="DONGIA_LP" Command="{Binding SortLoaiPhongCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" VerticalAlignment="Center" HorizontalAlignment="Center">Đơn giá</GridViewColumnHeader>
+                                                    </GridViewColumn>
+                                                </GridView>
+                                            </ListView.View>
+                                        </ListView>
+                                    </GroupBox>
+                                    <GroupBox materialDesign:ColorZoneAssist.Mode="Light" Header="THÔNG TIN LOẠI PHÒNG" Grid.Column="1" Margin="10,0,10,10">
+                                        <StackPanel>
+                                            <TextBox Margin="0,0,0,10"  Height="37" materialDesign:HintAssist.Hint="Tên loại phòng" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding TenLoaiPhong, UpdateSourceTrigger=PropertyChanged}" VerticalContentAlignment="Center"></TextBox>
+                                            <TextBox Margin="0,0,0,10"  Height="37" materialDesign:HintAssist.Hint="Đơn giá" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding DonGia, StringFormat='N0', UpdateSourceTrigger=PropertyChanged}" VerticalContentAlignment="Center"></TextBox>
+                                        </StackPanel>
+                                    </GroupBox>
                                 </Grid>
                             </Grid>
                         </TabItem>
@@ -1102,32 +1141,33 @@
                                 </StackPanel>
 
                                 <Grid Margin="0,50,0,0">
-                                    <GridSplitter IsEnabled="False" Width="1" Margin="0,10,10,10" Background="#FFD6D6D6"></GridSplitter>
-                                    <ListView Name="listHoaDon" Margin="10,0,30,10"
-                                              ItemsSource="{Binding ListThongTinHoaDon}">
-                                        <ListView.View>
-                                            <GridView>
-                                                <GridViewColumn DisplayMemberBinding="{Binding HoaDon.MA_HD}">
-                                                    <GridViewColumnHeader Tag="HoaDon.MA_HD" Command="{Binding SortTTHoaDonCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" VerticalAlignment="Center" HorizontalAlignment="Center">Mã hóa đơn</GridViewColumnHeader>
-                                                </GridViewColumn>
-                                                <GridViewColumn DisplayMemberBinding="{Binding TenNhanVien}">
-                                                    <GridViewColumnHeader Tag="TenNhanVien" Command="{Binding SortTTHoaDonCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" VerticalAlignment="Center" HorizontalAlignment="Center">Tên nhân viên</GridViewColumnHeader>
-                                                </GridViewColumn>
-                                                <GridViewColumn DisplayMemberBinding="{Binding TenKhachHang}">
-                                                    <GridViewColumnHeader Tag="TenKhachHang" Command="{Binding SortTTHoaDonCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" VerticalAlignment="Center" HorizontalAlignment="Center">Tên khách hàng</GridViewColumnHeader>
-                                                </GridViewColumn>
-                                                <GridViewColumn DisplayMemberBinding="{Binding HoaDon.THOIGIANLAP_HD, StringFormat='dd/MM/yyyy'}">
-                                                    <GridViewColumnHeader Tag="HoaDon.THOIGIANLAP_HD" Command="{Binding SortTTHoaDonCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" VerticalAlignment="Center" HorizontalAlignment="Center">Thời gian lập</GridViewColumnHeader>
-                                                </GridViewColumn>
-                                                <GridViewColumn DisplayMemberBinding="{Binding TinhTrang}">
-                                                    <GridViewColumnHeader Tag="TinhTrang" Command="{Binding SortTTHoaDonCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" VerticalAlignment="Center" HorizontalAlignment="Center">Tình trạng</GridViewColumnHeader>
-                                                </GridViewColumn>
-                                                <GridViewColumn DisplayMemberBinding="{Binding HoaDon.TRIGIA_HD, StringFormat='N0'}">
-                                                    <GridViewColumnHeader Tag="HoaDon.TRIGIA_HD" Command="{Binding SortTTHoaDonCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" VerticalAlignment="Center" HorizontalAlignment="Center">Trị giá</GridViewColumnHeader>
-                                                </GridViewColumn>
-                                            </GridView>
-                                        </ListView.View>
-                                    </ListView>
+                                    <GroupBox Grid.Column="0" Margin="10,0,10,10" materialDesign:ColorZoneAssist.Mode="Light" Header="DANH SÁCH HÓA ĐƠN">
+                                        <ListView Name="listHoaDon" ItemsSource="{Binding ListThongTinHoaDon}">
+                                            <ListView.View>
+                                                <GridView>
+                                                    <GridViewColumn DisplayMemberBinding="{Binding HoaDon.MA_HD}">
+                                                        <GridViewColumnHeader Tag="HoaDon.MA_HD" Command="{Binding SortTTHoaDonCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" VerticalAlignment="Center" HorizontalAlignment="Center">Mã hóa đơn</GridViewColumnHeader>
+                                                    </GridViewColumn>
+                                                    <GridViewColumn DisplayMemberBinding="{Binding TenNhanVien}">
+                                                        <GridViewColumnHeader Tag="TenNhanVien" Command="{Binding SortTTHoaDonCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" VerticalAlignment="Center" HorizontalAlignment="Center">Tên nhân viên</GridViewColumnHeader>
+                                                    </GridViewColumn>
+                                                    <GridViewColumn DisplayMemberBinding="{Binding TenKhachHang}">
+                                                        <GridViewColumnHeader Tag="TenKhachHang" Command="{Binding SortTTHoaDonCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" VerticalAlignment="Center" HorizontalAlignment="Center">Tên khách hàng</GridViewColumnHeader>
+                                                    </GridViewColumn>
+                                                    <GridViewColumn DisplayMemberBinding="{Binding HoaDon.THOIGIANLAP_HD, StringFormat='dd/MM/yyyy'}">
+                                                        <GridViewColumnHeader Tag="HoaDon.THOIGIANLAP_HD" Command="{Binding SortTTHoaDonCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" VerticalAlignment="Center" HorizontalAlignment="Center">Thời gian lập</GridViewColumnHeader>
+                                                    </GridViewColumn>
+                                                    <GridViewColumn DisplayMemberBinding="{Binding TinhTrang}">
+                                                        <GridViewColumnHeader Tag="TinhTrang" Command="{Binding SortTTHoaDonCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" VerticalAlignment="Center" HorizontalAlignment="Center">Tình trạng</GridViewColumnHeader>
+                                                    </GridViewColumn>
+                                                    <GridViewColumn DisplayMemberBinding="{Binding HoaDon.TRIGIA_HD, StringFormat='N0'}">
+                                                        <GridViewColumnHeader Tag="HoaDon.TRIGIA_HD" Command="{Binding SortTTHoaDonCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" VerticalAlignment="Center" HorizontalAlignment="Center">Trị giá</GridViewColumnHeader>
+                                                    </GridViewColumn>
+                                                </GridView>
+                                            </ListView.View>
+                                        </ListView>
+                                    </GroupBox>
+                                    
                                 </Grid>
                             </Grid>
 
@@ -1185,32 +1225,36 @@
                                         <ColumnDefinition Width="2*"></ColumnDefinition>
                                         <ColumnDefinition></ColumnDefinition>
                                     </Grid.ColumnDefinitions>
-                                    <GridSplitter IsEnabled="False" Width="1" Margin="0,10,10,10" Background="#FFD6D6D6"></GridSplitter>
-                                    <ListView Name="listMatHang" Grid.Column="0" Margin="10,0,30,10"
+                                    <GroupBox Grid.Column="0" Margin="10,0,10,10" materialDesign:ColorZoneAssist.Mode="Light" Header="DANH SÁCH HÀNG HÓA">
+                                        <ListView Name="listMatHang" 
                                               ItemsSource="{Binding ListMatHang}"
                                               SelectedItem="{Binding SelectedItem, Mode=OneWayToSource}">
-                                        <ListView.View>
-                                            <GridView>
-                                                <GridViewColumn DisplayMemberBinding="{Binding MA_MH}">
-                                                    <GridViewColumnHeader Tag="MA_MH" Command="{Binding SortMatHangTCQLCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" VerticalAlignment="Center" HorizontalAlignment="Center">ID</GridViewColumnHeader>
-                                                </GridViewColumn>
-                                                <GridViewColumn DisplayMemberBinding="{Binding TEN_MH}">
-                                                    <GridViewColumnHeader Tag="TEN_MH" Command="{Binding SortMatHangTCQLCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" VerticalAlignment="Center" HorizontalAlignment="Center">Tên mặt hàng</GridViewColumnHeader>
-                                                </GridViewColumn>
-                                                <GridViewColumn DisplayMemberBinding="{Binding DONGIA_MH, StringFormat='N0'}">
-                                                    <GridViewColumnHeader Tag="DONGIA_MH" Command="{Binding SortMatHangTCQLCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" VerticalAlignment="Center" HorizontalAlignment="Center">Đơn giá</GridViewColumnHeader>
-                                                </GridViewColumn>
-                                                <GridViewColumn DisplayMemberBinding="{Binding NGAYNHAP_MH, StringFormat='dd/MM/yyyy'}">
-                                                    <GridViewColumnHeader Tag="NGAYNHAP_MH" Command="{Binding SortMatHangTCQLCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" VerticalAlignment="Center" HorizontalAlignment="Center">Ngày nhập</GridViewColumnHeader>
-                                                </GridViewColumn>
-                                            </GridView>
-                                        </ListView.View>
-                                    </ListView>
-                                    <StackPanel Grid.Column="1" Margin="10,0,10,10">
-                                        <TextBox Margin="0,0,0,10"  Height="37" materialDesign:HintAssist.Hint="Tên mặt hàng" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding TenMatHang, UpdateSourceTrigger=PropertyChanged}" VerticalContentAlignment="Center"></TextBox>
-                                        <TextBox Margin="0,0,0,10"  Height="37" materialDesign:HintAssist.Hint="Đơn giá" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding DonGia, StringFormat='N0', UpdateSourceTrigger=PropertyChanged}" VerticalContentAlignment="Center"></TextBox>
-                                        <DatePicker Margin="0,0,0,10"  Height="37" materialDesign:HintAssist.Hint="Ngày nhập" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" SelectedDate="{Binding NgayNhap, UpdateSourceTrigger=PropertyChanged}" VerticalContentAlignment="Center"></DatePicker>
-                                    </StackPanel>
+                                            <ListView.View>
+                                                <GridView>
+                                                    <GridViewColumn DisplayMemberBinding="{Binding MA_MH}">
+                                                        <GridViewColumnHeader Tag="MA_MH" Command="{Binding SortMatHangTCQLCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" VerticalAlignment="Center" HorizontalAlignment="Center">ID</GridViewColumnHeader>
+                                                    </GridViewColumn>
+                                                    <GridViewColumn DisplayMemberBinding="{Binding TEN_MH}">
+                                                        <GridViewColumnHeader Tag="TEN_MH" Command="{Binding SortMatHangTCQLCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" VerticalAlignment="Center" HorizontalAlignment="Center">Tên mặt hàng</GridViewColumnHeader>
+                                                    </GridViewColumn>
+                                                    <GridViewColumn DisplayMemberBinding="{Binding DONGIA_MH, StringFormat='N0'}">
+                                                        <GridViewColumnHeader Tag="DONGIA_MH" Command="{Binding SortMatHangTCQLCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" VerticalAlignment="Center" HorizontalAlignment="Center">Đơn giá</GridViewColumnHeader>
+                                                    </GridViewColumn>
+                                                    <GridViewColumn DisplayMemberBinding="{Binding NGAYNHAP_MH, StringFormat='dd/MM/yyyy'}">
+                                                        <GridViewColumnHeader Tag="NGAYNHAP_MH" Command="{Binding SortMatHangTCQLCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" VerticalAlignment="Center" HorizontalAlignment="Center">Ngày nhập</GridViewColumnHeader>
+                                                    </GridViewColumn>
+                                                </GridView>
+                                            </ListView.View>
+                                        </ListView>
+                                    </GroupBox>
+                                    <GroupBox materialDesign:ColorZoneAssist.Mode="Light" Header="THÔNG TIN HÀNG HÓA" Grid.Column="1" Margin="10,0,10,10">
+                                        <StackPanel>
+                                            <TextBox Margin="0,0,0,10"  Height="37" materialDesign:HintAssist.Hint="Tên mặt hàng" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding TenMatHang, UpdateSourceTrigger=PropertyChanged}" VerticalContentAlignment="Center"></TextBox>
+                                            <TextBox Margin="0,0,0,10"  Height="37" materialDesign:HintAssist.Hint="Đơn giá" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding DonGia, StringFormat='N0', UpdateSourceTrigger=PropertyChanged}" VerticalContentAlignment="Center"></TextBox>
+                                            <DatePicker Margin="0,0,0,10"  Height="37" materialDesign:HintAssist.Hint="Ngày nhập" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" SelectedDate="{Binding NgayNhap, UpdateSourceTrigger=PropertyChanged}" VerticalContentAlignment="Center"></DatePicker>
+                                        </StackPanel>
+                                    </GroupBox>
+                                    
 
                                 </Grid>
                             </Grid>
@@ -1268,28 +1312,32 @@
                                         <ColumnDefinition Width="2*"></ColumnDefinition>
                                         <ColumnDefinition></ColumnDefinition>
                                     </Grid.ColumnDefinitions>
-                                    <GridSplitter IsEnabled="False" Width="1" Margin="0,10,10,10" Background="#FFD6D6D6"></GridSplitter>
-                                    <ListView Name="listLoaiGiatUi" Grid.Column="0" Margin="10,0,30,10"
+                                    <GroupBox Grid.Column="0" Margin="10,0,10,10" materialDesign:ColorZoneAssist.Mode="Light" Header="DANH SÁCH LOẠI GIẶT ỦI">
+                                        <ListView Name="listLoaiGiatUi" 
                                               ItemsSource="{Binding ListLoaiGiatUi}"
                                               SelectedItem="{Binding SelectedItem, Mode=OneWayToSource}">
-                                        <ListView.View>
-                                            <GridView>
-                                                <GridViewColumn DisplayMemberBinding="{Binding MA_LOAIGU}">
-                                                    <GridViewColumnHeader Tag="MA_LOAIGU" Command="{Binding SortLoaiGiatUiCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" VerticalAlignment="Center" HorizontalAlignment="Center">ID</GridViewColumnHeader>
-                                                </GridViewColumn>
-                                                <GridViewColumn DisplayMemberBinding="{Binding TEN_LOAIGU}">
-                                                    <GridViewColumnHeader Tag="TEN_LOAIGU" Command="{Binding SortLoaiGiatUiCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" VerticalAlignment="Center" HorizontalAlignment="Center">Tên loại giặt ủi</GridViewColumnHeader>
-                                                </GridViewColumn>
-                                                <GridViewColumn DisplayMemberBinding="{Binding DONGIA_LOAIGU, StringFormat='N0'}">
-                                                    <GridViewColumnHeader Tag="DONGIA_LOAIGU" Command="{Binding SortLoaiGiatUiCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" VerticalAlignment="Center" HorizontalAlignment="Center">Đơn giá</GridViewColumnHeader>
-                                                </GridViewColumn>
-                                            </GridView>
-                                        </ListView.View>
-                                    </ListView>
-                                    <StackPanel Grid.Column="1" Margin="10,0,10,10">
-                                        <TextBox Margin="0,0,0,10"  Height="37" materialDesign:HintAssist.Hint="Tên loại giặt ủi" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding TenLoaiGiatUi, UpdateSourceTrigger=PropertyChanged}" VerticalContentAlignment="Center"></TextBox>
-                                        <TextBox Margin="0,0,0,10"  Height="37" materialDesign:HintAssist.Hint="Đơn giá" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding DonGia, StringFormat='N0', UpdateSourceTrigger=PropertyChanged}" VerticalContentAlignment="Center"></TextBox>
-                                    </StackPanel>
+                                            <ListView.View>
+                                                <GridView>
+                                                    <GridViewColumn DisplayMemberBinding="{Binding MA_LOAIGU}">
+                                                        <GridViewColumnHeader Tag="MA_LOAIGU" Command="{Binding SortLoaiGiatUiCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" VerticalAlignment="Center" HorizontalAlignment="Center">ID</GridViewColumnHeader>
+                                                    </GridViewColumn>
+                                                    <GridViewColumn DisplayMemberBinding="{Binding TEN_LOAIGU}">
+                                                        <GridViewColumnHeader Tag="TEN_LOAIGU" Command="{Binding SortLoaiGiatUiCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" VerticalAlignment="Center" HorizontalAlignment="Center">Tên loại giặt ủi</GridViewColumnHeader>
+                                                    </GridViewColumn>
+                                                    <GridViewColumn DisplayMemberBinding="{Binding DONGIA_LOAIGU, StringFormat='N0'}">
+                                                        <GridViewColumnHeader Tag="DONGIA_LOAIGU" Command="{Binding SortLoaiGiatUiCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" VerticalAlignment="Center" HorizontalAlignment="Center">Đơn giá</GridViewColumnHeader>
+                                                    </GridViewColumn>
+                                                </GridView>
+                                            </ListView.View>
+                                        </ListView>
+                                    </GroupBox>
+                                    <GroupBox materialDesign:ColorZoneAssist.Mode="Light" Header="THÔNG TIN LOẠI GIẶT ỦI" Grid.Column="1" Margin="10,0,10,10">
+                                        <StackPanel>
+                                            <TextBox Margin="0,0,0,10"  Height="37" materialDesign:HintAssist.Hint="Tên loại giặt ủi" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding TenLoaiGiatUi, UpdateSourceTrigger=PropertyChanged}" VerticalContentAlignment="Center"></TextBox>
+                                            <TextBox Margin="0,0,0,10"  Height="37" materialDesign:HintAssist.Hint="Đơn giá" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding DonGia, StringFormat='N0', UpdateSourceTrigger=PropertyChanged}" VerticalContentAlignment="Center"></TextBox>
+                                        </StackPanel>
+                                    </GroupBox>
+                                   
                                 </Grid>
                             </Grid>
                         </TabItem>
@@ -1346,31 +1394,193 @@
                                         <ColumnDefinition Width="2*"></ColumnDefinition>
                                         <ColumnDefinition></ColumnDefinition>
                                     </Grid.ColumnDefinitions>
-                                    <GridSplitter IsEnabled="False" Width="1" Margin="0,10,10,10" Background="#FFD6D6D6"></GridSplitter>
-                                    <ListView Grid.Column="0" Margin="10,0,30,10"
+                                    <GroupBox Grid.Column="0" Margin="10,0,10,10" materialDesign:ColorZoneAssist.Mode="Light" Header="DANH SÁCH CHUYẾN ĐI">
+                                        <ListView 
                                               ItemsSource="{Binding ListChuyenDi}"
                                               SelectedItem="{Binding SelectedItem, Mode=OneWayToSource}">
-                                        <ListView.View>
-                                            <GridView>
-                                                <GridViewColumn DisplayMemberBinding="{Binding MA_CD}">
-                                                    <GridViewColumnHeader Tag="MA_CD" Command="{Binding SortChuyenDiCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" VerticalAlignment="Center" HorizontalAlignment="Center">ID</GridViewColumnHeader>
-                                                </GridViewColumn>
-                                                <GridViewColumn DisplayMemberBinding="{Binding DIEMDEN_CD}">
-                                                    <GridViewColumnHeader Tag="DIEMDEN_CD" Command="{Binding SortChuyenDiCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" VerticalAlignment="Center" HorizontalAlignment="Center">Điểm đến</GridViewColumnHeader>
-                                                </GridViewColumn>
-                                                <GridViewColumn DisplayMemberBinding="{Binding DONGIA_CD, StringFormat='N0'}">
-                                                    <GridViewColumnHeader Tag="DONGIA_CD" Command="{Binding SortChuyenDiCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" VerticalAlignment="Center" HorizontalAlignment="Center">Đơn giá</GridViewColumnHeader>
-                                                </GridViewColumn>
-                                            </GridView>
-                                        </ListView.View>
-                                    </ListView>
-                                    <StackPanel Grid.Column="1" Margin="10,0,10,10">
-                                        <TextBox Margin="0,0,0,10"  Height="37" materialDesign:HintAssist.Hint="Điểm đến" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding DiemDen, UpdateSourceTrigger=PropertyChanged}" VerticalContentAlignment="Center"></TextBox>
-                                        <TextBox Margin="0,0,0,10"  Height="37" materialDesign:HintAssist.Hint="Đơn giá" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding DonGia, StringFormat='N0', UpdateSourceTrigger=PropertyChanged}" VerticalContentAlignment="Center"></TextBox>
-                                    </StackPanel>
+                                            <ListView.View>
+                                                <GridView>
+                                                    <GridViewColumn DisplayMemberBinding="{Binding MA_CD}">
+                                                        <GridViewColumnHeader Tag="MA_CD" Command="{Binding SortChuyenDiCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" VerticalAlignment="Center" HorizontalAlignment="Center">ID</GridViewColumnHeader>
+                                                    </GridViewColumn>
+                                                    <GridViewColumn DisplayMemberBinding="{Binding DIEMDEN_CD}">
+                                                        <GridViewColumnHeader Tag="DIEMDEN_CD" Command="{Binding SortChuyenDiCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" VerticalAlignment="Center" HorizontalAlignment="Center">Điểm đến</GridViewColumnHeader>
+                                                    </GridViewColumn>
+                                                    <GridViewColumn DisplayMemberBinding="{Binding DONGIA_CD, StringFormat='N0'}">
+                                                        <GridViewColumnHeader Tag="DONGIA_CD" Command="{Binding SortChuyenDiCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" VerticalAlignment="Center" HorizontalAlignment="Center">Đơn giá</GridViewColumnHeader>
+                                                    </GridViewColumn>
+                                                </GridView>
+                                            </ListView.View>
+                                        </ListView>
+                                    </GroupBox>
+                                    <GroupBox materialDesign:ColorZoneAssist.Mode="Light" Header="THÔNG TIN CHUYẾN ĐI" Grid.Column="1" Margin="10,0,10,10">
+                                        <StackPanel >
+                                            <TextBox Margin="0,0,0,10"  Height="37" materialDesign:HintAssist.Hint="Điểm đến" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding DiemDen, UpdateSourceTrigger=PropertyChanged}" VerticalContentAlignment="Center"></TextBox>
+                                            <TextBox Margin="0,0,0,10"  Height="37" materialDesign:HintAssist.Hint="Đơn giá" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding DonGia, StringFormat='N0', UpdateSourceTrigger=PropertyChanged}" VerticalContentAlignment="Center"></TextBox>
+                                        </StackPanel>
+                                    </GroupBox>
+                                   
 
                                 </Grid>
                             </Grid>
+                        </TabItem>
+                        <TabItem Header="Báo cáo dịch vụ" DataContext="{StaticResource BaoCaoDichVuVM}">
+                            <Grid>
+                                <StackPanel Margin="10,10" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" >
+                                    <TextBox materialDesign:HintAssist.Hint="Tìm kiếm" Height="25" Width="250" VerticalContentAlignment="Center" 
+                                             Text="{Binding SearchBaoCaoDichVu, UpdateSourceTrigger=PropertyChanged}">
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="TextChanged">
+                                                <i:InvokeCommandAction Command="{Binding SearchBaoCaoDichVuCommand}"/>
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                    </TextBox>
+                                    <Image Height="25" Width="25" Margin="10,0,0,0" Cursor="Hand" Source="Resources\Icons\btnTim.png" ToolTip="Tìm"></Image>
+                                </StackPanel>
+
+                                <Grid Margin="0,50,0,0">
+                                    <GroupBox Grid.Column="0" Margin="10,0,10,10" materialDesign:ColorZoneAssist.Mode="Light" Header="DANH SÁCH BÁO CÁO DỊCH VỤ">
+                                        <ListView Name="listBaoCaoDichVu" ItemsSource="{Binding ListBaoCaoDichVu}">
+                                            <ListView.View>
+                                                <GridView>
+                                                    <GridViewColumn DisplayMemberBinding="{Binding MA_BCDV}">
+                                                        <GridViewColumnHeader Tag="MA_BCDV" Command="{Binding SortBaoCaoDichVuCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" 
+                                                                              VerticalAlignment="Center" HorizontalAlignment="Center">ID</GridViewColumnHeader>
+                                                    </GridViewColumn>
+                                                    <GridViewColumn DisplayMemberBinding="{Binding TONGDOANHTHU_BCDV, StringFormat='N0'}">
+                                                        <GridViewColumnHeader Tag="TONGDOANHTHU_BCDV" Command="{Binding SortBaoCaoDichVuCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" 
+                                                                              VerticalAlignment="Center" HorizontalAlignment="Center">Tổng doanh thu</GridViewColumnHeader>
+                                                    </GridViewColumn>
+                                                    <GridViewColumn DisplayMemberBinding="{Binding THOIGIANLAP_BCDV, StringFormat='dd/MM/yyyy HH:mm:ss'}">
+                                                        <GridViewColumnHeader Tag="THOIGIANLAP_BCDV" Command="{Binding SortBaoCaoDichVuCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" 
+                                                                              VerticalAlignment="Center" HorizontalAlignment="Center">Thời gian lập</GridViewColumnHeader>
+                                                    </GridViewColumn>
+                                                    <GridViewColumn DisplayMemberBinding="{Binding NGAYBATDAU_BCDV, StringFormat='dd/MM/yyyy'}">
+                                                        <GridViewColumnHeader Tag="NGAYBATDAU_BCDV" Command="{Binding SortBaoCaoDichVuCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" 
+                                                                              VerticalAlignment="Center" HorizontalAlignment="Center">Ngày bắt đầu</GridViewColumnHeader>
+                                                    </GridViewColumn>
+                                                    <GridViewColumn DisplayMemberBinding="{Binding NGAYKETTHUC_BCDV, StringFormat='dd/MM/yyyy'}">
+                                                        <GridViewColumnHeader Tag="NGAYKETTHUC_BCDV" Command="{Binding SortBaoCaoDichVuCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" 
+                                                                              VerticalAlignment="Center" HorizontalAlignment="Center">Ngày kết thúc</GridViewColumnHeader>
+                                                    </GridViewColumn>
+                                                    <GridViewColumn DisplayMemberBinding="{Binding DOANHTHULUUTRU_BCDV, StringFormat='N0'}">
+                                                        <GridViewColumnHeader Tag="DOANHTHULUUTRU_BCDV" Command="{Binding SortBaoCaoDichVuCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" 
+                                                                              VerticalAlignment="Center" HorizontalAlignment="Center">Lưu trú</GridViewColumnHeader>
+                                                    </GridViewColumn>
+                                                    <GridViewColumn DisplayMemberBinding="{Binding DOANHTHUANUONG_BCDV, StringFormat='N0'}">
+                                                        <GridViewColumnHeader Tag="DOANHTHUANUONG_BCDV" Command="{Binding SortBaoCaoDichVuCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" 
+                                                                              VerticalAlignment="Center" HorizontalAlignment="Center">Ăn uống</GridViewColumnHeader>
+                                                    </GridViewColumn>
+                                                    <GridViewColumn DisplayMemberBinding="{Binding DOANHTHUGIATUI_BCDV, StringFormat='N0'}">
+                                                        <GridViewColumnHeader Tag="DOANHTHUGIATUI_BCDV" Command="{Binding SortBaoCaoDichVuCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" 
+                                                                              VerticalAlignment="Center" HorizontalAlignment="Center">Giặt ủi</GridViewColumnHeader>
+                                                    </GridViewColumn>
+                                                    <GridViewColumn DisplayMemberBinding="{Binding DOANHTHUDICHUYEN_BCDV, StringFormat='N0'}">
+                                                        <GridViewColumnHeader Tag="DOANHTHUDICHUYEN_BCDV" Command="{Binding SortBaoCaoDichVuCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" 
+                                                                              VerticalAlignment="Center" HorizontalAlignment="Center">Di chuyển</GridViewColumnHeader>
+                                                    </GridViewColumn>
+                                                    
+                                                </GridView>
+                                            </ListView.View>
+                                        </ListView>
+                                    </GroupBox>
+
+                                </Grid>
+                            </Grid>
+
+                        </TabItem>
+                        <TabItem Header="Báo cáo năm" DataContext="{StaticResource BaoCaoNamVM}">
+                            <Grid>
+                                <StackPanel Margin="10,10" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" >
+                                    <TextBox materialDesign:HintAssist.Hint="Tìm kiếm" Height="25" Width="250" VerticalContentAlignment="Center" 
+                                             Text="{Binding SearchBaoCaoNam, UpdateSourceTrigger=PropertyChanged}">
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="TextChanged">
+                                                <i:InvokeCommandAction Command="{Binding SearchBaoCaoNamCommand}"/>
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                    </TextBox>
+                                    <Image Height="25" Width="25" Margin="10,0,0,0" Cursor="Hand" Source="Resources\Icons\btnTim.png" ToolTip="Tìm"></Image>
+                                </StackPanel>
+
+                                <Grid Margin="0,50,0,0">
+                                    <GroupBox Grid.Column="0" Margin="10,0,10,10" materialDesign:ColorZoneAssist.Mode="Light" Header="DANH SÁCH BÁO CÁO NĂM">
+                                        <ListView Name="listBaoCaoNam" ItemsSource="{Binding ListBaoCaoNam}">
+                                            <ListView.View>
+                                                <GridView>
+                                                    <GridViewColumn DisplayMemberBinding="{Binding MA_BCN}">
+                                                        <GridViewColumnHeader Tag="MA_BCN" Command="{Binding SortBaoCaoNamCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" 
+                                                                              VerticalAlignment="Center" HorizontalAlignment="Center">ID</GridViewColumnHeader>
+                                                    </GridViewColumn>
+                                                    <GridViewColumn DisplayMemberBinding="{Binding TONGDOANHTHU_BCN, StringFormat='N0'}">
+                                                        <GridViewColumnHeader Tag="TONGDOANHTHU_BCN" Command="{Binding SortBaoCaoNamCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" 
+                                                                              VerticalAlignment="Center" HorizontalAlignment="Center">Tổng doanh thu</GridViewColumnHeader>
+                                                    </GridViewColumn>
+                                                    <GridViewColumn DisplayMemberBinding="{Binding THOIGIANLAP_BCN, StringFormat='dd/MM/yyyy HH:mm:ss'}">
+                                                        <GridViewColumnHeader Tag="THOIGIANLAP_BCN" Command="{Binding SortBaoCaoNamCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" 
+                                                                              VerticalAlignment="Center" HorizontalAlignment="Center">Thời gian lập</GridViewColumnHeader>
+                                                    </GridViewColumn>
+                                                    <GridViewColumn DisplayMemberBinding="{Binding NAM_BCN}">
+                                                        <GridViewColumnHeader Tag="NAM_BCN" Command="{Binding SortBaoCaoNamCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" 
+                                                                              VerticalAlignment="Center" HorizontalAlignment="Center">Năm báo cáo</GridViewColumnHeader>
+                                                    </GridViewColumn>
+                                                    <GridViewColumn DisplayMemberBinding="{Binding DOANHTHUTHANG1_BCN, StringFormat='N0'}">
+                                                        <GridViewColumnHeader Tag="DOANHTHUTHANG1_BCN" Command="{Binding SortBaoCaoNamCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" 
+                                                                              VerticalAlignment="Center" HorizontalAlignment="Center">Tháng 1</GridViewColumnHeader>
+                                                    </GridViewColumn>
+                                                    <GridViewColumn DisplayMemberBinding="{Binding DOANHTHUTHANG2_BCN, StringFormat='N0'}">
+                                                        <GridViewColumnHeader Tag="DOANHTHUTHANG2_BCN" Command="{Binding SortBaoCaoNamCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" 
+                                                                              VerticalAlignment="Center" HorizontalAlignment="Center">Tháng 2</GridViewColumnHeader>
+                                                    </GridViewColumn>
+                                                    <GridViewColumn DisplayMemberBinding="{Binding DOANHTHUTHANG3_BCN, StringFormat='N0'}">
+                                                        <GridViewColumnHeader Tag="DOANHTHUTHANG3_BCN" Command="{Binding SortBaoCaoNamCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" 
+                                                                              VerticalAlignment="Center" HorizontalAlignment="Center">Tháng 3</GridViewColumnHeader>
+                                                    </GridViewColumn>
+                                                    <GridViewColumn DisplayMemberBinding="{Binding DOANHTHUTHANG4_BCN, StringFormat='N0'}">
+                                                        <GridViewColumnHeader Tag="DOANHTHUTHANG4_BCN" Command="{Binding SortBaoCaoNamCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" 
+                                                                              VerticalAlignment="Center" HorizontalAlignment="Center">Tháng 4</GridViewColumnHeader>
+                                                    </GridViewColumn>
+                                                    <GridViewColumn DisplayMemberBinding="{Binding DOANHTHUTHANG5_BCN, StringFormat='N0'}">
+                                                        <GridViewColumnHeader Tag="DOANHTHUTHANG5_BCN" Command="{Binding SortBaoCaoNamCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" 
+                                                                              VerticalAlignment="Center" HorizontalAlignment="Center">Tháng 5</GridViewColumnHeader>
+                                                    </GridViewColumn>
+                                                    <GridViewColumn DisplayMemberBinding="{Binding DOANHTHUTHANG6_BCN, StringFormat='N0'}">
+                                                        <GridViewColumnHeader Tag="DOANHTHUTHANG6_BCN" Command="{Binding SortBaoCaoNamCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" 
+                                                                              VerticalAlignment="Center" HorizontalAlignment="Center">Tháng 6</GridViewColumnHeader>
+                                                    </GridViewColumn>
+                                                    <GridViewColumn DisplayMemberBinding="{Binding DOANHTHUTHANG7_BCN, StringFormat='N0'}">
+                                                        <GridViewColumnHeader Tag="DOANHTHUTHANG7_BCN" Command="{Binding SortBaoCaoNamCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" 
+                                                                              VerticalAlignment="Center" HorizontalAlignment="Center">Tháng 7</GridViewColumnHeader>
+                                                    </GridViewColumn>
+                                                    <GridViewColumn DisplayMemberBinding="{Binding DOANHTHUTHANG8_BCN, StringFormat='N0'}">
+                                                        <GridViewColumnHeader Tag="DOANHTHUTHANG8_BCN" Command="{Binding SortBaoCaoNamCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" 
+                                                                              VerticalAlignment="Center" HorizontalAlignment="Center">Tháng 8</GridViewColumnHeader>
+                                                    </GridViewColumn>
+                                                    <GridViewColumn DisplayMemberBinding="{Binding DOANHTHUTHANG9_BCN, StringFormat='N0'}">
+                                                        <GridViewColumnHeader Tag="DOANHTHUTHANG9_BCN" Command="{Binding SortBaoCaoNamCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" 
+                                                                              VerticalAlignment="Center" HorizontalAlignment="Center">Tháng 9</GridViewColumnHeader>
+                                                    </GridViewColumn>
+                                                    <GridViewColumn DisplayMemberBinding="{Binding DOANHTHUTHANG10_BCN, StringFormat='N0'}">
+                                                        <GridViewColumnHeader Tag="DOANHTHUTHANG10_BCN" Command="{Binding SortBaoCaoNamCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" 
+                                                                              VerticalAlignment="Center" HorizontalAlignment="Center">Tháng 10</GridViewColumnHeader>
+                                                    </GridViewColumn>
+                                                    <GridViewColumn DisplayMemberBinding="{Binding DOANHTHUTHANG11_BCN, StringFormat='N0'}">
+                                                        <GridViewColumnHeader Tag="DOANHTHUTHANG11_BCN" Command="{Binding SortBaoCaoNamCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" 
+                                                                              VerticalAlignment="Center" HorizontalAlignment="Center">Tháng 11</GridViewColumnHeader>
+                                                    </GridViewColumn>
+                                                    <GridViewColumn DisplayMemberBinding="{Binding DOANHTHUTHANG12_BCN, StringFormat='N0'}">
+                                                        <GridViewColumnHeader Tag="DOANHTHUTHANG12_BCN" Command="{Binding SortBaoCaoNamCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" 
+                                                                              VerticalAlignment="Center" HorizontalAlignment="Center">Tháng 12</GridViewColumnHeader>
+                                                    </GridViewColumn>
+
+                                                </GridView>
+                                            </ListView.View>
+                                        </ListView>
+                                    </GroupBox>
+
+                                </Grid>
+                            </Grid>
+
                         </TabItem>
                     </TabControl>
                 </Grid>
@@ -1417,7 +1627,7 @@
                                         </i:Interaction.Triggers>
                                     </Image>
                                 </StackPanel>
-                                <StackPanel Grid.Row="0" Margin="20,30,0,0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top">
+                                <StackPanel Grid.Row="0" Margin="10,30,0,0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top">
                                     <DatePicker SelectedDate="{Binding NgayBatDau, UpdateSourceTrigger=PropertyChanged}" materialDesign:HintAssist.Hint="Chọn ngày bắt đầu" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" Height="37" Width="150"/>
                                     <DatePicker SelectedDate="{Binding NgayKetThuc, UpdateSourceTrigger=PropertyChanged}" Margin="20,0,0,0" materialDesign:HintAssist.Hint="Chọn ngày kết thúc" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" Height="37" Width="150"/>
 
@@ -1435,16 +1645,17 @@
                                         <ColumnDefinition Width="200"></ColumnDefinition>
                                         <ColumnDefinition></ColumnDefinition>
                                     </Grid.ColumnDefinitions>
-                                    <ListView Grid.Column="0" Margin="10,20,10,20" ItemsSource="{Binding ListDichVu}">
-                                        <ListView.View>
-                                            <GridView>
-                                                <GridViewColumn Header="Dịch vụ" DisplayMemberBinding="{Binding Item}"></GridViewColumn>
-                                                <GridViewColumn Header="Tỉ lệ" DisplayMemberBinding="{Binding TiLe, StringFormat='P2'}"></GridViewColumn>
-                                            </GridView>
-                                        </ListView.View>
-                                    </ListView>
-                                    <GridSplitter Grid.Column="0" HorizontalAlignment="Right" IsEnabled="False" Width="1" Margin="0,10,0,10" Background="#FFD6D6D6"></GridSplitter>
-                                    <chart:PieChart Grid.Column="1" ChartSubTitle="Đơn vị tính: VNĐ" ChartTitle="{Binding TieuDeBieuDo, UpdateSourceTrigger=PropertyChanged, StringFormat='N0'}">
+                                    <GroupBox Margin="10,0,0,10" Grid.Column="0" materialDesign:ColorZoneAssist.Mode="Light" Header="CHI TIẾT BÁO CÁO">
+                                        <ListView ItemsSource="{Binding ListDichVu}">
+                                            <ListView.View>
+                                                <GridView>
+                                                    <GridViewColumn Header="Dịch vụ" DisplayMemberBinding="{Binding Item}"></GridViewColumn>
+                                                    <GridViewColumn Header="Tỉ lệ" DisplayMemberBinding="{Binding TiLe, StringFormat='P2'}"></GridViewColumn>
+                                                </GridView>
+                                            </ListView.View>
+                                        </ListView>
+                                    </GroupBox>                                    
+                                    <chart:PieChart Margin="0,0,10,10" Grid.Column="1" ChartSubTitle="Đơn vị tính: VNĐ" ChartTitle="{Binding TieuDeBieuDo, UpdateSourceTrigger=PropertyChanged, StringFormat='N0'}">
                                         <chart:PieChart.Series>
                                             <chart:ChartSeries  SeriesTitle="Tỉ lệ doanh thu các loại dịch vụ" DisplayMember="Item" ItemsSource="{Binding Path=ListDichVu}" ValueMember="DoanhThu"></chart:ChartSeries>
                                         </chart:PieChart.Series>
@@ -1471,7 +1682,7 @@
                                     </Image>
 
                                 </StackPanel>
-                                <StackPanel Grid.Row="0" Margin="20,20,0,0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top">
+                                <StackPanel Grid.Row="0" Margin="10,20,0,0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top">
                                     <TextBox materialDesign:HintAssist.Hint="Nhập năm" Text="{Binding Nam, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Height="37" Width="100"/>
                                     <ComboBox Margin="10,0,0,0" materialDesign:HintAssist.Hint="Chọn tháng" Style="{StaticResource MaterialDesignFloatingHintComboBox}" ItemsSource="{Binding ListThang}" SelectedItem="{Binding SelectedThang, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Stretch" VerticalContentAlignment="Center" HorizontalContentAlignment="Left"/>
                                     <Image Margin="30,0,0,0" Height="25" Width="25" Cursor="Hand" Source="Resources\Icons\btnTim.png" ToolTip="Tìm" VerticalAlignment="Bottom">
@@ -1488,18 +1699,18 @@
                                         <ColumnDefinition Width="270"></ColumnDefinition>
                                         <ColumnDefinition></ColumnDefinition>
                                     </Grid.ColumnDefinitions>
-                                    <ListView Grid.Column="0" Margin="10,20,10,20" ItemsSource="{Binding ListDoanhThuNgay}">
-                                        <ListView.View>
-                                            <GridView>
-                                                <GridViewColumn Header="Ngày" DisplayMemberBinding="{Binding Item}"></GridViewColumn>
-                                                <GridViewColumn Header="D. thu" DisplayMemberBinding="{Binding DoanhThu, StringFormat='N0'}"></GridViewColumn>
-                                                <GridViewColumn Header="Tỉ lệ" DisplayMemberBinding="{Binding TiLe, StringFormat='P2'}"></GridViewColumn>
-                                            </GridView>
-                                        </ListView.View>
-                                    </ListView>
-                                    <GridSplitter Grid.Column="0" HorizontalAlignment="Right" IsEnabled="False" Width="1" Margin="0,10,0,10" Background="#FFD6D6D6"></GridSplitter>
-
-                                    <chart:ClusteredBarChart Grid.Column="1" ChartSubTitle="Đơn vị tính: VNĐ" ChartTitle="{Binding TieuDeBieuDo, UpdateSourceTrigger=PropertyChanged, StringFormat='N0'}">
+                                    <GroupBox Margin="10,10,0,10" Grid.Column="0" materialDesign:ColorZoneAssist.Mode="Light" Header="CHI TIẾT BÁO CÁO">
+                                        <ListView ItemsSource="{Binding ListDoanhThuNgay}">
+                                            <ListView.View>
+                                                <GridView>
+                                                    <GridViewColumn Header="Ngày" DisplayMemberBinding="{Binding Item}"></GridViewColumn>
+                                                    <GridViewColumn Header="D. thu" DisplayMemberBinding="{Binding DoanhThu, StringFormat='N0'}"></GridViewColumn>
+                                                    <GridViewColumn Header="Tỉ lệ" DisplayMemberBinding="{Binding TiLe, StringFormat='P2'}"></GridViewColumn>
+                                                </GridView>
+                                            </ListView.View>
+                                        </ListView>
+                                    </GroupBox>
+                                    <chart:ClusteredBarChart Margin="0,0,10,10" Grid.Column="1" ChartSubTitle="Đơn vị tính: VNĐ" ChartTitle="{Binding TieuDeBieuDo, UpdateSourceTrigger=PropertyChanged, StringFormat='N0'}">
                                         <chart:ClusteredBarChart.Series>
                                             <chart:ChartSeries  SeriesTitle="Tỉ lệ doanh thu các ngày trong tháng" DisplayMember="Item" ItemsSource="{Binding Path=ListDoanhThuNgay}" ValueMember="DoanhThu"></chart:ChartSeries>
                                         </chart:ClusteredBarChart.Series>
@@ -1551,17 +1762,17 @@
                                         <ColumnDefinition Width="200"></ColumnDefinition>
                                         <ColumnDefinition></ColumnDefinition>
                                     </Grid.ColumnDefinitions>
-                                    <ListView Grid.Column="0" Margin="10,20,10,20" ItemsSource="{Binding ListDoanhThuThang}">
-                                        <ListView.View>
-                                            <GridView>
-                                                <GridViewColumn Header="Tháng" DisplayMemberBinding="{Binding Item}"></GridViewColumn>
-                                                <GridViewColumn Header="Tỉ lệ" DisplayMemberBinding="{Binding TiLe, StringFormat='P2'}"></GridViewColumn>
-                                            </GridView>
-                                        </ListView.View>
-                                    </ListView>
-                                    <GridSplitter Grid.Column="0" HorizontalAlignment="Right" IsEnabled="False" Width="1" Margin="0,10,0,10" Background="#FFD6D6D6"></GridSplitter>
-
-                                    <chart:ClusteredBarChart Grid.Column="1" ChartSubTitle="Đơn vị tính: VNĐ" ChartTitle="{Binding TieuDeBieuDo, UpdateSourceTrigger=PropertyChanged, StringFormat='N0'}">
+                                    <GroupBox Margin="10,10,0,10" Grid.Column="0" materialDesign:ColorZoneAssist.Mode="Light" Header="CHI TIẾT BÁO CÁO">
+                                        <ListView  ItemsSource="{Binding ListDoanhThuThang}">
+                                            <ListView.View>
+                                                <GridView>
+                                                    <GridViewColumn Header="Tháng" DisplayMemberBinding="{Binding Item}"></GridViewColumn>
+                                                    <GridViewColumn Header="Tỉ lệ" DisplayMemberBinding="{Binding TiLe, StringFormat='P2'}"></GridViewColumn>
+                                                </GridView>
+                                            </ListView.View>
+                                        </ListView>
+                                    </GroupBox>
+                                    <chart:ClusteredBarChart Margin="0,0,10,10" Grid.Column="1" ChartSubTitle="Đơn vị tính: VNĐ" ChartTitle="{Binding TieuDeBieuDo, UpdateSourceTrigger=PropertyChanged, StringFormat='N0'}">
                                         <chart:ClusteredBarChart.Series>
                                             <chart:ChartSeries  SeriesTitle="Tỉ lệ doanh thu các tháng trong năm" DisplayMember="Item" ItemsSource="{Binding Path=ListDoanhThuThang}" ValueMember="DoanhThu"></chart:ChartSeries>
                                         </chart:ClusteredBarChart.Series>

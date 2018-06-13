@@ -3,11 +3,14 @@ using SAPBusinessObjects.WPF.Viewer;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Input;
 
 namespace QLKS.ViewModel
@@ -37,6 +40,15 @@ namespace QLKS.ViewModel
         private DateTime _NgayKetThucReal;
         public DateTime NgayKetThucReal { get => _NgayKetThucReal; set { _NgayKetThucReal = value; OnPropertyChanged(); } }
 
+        //Tra cứu báo cáo dịch vụ
+        private ObservableCollection<BAOCAODICHVU> _ListBaoCaoDichVu;
+        public ObservableCollection<BAOCAODICHVU> ListBaoCaoDichVu { get => _ListBaoCaoDichVu; set { _ListBaoCaoDichVu = value; OnPropertyChanged(); } }
+        private string _SearchBaoCaoDichVu;
+        public string SearchBaoCaoDichVu { get => _SearchBaoCaoDichVu; set { _SearchBaoCaoDichVu = value; OnPropertyChanged(); } }
+        public bool sort;
+        public ICommand SearchBaoCaoDichVuCommand { get; set; }
+        public ICommand SortBaoCaoDichVuCommand { get; set; }
+
         public ICommand ShowCommand { get; set; }
         public ICommand SaveCommand { get; set; }
         public ICommand PrintCommand { get; set; }
@@ -46,6 +58,42 @@ namespace QLKS.ViewModel
         {
             NgayBatDau = DateTime.Now;
             NgayKetThuc = DateTime.Now;
+            ListBaoCaoDichVu = new ObservableCollection<BAOCAODICHVU>(DataProvider.Ins.model.BAOCAODICHVU);
+
+            SearchBaoCaoDichVuCommand = new RelayCommand<Object>((p) => { return true; }, (p) =>
+            {
+                if (string.IsNullOrEmpty(SearchBaoCaoDichVu))
+                {
+                    CollectionViewSource.GetDefaultView(ListBaoCaoDichVu).Filter = (all) => { return true; };
+                }
+                else
+                {
+                    CollectionViewSource.GetDefaultView(ListBaoCaoDichVu).Filter = (searchBaoCaoDichVu) =>
+                    {
+                        return (searchBaoCaoDichVu as BAOCAODICHVU).MA_BCDV.ToString().IndexOf(SearchBaoCaoDichVu, StringComparison.OrdinalIgnoreCase) >= 0 ||
+                               (searchBaoCaoDichVu as BAOCAODICHVU).THOIGIANLAP_BCDV.Value.Year.ToString().IndexOf(SearchBaoCaoDichVu, StringComparison.OrdinalIgnoreCase) >= 0 ||
+                               (searchBaoCaoDichVu as BAOCAODICHVU).THOIGIANLAP_BCDV.Value.Month.ToString().IndexOf(SearchBaoCaoDichVu, StringComparison.OrdinalIgnoreCase) >= 0 ||
+                               (searchBaoCaoDichVu as BAOCAODICHVU).THOIGIANLAP_BCDV.Value.Day.ToString().IndexOf(SearchBaoCaoDichVu, StringComparison.OrdinalIgnoreCase) >= 0;
+                    };
+                }
+
+            });
+
+            SortBaoCaoDichVuCommand = new RelayCommand<GridViewColumnHeader>((p) => { return p == null ? false : true; }, (p) =>
+            {
+                CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(ListBaoCaoDichVu);
+                if (sort)
+                {
+                    view.SortDescriptions.Clear();
+                    view.SortDescriptions.Add(new SortDescription(p.Tag.ToString(), ListSortDirection.Ascending));
+                }
+                else
+                {
+                    view.SortDescriptions.Clear();
+                    view.SortDescriptions.Add(new SortDescription(p.Tag.ToString(), ListSortDirection.Descending));
+                }
+                sort = !sort;
+            });
 
             ShowCommand = new RelayCommand<Object>((p) =>
             {
@@ -68,7 +116,7 @@ namespace QLKS.ViewModel
                 ListDichVu = new ObservableCollection<ThongTinBaoCao>();
 
                 var tong = (from hd in DataProvider.Ins.model.HOADON
-                            where (hd.THOIGIANLAP_HD >= NgayBatDau) && (hd.THOIGIANLAP_HD < NgayKetThucReal) && (hd.TINHTRANG_HD==true)
+                            where (hd.THOIGIANLAP_HD >= NgayBatDau) && (hd.THOIGIANLAP_HD < NgayKetThucReal) && (hd.TINHTRANG_HD == true)
                             select hd.TRIGIA_HD).Sum();
                 if (tong == null)
                 {
