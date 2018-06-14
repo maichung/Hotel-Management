@@ -308,7 +308,7 @@
                     </Button.Style>
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="Click">
-                            <i:InvokeCommandAction Command="{Binding btnThongTinCommand}">
+                            <i:InvokeCommandAction Command="{Binding btnTroGiupCommand}">
                             </i:InvokeCommandAction>
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
@@ -397,16 +397,16 @@
 
                 <StackPanel Name="groupStatusTrangChu" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,120">
                     <Label Height="25" Width="auto" Content="Tất cả:" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" ></Label>
-                    <Button Margin="5,0,5,0" Command="{Binding LoadTatCaPhongCommand}" Height="25" Width="60" Content="{Binding TongSoPhong}" Background="White" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" BorderBrush="{x:Null}" FontSize="12" Foreground="#DD292525"></Button>
+                    <Button Margin="10,0,5,0" Command="{Binding LoadTatCaPhongCommand}" Height="25" Width="60" Content="{Binding TongSoPhong}" Background="White" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" BorderBrush="{x:Null}" FontSize="12" Foreground="#DD292525"></Button>
                     <GridSplitter IsEnabled="False" Width="1" Margin="10,0,10,0" Background="#FFD6D6D6"></GridSplitter>
                     <Label Height="25" Width="auto" Content="Còn trống:" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" ></Label>
-                    <Button Margin="5,0,5,0" Command="{Binding LoadPhongTrongCommand}" Height="25" Width="60" Content="{Binding SoPhongTrong}" Background="#FFF1F1F1" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" BorderBrush="{x:Null}" Foreground="#DD292525" FontSize="12"></Button>
+                    <Button Margin="10,0,5,0" Command="{Binding LoadPhongTrongCommand}" Height="25" Width="60" Content="{Binding SoPhongTrong}" Background="#FFF1F1F1" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" BorderBrush="{x:Null}" Foreground="#DD292525" FontSize="12"></Button>
                     <GridSplitter IsEnabled="False" Width="1" Margin="10,0,10,0" Background="#FFD6D6D6"></GridSplitter>
                     <Label Height="25" Width="auto" Content="Đang thuê:" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"></Label>
-                    <Button Margin="5,0,5,0" Command="{Binding LoadPhongDangThueCommand}" Height="25" Width="60" Content="{Binding SoPhongDangThue}" Background="#FFA58A72" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" BorderBrush="{x:Null}" FontSize="12" ></Button>
+                    <Button Margin="10,0,5,0" Command="{Binding LoadPhongDangThueCommand}" Height="25" Width="60" Content="{Binding SoPhongDangThue}" Background="#FFA58A72" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" BorderBrush="{x:Null}" FontSize="12" ></Button>
                     <GridSplitter IsEnabled="False" Width="1" Margin="10,0,10,0" Background="#FFD6D6D6"></GridSplitter>
                     <Label Height="25" Width="auto" Content="Phòng đã chọn:" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"></Label>
-                    <Button Margin="5,0,5,0" Height="25" Width="60" Content="{Binding MaPhongChonThue}" Background="#FFA58A72" Foreground="#FFDDFFFF" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" BorderBrush="{x:Null}" FontSize="12" ></Button>
+                    <Button Margin="10,0,5,0" Height="25" Width="60" Content="{Binding MaPhongChonThue}" Background="White" Foreground="#DD292525" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" BorderBrush="{x:Null}" FontSize="12" ></Button>
                 </StackPanel>
 
                 <ScrollViewer Name="SrViewTrangChu" Margin="5,170,20,20">
@@ -462,7 +462,7 @@
             </Grid>
 
             <!-- Grid Ăn uống -->
-            <Grid >
+            <Grid>
                 <Grid.Style>
                     <Style TargetType="Grid">
                         <Setter Property="Visibility" Value="Hidden"></Setter>
@@ -505,12 +505,16 @@
 
                     <StackPanel Name="groupStatusAnUong" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,120">
                         <ComboBox materialDesign:HintAssist.Hint="Chọn phòng" ItemsSource="{Binding ListTTPhongDangThue}" DisplayMemberPath="Phong.MA_PHONG" SelectedItem="{Binding SelectedPhong}" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" FontFamily="Segoe UI Semibold"/>
-                        <GridSplitter IsEnabled="False" Width="1" Margin="10,0,10,0" Background="#FFD6D6D6"></GridSplitter>
+                        <GridSplitter IsEnabled="False" Width="1" Margin="15,0,10,0" Background="#FFD6D6D6"></GridSplitter>
                         <Label Height="25" Width="auto" Content="Đã chọn:" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" ></Label>
-                        <Button Height="25" Width="60" Content="{Binding TongSoLuongMHDC, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Background="#DDF1F1F1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="#DD292525" FontFamily="Segoe UI Semibold" BorderBrush="{x:Null}" FontSize="12"/>
-                        <GridSplitter IsEnabled="False" Width="1" Margin="10,0,0,0" Background="#FFD6D6D6"></GridSplitter>
+                        <Button Margin="10,0,0,0" Height="25" Width="60" Content="{Binding TongSoLuongMHDC, UpdateSourceTrigger=PropertyChanged}" Background="#DDF1F1F1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="#DD292525" FontFamily="Segoe UI Semibold" BorderBrush="{x:Null}" FontSize="12"/>
+                        <GridSplitter IsEnabled="False" Width="1" Margin="15,0,10,0" Background="#FFD6D6D6"></GridSplitter>
                         <Label Height="25" Width="auto" Content="Thành tiền:" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"></Label>
-                        <Button Height="25" Width="100" Content="{Binding TongTien, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, StringFormat='N0'}" Background="#A58A72" Foreground="#DDFFFFFF" FontFamily="Segoe UI Semibold" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" BorderBrush="{x:Null}" FontSize="12"></Button>
+                        <Button Margin="10,0,0,0" Height="25" Width="100" Background="#A58A72" Foreground="#DDFFFFFF" FontFamily="Segoe UI Semibold" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" BorderBrush="{x:Null}" FontSize="12">
+                            <Button.Content>
+                                <TextBlock Text="{Binding TongTien, UpdateSourceTrigger=PropertyChanged, StringFormat='N0'}"></TextBlock>
+                            </Button.Content>
+                        </Button>
                     </StackPanel>
 
                     <Grid Name="gridHangHoa" Margin="10,170,20,20">
@@ -593,7 +597,7 @@
             </Grid>
 
             <!-- Grid Giặt ủi -->
-            <Grid>
+            <Grid >
                 <Grid.Style>
                     <Style TargetType="Grid">
                         <Setter Property="Visibility" Value="Hidden"></Setter>
@@ -619,9 +623,13 @@
                     </StackPanel>
                     <StackPanel Name="groupStatusGiatUi" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,120">
                         <ComboBox materialDesign:HintAssist.Hint="Chọn phòng" ItemsSource="{Binding ListTTPhongDangThue}" DisplayMemberPath="Phong.MA_PHONG" SelectedItem="{Binding SelectedPhong}" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Foreground="#DD000000" FontFamily="Segoe UI Semibold"></ComboBox>
-                        <GridSplitter IsEnabled="False" Width="1" Margin="10,0,10,0" Background="#FFD6D6D6"></GridSplitter>
+                        <GridSplitter IsEnabled="False" Width="1" Margin="15,0,10,0" Background="#FFD6D6D6"></GridSplitter>
                         <Label Height="25" Width="auto" Content="Thành tiền:" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"></Label>
-                        <Button Height="25" Width="80" Content="{Binding ThanhTien, StringFormat='N0', Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Foreground="#DDFFFFFF" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontFamily="Segoe UI Semibold" Background="#FFA58A72" BorderBrush="{x:Null}" FontSize="12" />
+                        <Button Margin="10,0,0,0"  Height="25" Width="80" Foreground="#DDFFFFFF" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontFamily="Segoe UI Semibold" Background="#FFA58A72" BorderBrush="{x:Null}" FontSize="12" >
+                            <Button.Content>
+                                <TextBlock Text="{Binding ThanhTien, UpdateSourceTrigger=PropertyChanged, StringFormat='N0'}"></TextBlock>
+                            </Button.Content>
+                        </Button>
                     </StackPanel>
 
                     <Grid Name="gridLoaiGiatUi" Margin="10,170,20,20">
@@ -689,7 +697,7 @@
                                 <RowDefinition Height="2*"></RowDefinition>
                                 <RowDefinition></RowDefinition>
                             </Grid.RowDefinitions>
-                            <Image Grid.Row="0" Height="250" VerticalAlignment="Center" Source="Resources\Icons\wm.png"></Image>
+                            <Image Grid.Row="0" Height="200" VerticalAlignment="Center" Source="Resources\Icons\wm.png"></Image>
                             <TextBlock Padding="10" Margin="70,0,70,0" Grid.Row="1" TextWrapping="Wrap" Text="Những bộ trang phục được giặt ủi sạch sẽ, tươm tất giúp khách hàng cảm thấy thoải mái, tự tin và yên tâm hơn khi công tác hay du lịch trong thời gian ở lại khách sạn." 
                                        VerticalAlignment="Top" HorizontalAlignment="Center" Grid.Column="1" Foreground="#FF9B9B9B" FontSize="16" TextAlignment="Justify" FontStyle="Italic" LineHeight="24"/>
                         </Grid>
@@ -726,9 +734,13 @@
 
                     <StackPanel Name="groupStatusDiChuyen" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,120">
                         <ComboBox materialDesign:HintAssist.Hint="Chọn phòng" ItemsSource="{Binding ListTTPhongDangThue}" DisplayMemberPath="Phong.MA_PHONG" SelectedItem="{Binding SelectedPhong}" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Foreground="#DD000000" FontFamily="Segoe UI Semibold"></ComboBox>
-                        <GridSplitter IsEnabled="False" Width="1" Margin="10,0,10,0" Background="#FFD6D6D6"></GridSplitter>
+                        <GridSplitter IsEnabled="False" Width="1" Margin="15,0,10,0" Background="#FFD6D6D6"></GridSplitter>
                         <Label Height="25" Width="auto" Content="Thành tiền:" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"></Label>
-                        <Button Height="25" Width="80" Content="{Binding DonGia, StringFormat='N0', Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Foreground="#DDFFFFFF" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontFamily="Segoe UI Semibold" Background="#FFA58A72" BorderBrush="{x:Null}" FontSize="12" />
+                        <Button Margin="10,0,0,0" Height="25" Width="80" Foreground="#DDFFFFFF" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontFamily="Segoe UI Semibold" Background="#FFA58A72" BorderBrush="{x:Null}" FontSize="12" >
+                            <Button.Content>
+                                <TextBlock Text="{Binding DonGia, StringFormat='N0', Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBlock>
+                            </Button.Content>
+                        </Button>
                     </StackPanel>
 
                     <Grid Margin="10,170,20,20">
@@ -737,7 +749,7 @@
                             <ColumnDefinition Width="2*"></ColumnDefinition>
                         </Grid.ColumnDefinitions>
                         <GroupBox materialDesign:ColorZoneAssist.Mode="Light" Grid.Column="0" Header="THÔNG TIN DỊCH VỤ">
-                            <StackPanel Margin="20,30,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200">
+                            <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top">
                                 <ComboBox Margin="0,0,0,15" Height="40" materialDesign:HintAssist.Hint="Chọn điểm đến" Style="{StaticResource MaterialDesignFloatingHintComboBox}" ItemsSource="{Binding ListChuyenDi}" DisplayMemberPath="DIEMDEN_CD" SelectedItem="{Binding SelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                                 <TextBox Margin="0,0,0,15" Height="37" materialDesign:HintAssist.Hint="Đơn giá" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  Text="{Binding DonGia, Mode=TwoWay, StringFormat='N0', UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap" VerticalContentAlignment="Center"/>
                             </StackPanel>
@@ -952,7 +964,7 @@
                                             <TextBox Margin="0,0,0,10"  Height="37" materialDesign:HintAssist.Hint="Số điện thoại" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding SoDienThoai, UpdateSourceTrigger=PropertyChanged}" MaxLength="14" VerticalContentAlignment="Center"></TextBox>
                                             <TextBox Margin="0,0,0,10"  Height="37" materialDesign:HintAssist.Hint="Số CMND" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding CMND, UpdateSourceTrigger=PropertyChanged}" MaxLength="11" VerticalContentAlignment="Center"></TextBox>
                                         </StackPanel>
-                                    </GroupBox>  
+                                    </GroupBox>
                                 </Grid>
                             </Grid>
                         </TabItem>
@@ -1040,7 +1052,7 @@
                                             <ComboBox Margin="0,0,0,10"  Height="40" materialDesign:HintAssist.Hint="Tình trạng phòng" Style="{StaticResource MaterialDesignFloatingHintComboBox}" ItemsSource="{Binding ListTinhTrangPhong}" SelectedItem="{Binding SelectedTinhTrangPhong, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalContentAlignment="Center" IsEditable="True"></ComboBox>
                                         </StackPanel>
                                     </GroupBox>
-                                    
+
 
                                 </Grid>
                             </Grid>
@@ -1167,7 +1179,7 @@
                                             </ListView.View>
                                         </ListView>
                                     </GroupBox>
-                                    
+
                                 </Grid>
                             </Grid>
 
@@ -1254,7 +1266,7 @@
                                             <DatePicker Margin="0,0,0,10"  Height="37" materialDesign:HintAssist.Hint="Ngày nhập" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" SelectedDate="{Binding NgayNhap, UpdateSourceTrigger=PropertyChanged}" VerticalContentAlignment="Center"></DatePicker>
                                         </StackPanel>
                                     </GroupBox>
-                                    
+
 
                                 </Grid>
                             </Grid>
@@ -1337,7 +1349,7 @@
                                             <TextBox Margin="0,0,0,10"  Height="37" materialDesign:HintAssist.Hint="Đơn giá" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding DonGia, StringFormat='N0', UpdateSourceTrigger=PropertyChanged}" VerticalContentAlignment="Center"></TextBox>
                                         </StackPanel>
                                     </GroupBox>
-                                   
+
                                 </Grid>
                             </Grid>
                         </TabItem>
@@ -1419,7 +1431,7 @@
                                             <TextBox Margin="0,0,0,10"  Height="37" materialDesign:HintAssist.Hint="Đơn giá" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding DonGia, StringFormat='N0', UpdateSourceTrigger=PropertyChanged}" VerticalContentAlignment="Center"></TextBox>
                                         </StackPanel>
                                     </GroupBox>
-                                   
+
 
                                 </Grid>
                             </Grid>
@@ -1479,7 +1491,7 @@
                                                         <GridViewColumnHeader Tag="DOANHTHUDICHUYEN_BCDV" Command="{Binding SortBaoCaoDichVuCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" 
                                                                               VerticalAlignment="Center" HorizontalAlignment="Center">Di chuyển</GridViewColumnHeader>
                                                     </GridViewColumn>
-                                                    
+
                                                 </GridView>
                                             </ListView.View>
                                         </ListView>
@@ -1628,8 +1640,8 @@
                                     </Image>
                                 </StackPanel>
                                 <StackPanel Grid.Row="0" Margin="10,30,0,0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top">
-                                    <DatePicker SelectedDate="{Binding NgayBatDau, UpdateSourceTrigger=PropertyChanged}" materialDesign:HintAssist.Hint="Chọn ngày bắt đầu" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" Height="37" Width="150"/>
-                                    <DatePicker SelectedDate="{Binding NgayKetThuc, UpdateSourceTrigger=PropertyChanged}" Margin="20,0,0,0" materialDesign:HintAssist.Hint="Chọn ngày kết thúc" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" Height="37" Width="150"/>
+                                    <DatePicker SelectedDate="{Binding NgayBatDau, UpdateSourceTrigger=PropertyChanged}" materialDesign:HintAssist.Hint="Chọn ngày bắt đầu" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" Height="37" Width="190"/>
+                                    <DatePicker SelectedDate="{Binding NgayKetThuc, UpdateSourceTrigger=PropertyChanged}" Margin="20,0,0,0" materialDesign:HintAssist.Hint="Chọn ngày kết thúc" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" Height="37" Width="190"/>
 
                                     <Image Margin="30,0,0,0" Height="25" Width="25" Cursor="Hand" Source="Resources\Icons\btnTim.png" ToolTip="Tìm">
                                         <i:Interaction.Triggers>
@@ -1654,7 +1666,7 @@
                                                 </GridView>
                                             </ListView.View>
                                         </ListView>
-                                    </GroupBox>                                    
+                                    </GroupBox>
                                     <chart:PieChart Margin="0,0,10,10" Grid.Column="1" ChartSubTitle="Đơn vị tính: VNĐ" ChartTitle="{Binding TieuDeBieuDo, UpdateSourceTrigger=PropertyChanged, StringFormat='N0'}">
                                         <chart:PieChart.Series>
                                             <chart:ChartSeries  SeriesTitle="Tỉ lệ doanh thu các loại dịch vụ" DisplayMember="Item" ItemsSource="{Binding Path=ListDichVu}" ValueMember="DoanhThu"></chart:ChartSeries>
@@ -1683,8 +1695,8 @@
 
                                 </StackPanel>
                                 <StackPanel Grid.Row="0" Margin="10,20,0,0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top">
-                                    <TextBox materialDesign:HintAssist.Hint="Nhập năm" Text="{Binding Nam, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Height="37" Width="100"/>
-                                    <ComboBox Margin="10,0,0,0" materialDesign:HintAssist.Hint="Chọn tháng" Style="{StaticResource MaterialDesignFloatingHintComboBox}" ItemsSource="{Binding ListThang}" SelectedItem="{Binding SelectedThang, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Stretch" VerticalContentAlignment="Center" HorizontalContentAlignment="Left"/>
+                                    <TextBox materialDesign:HintAssist.Hint="Nhập năm" Text="{Binding Nam, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Height="37" Width="180"/>
+                                    <ComboBox Margin="10,0,0,0" materialDesign:HintAssist.Hint="Chọn tháng" Style="{StaticResource MaterialDesignFloatingHintComboBox}" ItemsSource="{Binding ListThang}" SelectedItem="{Binding SelectedThang, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Stretch" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Width="180"/>
                                     <Image Margin="30,0,0,0" Height="25" Width="25" Cursor="Hand" Source="Resources\Icons\btnTim.png" ToolTip="Tìm" VerticalAlignment="Bottom">
                                         <i:Interaction.Triggers>
                                             <i:EventTrigger EventName="MouseLeftButtonDown">
@@ -1745,10 +1757,10 @@
                                         </i:Interaction.Triggers>
                                     </Image>
                                 </StackPanel>
-                                <StackPanel Grid.Row="0" Margin="20,20,0,0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top">
-                                    <TextBox materialDesign:HintAssist.Hint="Nhập năm" Text="{Binding Nam, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Height="37" Width="100"/>
+                                <StackPanel Grid.Row="0" Margin="10,20,0,0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top">
+                                    <TextBox materialDesign:HintAssist.Hint="Nhập năm" Text="{Binding Nam, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Height="37" Width="190"/>
 
-                                    <Image Margin="30,0,0,0" Height="25" Width="25" Cursor="Hand" Source="Resources\Icons\btnTim.png" ToolTip="Tìm">
+                                    <Image Margin="30,0,0,0" Height="25" Width="25" Cursor="Hand" Source="Resources\Icons\btnTim.png" ToolTip="Tìm" VerticalAlignment="Bottom">
                                         <i:Interaction.Triggers>
                                             <i:EventTrigger EventName="MouseLeftButtonDown">
                                                 <i:InvokeCommandAction Command="{Binding ShowCommand}">
@@ -1781,6 +1793,54 @@
                             </Grid>
                         </TabItem>
                     </TabControl>
+                </Grid>
+            </Grid>
+
+            <!-- Grid Trợ giúp-->
+            <Grid>
+                <Grid.Style>
+                    <Style TargetType="Grid">
+                        <Setter Property="Visibility" Value="Hidden"></Setter>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding ChucNangKS}" Value="6">
+                                <Setter Property="Visibility" Value="Visible"></Setter>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Grid.Style>
+                <Rectangle Margin="0,160,10,10" Stroke="#FFD6D6D6"/>
+                <Grid Margin="10,170,20,20" Name="gridTroGiup" DataContext="{StaticResource DiChuyenVM}" >
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1.5*"/>
+                        <RowDefinition Height="0.5*"></RowDefinition>
+                        <RowDefinition/>
+                        <RowDefinition Height="0.5*"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Image Grid.Row="0" Source="Resources/Icons/appiconpng.png"></Image>
+                    <TextBlock Grid.Row="1" Text="PHẦN MỀM QUẢN LÍ KHÁCH SẠN" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Segoe UI Semibold" FontSize="20" Foreground="#FF202020"></TextBlock>
+                    <GridSplitter Grid.Row="1" Height="1" Width="580" IsEnabled="False" HorizontalAlignment="Center" VerticalAlignment="Bottom" Background="#FFD6D6D6"></GridSplitter>
+                    <Grid Grid.Row="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Grid.Column="0" HorizontalAlignment="Right" Margin="15" Width="265">
+                            <TextBlock Foreground="#FF8C8C8C" FontSize="14" Margin="0,0,0,5">Đồ án cuối kì</TextBlock>
+                            <TextBlock Foreground="#FF8C8C8C" FontSize="14" Margin="0,0,0,5">Lớp IS201.I21</TextBlock>
+                            <TextBlock Foreground="#FF8C8C8C" FontSize="14" Margin="0,0,0,5">Giảng viên hướng dẫn:</TextBlock>
+                            <TextBlock Foreground="#FF8C8C8C" FontSize="14" Margin="0,0,0,5">Thạc sĩ Đỗ Thị Minh Phụng</TextBlock>
+                            <TextBlock Foreground="#FF8C8C8C" FontSize="14" Margin="0,0,0,5">Môn Phân tích thiết kế hệ thống thông tin</TextBlock>
+                        </StackPanel>
+                        <GridSplitter Grid.Column="0" Height="150" Margin="0,10" VerticalAlignment="Top" IsEnabled="False" Width="1" Background="#FFD6D6D6" HorizontalAlignment="Right"></GridSplitter>
+                        <StackPanel Grid.Column="1" HorizontalAlignment="Left" Margin="15" Width="265">
+                            <TextBlock Foreground="#FF8C8C8C" FontSize="14" Margin="0,0,0,5" TextAlignment="Right">Sinh viên thực hiện:</TextBlock>
+                            <TextBlock Foreground="#FF8C8C8C" FontSize="14" Margin="0,0,0,5" TextAlignment="Right">Bùi Huy Phúc - 15520629</TextBlock>
+                            <TextBlock Foreground="#FF8C8C8C" FontSize="14" Margin="0,0,0,5" TextAlignment="Right">Bùi Thanh Tùng - 15520982</TextBlock>
+                            <TextBlock Foreground="#FF8C8C8C" FontSize="14" Margin="0,0,0,5" TextAlignment="Right">Phạm Phong Phú - 15520626</TextBlock>
+                            <TextBlock Foreground="#FF8C8C8C" FontSize="14" Margin="0,0,0,5" TextAlignment="Right">Nguyễn Trọng Văn Khoa - 14520428</TextBlock>
+                        </StackPanel>
+                    </Grid>
+                    <GridSplitter Grid.Row="3"  Height="1" Width="580" IsEnabled="False" HorizontalAlignment="Center" VerticalAlignment="Top" Background="#FFD6D6D6"></GridSplitter>
                 </Grid>
             </Grid>
         </Grid>

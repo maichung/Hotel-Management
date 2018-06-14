@@ -16,7 +16,7 @@ namespace QLKS.ViewModel
     {
         public enum ChucNangKhachSan
         {
-            TrangChu, DichVuAnUong, DichVuGiatUi, DichVuDiChuyen, TraCuu, BaoCao
+            TrangChu, DichVuAnUong, DichVuGiatUi, DichVuDiChuyen, TraCuu, BaoCao, TroGiup
         };
         private int _ChucNangKS;
         public int ChucNangKS { get => _ChucNangKS; set { _ChucNangKS = value; OnPropertyChanged(); } }
@@ -43,6 +43,7 @@ namespace QLKS.ViewModel
         public ICommand btnDVDiChuyenCommand { get; set; }
         public ICommand btnTraCuuCommand { get; set; }
         public ICommand btnBaoCaoCommand { get; set; }
+        public ICommand btnTroGiupCommand { get; set; }
 
         public ICommand LoadedWindowCommand { get; set; }
         public ICommand LoadTatCaPhongCommand { get; set; }
@@ -100,6 +101,7 @@ namespace QLKS.ViewModel
             });
             btnTraCuuCommand = new RelayCommand<Object>((p) => { return true; }, (p) => { ChucNangKS = (int)ChucNangKhachSan.TraCuu; MaPhongChonThue = 0; });
             btnBaoCaoCommand = new RelayCommand<Object>((p) => { return true; }, (p) => { ChucNangKS = (int)ChucNangKhachSan.BaoCao; MaPhongChonThue = 0; });
+            btnTroGiupCommand = new RelayCommand<Object>((p) => { return true; }, (p) => { ChucNangKS = (int)ChucNangKhachSan.TroGiup; MaPhongChonThue = 0;});
             #endregion
 
             #region Xử lý Load trang chủ
