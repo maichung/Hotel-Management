@@ -25,10 +25,10 @@ namespace QLKS.ViewModel
         public int LoaiHD { get => _LoaiHD; set { _LoaiHD = value; OnPropertyChanged(); } }
         private string _CMND_KH;
         public string CMND_KH { get => _CMND_KH; set { _CMND_KH = value; OnPropertyChanged(); LoadKhachHangByCMND(); } }
-        private DateTime _ThoiGianLapHD;
-        public DateTime ThoiGianLapHD { get => _ThoiGianLapHD; set { _ThoiGianLapHD = value; OnPropertyChanged(); } }
-        private DateTime _Time;
-        public DateTime Time { get => _Time; set { _Time = value; OnPropertyChanged(); } }
+        private DateTime _DateLapHD;
+        public DateTime DateLapHD { get => _DateLapHD; set { _DateLapHD = value; OnPropertyChanged(); } }
+        private DateTime _TimeLapHD;
+        public DateTime TimeLapHD { get => _TimeLapHD; set { _TimeLapHD = value; OnPropertyChanged(); } }
         public int Ngay;
         public int Gio;
 
@@ -99,8 +99,8 @@ namespace QLKS.ViewModel
         public HoaDonViewModel()
         {
             #region Xử lý thao tác với hóa đơn
-            ThoiGianLapHD = DateTime.Now;
-            Time = DateTime.Parse(DateTime.Now.TimeOfDay.ToString());
+            DateLapHD = DateTime.Now;
+            TimeLapHD = DateTime.Parse(DateTime.Now.TimeOfDay.ToString());
             KhachHangThue = new KHACHHANG();
             ListThongTinCTHD = new ObservableCollection<ThongTinChiTietHoaDon>();
             ThongTinCTHD = new ThongTinChiTietHoaDon();
@@ -128,7 +128,7 @@ namespace QLKS.ViewModel
                 TimeSpan timehdlt = DateTime.Now.Subtract((DateTime)hdlt.THOIGIANNHAN_PHONG);
                 GetThoiGianThuePhong(timehdlt.Hours + 1);
                 ThongTinCTHD.LoaiHoaDon = "Hóa đơn lưu trú";
-                ThongTinCTHD.NoiDungHD = "Phòng " + hdlt.MA_PHONG + "\nThời gian nhận phòng " + hdlt.THOIGIANNHAN_PHONG + "\nThời gian trả phòng " + DateTime.Now;
+                ThongTinCTHD.NoiDungHD = "Phòng " + hdlt.MA_PHONG + "\nNhận phòng " + hdlt.THOIGIANNHAN_PHONG + "\nTrả phòng " + DateTime.Now;
                 ThongTinCTHD.DonGia = (int)ThongTinPhongChonThue.LoaiPhong.DONGIA_LP;
                 ThongTinCTHD.TriGia = (int)ThongTinPhongChonThue.LoaiPhong.DONGIA_LP * (Ngay * 5 + Gio);
                 ThongTinCTHD.ThoiGian = (DateTime)hdlt.THOIGIANNHAN_PHONG;
@@ -249,6 +249,8 @@ namespace QLKS.ViewModel
 
             ClosedWindowCommand = new RelayCommand<Object>((p) => { return true; }, (p) => 
             {
+                DateLapHD = DateTime.Now;
+                TimeLapHD = DateTime.Parse(DateTime.Now.TimeOfDay.ToString());
                 //refersh hd tổng
                 ListThongTinCTHD.Clear();
                 TongTienHD = 0;
