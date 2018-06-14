@@ -127,13 +127,10 @@ namespace QLKS.ViewModel
                 var hdlt = DataProvider.Ins.model.CHITIET_HDLT.Where(x => x.MA_HD == HoaDon.MA_HD).SingleOrDefault();
                 TimeSpan timehdlt = DateTime.Now.Subtract((DateTime)hdlt.THOIGIANNHAN_PHONG);
                 GetThoiGianThuePhong(timehdlt.Hours + 1);
-<<<<<<< HEAD
+
                 ThongTinCTHD.LoaiHoaDon = "HÓA ĐƠN LƯU TRÚ: ";
                 ThongTinCTHD.NoiDungHD = "Phòng " + hdlt.MA_PHONG + "\nNhận phòng:\n" + hdlt.THOIGIANNHAN_PHONG + "\nTrả phòng:\n" + DateTime.Now;
-=======
-                ThongTinCTHD.LoaiHoaDon = "Hóa đơn lưu trú";
-                ThongTinCTHD.NoiDungHD = "Phòng " + hdlt.MA_PHONG + "\nNhận phòng " + hdlt.THOIGIANNHAN_PHONG + "\nTrả phòng " + DateTime.Now;
->>>>>>> a83440878d4710c3d5819812de02381950ad67bd
+
                 ThongTinCTHD.DonGia = (int)ThongTinPhongChonThue.LoaiPhong.DONGIA_LP;
                 ThongTinCTHD.TriGia = (int)ThongTinPhongChonThue.LoaiPhong.DONGIA_LP * (Ngay * 5 + Gio);
                 ThongTinCTHD.ThoiGian = (DateTime)hdlt.THOIGIANNHAN_PHONG;
@@ -158,7 +155,7 @@ namespace QLKS.ViewModel
                     ThongTinCTHD = new ThongTinChiTietHoaDon();
                     var luotgu = DataProvider.Ins.model.LUOTGIATUI.Where(x => x.MA_LUOTGU == item.MA_LUOTGU).SingleOrDefault();
                     var loaigu = DataProvider.Ins.model.LOAIGIATUI.Where(x => x.MA_LOAIGU == luotgu.MA_LOAIGU).SingleOrDefault();
-                    ThongTinCTHD.LoaiHoaDon = "HÓA ĐƠN GIẶT ỦI:";
+                    ThongTinCTHD.LoaiHoaDon = "HÓA ĐƠN GIẶT ỦI: ";
                     if(loaigu.MA_LOAIGU == 1)
                     {
                         ThongTinCTHD.NoiDungHD = loaigu.TEN_LOAIGU + " x " + luotgu.SOKILOGRAM_LUOTGU + " kg";
@@ -180,7 +177,7 @@ namespace QLKS.ViewModel
                 {
                     ThongTinCTHD = new ThongTinChiTietHoaDon();
                     var chuyendi = DataProvider.Ins.model.CHUYENDI.Where(x => x.MA_CD == item.MA_CD).SingleOrDefault();
-                    ThongTinCTHD.LoaiHoaDon = "HÓA ĐƠN DI CHUYỂN:";
+                    ThongTinCTHD.LoaiHoaDon = "HÓA ĐƠN DI CHUYỂN: ";
                     ThongTinCTHD.NoiDungHD = chuyendi.DIEMDEN_CD;
                     ThongTinCTHD.DonGia = (int)chuyendi.DONGIA_CD;
                     ThongTinCTHD.TriGia = (int)item.TRIGIA_CTHDDC;
@@ -217,7 +214,7 @@ namespace QLKS.ViewModel
                             ThongTinChiTietHoaDon ttCTHD = new ThongTinChiTietHoaDon();
                             foreach (var item in ListThongTinCTHD)
                             {
-                                if (item.LoaiHoaDon == "Hóa đơn lưu trú")
+                                if (item.LoaiHoaDon == "HÓA ĐƠN LƯU TRÚ: ")
                                 {
                                     ttCTHD = item;
                                     break;
@@ -260,7 +257,6 @@ namespace QLKS.ViewModel
                 TongTienHD = 0;
                 MaHD = 0;
                 //refersh hd ăn uống
-                //LoaiPhucVu = null;
                 ListOrder = null;
                 TongTienHDAU = 0;
                 //refersh hd giặt ủi

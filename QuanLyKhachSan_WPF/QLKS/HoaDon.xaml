@@ -10,7 +10,7 @@
         
         Name="mainWindow"
         DataContext="{StaticResource HoaDonVM}"
-        Title="Hóa đơn" Height="750" Width="1200" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen">
+        Title="Hóa đơn" Height="750" Width="1150" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen">
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Closed">
             <i:InvokeCommandAction Command="{Binding ClosedWindowCommand}">
@@ -32,7 +32,6 @@
                 <RowDefinition Height="5*"></RowDefinition>
                 <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
-            <Image Grid.Row="0" Source="Resources\Icons\hotel.png" Width="60" Height="60" HorizontalAlignment="Center" VerticalAlignment="Center"></Image>
             <StackPanel Margin="10,30" Name="groupButtonTitles" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Top">
                 <Button Name="btnHDTong" Height="50" BorderBrush="{x:Null}" Background="{x:Null}" FontSize="16">
                     <Button.Style>
@@ -293,13 +292,11 @@
                         <GroupBox materialDesign:ColorZoneAssist.Mode="Standard" Header="THÔNG TIN HÓA ĐƠN">
                             <StackPanel>
                                 <TextBox Text="{Binding MaHD}" Margin="0,0,0,10" Height="37" materialDesign:HintAssist.Hint="Mã hóa đơn" Style="{StaticResource MaterialDesignFloatingHintTextBox}" TextWrapping="Wrap" VerticalContentAlignment="Center"></TextBox>
-<<<<<<< HEAD
-                                <DatePicker SelectedDate="{Binding ThoiGianLapHD, StringFormat='dd/MM/yyyy'}" Margin="0,0,0,10" Height="40" materialDesign:HintAssist.Hint="Ngày lập hóa đơn" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" VerticalContentAlignment="Center"></DatePicker>
-                                <materialDesign:TimePicker SelectedTime="{Binding Time}" Margin="0,5,0,10" Is24Hours="True" Height="40" materialDesign:HintAssist.Hint="Thời gian lập hóa đơn" Style="{StaticResource MaterialDesignFloatingHintTimePicker}" VerticalContentAlignment="Center"></materialDesign:TimePicker>
-=======
-                                <DatePicker SelectedDate="{Binding DateLapHD, StringFormat='dd/MM/yyyy', Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,10" Height="37" materialDesign:HintAssist.Hint="Ngày lập hóa đơn" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" VerticalContentAlignment="Center"></DatePicker>
-                                <materialDesign:TimePicker SelectedTime="{Binding TimeLapHD, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,5,0,10" Is24Hours="True" Height="37" materialDesign:HintAssist.Hint="Thời gian lập hóa đơn" Style="{StaticResource MaterialDesignFloatingHintTimePicker}" VerticalContentAlignment="Center"></materialDesign:TimePicker>
->>>>>>> a83440878d4710c3d5819812de02381950ad67bd
+
+                                <DatePicker SelectedDate="{Binding DateLapHD, StringFormat='dd/MM/yyyy'}" Margin="0,0,0,10" Height="40" materialDesign:HintAssist.Hint="Ngày lập hóa đơn" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" VerticalContentAlignment="Center"></DatePicker>
+                                <materialDesign:TimePicker SelectedTime="{Binding TimeLapHD}" Margin="0,5,0,10" Is24Hours="True" Height="40" materialDesign:HintAssist.Hint="Thời gian lập hóa đơn" Style="{StaticResource MaterialDesignFloatingHintTimePicker}" VerticalContentAlignment="Center"></materialDesign:TimePicker>
+
+                                
                                 <TextBox Text="{Binding NhanVienLapHD.HOTEN_NV}" Margin="0,0,0,10" Height="37" materialDesign:HintAssist.Hint="Nhân viên lập hóa đơn" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  TextWrapping="Wrap" VerticalContentAlignment="Center"></TextBox>
                             </StackPanel>
                         </GroupBox>
@@ -391,13 +388,11 @@
                         <GroupBox materialDesign:ColorZoneAssist.Mode="Standard" Header="THÔNG TIN HÓA ĐƠN">
                             <StackPanel>
                                 <TextBox Name="txBoxMaHD" Text="{Binding MaHD}" Margin="0,0,0,10" Height="37" materialDesign:HintAssist.Hint="Mã hóa đơn" Style="{StaticResource MaterialDesignFloatingHintTextBox}" TextWrapping="Wrap" VerticalContentAlignment="Center"></TextBox>
-<<<<<<< HEAD
-                                <DatePicker SelectedDate="{Binding ThoiGianLapHD, StringFormat='dd/MM/yyyy'}" Margin="0,0,0,10" Height="40" materialDesign:HintAssist.Hint="Ngày lập hóa đơn" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" VerticalContentAlignment="Center"></DatePicker>
-                                <materialDesign:TimePicker SelectedTime="{Binding Time}" Margin="0,5,0,10" Is24Hours="True" Height="40" materialDesign:HintAssist.Hint="Thời gian lập hóa đơn" Style="{StaticResource MaterialDesignFloatingHintTimePicker}" VerticalContentAlignment="Center"></materialDesign:TimePicker>
-=======
-                                <DatePicker SelectedDate="{Binding DateLapHD, StringFormat='dd/MM/yyyy', Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,10" Height="37" materialDesign:HintAssist.Hint="Ngày lập hóa đơn" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" VerticalContentAlignment="Center"></DatePicker>
-                                <materialDesign:TimePicker SelectedTime="{Binding TimeLapHD, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,5,0,10" Is24Hours="True" Height="37" materialDesign:HintAssist.Hint="Thời gian lập hóa đơn" Style="{StaticResource MaterialDesignFloatingHintTimePicker}" VerticalContentAlignment="Center"></materialDesign:TimePicker>
->>>>>>> a83440878d4710c3d5819812de02381950ad67bd
+
+                                <DatePicker SelectedDate="{Binding DateLapHD, StringFormat='dd/MM/yyyy'}" Margin="0,0,0,10" Height="40" materialDesign:HintAssist.Hint="Ngày lập hóa đơn" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" VerticalContentAlignment="Center"></DatePicker>
+                                <materialDesign:TimePicker SelectedTime="{Binding TimeLapHD}" Margin="0,5,0,10" Is24Hours="True" Height="40" materialDesign:HintAssist.Hint="Thời gian lập hóa đơn" Style="{StaticResource MaterialDesignFloatingHintTimePicker}" VerticalContentAlignment="Center"></materialDesign:TimePicker>
+
+
                                 <TextBox Text="{Binding NhanVienLapHD.HOTEN_NV}" Margin="0,0,0,10" Height="37" materialDesign:HintAssist.Hint="Nhân viên lập hóa đơn" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  TextWrapping="Wrap" VerticalContentAlignment="Center"></TextBox>
                             </StackPanel>
                         </GroupBox>
@@ -463,13 +458,10 @@
                         <GroupBox materialDesign:ColorZoneAssist.Mode="Standard" Header="THÔNG TIN HÓA ĐƠN">
                             <StackPanel>
                                 <TextBox  Text="{Binding MaHD}" Margin="0,0,0,10" Height="37" materialDesign:HintAssist.Hint="Mã hóa đơn" Style="{StaticResource MaterialDesignFloatingHintTextBox}" TextWrapping="Wrap" VerticalContentAlignment="Center"></TextBox>
-<<<<<<< HEAD
-                                <DatePicker SelectedDate="{Binding ThoiGianLapHD, StringFormat='dd/MM/yyyy'}" Margin="0,0,0,10" Height="40" materialDesign:HintAssist.Hint="Ngày lập hóa đơn" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" VerticalContentAlignment="Center"></DatePicker>
-                                <materialDesign:TimePicker SelectedTime="{Binding Time}" Margin="0,5,0,10" Is24Hours="True" Height="40" materialDesign:HintAssist.Hint="Thời gian lập hóa đơn" Style="{StaticResource MaterialDesignFloatingHintTimePicker}" VerticalContentAlignment="Center"></materialDesign:TimePicker>
-=======
-                                <DatePicker SelectedDate="{Binding DateLapHD, StringFormat='dd/MM/yyyy', Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,10" Height="37" materialDesign:HintAssist.Hint="Ngày lập hóa đơn" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" VerticalContentAlignment="Center"></DatePicker>
-                                <materialDesign:TimePicker SelectedTime="{Binding TimeLapHD, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,5,0,10" Is24Hours="True" Height="37" materialDesign:HintAssist.Hint="Thời gian lập hóa đơn" Style="{StaticResource MaterialDesignFloatingHintTimePicker}" VerticalContentAlignment="Center"></materialDesign:TimePicker>
->>>>>>> a83440878d4710c3d5819812de02381950ad67bd
+
+                                <DatePicker SelectedDate="{Binding DateLapHD, StringFormat='dd/MM/yyyy'}" Margin="0,0,0,10" Height="40" materialDesign:HintAssist.Hint="Ngày lập hóa đơn" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" VerticalContentAlignment="Center"></DatePicker>
+                                <materialDesign:TimePicker SelectedTime="{Binding TimeLapHD}" Margin="0,5,0,10" Is24Hours="True" Height="40" materialDesign:HintAssist.Hint="Thời gian lập hóa đơn" Style="{StaticResource MaterialDesignFloatingHintTimePicker}" VerticalContentAlignment="Center"></materialDesign:TimePicker>
+
                                 <TextBox Text="{Binding NhanVienLapHD.HOTEN_NV}" Margin="0,0,0,10" Height="37" materialDesign:HintAssist.Hint="Nhân viên lập hóa đơn" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  TextWrapping="Wrap" VerticalContentAlignment="Center"></TextBox>
                             </StackPanel>
                         </GroupBox>
@@ -545,13 +537,10 @@
                         <GroupBox materialDesign:ColorZoneAssist.Mode="Standard" Header="THÔNG TIN HÓA ĐƠN">
                             <StackPanel>
                                 <TextBox Text="{Binding MaHD}" Margin="0,0,0,10" Height="37" materialDesign:HintAssist.Hint="Mã hóa đơn" Style="{StaticResource MaterialDesignFloatingHintTextBox}" TextWrapping="Wrap" VerticalContentAlignment="Center"></TextBox>
-<<<<<<< HEAD
-                                <DatePicker SelectedDate="{Binding ThoiGianLapHD, StringFormat='dd/MM/yyyy'}" Margin="0,0,0,10" Height="40" materialDesign:HintAssist.Hint="Ngày lập hóa đơn" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" VerticalContentAlignment="Center"></DatePicker>
-                                <materialDesign:TimePicker SelectedTime="{Binding Time}" Margin="0,5,0,10" Is24Hours="True" Height="40" materialDesign:HintAssist.Hint="Thời gian lập hóa đơn" Style="{StaticResource MaterialDesignFloatingHintTimePicker}" VerticalContentAlignment="Center"></materialDesign:TimePicker>
-=======
-                                <DatePicker SelectedDate="{Binding DateLapHD, StringFormat='dd/MM/yyyy', Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,10" Height="37" materialDesign:HintAssist.Hint="Ngày lập hóa đơn" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" VerticalContentAlignment="Center"></DatePicker>
-                                <materialDesign:TimePicker SelectedTime="{Binding TimeLapHD, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,5,0,10" Is24Hours="True" Height="37" materialDesign:HintAssist.Hint="Thời gian lập hóa đơn" Style="{StaticResource MaterialDesignFloatingHintTimePicker}" VerticalContentAlignment="Center"></materialDesign:TimePicker>
->>>>>>> a83440878d4710c3d5819812de02381950ad67bd
+
+                                <DatePicker SelectedDate="{Binding DateLapHD, StringFormat='dd/MM/yyyy'}" Margin="0,0,0,10" Height="40" materialDesign:HintAssist.Hint="Ngày lập hóa đơn" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" VerticalContentAlignment="Center"></DatePicker>
+                                <materialDesign:TimePicker SelectedTime="{Binding TimeLapHD}" Margin="0,5,0,10" Is24Hours="True" Height="40" materialDesign:HintAssist.Hint="Thời gian lập hóa đơn" Style="{StaticResource MaterialDesignFloatingHintTimePicker}" VerticalContentAlignment="Center"></materialDesign:TimePicker>
+
                                 <TextBox Text="{Binding NhanVienLapHD.HOTEN_NV}" Margin="0,0,0,10" Height="37" materialDesign:HintAssist.Hint="Nhân viên lập hóa đơn" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  TextWrapping="Wrap" VerticalContentAlignment="Center"></TextBox>
                             </StackPanel>
                         </GroupBox>
@@ -640,13 +629,10 @@
                         <GroupBox materialDesign:ColorZoneAssist.Mode="Standard" Header="THÔNG TIN HÓA ĐƠN">
                             <StackPanel>
                                 <TextBox Text="{Binding MaHD}" Margin="0,0,0,10" Height="37" materialDesign:HintAssist.Hint="Mã hóa đơn" Style="{StaticResource MaterialDesignFloatingHintTextBox}" TextWrapping="Wrap" VerticalContentAlignment="Center"></TextBox>
-<<<<<<< HEAD
-                                <DatePicker SelectedDate="{Binding ThoiGianLapHD, StringFormat='dd/MM/yyyy'}" Margin="0,0,0,10" Height="40" materialDesign:HintAssist.Hint="Ngày lập hóa đơn" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" VerticalContentAlignment="Center"></DatePicker>
-                                <materialDesign:TimePicker SelectedTime="{Binding Time}" Margin="0,5,0,10" Is24Hours="True" Height="40" materialDesign:HintAssist.Hint="Thời gian lập hóa đơn" Style="{StaticResource MaterialDesignFloatingHintTimePicker}" VerticalContentAlignment="Center"></materialDesign:TimePicker>
-=======
-                                <DatePicker SelectedDate="{Binding DateLapHD, StringFormat='dd/MM/yyyy', Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,10" Height="37" materialDesign:HintAssist.Hint="Ngày lập hóa đơn" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" VerticalContentAlignment="Center"></DatePicker>
-                                <materialDesign:TimePicker SelectedTime="{Binding TimeLapHD, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,5,0,10" Is24Hours="True" Height="37" materialDesign:HintAssist.Hint="Thời gian lập hóa đơn" Style="{StaticResource MaterialDesignFloatingHintTimePicker}" VerticalContentAlignment="Center"></materialDesign:TimePicker>
->>>>>>> a83440878d4710c3d5819812de02381950ad67bd
+
+                                <DatePicker SelectedDate="{Binding DateLapHD, StringFormat='dd/MM/yyyy'}" Margin="0,0,0,10" Height="40" materialDesign:HintAssist.Hint="Ngày lập hóa đơn" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" VerticalContentAlignment="Center"></DatePicker>
+                                <materialDesign:TimePicker SelectedTime="{Binding TimeLapHD}" Margin="0,5,0,10" Is24Hours="True" Height="40" materialDesign:HintAssist.Hint="Thời gian lập hóa đơn" Style="{StaticResource MaterialDesignFloatingHintTimePicker}" VerticalContentAlignment="Center"></materialDesign:TimePicker>
+
                                 <TextBox Text="{Binding NhanVienLapHD.HOTEN_NV}" Margin="0,0,0,10" Height="37" materialDesign:HintAssist.Hint="Nhân viên lập hóa đơn" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  TextWrapping="Wrap" VerticalContentAlignment="Center"></TextBox>
                             </StackPanel>
                         </GroupBox>

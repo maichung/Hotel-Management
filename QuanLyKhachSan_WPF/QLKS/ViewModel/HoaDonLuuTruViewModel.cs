@@ -58,8 +58,7 @@ namespace QLKS.ViewModel
                         ThongTinPhongChonThue = hoadonVM.ThongTinPhongChonThue;
                         NhanVienLapHD = hoadonVM.NhanVienLapHD;
                         KhachHangThue = hoadonVM.KhachHangThue;
-                        //DateTime ThoiGianLapHD = new DateTime(hoadonVM.DateLapHD.Year, hoadonVM.DateLapHD.Month, hoadonVM.DateLapHD.Day,
-                        //                                      hoadonVM.TimeLapHD.Hour, hoadonVM.TimeLapHD.Minute, hoadonVM.TimeLapHD.Second);
+
                         //kiểm tra xem khách hàng đã có trong csdl của khách sạn hay chưa
                         var khachHang = DataProvider.Ins.model.KHACHHANG.Where(x => x.CMND_KH == KhachHangThue.CMND_KH).SingleOrDefault();
                         if (khachHang == null)
