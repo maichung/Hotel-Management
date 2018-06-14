@@ -44,7 +44,8 @@ namespace QLKS.ViewModel
                 var hoadonVM = p.DataContext as HoaDonViewModel;
                 MaHD = hoadonVM.MaHD;
                 ListOrder = hoadonVM.ListOrder;
-
+                //DateTime ThoiGianLapHD = new DateTime(hoadonVM.DateLapHD.Year, hoadonVM.DateLapHD.Month, hoadonVM.DateLapHD.Day,
+                //                                      hoadonVM.TimeLapHD.Hour, hoadonVM.TimeLapHD.Minute, hoadonVM.TimeLapHD.Second);
                 //Tạo chi tiết hóa đơn lưu trú
                 foreach (ThongTinOrder item in ListOrder)
                 {

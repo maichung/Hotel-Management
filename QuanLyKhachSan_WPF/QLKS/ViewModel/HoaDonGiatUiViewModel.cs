@@ -43,11 +43,13 @@ namespace QLKS.ViewModel
                 {
                     using (TransactionScope ts = new TransactionScope())
                     {
-                        //lấy thông tin phòng chọn thuê và nhân viên làm hóa đơn
+                        //lấy thông tin phòng chọn thuê, nhân viên làm hóa đơn và thời gian làm hóa đơn
                         var hoadonVM = p.DataContext as HoaDonViewModel;
                         MaHD = hoadonVM.MaHD;
                         TTGiatUi = hoadonVM.TTGiatUi;
                         TongTien = hoadonVM.TongTienHDGU;
+                        //DateTime ThoiGianLapHD = new DateTime(hoadonVM.DateLapHD.Year, hoadonVM.DateLapHD.Month, hoadonVM.DateLapHD.Day,
+                        //                                      hoadonVM.TimeLapHD.Hour, hoadonVM.TimeLapHD.Minute, hoadonVM.TimeLapHD.Second);
                         //Thêm lượt giặt ủi vào csdl
                         DataProvider.Ins.model.LUOTGIATUI.Add(TTGiatUi.LuotGiatUi);
                         DataProvider.Ins.model.SaveChanges();

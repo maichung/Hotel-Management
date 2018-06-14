@@ -9,17 +9,23 @@
 
 namespace QLKS.Model
 {
+    using QLKS.ViewModel;
     using System;
     using System.Collections.Generic;
     
-    public partial class CHITIET_HDGU
+    public partial class CHITIET_HDGU : BaseViewModel
     {
-        public int MA_CTHDGU { get; set; }
-        public int MA_HD { get; set; }
-        public int MA_LUOTGU { get; set; }
-        public Nullable<decimal> TRIGIA_CTHDGU { get; set; }
-        public Nullable<System.DateTime> THOIGIANLAP_CTHDGU { get; set; }
-    
+        private int _MA_CTHDGU;
+        public int MA_CTHDGU { get => _MA_CTHDGU; set { _MA_CTHDGU = value; OnPropertyChanged(); } }
+        private int _MA_HD;
+        public int MA_HD { get => _MA_HD; set { _MA_HD = value; OnPropertyChanged(); } }
+        private int _MA_LUOTGU;
+        public int MA_LUOTGU { get => _MA_LUOTGU; set { _MA_LUOTGU = value; OnPropertyChanged(); } }
+        private Nullable<decimal> _TRIGIA_CTHDGU;
+        public Nullable<decimal> TRIGIA_CTHDGU { get => _TRIGIA_CTHDGU; set { _TRIGIA_CTHDGU = value; OnPropertyChanged(); } }
+        private Nullable<System.DateTime> _THOIGIANLAP_CTHDGU;
+        public Nullable<System.DateTime> THOIGIANLAP_CTHDGU { get => _THOIGIANLAP_CTHDGU; set { _THOIGIANLAP_CTHDGU = value; OnPropertyChanged(); } }
+
         public virtual LUOTGIATUI LUOTGIATUI { get; set; }
         public virtual HOADON HOADON { get; set; }
     }

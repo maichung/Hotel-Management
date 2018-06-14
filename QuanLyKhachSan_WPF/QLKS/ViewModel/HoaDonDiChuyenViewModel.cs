@@ -35,11 +35,12 @@ namespace QLKS.ViewModel
                 return true;
             }, (p) =>
             {
-                //lấy thông tin phòng chọn thuê và nhân viên làm hóa đơn
+                //lấy thông tin phòng chọn thuê, nhân viên làm hóa đơn và thời gian làm hóa đơn
                 var hoadonVM = p.DataContext as HoaDonViewModel;
                 MaHD = hoadonVM.MaHD;
                 ChuyenDi = hoadonVM.ChuyenDi;
-
+                //DateTime ThoiGianLapHD = new DateTime(hoadonVM.DateLapHD.Year, hoadonVM.DateLapHD.Month, hoadonVM.DateLapHD.Day,
+                //                                      hoadonVM.TimeLapHD.Hour, hoadonVM.TimeLapHD.Minute, hoadonVM.TimeLapHD.Second);
                 //Thêm chi tiết hóa đơn giặt ủi
                 var chitietHDDC = new CHITIET_HDDC() { MA_HD = MaHD, MA_CD = ChuyenDi.MA_CD, TRIGIA_CTHDDC = ChuyenDi.DONGIA_CD, THOIGIANLAP_CTHDDC = DateTime.Now };
                 DataProvider.Ins.model.CHITIET_HDDC.Add(chitietHDDC);
