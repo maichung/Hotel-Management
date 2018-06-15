@@ -32,6 +32,7 @@
                 <RowDefinition Height="5*"></RowDefinition>
                 <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
+            <Image Grid.Row="0" Source="Resources/Icons/iconbw.png" Width="100" Height="100" VerticalAlignment="Bottom"></Image>
             <StackPanel Margin="10,30" Name="groupButtonTitles" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Top">
                 <Button Name="btnTrangChu" Height="50" BorderBrush="{x:Null}" Background="{x:Null}" FontSize="16">
                     <Button.Style>
@@ -355,12 +356,12 @@
         </Grid>
 
         <!-- Tiêu đề phần mềm-->
-        <TextBlock Text="PHẦN MỀM QUẢN LÝ KHÁCH SẠN" Margin="40"  VerticalAlignment="Top" HorizontalAlignment="Center" Grid.Column="1" FontSize="26" Foreground="#FF5E6572" FontFamily="Segoe UI Semibold"/>
+        <TextBlock Text="PHẦN MỀM QUẢN LÍ KHÁCH SẠN" Margin="40"  VerticalAlignment="Top" HorizontalAlignment="Center" Grid.Column="1" FontSize="26" Foreground="#FF5E6572" FontFamily="Segoe UI Semibold"/>
 
         <!-- Nội dung -->
         <Grid Name="gridColumn2" Grid.Column="1">
             <!-- Grid Trang chủ -->
-            <Grid Name="gridTrangChu" Visibility="Hidden">
+            <Grid Name="gridTrangChu">
                 <Grid.Style>
                     <Style TargetType="Grid">
                         <Setter Property="Visibility" Value="Hidden"></Setter>
@@ -751,7 +752,7 @@
                             <ColumnDefinition Width="2*"></ColumnDefinition>
                         </Grid.ColumnDefinitions>
                         <GroupBox materialDesign:ColorZoneAssist.Mode="Light" Grid.Column="0" Header="THÔNG TIN DỊCH VỤ">
-                            <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top">
+                            <StackPanel>
                                 <ComboBox Margin="0,0,0,15" Height="40" materialDesign:HintAssist.Hint="Chọn điểm đến" Style="{StaticResource MaterialDesignFloatingHintComboBox}" ItemsSource="{Binding ListChuyenDi}" DisplayMemberPath="DIEMDEN_CD" SelectedItem="{Binding SelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                                 <TextBox Margin="0,0,0,15" Height="37" materialDesign:HintAssist.Hint="Đơn giá" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  Text="{Binding DonGia, Mode=TwoWay, StringFormat='N0', UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap" VerticalContentAlignment="Center"/>
                             </StackPanel>
@@ -770,7 +771,7 @@
             </Grid>
 
             <!-- Grid Tra cứu -->
-            <Grid Name="gridTraCuu" Visibility="Visible">
+            <Grid Name="gridTraCuu">
                 <Grid.Style>
                     <Style TargetType="Grid">
                         <Setter Property="Visibility" Value="Hidden"></Setter>

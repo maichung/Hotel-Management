@@ -7,39 +7,43 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:local="clr-namespace:QLKS"
         mc:Ignorable="d"
-        Name="dangNhap" Title="Đăng nhập" Height="400" Width="400" WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize" DataContext="{StaticResource DangNhapVM}">
+        Name="dangNhap" Title="Đăng nhập" Height="700" Width="1000" WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize" DataContext="{StaticResource DangNhapVM}">
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="1.5*"></RowDefinition>
-            <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
-            <RowDefinition Height="0.75*"/>
-        </Grid.RowDefinitions>
-        <Label Content="ĐĂNG NHẬP HỆ THỐNG" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontSize="18" Foreground="#FF5E6572"></Label>
-        <TextBox Name="tboxUserName" Grid.Row="1" materialDesign:HintAssist.Hint="Tên đăng nhập" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Center" HorizontalAlignment="Center" Width="250" Text="{Binding TenDangNhap}" VerticalContentAlignment="Center" BorderBrush="#FFD6D6D6" Background="{x:Null}" SelectionBrush="#FF0078D7" FontSize="14"/>
-        <PasswordBox Grid.Row="2" Name="pbxMatKhau" materialDesign:HintAssist.Hint="Mật khẩu" Style="{StaticResource MaterialDesignFloatingHintPasswordBox}" VerticalAlignment="Center" HorizontalAlignment="Center" Width="250" VerticalContentAlignment="Center" BorderBrush="#FFD6D6D6" Background="{x:Null}" SelectionBrush="#FF0078D7" FontSize="14">
-            <i:Interaction.Triggers>
-                <i:EventTrigger EventName="PasswordChanged">
-                    <i:InvokeCommandAction Command="{Binding PasswordChangedCommand}" CommandParameter="{Binding ElementName=pbxMatKhau}"/>
-                </i:EventTrigger>
-            </i:Interaction.Triggers>
-        </PasswordBox>
-        <Button Grid.Row="3" BorderBrush="{x:Null}" Height="40" Background="{x:Null}" IsDefault="True" VerticalAlignment="Center" HorizontalAlignment="Center" 
-                Command="{Binding DangNhapCommand}" CommandParameter="{Binding ElementName=dangNhap}">
-            <Grid Background="#5E6572" Width="250">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="3*"></ColumnDefinition>
-                    <ColumnDefinition Width="4*"></ColumnDefinition>
-                </Grid.ColumnDefinitions>
-                <Grid Grid.Column="0">
-                    <Image Source="Resources\Icons\btnDangNhap.png" Margin="7,7,7,7" HorizontalAlignment="Right"></Image>
-                </Grid>
-                <Grid Grid.Column="1">
-                    <TextBlock Text="Đăng nhập" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="#FFFFFDFD" Margin="10,0,0,0"></TextBlock>
-                </Grid>
-            </Grid>
-        </Button>
-        <Button Grid.Row="4" Content="Quên mật khẩu?" HorizontalAlignment="Center" Height="23" VerticalAlignment="Top" Width="100" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="9" Background="{x:Null}" BorderBrush="{x:Null}" Click="Button_Click" Foreground="#FF5E6572"/>
+        <Grid.Background>
+            <ImageBrush ImageSource="Resources/Icons/bg3.jpg"></ImageBrush>
+        </Grid.Background>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"></ColumnDefinition>
+            <ColumnDefinition Width="3*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid Margin="30" Grid.Column="0" Height="600" Background="#99FFFFFF">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1.5*"></RowDefinition>
+                <RowDefinition Height="2*"></RowDefinition>
+                <RowDefinition Height="0.7*"></RowDefinition>
+                <RowDefinition Height="0.7*"/>
+            </Grid.RowDefinitions>
+            <Label Content="ĐĂNG NHẬP" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24" Foreground="#FF494163" FontFamily="Segoe UI Semibold"/>
+            <materialDesign:Card Margin="10" materialDesign:ShadowAssist.ShadowDepth="Depth2" VerticalAlignment="Center" Grid.Row="1">
+                <StackPanel Margin="20">
+                    <TextBox Margin="0,0,0,20" Name="tboxUserName" materialDesign:HintAssist.Hint="Tên đăng nhập" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding TenDangNhap}" VerticalContentAlignment="Center" BorderBrush="#FFD6D6D6" Background="{x:Null}" SelectionBrush="#FF0078D7" FontSize="14" Foreground="#FF787878"/>
+                    <PasswordBox Margin="0,0,0,20" Name="pbxMatKhau" materialDesign:HintAssist.Hint="Mật khẩu" Style="{StaticResource MaterialDesignFloatingHintPasswordBox}" VerticalContentAlignment="Center" BorderBrush="#FFD6D6D6" Background="{x:Null}" SelectionBrush="#FF0078D7" FontSize="14" Foreground="#FF787878">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="PasswordChanged">
+                                <i:InvokeCommandAction Command="{Binding PasswordChangedCommand}" CommandParameter="{Binding ElementName=pbxMatKhau}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </PasswordBox>
+                </StackPanel>
+            </materialDesign:Card>
+
+            <Button materialDesign:ShadowAssist.ShadowDepth="Depth2" Grid.Row="2" BorderBrush="{x:Null}" Height="50" Background="#FF384959" IsDefault="True" VerticalAlignment="Top" HorizontalAlignment="Center" 
+                Command="{Binding DangNhapCommand}" CommandParameter="{Binding ElementName=dangNhap}" Width="297.6" FontSize="16">
+                Đăng nhập
+            </Button>
+            <Button Grid.Row="3" Content="Quên mật khẩu?" HorizontalAlignment="Center" Height="Auto" VerticalAlignment="Top" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="14" Background="{x:Null}" BorderBrush="{x:Null}" Click="Button_Click" Foreground="White"/>
+        </Grid>
+        <Label Content="Xin chào!" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="72" Foreground="White" FontFamily="Segoe UI Light"/>
+
     </Grid>
 </Window>
