@@ -55,6 +55,7 @@ namespace QLKS.ViewModel
         private ThongTinPhong _ThongTinPhongChonThue;
         public ThongTinPhong ThongTinPhongChonThue { get => _ThongTinPhongChonThue; set { _ThongTinPhongChonThue = value; OnPropertyChanged(); } }
 
+
         //Truyền thông tin qua hd ăn uống
         //private string _LoaiPhucVu;
         //public string LoaiPhucVu { get => _LoaiPhucVu; set { _LoaiPhucVu = value; OnPropertyChanged(); } }
@@ -256,6 +257,7 @@ namespace QLKS.ViewModel
                 ListThongTinCTHD.Clear();
                 TongTienHD = 0;
                 MaHD = 0;
+                KhachHangThue = new KHACHHANG();
                 //refersh hd ăn uống
                 ListOrder = null;
                 TongTienHDAU = 0;
@@ -401,12 +403,16 @@ namespace QLKS.ViewModel
         public void LoadKhachHangByCMND()
         {
             var kh = DataProvider.Ins.model.KHACHHANG.Where(x => x.CMND_KH == CMND_KH).SingleOrDefault();
-            if(kh!=null)
+            if(kh==null)
+            {
+                KhachHangThue.HOTEN_KH = "";
+                KhachHangThue.SODIENTHOAI_KH = "";
+            }
+            else
             {
                 KhachHangThue.HOTEN_KH = kh.HOTEN_KH;
-                KhachHangThue.SODIENTHOAI_KH = kh.SODIENTHOAI_KH;                
+                KhachHangThue.SODIENTHOAI_KH = kh.SODIENTHOAI_KH;
             }
-            KhachHangThue.CMND_KH = CMND_KH;
         }
     }
 }

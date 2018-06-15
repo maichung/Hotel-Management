@@ -409,10 +409,10 @@
                                         </Style.Triggers>
                                     </Style>
                                 </StackPanel.Resources>
+                                <TextBox Text="{Binding CMND_KH, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,10" Height="37" MaxLength="11" materialDesign:HintAssist.Hint="Số CMND" Style="{StaticResource MaterialDesignFloatingHintTextBox}" TextWrapping="Wrap" VerticalContentAlignment="Center"></TextBox>
                                 <TextBox Text="{Binding KhachHangThue.HOTEN_KH, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,10" Height="37" materialDesign:HintAssist.Hint="Họ tên khách hàng" Style="{StaticResource MaterialDesignFloatingHintTextBox}" TextWrapping="Wrap" VerticalContentAlignment="Center"/>
                                 <TextBox Text="{Binding KhachHangThue.SODIENTHOAI_KH, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,10" Height="37" MaxLength="14" materialDesign:HintAssist.Hint="Số điện thoại" Style="{StaticResource MaterialDesignFloatingHintTextBox}" TextWrapping="Wrap" VerticalContentAlignment="Center"></TextBox>
-                                <TextBox Text="{Binding CMND_KH, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,10" Height="37" MaxLength="11" materialDesign:HintAssist.Hint="Số CMND" Style="{StaticResource MaterialDesignFloatingHintTextBox}" TextWrapping="Wrap" VerticalContentAlignment="Center"></TextBox>
-                            </StackPanel>
+                                </StackPanel>
                         </GroupBox>
                     </StackPanel>
 

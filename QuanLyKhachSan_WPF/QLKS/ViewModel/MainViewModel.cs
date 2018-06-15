@@ -24,11 +24,11 @@ namespace QLKS.ViewModel
         private ObservableCollection<ThongTinPhong> _ListTTPhong;
         public ObservableCollection<ThongTinPhong> ListTTPhong { get => _ListTTPhong; set { _ListTTPhong = value; OnPropertyChanged(); } }
         private int _TongSoPhong;
-        public int TongSoPhong { get => _TongSoPhong; set { _TongSoPhong = value; OnPropertyChanged(); /*LoadTongSoPhong();*/ } }
+        public int TongSoPhong { get => _TongSoPhong; set { _TongSoPhong = value; OnPropertyChanged(); } }
         private int _SoPhongTrong;
-        public int SoPhongTrong { get => _SoPhongTrong; set { _SoPhongTrong = value; OnPropertyChanged(); /*LoadSoPhongTrong();*/ } }
+        public int SoPhongTrong { get => _SoPhongTrong; set { _SoPhongTrong = value;  OnPropertyChanged(); } }
         private int _SoPhongDangThue;
-        public int SoPhongDangThue { get => _SoPhongDangThue; set { _SoPhongDangThue = value; OnPropertyChanged(); /*LoadSoPhongDangThue();*/ } }
+        public int SoPhongDangThue { get => _SoPhongDangThue; set { _SoPhongDangThue = value;  OnPropertyChanged(); } }
 
         private NHANVIEN _NhanVien;
         public NHANVIEN NhanVien { get => _NhanVien; set { _NhanVien = value; OnPropertyChanged(); } }
@@ -136,6 +136,7 @@ namespace QLKS.ViewModel
             LoadPhongTrongCommand = new RelayCommand<Object>((p) => { return true; }, (p) =>
             {
                 ListTTPhong = LoadTTPhong("Trống");
+                
 
             });
 
@@ -151,9 +152,6 @@ namespace QLKS.ViewModel
             ChonPhongCommand = new RelayCommand<Button>((p) => { return p == null ? false : true; }, (p) =>
             {
                 MaPhongChonThue = Int32.Parse(p.Tag.ToString());
-                //Color color = (Color)ColorConverter.ConvertFromString("#5E6572");
-                //p.Background = new SolidColorBrush(color);
-                //p.Foreground = Brushes.White;
             });
 
             ThuePhongCommand = new RelayCommand<Button>((p) =>
@@ -185,6 +183,9 @@ namespace QLKS.ViewModel
                 hoadonVM.MaPhong = MaPhongChonThue;
                 hoadonVM.GetThongTinPhongThue(MaPhongChonThue);
                 hd.ShowDialog();
+                LoadTongSoPhong();
+                LoadSoPhongDangThue();
+                LoadSoPhongTrong();
             });
 
             ShowHDTongCommand = new RelayCommand<Object>((p) =>
@@ -214,6 +215,9 @@ namespace QLKS.ViewModel
                 hoadonVM.CMND_KH = hoadonVM.KhachHangThue.CMND_KH;
                 hoadonVM.GetThongTinPhongThue(MaPhongChonThue);
                 wd.ShowDialog();
+                LoadTongSoPhong();
+                LoadSoPhongDangThue();
+                LoadSoPhongTrong();
             });
         }
 
