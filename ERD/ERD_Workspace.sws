@@ -4,8 +4,8 @@
 
 <Workspace>
 	<Local Expanded="Yes">
-		<Model Expanded="Yes" ID="{25CC15F7-3DC8-48C8-A578-F9D2E9FA0981}" Name="ERD_PDM" Type="{CDE44E21-9669-11D1-9914-006097355D9B}" URL="ERD_PDM.pdm"/>
-		<Model Expanded="Yes" ID="{5FF02A01-B11F-44F1-87BA-DB911C24265F}" Name="QLKS" Selected="Yes" Type="{1E597170-9350-11D1-AB3C-0020AF71E433}" URL="ERD_CDM.cdm"/>
+		<Model Expanded="Yes" ID="{25CC15F7-3DC8-48C8-A578-F9D2E9FA0981}" Loaded="No" Name="ERD_PDM" Type="{CDE44E21-9669-11D1-9914-006097355D9B}" URL="ERD_PDM.pdm"/>
+		<Model Expanded="Yes" ID="{5FF02A01-B11F-44F1-87BA-DB911C24265F}" Loaded="No" Name="QLKS" Type="{1E597170-9350-11D1-AB3C-0020AF71E433}" URL="ERD_CDM.cdm"/>
 	</Local>
 	<BrowserModule Name="Repository"/>
 </Workspace>

@@ -43,7 +43,7 @@
             </Button>
             <Button Grid.Row="3" Content="Quên mật khẩu?" HorizontalAlignment="Center" Height="Auto" VerticalAlignment="Top" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="14" Background="{x:Null}" BorderBrush="{x:Null}" Click="Button_Click" Foreground="White"/>
         </Grid>
-        <Label Content="Xin chào!" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="72" Foreground="White" FontFamily="Segoe UI Light"/>
+        <Label Margin="0,160" Content="Xin chào!" Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Center" FontSize="72" Foreground="White" FontFamily="Segoe UI Light"/>
 
     </Grid>
 </Window>

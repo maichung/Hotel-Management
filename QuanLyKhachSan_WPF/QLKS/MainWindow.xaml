@@ -806,7 +806,7 @@
                                                                        CommandParameter="{Binding ElementName=pwBoxMatKhau}">
                                                 </i:InvokeCommandAction>
                                             </i:EventTrigger>
-                                        </i:Interaction.Triggers>
+                                        </i:Interaction.Triggers>                                        
                                     </Image>
                                     <!--<GridSplitter IsEnabled="False" Width="1" Margin="10,0,10,0" Background="#FFD6D6D6"></GridSplitter>
                                     <Image Height="25" Width="25" Cursor="Hand" Source="Resources\Icons\btnXoa.png" ToolTip="Xóa"></Image>-->
