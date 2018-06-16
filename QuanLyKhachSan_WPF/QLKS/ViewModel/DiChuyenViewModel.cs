@@ -65,8 +65,11 @@ namespace QLKS.ViewModel
             ListChuyenDi = new ObservableCollection<CHUYENDI>(DataProvider.Ins.model.CHUYENDI);
             DonGia = 0;
 
-            ShowHDDiChuyenCommand = new RelayCommand<Object>((p) =>
+            ShowHDDiChuyenCommand = new RelayCommand<Window>((p) =>
             {
+                if (p == null || p.DataContext == null)
+                    return false;
+
                 if (DonGia == 0 || SelectedPhong == null || SelectedItem == null)
                 {
                     MessageBox.Show("Vui lòng chọn phòng và chuyến đi!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
@@ -82,8 +85,9 @@ namespace QLKS.ViewModel
                 var hoadonVM = wd.DataContext as HoaDonViewModel;
                 hoadonVM.LoaiHD = (int)HoaDonViewModel.LoaiHoaDon.HoaDonDiChuyen;
                 hoadonVM.HoaDon = hoadonVM.GetHoaDon(MaPhong);
-                hoadonVM.NhanVienLapHD = hoadonVM.GetNhanVien(hoadonVM.HoaDon);
+                hoadonVM.NhanVienLapHD = (p.DataContext as MainViewModel).NhanVien;
                 hoadonVM.KhachHangThue = hoadonVM.GetKhachHang(hoadonVM.HoaDon);
+                hoadonVM.CMND_KH = hoadonVM.KhachHangThue.CMND_KH;
                 hoadonVM.GetThongTinPhongThue(MaPhong);
 
                 hoadonVM.TongTienHDDC = (long)SelectedItem.DONGIA_CD;

@@ -55,6 +55,7 @@ namespace QLKS.ViewModel
         private ThongTinPhong _ThongTinPhongChonThue;
         public ThongTinPhong ThongTinPhongChonThue { get => _ThongTinPhongChonThue; set { _ThongTinPhongChonThue = value; OnPropertyChanged(); } }
 
+
         //Truyền thông tin qua hd ăn uống
         //private string _LoaiPhucVu;
         //public string LoaiPhucVu { get => _LoaiPhucVu; set { _LoaiPhucVu = value; OnPropertyChanged(); } }
@@ -127,8 +128,10 @@ namespace QLKS.ViewModel
                 var hdlt = DataProvider.Ins.model.CHITIET_HDLT.Where(x => x.MA_HD == HoaDon.MA_HD).SingleOrDefault();
                 TimeSpan timehdlt = DateTime.Now.Subtract((DateTime)hdlt.THOIGIANNHAN_PHONG);
                 GetThoiGianThuePhong(timehdlt.Hours + 1);
-                ThongTinCTHD.LoaiHoaDon = "Hóa đơn lưu trú";
-                ThongTinCTHD.NoiDungHD = "Phòng " + hdlt.MA_PHONG + "\nNhận phòng " + hdlt.THOIGIANNHAN_PHONG + "\nTrả phòng " + DateTime.Now;
+
+                ThongTinCTHD.LoaiHoaDon = "HÓA ĐƠN LƯU TRÚ: ";
+                ThongTinCTHD.NoiDungHD = "Phòng " + hdlt.MA_PHONG + "\nNhận phòng:\n" + hdlt.THOIGIANNHAN_PHONG + "\nTrả phòng:\n" + DateTime.Now;
+
                 ThongTinCTHD.DonGia = (int)ThongTinPhongChonThue.LoaiPhong.DONGIA_LP;
                 ThongTinCTHD.TriGia = (int)ThongTinPhongChonThue.LoaiPhong.DONGIA_LP * (Ngay * 5 + Gio);
                 ThongTinCTHD.ThoiGian = (DateTime)hdlt.THOIGIANNHAN_PHONG;
@@ -139,8 +142,8 @@ namespace QLKS.ViewModel
                 {
                     ThongTinCTHD = new ThongTinChiTietHoaDon();
                     var mathang = DataProvider.Ins.model.MATHANG.Where(x => x.MA_MH == item.MA_MH).SingleOrDefault();
-                    ThongTinCTHD.LoaiHoaDon = "Hóa đơn ăn uống";
-                    ThongTinCTHD.NoiDungHD = mathang.TEN_MH + " - SL " + item.SOLUONG_MH;
+                    ThongTinCTHD.LoaiHoaDon = "HÓA ĐƠN ĂN UỐNG: ";
+                    ThongTinCTHD.NoiDungHD = mathang.TEN_MH + " x " + item.SOLUONG_MH;
                     ThongTinCTHD.DonGia = (int)mathang.DONGIA_MH;
                     ThongTinCTHD.TriGia = (int)item.TRIGIA_CTHDAU;
                     ThongTinCTHD.ThoiGian = (DateTime)item.THOIGIANLAP_CTHDAU;
@@ -153,16 +156,16 @@ namespace QLKS.ViewModel
                     ThongTinCTHD = new ThongTinChiTietHoaDon();
                     var luotgu = DataProvider.Ins.model.LUOTGIATUI.Where(x => x.MA_LUOTGU == item.MA_LUOTGU).SingleOrDefault();
                     var loaigu = DataProvider.Ins.model.LOAIGIATUI.Where(x => x.MA_LOAIGU == luotgu.MA_LOAIGU).SingleOrDefault();
-                    ThongTinCTHD.LoaiHoaDon = "Hóa đơn giặt ủi";
+                    ThongTinCTHD.LoaiHoaDon = "HÓA ĐƠN GIẶT ỦI: ";
                     if(loaigu.MA_LOAIGU == 1)
                     {
-                        ThongTinCTHD.NoiDungHD = loaigu.TEN_LOAIGU + " - SL " + luotgu.SOKILOGRAM_LUOTGU + " Kg";
+                        ThongTinCTHD.NoiDungHD = loaigu.TEN_LOAIGU + " x " + luotgu.SOKILOGRAM_LUOTGU + " kg";
                         ThongTinCTHD.DonGia = (int)loaigu.DONGIA_LOAIGU;
                     }else if (loaigu.MA_LOAIGU == 2)
                     {
                         DateTime ngaykt = (DateTime)luotgu.NGAYKETTHUC_LUOTGU;
                         TimeSpan timehdgu = ngaykt.Subtract((DateTime)luotgu.NGAYBATDAU_LUOTGU);
-                        ThongTinCTHD.NoiDungHD = loaigu.TEN_LOAIGU + " - SL " + (int)(timehdgu.TotalDays + 1) + " Ngày";
+                        ThongTinCTHD.NoiDungHD = loaigu.TEN_LOAIGU + " x " + (int)(timehdgu.TotalDays + 1) + " ngày";
                         ThongTinCTHD.DonGia = (int)loaigu.DONGIA_LOAIGU;
                     }
                     ThongTinCTHD.TriGia = (int)item.TRIGIA_CTHDGU;
@@ -175,7 +178,7 @@ namespace QLKS.ViewModel
                 {
                     ThongTinCTHD = new ThongTinChiTietHoaDon();
                     var chuyendi = DataProvider.Ins.model.CHUYENDI.Where(x => x.MA_CD == item.MA_CD).SingleOrDefault();
-                    ThongTinCTHD.LoaiHoaDon = "Hóa đơn di chuyển";
+                    ThongTinCTHD.LoaiHoaDon = "HÓA ĐƠN DI CHUYỂN: ";
                     ThongTinCTHD.NoiDungHD = chuyendi.DIEMDEN_CD;
                     ThongTinCTHD.DonGia = (int)chuyendi.DONGIA_CD;
                     ThongTinCTHD.TriGia = (int)item.TRIGIA_CTHDDC;
@@ -205,14 +208,14 @@ namespace QLKS.ViewModel
                 {
                     using (TransactionScope ts = new TransactionScope())
                     {
-                        MessageBoxResult result = MessageBox.Show("Tổng tiền cần thanh toán: " + TongTienHD.ToString("N0") + " VNĐ", "Thanh toán", MessageBoxButton.YesNo, MessageBoxImage.Question);
-                        if (result == MessageBoxResult.Yes)
+                        MessageBoxResult result = MessageBox.Show("Tổng số tiền cần thanh toán: " + TongTienHD.ToString("N0") + " VNĐ", "Thanh toán", MessageBoxButton.OKCancel, MessageBoxImage.Information);
+                        if (result == MessageBoxResult.OK)
                         {
                             //lưu chi tiết hóa đơn
                             ThongTinChiTietHoaDon ttCTHD = new ThongTinChiTietHoaDon();
                             foreach (var item in ListThongTinCTHD)
                             {
-                                if (item.LoaiHoaDon == "Hóa đơn lưu trú")
+                                if (item.LoaiHoaDon == "HÓA ĐƠN LƯU TRÚ: ")
                                 {
                                     ttCTHD = item;
                                     break;
@@ -234,6 +237,7 @@ namespace QLKS.ViewModel
 
                             ts.Complete();
                             MessageBox.Show("Thanh toán thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+                            p.Close();
                         }
                     }
                 }
@@ -241,8 +245,6 @@ namespace QLKS.ViewModel
                 {
                     MessageBox.Show(e + "\nThanh toán không thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
                 }
-
-                p.Close();
             });
 
             CancelCommand = new RelayCommand<Window>((p) => { return p == null ? false : true; }, (p) => { p.Close(); });
@@ -255,8 +257,8 @@ namespace QLKS.ViewModel
                 ListThongTinCTHD.Clear();
                 TongTienHD = 0;
                 MaHD = 0;
+                KhachHangThue = new KHACHHANG();
                 //refersh hd ăn uống
-                //LoaiPhucVu = null;
                 ListOrder = null;
                 TongTienHDAU = 0;
                 //refersh hd giặt ủi
@@ -401,12 +403,16 @@ namespace QLKS.ViewModel
         public void LoadKhachHangByCMND()
         {
             var kh = DataProvider.Ins.model.KHACHHANG.Where(x => x.CMND_KH == CMND_KH).SingleOrDefault();
-            if(kh!=null)
+            if(kh==null)
+            {
+                KhachHangThue.HOTEN_KH = "";
+                KhachHangThue.SODIENTHOAI_KH = "";
+            }
+            else
             {
                 KhachHangThue.HOTEN_KH = kh.HOTEN_KH;
-                KhachHangThue.SODIENTHOAI_KH = kh.SODIENTHOAI_KH;                
+                KhachHangThue.SODIENTHOAI_KH = kh.SODIENTHOAI_KH;
             }
-            KhachHangThue.CMND_KH = CMND_KH;
         }
     }
 }

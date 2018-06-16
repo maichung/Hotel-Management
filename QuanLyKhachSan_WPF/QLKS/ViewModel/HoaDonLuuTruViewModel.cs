@@ -18,6 +18,8 @@ namespace QLKS.ViewModel
         public NHANVIEN NhanVienLapHD { get => _NhanVienLapHD; set { _NhanVienLapHD = value; OnPropertyChanged(); } }
         private KHACHHANG _KhachHangThue;
         public KHACHHANG KhachHangThue { get => _KhachHangThue; set { _KhachHangThue = value; OnPropertyChanged(); } }
+        private string _CMND_KH;
+        public string CMND_KH { get => _CMND_KH; set { _CMND_KH = value; OnPropertyChanged(); } }
 
         public ICommand SaveCommand { get; set; }
         public ICommand CancelCommand { get; set; }
@@ -38,7 +40,7 @@ namespace QLKS.ViewModel
                 if (hoadonVM.MaPhong == 0)
                     return false;
 
-                if (hoadonVM.MaHD == 0 && (string.IsNullOrEmpty(hoadonVM.KhachHangThue.CMND_KH) || string.IsNullOrEmpty(hoadonVM.KhachHangThue.HOTEN_KH)))
+                if (hoadonVM.MaHD == 0 && (string.IsNullOrEmpty(hoadonVM.CMND_KH) || string.IsNullOrEmpty(hoadonVM.KhachHangThue.HOTEN_KH)))
                 {
                     return false;
                 }
@@ -58,16 +60,16 @@ namespace QLKS.ViewModel
                         ThongTinPhongChonThue = hoadonVM.ThongTinPhongChonThue;
                         NhanVienLapHD = hoadonVM.NhanVienLapHD;
                         KhachHangThue = hoadonVM.KhachHangThue;
-                        //DateTime ThoiGianLapHD = new DateTime(hoadonVM.DateLapHD.Year, hoadonVM.DateLapHD.Month, hoadonVM.DateLapHD.Day,
-                        //                                      hoadonVM.TimeLapHD.Hour, hoadonVM.TimeLapHD.Minute, hoadonVM.TimeLapHD.Second);
+                        CMND_KH = hoadonVM.CMND_KH;
+
                         //kiểm tra xem khách hàng đã có trong csdl của khách sạn hay chưa
-                        var khachHang = DataProvider.Ins.model.KHACHHANG.Where(x => x.CMND_KH == KhachHangThue.CMND_KH).SingleOrDefault();
+                        var khachHang = DataProvider.Ins.model.KHACHHANG.Where(x => x.CMND_KH == CMND_KH).SingleOrDefault();
                         if (khachHang == null)
                         {
-                            KHACHHANG newKhachHang = new KHACHHANG() { HOTEN_KH = KhachHangThue.HOTEN_KH, SODIENTHOAI_KH = KhachHangThue.SODIENTHOAI_KH, CMND_KH = KhachHangThue.CMND_KH };
+                            KHACHHANG newKhachHang = new KHACHHANG() { HOTEN_KH = KhachHangThue.HOTEN_KH, SODIENTHOAI_KH = KhachHangThue.SODIENTHOAI_KH, CMND_KH = CMND_KH };
                             DataProvider.Ins.model.KHACHHANG.Add(newKhachHang);
                             DataProvider.Ins.model.SaveChanges();
-                            khachHang = DataProvider.Ins.model.KHACHHANG.Where(x => x.CMND_KH == KhachHangThue.CMND_KH).SingleOrDefault();
+                            khachHang = newKhachHang;
                         }
                         //Tạo hóa đơn tổng
                         var hd = new HOADON() { MA_NV = NhanVienLapHD.MA_NV, MA_KH = khachHang.MA_KH, THOIGIANLAP_HD = DateTime.Now, TINHTRANG_HD = false };
@@ -81,7 +83,7 @@ namespace QLKS.ViewModel
                         var phong = DataProvider.Ins.model.PHONG.Where(x => x.MA_PHONG == ThongTinPhongChonThue.Phong.MA_PHONG).SingleOrDefault();
                         phong.TINHTRANG_PHONG = "Đang thuê";
                         DataProvider.Ins.model.SaveChanges();
-
+                       
                         ts.Complete();
                         MessageBox.Show("Lưu thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
                     }

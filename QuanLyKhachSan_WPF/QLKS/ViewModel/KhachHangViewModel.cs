@@ -52,8 +52,8 @@ namespace QLKS.ViewModel
 
         public KhachHangViewModel()
         {
-            ListKhachHang = new ObservableCollection<KHACHHANG>(DataProvider.Ins.model.KHACHHANG);
-
+            ListKhachHang = new ObservableCollection<KHACHHANG>(DataProvider.Ins.model.KHACHHANG.Where(x => x.CMND_KH != "").ToList());
+            
             SearchKhachHangCommand = new RelayCommand<Object>((p) => { return true; }, (p) => {
                 if (string.IsNullOrEmpty(SearchKhachHang))
                 {
@@ -83,7 +83,8 @@ namespace QLKS.ViewModel
                 {
                     MessageBox.Show("Khách hàng đã tồn tại!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
                     return false;
-                }                    
+                } 
+                
 
                 return true;
             }, (p) =>

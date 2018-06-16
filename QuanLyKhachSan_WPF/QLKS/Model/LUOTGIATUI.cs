@@ -30,7 +30,7 @@ namespace QLKS.Model
         private Nullable<System.DateTime> _NGAYBATDAU_LUOTGU;
         public Nullable<System.DateTime> NGAYBATDAU_LUOTGU { get => _NGAYBATDAU_LUOTGU; set { _NGAYBATDAU_LUOTGU = value; OnPropertyChanged(); } }
         private Nullable<System.DateTime> _NGAYKETTHUC_LUOTGU;
-        public Nullable<System.DateTime> NGAYKETTHUC_LUOTGU { get => NGAYKETTHUC_LUOTGU; set { NGAYKETTHUC_LUOTGU = value; OnPropertyChanged(); } }
+        public Nullable<System.DateTime> NGAYKETTHUC_LUOTGU { get => _NGAYKETTHUC_LUOTGU; set { _NGAYKETTHUC_LUOTGU = value; OnPropertyChanged(); } }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CHITIET_HDGU> CHITIET_HDGU { get; set; }

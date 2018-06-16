@@ -104,8 +104,11 @@ namespace QLKS.ViewModel
                     ThanhTien = DonGia * ((int)time.TotalDays + 1);
             });
 
-            ShowHDGiatUiCommand = new RelayCommand<Object>((p) =>
+            ShowHDGiatUiCommand = new RelayCommand<Window>((p) =>
             {
+                if (p == null || p.DataContext == null)
+                    return false;
+
                 if (ThanhTien == 0 || SelectedPhong == null || SelectedItem == null)
                 {
                     MessageBox.Show("Vui lòng điền đầy đủ thông tin!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
@@ -123,8 +126,9 @@ namespace QLKS.ViewModel
                 var hoadonVM = wd.DataContext as HoaDonViewModel;
                 hoadonVM.LoaiHD = (int)HoaDonViewModel.LoaiHoaDon.HoaDonGiatUi;
                 hoadonVM.HoaDon = hoadonVM.GetHoaDon(MaPhong);
-                hoadonVM.NhanVienLapHD = hoadonVM.GetNhanVien(hoadonVM.HoaDon);
+                hoadonVM.NhanVienLapHD = (p.DataContext as MainViewModel).NhanVien;
                 hoadonVM.KhachHangThue = hoadonVM.GetKhachHang(hoadonVM.HoaDon);
+                hoadonVM.CMND_KH = hoadonVM.KhachHangThue.CMND_KH;
                 hoadonVM.GetThongTinPhongThue(MaPhong);
 
                 hoadonVM.TongTienHDGU = ThanhTien;

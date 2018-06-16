@@ -33,5 +33,7 @@ namespace QLKS.Model
         public Nullable<System.DateTime> NGAYBATDAU_BCDV { get => _NGAYBATDAU_BCDV; set { _NGAYBATDAU_BCDV = value; OnPropertyChanged(); } }
         private Nullable<System.DateTime> _NGAYKETTHUC_BCDV;
         public Nullable<System.DateTime> NGAYKETTHUC_BCDV { get => _NGAYKETTHUC_BCDV; set { _NGAYKETTHUC_BCDV = value; OnPropertyChanged(); } }
+
+        
     }
 }

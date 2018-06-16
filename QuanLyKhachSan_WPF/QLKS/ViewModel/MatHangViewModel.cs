@@ -23,11 +23,6 @@ namespace QLKS.ViewModel
         //Show những mặt hàng mà khách chọn
         private ObservableCollection<ThongTinOrder> _ListOrder;
         public ObservableCollection<ThongTinOrder> ListOrder { get => _ListOrder; set { _ListOrder = value; OnPropertyChanged(); } }
-        //Load tất cả item loại phuc vụ cho cmbLoaiPhucVu
-        //private ObservableCollection<string> _ListLoaiPhucVu;
-        //public ObservableCollection<string> ListLoaiPhucVu { get => _ListLoaiPhucVu; set { _ListLoaiPhucVu = value; OnPropertyChanged(); } }
-        //private string _SelectedLoaiPhucVu;
-        //public string SelectedLoaiPhucVu { get => _SelectedLoaiPhucVu; set { _SelectedLoaiPhucVu = value; OnPropertyChanged(); } }
         //Lấy thông tin mặt hàng khi nhân viên muốn quản lý
         private MATHANG _SelectedItemMH;
         public MATHANG SelectedItemMH { get => _SelectedItemMH; set { _SelectedItemMH = value; OnPropertyChanged(); } }
@@ -119,8 +114,6 @@ namespace QLKS.ViewModel
             ListOrder = new ObservableCollection<ThongTinOrder>();
             TongTien = 0;
             TongSoLuongMHDC = 0; //tính ra tổng số lượng mặt hàng đã chọn khi order
-            //string[] arrayLPV = new string[] { "Tại phòng", "Tại sảnh ăn uống" };
-            //ListLoaiPhucVu = new ObservableCollection<string>(arrayLPV);
             sort = false; //sắp xếp column item
 
             #region Dịch vụ ăn uống
@@ -260,8 +253,11 @@ namespace QLKS.ViewModel
                 sort = !sort;
             });
 
-            ShowHDAnUongCommand = new RelayCommand<Object>((p) =>
+            ShowHDAnUongCommand = new RelayCommand<Window>((p) =>
             {
+                if (p == null || p.DataContext == null)
+                    return false;
+
                 if (SelectedPhong == null || ListOrder == null || ListOrder.Count() == 0)
                 {
                     MessageBox.Show("Vui lòng chọn phòng và mặt hàng muốn mua!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
@@ -277,8 +273,9 @@ namespace QLKS.ViewModel
                 var hoadonVM = wd.DataContext as HoaDonViewModel;
                 hoadonVM.LoaiHD = (int)HoaDonViewModel.LoaiHoaDon.HoaDonAnUong;
                 hoadonVM.HoaDon = hoadonVM.GetHoaDon(MaPhong);
-                hoadonVM.NhanVienLapHD = hoadonVM.GetNhanVien(hoadonVM.HoaDon);
+                hoadonVM.NhanVienLapHD = (p.DataContext as MainViewModel).NhanVien;
                 hoadonVM.KhachHangThue = hoadonVM.GetKhachHang(hoadonVM.HoaDon);
+                hoadonVM.CMND_KH = hoadonVM.KhachHangThue.CMND_KH;
                 hoadonVM.GetThongTinPhongThue(MaPhong);
 
                 hoadonVM.TongTienHDAU = TongTien;

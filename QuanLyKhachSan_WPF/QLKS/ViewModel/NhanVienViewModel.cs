@@ -149,7 +149,7 @@ namespace QLKS.ViewModel
                 DataProvider.Ins.model.NHANVIEN.Add(nhanVien);
                 DataProvider.Ins.model.SaveChanges();
 
-                ListTTNhanVien.Add(new ThongTinNhanVien() { TaiKhoan = taiKhoan, NhanVien = nhanVien });
+               // ListTTNhanVien.Add(new ThongTinNhanVien() { TaiKhoan = taiKhoan, NhanVien = nhanVien });
 
                 MessageBox.Show("Thêm thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
                 p.Password = string.Empty;
