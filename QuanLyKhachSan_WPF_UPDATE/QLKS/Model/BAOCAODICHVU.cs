@@ -9,29 +9,19 @@
 
 namespace QLKS.Model
 {
-    using QLKS.ViewModel;
     using System;
     using System.Collections.Generic;
     
-    public partial class BAOCAODICHVU : BaseViewModel
+    public partial class BAOCAODICHVU
     {
-        private int _MA_BCDV;
-        public int MA_BCDV { get => _MA_BCDV; set { _MA_BCDV = value; OnPropertyChanged(); } }
-        private Nullable<System.DateTime> _THOIGIANLAP_BCDV;
-        public Nullable<System.DateTime> THOIGIANLAP_BCDV { get => _THOIGIANLAP_BCDV; set { _THOIGIANLAP_BCDV = value; OnPropertyChanged(); } }
-        private Nullable<decimal> _TONGDOANHTHU_BCDV;
-        public Nullable<decimal> TONGDOANHTHU_BCDV { get => _TONGDOANHTHU_BCDV; set { _TONGDOANHTHU_BCDV = value; OnPropertyChanged(); } }
-        private Nullable<decimal> _DOANHTHULUUTRU_BCDV;
-        public Nullable<decimal> DOANHTHULUUTRU_BCDV { get => _DOANHTHULUUTRU_BCDV; set { _DOANHTHULUUTRU_BCDV = value; OnPropertyChanged(); } }
-        private Nullable<decimal> _DOANHTHUANUONG_BCDV;
-        public Nullable<decimal> DOANHTHUANUONG_BCDV { get => _DOANHTHUANUONG_BCDV; set { _DOANHTHUANUONG_BCDV = value; OnPropertyChanged(); } }
-        private Nullable<decimal> _DOANHTHUGIATUI_BCDV;
-        public Nullable<decimal> DOANHTHUGIATUI_BCDV { get => _DOANHTHUGIATUI_BCDV; set { _DOANHTHUGIATUI_BCDV = value; OnPropertyChanged(); } }
-        private Nullable<decimal> _DOANHTHUDICHUYEN_BCDV;
-        public Nullable<decimal> DOANHTHUDICHUYEN_BCDV { get => _DOANHTHUDICHUYEN_BCDV; set { _DOANHTHUDICHUYEN_BCDV = value; OnPropertyChanged(); } }
-        private Nullable<System.DateTime> _NGAYBATDAU_BCDV;
-        public Nullable<System.DateTime> NGAYBATDAU_BCDV { get => _NGAYBATDAU_BCDV; set { _NGAYBATDAU_BCDV = value; OnPropertyChanged(); } }
-        private Nullable<System.DateTime> _NGAYKETTHUC_BCDV;
-        public Nullable<System.DateTime> NGAYKETTHUC_BCDV { get => _NGAYKETTHUC_BCDV; set { _NGAYKETTHUC_BCDV = value; OnPropertyChanged(); } }
+        public int MA_BCDV { get; set; }
+        public Nullable<System.DateTime> THOIGIANLAP_BCDV { get; set; }
+        public Nullable<decimal> TONGDOANHTHU_BCDV { get; set; }
+        public Nullable<decimal> DOANHTHULUUTRU_BCDV { get; set; }
+        public Nullable<decimal> DOANHTHUANUONG_BCDV { get; set; }
+        public Nullable<decimal> DOANHTHUGIATUI_BCDV { get; set; }
+        public Nullable<decimal> DOANHTHUDICHUYEN_BCDV { get; set; }
+        public Nullable<System.DateTime> NGAYBATDAU_BCDV { get; set; }
+        public Nullable<System.DateTime> NGAYKETTHUC_BCDV { get; set; }
     }
 }

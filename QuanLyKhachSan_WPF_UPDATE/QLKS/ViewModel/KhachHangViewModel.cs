@@ -32,7 +32,11 @@ namespace QLKS.ViewModel
                     CMND = SelectedItem.CMND_KH;
                 }
             }
-        }
+        }   
+        private ObservableCollection<string> _ListLoaiKH;
+        public ObservableCollection<string> ListLoaiKH { get => _ListLoaiKH; set { _ListLoaiKH = value; OnPropertyChanged(); } }
+        private string _SelectedLoaiKH;
+        public string SelectedLoaiKH { get => _SelectedLoaiKH; set { _SelectedLoaiKH = value; OnPropertyChanged(); } }
         private string _TenKhachHang;
         public string TenKhachHang { get => _TenKhachHang; set { _TenKhachHang = value; OnPropertyChanged(); } }
         private string _SoDienThoai;
@@ -53,6 +57,8 @@ namespace QLKS.ViewModel
         public KhachHangViewModel()
         {
             ListKhachHang = new ObservableCollection<KHACHHANG>(DataProvider.Ins.model.KHACHHANG);
+            string[] loaikhachhangs = new string[] { "Khách vãng lai", "Khách quen", "Khách vip" };
+            ListLoaiKH = new ObservableCollection<string>(loaikhachhangs);
 
             SearchKhachHangCommand = new RelayCommand<Object>((p) => { return true; }, (p) => {
                 if (string.IsNullOrEmpty(SearchKhachHang))
@@ -72,7 +78,7 @@ namespace QLKS.ViewModel
 
             AddCommand = new RelayCommand<Object>((p) =>
             {
-                if (string.IsNullOrEmpty(TenKhachHang) || string.IsNullOrEmpty(CMND))
+                if (string.IsNullOrEmpty(TenKhachHang) || string.IsNullOrEmpty(CMND) || SelectedLoaiKH == null)
                 {
                     MessageBox.Show("Vui lòng nhập đầy đủ thông tin khách hàng muốn thêm!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
                     return false;
@@ -88,7 +94,7 @@ namespace QLKS.ViewModel
                 return true;
             }, (p) =>
             {
-                var khachHang = new KHACHHANG() { HOTEN_KH = TenKhachHang, SODIENTHOAI_KH = SoDienThoai, CMND_KH = CMND };
+                var khachHang = new KHACHHANG() { HOTEN_KH = TenKhachHang, SODIENTHOAI_KH = SoDienThoai, CMND_KH = CMND, TEN_LOAIKH = SelectedLoaiKH };
                 DataProvider.Ins.model.KHACHHANG.Add(khachHang);
                 DataProvider.Ins.model.SaveChanges();
 
@@ -100,7 +106,7 @@ namespace QLKS.ViewModel
 
             DeleteCommand = new RelayCommand<Object>((p) =>
             {
-                if (string.IsNullOrEmpty(TenKhachHang) || string.IsNullOrEmpty(CMND) || SelectedItem == null)
+                if (string.IsNullOrEmpty(TenKhachHang) || string.IsNullOrEmpty(CMND) || SelectedItem == null || SelectedLoaiKH == null)
                 {
                     MessageBox.Show("Vui lòng chọn khách hàng muốn xóa!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
                     return false;
@@ -136,7 +142,7 @@ namespace QLKS.ViewModel
 
             EditCommand = new RelayCommand<Object>((p) =>
             {
-                if (string.IsNullOrEmpty(TenKhachHang) || string.IsNullOrEmpty(CMND) || SelectedItem == null)
+                if (string.IsNullOrEmpty(TenKhachHang) || string.IsNullOrEmpty(CMND) || SelectedItem == null || SelectedLoaiKH == null)
                 {
                     MessageBox.Show("Vui lòng chọn khách hàng muốn sửa!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
                     return false;
@@ -153,6 +159,7 @@ namespace QLKS.ViewModel
                 khachHang.HOTEN_KH = TenKhachHang;
                 khachHang.SODIENTHOAI_KH = SoDienThoai;
                 khachHang.CMND_KH = CMND;
+                khachHang.TEN_LOAIKH = SelectedLoaiKH;
                 DataProvider.Ins.model.SaveChanges();
 
                 MessageBox.Show("Sửa thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);

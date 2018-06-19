@@ -15,6 +15,8 @@ namespace QLKS.ViewModel
     {
         private int _MaHD;
         public int MaHD { get => _MaHD; set { _MaHD = value; OnPropertyChanged(); } }
+        private int _MaPhong;
+        public int MaPhong { get => _MaPhong; set { _MaPhong = value; OnPropertyChanged(); } }
         private ThongTinGiatUi _TTGiatUi;
         public ThongTinGiatUi TTGiatUi { get => _TTGiatUi; set { _TTGiatUi = value; OnPropertyChanged(); } }
         private long _TongTien;
@@ -46,6 +48,7 @@ namespace QLKS.ViewModel
                         //lấy thông tin phòng chọn thuê, nhân viên làm hóa đơn và thời gian làm hóa đơn
                         var hoadonVM = p.DataContext as HoaDonViewModel;
                         MaHD = hoadonVM.MaHD;
+                        MaPhong = hoadonVM.MaPhong;
                         TTGiatUi = hoadonVM.TTGiatUi;
                         TongTien = hoadonVM.TongTienHDGU;
                         //DateTime ThoiGianLapHD = new DateTime(hoadonVM.DateLapHD.Year, hoadonVM.DateLapHD.Month, hoadonVM.DateLapHD.Day,
@@ -54,7 +57,7 @@ namespace QLKS.ViewModel
                         DataProvider.Ins.model.LUOTGIATUI.Add(TTGiatUi.LuotGiatUi);
                         DataProvider.Ins.model.SaveChanges();
                         //Thêm chi tiết hóa đơn giặt ủi
-                        var chitietHDGU = new CHITIET_HDGU() { MA_HD = MaHD, MA_LUOTGU = TTGiatUi.LuotGiatUi.MA_LUOTGU, TRIGIA_CTHDGU = TongTien, THOIGIANLAP_CTHDGU = DateTime.Now };
+                        var chitietHDGU = new CHITIET_HDGU() { MA_HD = MaHD, MA_PHONG = MaPhong, MA_LUOTGU = TTGiatUi.LuotGiatUi.MA_LUOTGU, TRIGIA_CTHDGU = TongTien, THOIGIANLAP_CTHDGU = DateTime.Now };
                         DataProvider.Ins.model.CHITIET_HDGU.Add(chitietHDGU);
                         DataProvider.Ins.model.SaveChanges();
 

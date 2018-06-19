@@ -9,11 +9,10 @@
 
 namespace QLKS.Model
 {
-    using QLKS.ViewModel;
     using System;
     using System.Collections.Generic;
     
-    public partial class HOADON : BaseViewModel
+    public partial class HOADON
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public HOADON()
@@ -23,20 +22,15 @@ namespace QLKS.Model
             this.CHITIET_HDGU = new HashSet<CHITIET_HDGU>();
             this.CHITIET_HDLT = new HashSet<CHITIET_HDLT>();
         }
-
-        private int _MA_HD;
-        public int MA_HD { get => _MA_HD; set { _MA_HD = value; OnPropertyChanged(); } }
-        private int _MA_NV;
-        public int MA_NV { get => _MA_NV; set { _MA_NV = value; OnPropertyChanged(); } }
-        private int _MA_KH;
-        public int MA_KH { get => _MA_KH; set { _MA_KH = value; OnPropertyChanged(); } }
-        private Nullable<System.DateTime> _THOIGIANLAP_HD;
-        public Nullable<System.DateTime> THOIGIANLAP_HD { get => _THOIGIANLAP_HD; set { _THOIGIANLAP_HD = value; OnPropertyChanged(); } }
-        private Nullable<bool> _TINHTRANG_HD;
-        public Nullable<bool> TINHTRANG_HD { get => _TINHTRANG_HD; set { _TINHTRANG_HD = value; OnPropertyChanged(); } }
-        private Nullable<decimal> _TRIGIA_HD;
-        public Nullable<decimal> TRIGIA_HD { get => _TRIGIA_HD; set { _TRIGIA_HD = value; OnPropertyChanged(); } }
-
+    
+        public int MA_HD { get; set; }
+        public int MA_NV { get; set; }
+        public int MA_KH { get; set; }
+        public Nullable<System.DateTime> THOIGIANLAP_HD { get; set; }
+        public Nullable<bool> TINHTRANG_HD { get; set; }
+        public Nullable<decimal> TRIGIA_HD { get; set; }
+        public int MA_KM { get; set; }
+    
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CHITIET_HDAU> CHITIET_HDAU { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -45,7 +39,8 @@ namespace QLKS.Model
         public virtual ICollection<CHITIET_HDGU> CHITIET_HDGU { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CHITIET_HDLT> CHITIET_HDLT { get; set; }
-        public virtual KHACHHANG KHACHHANG { get; set; }
         public virtual NHANVIEN NHANVIEN { get; set; }
+        public virtual KHUYENMAI KHUYENMAI { get; set; }
+        public virtual KHACHHANG KHACHHANG { get; set; }
     }
 }

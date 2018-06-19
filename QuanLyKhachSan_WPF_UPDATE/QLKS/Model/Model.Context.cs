@@ -33,7 +33,6 @@ namespace QLKS.Model
         public virtual DbSet<CHITIET_HDLT> CHITIET_HDLT { get; set; }
         public virtual DbSet<CHUYENDI> CHUYENDI { get; set; }
         public virtual DbSet<HOADON> HOADON { get; set; }
-        public virtual DbSet<KHACHHANG> KHACHHANG { get; set; }
         public virtual DbSet<LOAIGIATUI> LOAIGIATUI { get; set; }
         public virtual DbSet<LOAIPHONG> LOAIPHONG { get; set; }
         public virtual DbSet<LUOTGIATUI> LUOTGIATUI { get; set; }
@@ -41,5 +40,8 @@ namespace QLKS.Model
         public virtual DbSet<NHANVIEN> NHANVIEN { get; set; }
         public virtual DbSet<PHONG> PHONG { get; set; }
         public virtual DbSet<TAIKHOAN> TAIKHOAN { get; set; }
+        public virtual DbSet<KHUYENMAI> KHUYENMAI { get; set; }
+        public virtual DbSet<DATPHONG> DATPHONG { get; set; }
+        public virtual DbSet<KHACHHANG> KHACHHANG { get; set; }
     }
 }

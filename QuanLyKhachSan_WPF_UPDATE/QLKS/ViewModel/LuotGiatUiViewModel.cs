@@ -122,6 +122,7 @@ namespace QLKS.ViewModel
                     return;
                 var hoadonVM = wd.DataContext as HoaDonViewModel;
                 hoadonVM.LoaiHD = (int)HoaDonViewModel.LoaiHoaDon.HoaDonGiatUi;
+                hoadonVM.MaPhong = MaPhong;
                 hoadonVM.HoaDon = hoadonVM.GetHoaDon(MaPhong);
                 hoadonVM.NhanVienLapHD = hoadonVM.GetNhanVien(hoadonVM.HoaDon);
                 hoadonVM.KhachHangThue = hoadonVM.GetKhachHang(hoadonVM.HoaDon);

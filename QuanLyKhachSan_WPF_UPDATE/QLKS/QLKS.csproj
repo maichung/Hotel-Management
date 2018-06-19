@@ -145,10 +145,16 @@
     <Compile Include="Model\CHUYENDI.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Model\DATPHONG.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="Model\HOADON.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\KHACHHANG.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\KHUYENMAI.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\LOAIGIATUI.cs">
@@ -189,6 +195,7 @@
     </Compile>
     <Compile Include="Model\ThongTinBaoCao.cs" />
     <Compile Include="Model\ThongTinChiTietHoaDon.cs" />
+    <Compile Include="Model\ThongTinDatPhong.cs" />
     <Compile Include="Model\ThongTinGiatUi.cs" />
     <Compile Include="Model\ThongTinHoaDon.cs" />
     <Compile Include="Model\ThongTinNhanVien.cs" />
@@ -203,6 +210,7 @@
     <Compile Include="ViewModel\BaoCaoNamViewModel.cs" />
     <Compile Include="ViewModel\BaoCaoThangViewModel.cs" />
     <Compile Include="ViewModel\BaseViewModel.cs" />
+    <Compile Include="ViewModel\ChuongTrinhKhuyenMaiViewModel.cs" />
     <Compile Include="ViewModel\DangNhapViewModel.cs" />
     <Compile Include="ViewModel\DiChuyenViewModel.cs" />
     <Compile Include="ViewModel\HoaDonAnUongViewModel.cs" />

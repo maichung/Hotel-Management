@@ -12,17 +12,17 @@ namespace QLKS.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class CHITIET_HDGU
+    public partial class DATPHONG
     {
-        public int MA_CTHDGU { get; set; }
-        public int MA_HD { get; set; }
-        public int MA_LUOTGU { get; set; }
-        public Nullable<decimal> TRIGIA_CTHDGU { get; set; }
-        public Nullable<System.DateTime> THOIGIANLAP_CTHDGU { get; set; }
+        public int MA_DP { get; set; }
         public int MA_PHONG { get; set; }
+        public int MA_NV { get; set; }
+        public int MA_KH { get; set; }
+        public Nullable<System.DateTime> NGAYBATDAU_DP { get; set; }
+        public Nullable<System.DateTime> NGAYKETTHUC_DP { get; set; }
     
-        public virtual LUOTGIATUI LUOTGIATUI { get; set; }
-        public virtual HOADON HOADON { get; set; }
         public virtual PHONG PHONG { get; set; }
+        public virtual KHACHHANG KHACHHANG { get; set; }
+        public virtual NHANVIEN NHANVIEN { get; set; }
     }
 }

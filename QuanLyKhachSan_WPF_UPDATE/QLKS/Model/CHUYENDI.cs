@@ -9,25 +9,21 @@
 
 namespace QLKS.Model
 {
-    using QLKS.ViewModel;
     using System;
     using System.Collections.Generic;
     
-    public partial class CHUYENDI : BaseViewModel
+    public partial class CHUYENDI
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public CHUYENDI()
         {
             this.CHITIET_HDDC = new HashSet<CHITIET_HDDC>();
         }
-
-        private int _MA_CD;
-        public int MA_CD { get => _MA_CD; set { _MA_CD = value; OnPropertyChanged(); } }
-        private string _DIEMDEN_CD;
-        public string DIEMDEN_CD { get => _DIEMDEN_CD; set { _DIEMDEN_CD = value; OnPropertyChanged(); } }
-        private Nullable<decimal> _DONGIA_CD;
-        public Nullable<decimal> DONGIA_CD { get => _DONGIA_CD; set { _DONGIA_CD = value; OnPropertyChanged(); } }
-
+    
+        public int MA_CD { get; set; }
+        public string DIEMDEN_CD { get; set; }
+        public Nullable<decimal> DONGIA_CD { get; set; }
+    
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CHITIET_HDDC> CHITIET_HDDC { get; set; }
     }

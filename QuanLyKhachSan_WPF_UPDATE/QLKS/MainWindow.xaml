@@ -356,8 +356,11 @@
         </Grid>
 
         <!-- Tiêu đề phần mềm-->
-        <TextBlock Text="PHẦN MỀM QUẢN LÝ KHÁCH SẠN" Margin="30"  VerticalAlignment="Top" HorizontalAlignment="Center" Grid.Column="1" FontSize="26" Foreground="#FF5E6572" FontFamily="Segoe UI Semibold"/>
-
+        <Grid Grid.Column="1">
+            <TextBlock Text="PHẦN MỀM QUẢN LÝ KHÁCH SẠN" Margin="30"  VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="26" Foreground="#FF5E6572" FontFamily="Segoe UI Semibold"/>
+            <TextBlock Text="{Binding ThongBaoKM}" Margin="70"  VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="14" Foreground="Aqua" FontFamily="Segoe UI Semibold"/>
+        </Grid>
+        
         <!-- Nội dung -->
         <Grid Name="gridColumn2" Grid.Column="1">
             <!-- Grid Trang chủ -->
@@ -393,6 +396,14 @@
                             </i:EventTrigger>
                         </i:Interaction.Triggers>
                     </Image>
+                    <GridSplitter IsEnabled="False" Width="1" Margin="10,0,10,0" Background="#FFD6D6D6"></GridSplitter>
+                    <Image Height="25" Width="25" Cursor="Hand" Source="Resources\Icons\btnLamMoi.png" ToolTip="Làm mới">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="MouseLeftButtonDown">
+                                <i:InvokeCommandAction Command="{Binding RefreshCommand}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </Image>
                 </StackPanel>
 
                 <StackPanel Name="groupStatusTrangChu" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,120">
@@ -421,6 +432,10 @@
                                     <DataTrigger Binding="{Binding Phong.TINHTRANG_PHONG}" Value="Đang thuê">
                                         <Setter Property="Background" Value="#A58A72"></Setter>
                                         <Setter Property="Foreground" Value="#DDFFFFFF"></Setter>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Phong.TINHTRANG_PHONG}" Value="Đã đặt trước">
+                                        <Setter Property="Background" Value="WhiteSmoke"></Setter>
+                                        <Setter Property="Foreground" Value="Gold"></Setter>
                                     </DataTrigger>
                                     <EventTrigger RoutedEvent="Click">
                                         <EventTrigger.Actions>
@@ -635,7 +650,7 @@
                             </Style>
                             <Style x:Key="dtPicker" TargetType="DatePicker" BasedOn="{StaticResource MaterialDesignFloatingHintDatePicker}">
                                 <Style.Triggers>
-                                    <DataTrigger Binding="{Binding ElementName=cboxLoaiGiatUi, Path=SelectedItem.TEN_LOAIGU}" Value="Theo kilogram">
+                                    <DataTrigger Binding="{Binding ElementName=cboxLoaiGiatUi, Path=SelectedItem.TEN_LOAIGU}" Value="Theo kilogam">
                                         <Setter Property="IsEnabled" Value="False"></Setter>
                                     </DataTrigger>
                                 </Style.Triggers>
@@ -951,6 +966,7 @@
                                             <TextBox Margin="0,0,0,10"  Height="37" materialDesign:HintAssist.Hint="Họ tên" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding TenKhachHang, UpdateSourceTrigger=PropertyChanged}" VerticalContentAlignment="Center"></TextBox>
                                             <TextBox Margin="0,0,0,10"  Height="37" materialDesign:HintAssist.Hint="Số điện thoại" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding SoDienThoai, UpdateSourceTrigger=PropertyChanged}" MaxLength="14" VerticalContentAlignment="Center"></TextBox>
                                             <TextBox Margin="0,0,0,10"  Height="37" materialDesign:HintAssist.Hint="Số CMND" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding CMND, UpdateSourceTrigger=PropertyChanged}" MaxLength="11" VerticalContentAlignment="Center"></TextBox>
+                                            <ComboBox Margin="0,0,0,10"  Height="40" materialDesign:HintAssist.Hint="Loại khách hàng" Style="{StaticResource MaterialDesignFloatingHintComboBox}" ItemsSource="{Binding ListLoaiKH}" SelectedItem="{Binding SelectedLoaiKH, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalContentAlignment="Center" IsEditable="True"></ComboBox>
                                         </StackPanel>
                                     </GroupBox>  
                                 </Grid>
@@ -1262,22 +1278,6 @@
                         <TabItem Header="Loại giặt ủi" DataContext="{StaticResource LoaiGiatUiVM}">
                             <Grid>
                                 <StackPanel Margin="10,10" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top" >
-                                    <!--<Image Height="25" Width="25" Cursor="Hand" Source="Resources\Icons\btnThem.png" ToolTip="Thêm">
-                                        <i:Interaction.Triggers>
-                                            <i:EventTrigger EventName="MouseLeftButtonDown">
-                                                <i:InvokeCommandAction Command="{Binding AddCommand}"/>
-                                            </i:EventTrigger>
-                                        </i:Interaction.Triggers>
-                                    </Image>
-                                    <GridSplitter IsEnabled="False" Width="1" Margin="10,0,10,0" Background="#FFD6D6D6"></GridSplitter>
-                                    <Image Height="25" Width="25" Cursor="Hand" Source="Resources\Icons\btnXoa.png" ToolTip="Xóa">
-                                        <i:Interaction.Triggers>
-                                            <i:EventTrigger EventName="MouseLeftButtonDown">
-                                                <i:InvokeCommandAction Command="{Binding DeleteCommand}"/>
-                                            </i:EventTrigger>
-                                        </i:Interaction.Triggers>
-                                    </Image>
-                                    <GridSplitter IsEnabled="False" Width="1" Margin="10,0,10,0" Background="#FFD6D6D6"></GridSplitter>-->
                                     <Image Height="25" Width="25" Cursor="Hand" Source="Resources\Icons\btnSua.png" ToolTip="Sửa">
                                         <i:Interaction.Triggers>
                                             <i:EventTrigger EventName="MouseLeftButtonDown">
@@ -1418,9 +1418,96 @@
                                             <TextBox Margin="0,0,0,10"  Height="37" materialDesign:HintAssist.Hint="Điểm đến" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding DiemDen, UpdateSourceTrigger=PropertyChanged}" VerticalContentAlignment="Center"></TextBox>
                                             <TextBox Margin="0,0,0,10"  Height="37" materialDesign:HintAssist.Hint="Đơn giá" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding DonGia, StringFormat='N0', UpdateSourceTrigger=PropertyChanged}" VerticalContentAlignment="Center"></TextBox>
                                         </StackPanel>
-                                    </GroupBox>
-                                   
+                                    </GroupBox>                                
+                                </Grid>
+                            </Grid>
+                        </TabItem>
+                        <TabItem Header="Chương trình khuyến mãi" DataContext="{StaticResource ChuongTrinhKhuyenMaiVM}">
+                            <Grid>
+                                <StackPanel Margin="10,10" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top" >
+                                    <Image Height="25" Width="25" Cursor="Hand" Source="Resources\Icons\btnThem.png" ToolTip="Thêm">
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="MouseLeftButtonDown">
+                                                <i:InvokeCommandAction Command="{Binding AddCommand}"/>
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                    </Image>
+                                    <GridSplitter IsEnabled="False" Width="1" Margin="10,0,10,0" Background="#FFD6D6D6"></GridSplitter>
+                                    <Image Height="25" Width="25" Cursor="Hand" Source="Resources\Icons\btnXoa.png" ToolTip="Xóa">
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="MouseLeftButtonDown">
+                                                <i:InvokeCommandAction Command="{Binding DeleteCommand}"/>
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                    </Image>
+                                    <GridSplitter IsEnabled="False" Width="1" Margin="10,0,10,0" Background="#FFD6D6D6"></GridSplitter>
+                                    <Image Height="25" Width="25" Cursor="Hand" Source="Resources\Icons\btnSua.png" ToolTip="Sửa">
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="MouseLeftButtonDown">
+                                                <i:InvokeCommandAction Command="{Binding EditCommand}"/>
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                    </Image>
+                                    <GridSplitter IsEnabled="False" Width="1" Margin="10,0,10,0" Background="#FFD6D6D6"></GridSplitter>
+                                    <Image Height="25" Width="25" Cursor="Hand" Source="Resources\Icons\btnLamMoi.png" ToolTip="Làm mới">
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="MouseLeftButtonDown">
+                                                <i:InvokeCommandAction Command="{Binding RefreshCommand}"/>
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                    </Image>
+                                </StackPanel>
 
+                                <StackPanel Margin="10,10" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" >
+                                    <TextBox materialDesign:HintAssist.Hint="Tìm kiếm" Height="25" Width="250" VerticalContentAlignment="Center" 
+                                             Text="{Binding SearchKhuyenMai, UpdateSourceTrigger=PropertyChanged}">
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="TextChanged">
+                                                <i:InvokeCommandAction Command="{Binding SearchKhuyenMaiCommand}"/>
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                    </TextBox>
+                                    <Image Height="25" Width="25" Margin="10,0,0,0" Cursor="Hand" Source="Resources\Icons\btnTim.png" ToolTip="Tìm"></Image>
+                                </StackPanel>
+
+                                <Grid Margin="0,50,0,0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="2*"></ColumnDefinition>
+                                        <ColumnDefinition></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <GroupBox Grid.Column="0" Margin="10,0,10,10" materialDesign:ColorZoneAssist.Mode="Light" Header="DANH SÁCH CHUYẾN ĐI">
+                                        <ListView 
+                                              ItemsSource="{Binding ListCTKhuyenMai}"
+                                              SelectedItem="{Binding SelectedItem, Mode=OneWayToSource}">
+                                            <ListView.View>
+                                                <GridView>
+                                                    <GridViewColumn DisplayMemberBinding="{Binding MA_KM}">
+                                                        <GridViewColumnHeader Tag="MA_KM" Command="{Binding SortKhuyenMaiCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" VerticalAlignment="Center" HorizontalAlignment="Center">ID</GridViewColumnHeader>
+                                                    </GridViewColumn>
+                                                    <GridViewColumn DisplayMemberBinding="{Binding TEN_KM}">
+                                                        <GridViewColumnHeader Tag="TEN_KM" Command="{Binding SortKhuyenMaiCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" VerticalAlignment="Center" HorizontalAlignment="Center">Chương trình khuyến mãi</GridViewColumnHeader>
+                                                    </GridViewColumn>
+                                                    <GridViewColumn DisplayMemberBinding="{Binding NGAYBATDAU_KM, StringFormat='dd/MM/yyyy'}">
+                                                        <GridViewColumnHeader Tag="NGAYBATDAU_KM" Command="{Binding SortKhuyenMaiCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" VerticalAlignment="Center" HorizontalAlignment="Center">Ngày bắt đầu</GridViewColumnHeader>
+                                                    </GridViewColumn>
+                                                    <GridViewColumn DisplayMemberBinding="{Binding NGAYKETTHUC_KM, StringFormat='dd/MM/yyyy'}">
+                                                        <GridViewColumnHeader Tag="NGAYKETTHUC_KM" Command="{Binding SortKhuyenMaiCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" VerticalAlignment="Center" HorizontalAlignment="Center">Ngày kết thúc</GridViewColumnHeader>
+                                                    </GridViewColumn>
+                                                    <GridViewColumn DisplayMemberBinding="{Binding TILE_KM}">
+                                                        <GridViewColumnHeader Tag="TILE_KM" Command="{Binding SortKhuyenMaiCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}" VerticalAlignment="Center" HorizontalAlignment="Center">Giảm giá (DV: %)</GridViewColumnHeader>
+                                                    </GridViewColumn>
+                                                </GridView>
+                                            </ListView.View>
+                                        </ListView>
+                                    </GroupBox>
+                                    <GroupBox materialDesign:ColorZoneAssist.Mode="Light" Header="THÔNG TIN CHUYẾN ĐI" Grid.Column="1" Margin="10,0,10,10">
+                                        <StackPanel >
+                                            <TextBox Margin="0,0,0,10"  Height="37" materialDesign:HintAssist.Hint="Chương trình khuyến mãi" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding TenKM, UpdateSourceTrigger=PropertyChanged}" VerticalContentAlignment="Center"></TextBox>
+                                            <DatePicker Margin="0,0,0,10" Height="37" materialDesign:HintAssist.Hint="Ngày bắt đầu" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" SelectedDate="{Binding NgayBatDauKM, UpdateSourceTrigger=PropertyChanged}" VerticalContentAlignment="Center"></DatePicker>
+                                            <DatePicker Margin="0,0,0,10" Height="37" materialDesign:HintAssist.Hint="Ngày kết thúc" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" SelectedDate="{Binding NgayKetThucKM, UpdateSourceTrigger=PropertyChanged}" VerticalContentAlignment="Center"></DatePicker>
+                                            <TextBox Margin="0,0,0,10"  Height="37" materialDesign:HintAssist.Hint="Giảm giá (DV: %)" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding TiLeKM, UpdateSourceTrigger=PropertyChanged}" VerticalContentAlignment="Center"></TextBox>
+                                        </StackPanel>
+                                    </GroupBox>
                                 </Grid>
                             </Grid>
                         </TabItem>

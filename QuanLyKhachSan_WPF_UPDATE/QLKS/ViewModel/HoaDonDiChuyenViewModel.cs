@@ -13,6 +13,8 @@ namespace QLKS.ViewModel
     {
         private int _MaHD;
         public int MaHD { get => _MaHD; set { _MaHD = value; OnPropertyChanged(); } }
+        private int _MaPhong;
+        public int MaPhong { get => _MaPhong; set { _MaPhong = value; OnPropertyChanged(); } }
         private CHUYENDI _ChuyenDi;
         public CHUYENDI ChuyenDi { get => _ChuyenDi; set { _ChuyenDi = value; OnPropertyChanged(); } }
 
@@ -38,11 +40,12 @@ namespace QLKS.ViewModel
                 //lấy thông tin phòng chọn thuê, nhân viên làm hóa đơn và thời gian làm hóa đơn
                 var hoadonVM = p.DataContext as HoaDonViewModel;
                 MaHD = hoadonVM.MaHD;
-                ChuyenDi = hoadonVM.ChuyenDi;
+                MaPhong = hoadonVM.MaPhong;
+                ChuyenDi = hoadonVM.ChuyenDi;                
                 //DateTime ThoiGianLapHD = new DateTime(hoadonVM.DateLapHD.Year, hoadonVM.DateLapHD.Month, hoadonVM.DateLapHD.Day,
                 //                                      hoadonVM.TimeLapHD.Hour, hoadonVM.TimeLapHD.Minute, hoadonVM.TimeLapHD.Second);
                 //Thêm chi tiết hóa đơn giặt ủi
-                var chitietHDDC = new CHITIET_HDDC() { MA_HD = MaHD, MA_CD = ChuyenDi.MA_CD, TRIGIA_CTHDDC = ChuyenDi.DONGIA_CD, THOIGIANLAP_CTHDDC = DateTime.Now };
+                var chitietHDDC = new CHITIET_HDDC() { MA_HD = MaHD, MA_PHONG = MaPhong, MA_CD = ChuyenDi.MA_CD, TRIGIA_CTHDDC = ChuyenDi.DONGIA_CD, THOIGIANLAP_CTHDDC = DateTime.Now };
                 DataProvider.Ins.model.CHITIET_HDDC.Add(chitietHDDC);
                 DataProvider.Ins.model.SaveChanges();
 

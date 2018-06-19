@@ -8,6 +8,7 @@ namespace QLKS.Model
 {
     public class ThongTinChiTietHoaDon
     {
+        public string MaPhong { get; set; }
         public string LoaiHoaDon { get; set; }
         public string NoiDungHD { get; set; }
         public int DonGia { get; set; }

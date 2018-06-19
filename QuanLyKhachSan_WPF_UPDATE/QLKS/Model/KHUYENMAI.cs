@@ -12,19 +12,21 @@ namespace QLKS.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class LOAIPHONG
+    public partial class KHUYENMAI
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public LOAIPHONG()
+        public KHUYENMAI()
         {
-            this.PHONG = new HashSet<PHONG>();
+            this.HOADON = new HashSet<HOADON>();
         }
     
-        public int MA_LP { get; set; }
-        public string TEN_LP { get; set; }
-        public Nullable<decimal> DONGIA_LP { get; set; }
+        public int MA_KM { get; set; }
+        public string TEN_KM { get; set; }
+        public Nullable<System.DateTime> NGAYBATDAU_KM { get; set; }
+        public Nullable<System.DateTime> NGAYKETTHUC_KM { get; set; }
+        public Nullable<int> TILE_KM { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PHONG> PHONG { get; set; }
+        public virtual ICollection<HOADON> HOADON { get; set; }
     }
 }

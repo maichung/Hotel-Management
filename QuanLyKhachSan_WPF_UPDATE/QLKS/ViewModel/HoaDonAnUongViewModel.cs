@@ -14,6 +14,8 @@ namespace QLKS.ViewModel
     {
         private int _MaHD;
         public int MaHD { get => _MaHD; set { _MaHD = value; OnPropertyChanged(); } }
+        private int _MaPhong;
+        public int MaPhong { get => _MaPhong; set { _MaPhong = value; OnPropertyChanged(); } }
         private string _LoaiPhucVu;
         public string LoaiPhucVu { get => _LoaiPhucVu; set { _LoaiPhucVu = value; OnPropertyChanged(); } }
         private long _TongTien;
@@ -43,13 +45,14 @@ namespace QLKS.ViewModel
                 //lấy thông tin phòng chọn thuê và nhân viên làm hóa đơn
                 var hoadonVM = p.DataContext as HoaDonViewModel;
                 MaHD = hoadonVM.MaHD;
+                MaPhong = hoadonVM.MaPhong;
                 ListOrder = hoadonVM.ListOrder;
                 //DateTime ThoiGianLapHD = new DateTime(hoadonVM.DateLapHD.Year, hoadonVM.DateLapHD.Month, hoadonVM.DateLapHD.Day,
                 //                                      hoadonVM.TimeLapHD.Hour, hoadonVM.TimeLapHD.Minute, hoadonVM.TimeLapHD.Second);
                 //Tạo chi tiết hóa đơn lưu trú
                 foreach (ThongTinOrder item in ListOrder)
                 {
-                    var chitietHDAU = new CHITIET_HDAU() { MA_HD = MaHD, MA_MH = item.MatHang.MA_MH, SOLUONG_MH = item.SoLuong, TRIGIA_CTHDAU = item.ThanhTien, THOIGIANLAP_CTHDAU = DateTime.Now };
+                    var chitietHDAU = new CHITIET_HDAU() { MA_HD = MaHD, MA_PHONG = MaPhong, MA_MH = item.MatHang.MA_MH, SOLUONG_MH = item.SoLuong, TRIGIA_CTHDAU = item.ThanhTien, THOIGIANLAP_CTHDAU = DateTime.Now };
                     DataProvider.Ins.model.CHITIET_HDAU.Add(chitietHDAU);
                 }
                 DataProvider.Ins.model.SaveChanges();

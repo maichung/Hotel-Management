@@ -12,6 +12,7 @@
     <viewmodel:DangNhapViewModel x:Key="DangNhapVM"></viewmodel:DangNhapViewModel>
     <viewmodel:LuotGiatUiViewModel x:Key="LuotGiatUiVM"></viewmodel:LuotGiatUiViewModel>
     <viewmodel:DiChuyenViewModel x:Key="DiChuyenVM"></viewmodel:DiChuyenViewModel>
+    <viewmodel:ChuongTrinhKhuyenMaiViewModel x:Key="ChuongTrinhKhuyenMaiVM"></viewmodel:ChuongTrinhKhuyenMaiViewModel>
     <viewmodel:BaoCaoDichVuViewModel x:Key="BaoCaoDichVuVM"></viewmodel:BaoCaoDichVuViewModel>
     <viewmodel:BaoCaoNamViewModel x:Key="BaoCaoNamVM"></viewmodel:BaoCaoNamViewModel>
     <viewmodel:BaoCaoThangViewModel x:Key="BaoCaoThangVM"></viewmodel:BaoCaoThangViewModel>

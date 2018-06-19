@@ -29,13 +29,25 @@ namespace QLKS.ViewModel
         public int SoPhongTrong { get => _SoPhongTrong; set { _SoPhongTrong = value; OnPropertyChanged(); } }
         private int _SoPhongDangThue;
         public int SoPhongDangThue { get => _SoPhongDangThue; set { _SoPhongDangThue = value; OnPropertyChanged(); } }
+        private string _MaPhongChonThue;
+        public string MaPhongChonThue { get => _MaPhongChonThue; set { _MaPhongChonThue = value; OnPropertyChanged(); } }
 
         private NHANVIEN _NhanVien;
         public NHANVIEN NhanVien { get => _NhanVien; set { _NhanVien = value; OnPropertyChanged(); } }
         private KHACHHANG _KhachHangThue;
         public KHACHHANG KhachHangThue { get => _KhachHangThue; set { _KhachHangThue = value; OnPropertyChanged(); } }
-        private int _MaPhongChonThue;
-        public int MaPhongChonThue { get => _MaPhongChonThue; set { _MaPhongChonThue = value; OnPropertyChanged(); } }
+
+        private ObservableCollection<KHUYENMAI> _LisCTtKhuyenMai;
+        public ObservableCollection<KHUYENMAI> ListCTKhuyenMai { get => _LisCTtKhuyenMai; set { _LisCTtKhuyenMai = value; OnPropertyChanged(); } }
+        private KHUYENMAI _CTKhuyenMai;
+        public KHUYENMAI CTKhuyenMai { get => _CTKhuyenMai; set { _CTKhuyenMai = value; OnPropertyChanged(); } }
+        private string _ThongBaoKM;
+        public string ThongBaoKM { get => _ThongBaoKM; set { _ThongBaoKM = value; OnPropertyChanged(); } }
+        private ObservableCollection<int> _DSMaPhongChonThue;
+        public ObservableCollection<int> DSMaPhongChonThue { get => _DSMaPhongChonThue; set { _DSMaPhongChonThue = value; OnPropertyChanged(); } }
+
+        private ObservableCollection<ThongTinDatPhong> _ListThongTinDatPhong;
+        public ObservableCollection<ThongTinDatPhong> ListThongTinDatPhong { get => _ListThongTinDatPhong; set { _ListThongTinDatPhong = value; OnPropertyChanged(); } }
 
         public ICommand btnTrangChuCommand { get; set; }
         public ICommand btnDVAnUongCommand { get; set; }
@@ -54,11 +66,15 @@ namespace QLKS.ViewModel
         public ICommand ChonPhongCommand { get; set; }
         public ICommand ThuePhongCommand { get; set; }
         public ICommand ShowHDTongCommand { get; set; }
+        public ICommand RefreshCommand { get; set; }        
 
         public MainViewModel()
         {
+            ListCTKhuyenMai = new ObservableCollection<KHUYENMAI>(DataProvider.Ins.model.KHUYENMAI);
+            MaPhongChonThue = "";
+
             #region Xử lý ản hiện view
-            btnTrangChuCommand = new RelayCommand<Object>((p) => { return true; }, (p) => { ChucNangKS = (int)ChucNangKhachSan.TrangChu; MaPhongChonThue = 0; });
+            btnTrangChuCommand = new RelayCommand<Object>((p) => { return true; }, (p) => { ChucNangKS = (int)ChucNangKhachSan.TrangChu; DSMaPhongChonThue.Clear(); MaPhongChonThue = ""; });
             btnDVAnUongCommand = new RelayCommand<Grid>((p) => 
             {
                 if(p == null || p.DataContext == null)
@@ -70,7 +86,8 @@ namespace QLKS.ViewModel
                 ChucNangKS = (int)ChucNangKhachSan.DichVuAnUong;
                 var mathangVM = p.DataContext as MatHangViewModel;
                 mathangVM.GetTTPhongDangThue();
-                MaPhongChonThue = 0;
+                DSMaPhongChonThue.Clear();
+                MaPhongChonThue = "";
             });            
             btnDVGiatUiCommand = new RelayCommand<Grid>((p) => 
             {
@@ -83,7 +100,8 @@ namespace QLKS.ViewModel
                 ChucNangKS = (int)ChucNangKhachSan.DichVuGiatUi;
                 var giatuiVM = p.DataContext as LuotGiatUiViewModel;
                 giatuiVM.GetTTPhongDangThue();
-                MaPhongChonThue = 0;
+                DSMaPhongChonThue.Clear();
+                MaPhongChonThue = "";
             });
             btnDVDiChuyenCommand = new RelayCommand<Grid>((p) => 
             {
@@ -96,10 +114,11 @@ namespace QLKS.ViewModel
                 ChucNangKS = (int)ChucNangKhachSan.DichVuDiChuyen;
                 var dichuyenVM = p.DataContext as DiChuyenViewModel;
                 dichuyenVM.GetTTPhongDangThue();
-                MaPhongChonThue = 0;
+                DSMaPhongChonThue.Clear();
+                MaPhongChonThue = "";
             });
-            btnTraCuuCommand = new RelayCommand<Object>((p) => { return true; }, (p) => { ChucNangKS = (int)ChucNangKhachSan.TraCuu; MaPhongChonThue = 0; });
-            btnBaoCaoCommand = new RelayCommand<Object>((p) => { return true; }, (p) => { ChucNangKS = (int)ChucNangKhachSan.BaoCao; MaPhongChonThue = 0; });
+            btnTraCuuCommand = new RelayCommand<Object>((p) => { return true; }, (p) => { ChucNangKS = (int)ChucNangKhachSan.TraCuu; DSMaPhongChonThue.Clear(); MaPhongChonThue = ""; });
+            btnBaoCaoCommand = new RelayCommand<Object>((p) => { return true; }, (p) => { ChucNangKS = (int)ChucNangKhachSan.BaoCao; DSMaPhongChonThue.Clear(); MaPhongChonThue = ""; });
             #endregion
 
             #region Xử lý Load trang chủ
@@ -107,10 +126,35 @@ namespace QLKS.ViewModel
               {
                   p.Show();
                   LoadTTPhong();
+                  RefreshTTP();
 
                   TongSoPhong = ListTTPhong.Count();
                   SoPhongTrong = ListTTPhong.Where(x => x.Phong.TINHTRANG_PHONG == "Trống").Count();
                   SoPhongDangThue = ListTTPhong.Where(x => x.Phong.TINHTRANG_PHONG == "Đang thuê").Count();
+                  //Xử lý lấy khuyến mãi cao nhất
+                  ObservableCollection<KHUYENMAI> listKMCungNgay = new ObservableCollection<KHUYENMAI>();
+                  foreach (KHUYENMAI item in ListCTKhuyenMai)
+                  {
+                      
+                      if (item.NGAYBATDAU_KM != null && item.NGAYKETTHUC_KM != null)
+                      {
+                          DateTime end = (DateTime)item.NGAYKETTHUC_KM;
+                          if (item.NGAYBATDAU_KM < DateTime.Now && end.AddDays(1) > DateTime.Now)
+                          {
+                              listKMCungNgay.Add(item);
+                          }
+                      }
+                  }
+
+                  CTKhuyenMai = GetKM_TiLeMax(listKMCungNgay);
+                  if (CTKhuyenMai == null)
+                  {
+                      ThongBaoKM = "Không có chương trình khuyến mãi tại thời điểm hiện tại!";
+                  }
+                  else
+                  {
+                      ThongBaoKM = CTKhuyenMai.TEN_KM + " - Khách sạn khuyến mãi " + CTKhuyenMai.TILE_KM + "% cho tổng trị giá của hóa đơn!";
+                  }
               });
 
             DangXuatCommand = new RelayCommand<Window>((p) => { return true; }, (p) =>
@@ -141,30 +185,39 @@ namespace QLKS.ViewModel
             });
             #endregion
 
-            MaPhongChonThue = 0;
+            DSMaPhongChonThue = new ObservableCollection<int>();
 
             ChonPhongCommand = new RelayCommand<Button>((p) => { return p == null ? false : true; }, (p) =>
-            {
-                MaPhongChonThue = Int32.Parse(p.Tag.ToString());
-                //Color color = (Color)ColorConverter.ConvertFromString("#5E6572");
-                //p.Background = new SolidColorBrush(color);
-                //p.Foreground = Brushes.White;
+            {                            
+                if (DSMaPhongChonThue.Count != 0)
+                {
+                    foreach (int item in DSMaPhongChonThue)
+                    {
+                        if (p.Tag.ToString() == item.ToString())
+                            return;                            
+                    }
+                }
+                MaPhongChonThue += p.Tag.ToString() + " ";
+                DSMaPhongChonThue.Add(Int32.Parse(p.Tag.ToString()));
             });
 
             ThuePhongCommand = new RelayCommand<Button>((p) => 
             {
-                if (MaPhongChonThue == 0)
+                if (DSMaPhongChonThue == null || DSMaPhongChonThue.Count() == 0)
                 {
                     MessageBox.Show("Vui lòng chọn phòng cần thuê!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
                     return false;
                 }
 
-                var phong = DataProvider.Ins.model.PHONG.Where(x => x.MA_PHONG == MaPhongChonThue).SingleOrDefault();
-                if (phong == null || phong.TINHTRANG_PHONG != "Trống")
+                foreach (int item in DSMaPhongChonThue)
                 {
-                    MessageBox.Show("Phòng đã cho thuê, vui lòng chọn phòng khác!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
-                    return false;
-                }
+                    var phong = DataProvider.Ins.model.PHONG.Where(x => x.MA_PHONG == item).SingleOrDefault();
+                    if (phong == null || phong.TINHTRANG_PHONG == "Đang thuê")
+                    {
+                        MessageBox.Show("Phòng đang được thuê, vui lòng chọn phòng khác!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
+                        return false;
+                    }
+                }                
 
                 return true;
             }, (p) =>
@@ -174,31 +227,39 @@ namespace QLKS.ViewModel
                     return;
                 var hoadonVM = hd.DataContext as HoaDonViewModel;
                 hoadonVM.LoaiHD = (int)HoaDonViewModel.LoaiHoaDon.HoaDonLuuTru;
-                //hoadonVM.HoaDon = hoadonVM.GetHoaDon(MaPhongChonThue);
                 hoadonVM.NhanVienLapHD = NhanVien;
-                //if (hoadonVM.GetKhachHang(hoadonVM.HoaDon) != null)
-                //{
-                //    hoadonVM.KhachHangThue = hoadonVM.GetKhachHang(hoadonVM.HoaDon);
-                //    hoadonVM.CMND_KH = hoadonVM.KhachHangThue.CMND_KH;
-                //}
-                hoadonVM.MaPhong = MaPhongChonThue;
-                hoadonVM.GetThongTinPhongThue(MaPhongChonThue);
+                DATPHONG dp = hoadonVM.GetDatPhong(GetMaPhong(DSMaPhongChonThue));
+                if (dp != null)
+                {
+                    hoadonVM.KhachHangThue = hoadonVM.GetKhachHang(dp);
+                    hoadonVM.CMND_KH = hoadonVM.KhachHangThue.CMND_KH;
+                }                    
+
+                hoadonVM.ListCTKhuyenMai = ListCTKhuyenMai;
+                if (CTKhuyenMai != null)
+                    hoadonVM.CTKhuyenMai = CTKhuyenMai;
+                hoadonVM.DSMaPhongChonThue = DSMaPhongChonThue;
+                hoadonVM.GetDSThongTinPhongThue(DSMaPhongChonThue);
+                hoadonVM.ListThongTinDatPhong = GetTTDatPhong(DSMaPhongChonThue);
                 hd.ShowDialog();
             });
 
             ShowHDTongCommand = new RelayCommand<Object>((p) =>
             {
-                if (MaPhongChonThue == 0)
+                if (DSMaPhongChonThue == null || DSMaPhongChonThue.Count() == 0 || DSMaPhongChonThue.Count > 1)
                 {
-                    MessageBox.Show("Vui lòng chọn phòng muốn thanh toán!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    MessageBox.Show("Vui lòng chọn 1 phòng muốn thanh toán!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
                     return false;
                 }
 
-                var phong = DataProvider.Ins.model.PHONG.Where(x => x.MA_PHONG == MaPhongChonThue).SingleOrDefault();
-                if (phong != null && phong.TINHTRANG_PHONG == "Đang thuê")
-                    return true;
+                foreach (int item in DSMaPhongChonThue)
+                {
+                    var phong = DataProvider.Ins.model.PHONG.Where(x => x.MA_PHONG == item).SingleOrDefault();
+                    if (phong != null && phong.TINHTRANG_PHONG == "Đang thuê")
+                        return true;
+                }
 
-                MessageBox.Show("Phòng đang trống không thể thanh toán!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show("Phòng chưa được thuê không thể thanh toán!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return false;
             }, (p) =>
             {
@@ -207,11 +268,24 @@ namespace QLKS.ViewModel
                     return;
                 var hoadonVM = wd.DataContext as HoaDonViewModel;
                 hoadonVM.LoaiHD = (int)HoaDonViewModel.LoaiHoaDon.HoaDonTong;
-                hoadonVM.HoaDon = hoadonVM.GetHoaDon(MaPhongChonThue);
+                hoadonVM.HoaDon = hoadonVM.GetHoaDon(GetMaPhong(DSMaPhongChonThue));
                 hoadonVM.NhanVienLapHD = hoadonVM.GetNhanVien(hoadonVM.HoaDon);
                 hoadonVM.KhachHangThue = hoadonVM.GetKhachHang(hoadonVM.HoaDon);
-                hoadonVM.GetThongTinPhongThue(MaPhongChonThue);
+                hoadonVM.CMND_KH = hoadonVM.KhachHangThue.CMND_KH;
+
+                hoadonVM.ListCTKhuyenMai = ListCTKhuyenMai;
+                if (CTKhuyenMai != null)
+                    hoadonVM.CTKhuyenMai = CTKhuyenMai;
+                hoadonVM.ThongBaoKM = ThongBaoKM;
+                hoadonVM.GetDSThongTinPhongThue(DSMaPhongChonThue);
                 wd.ShowDialog();
+            });
+
+            RefreshCommand = new RelayCommand<Object>((p) => { return true; }, (p) =>
+            {
+                DSMaPhongChonThue.Clear();
+                MaPhongChonThue = "";
+                RefreshTTP();
             });
         }
 
@@ -252,6 +326,88 @@ namespace QLKS.ViewModel
                 ListTTPhong.Add(item);
             }
             return ListTTPhong;
-        }        
+        }
+        
+        int GetMaPhong(ObservableCollection<int> dsmaphong)
+        {
+            foreach (int item in dsmaphong)
+            {
+                return item;
+            }
+
+            return 0;
+        }
+
+        KHUYENMAI GetKM_TiLeMax(ObservableCollection<KHUYENMAI> ds)
+        {
+            if (ds.Count() == 0 || ds == null)
+                return null;
+            
+            int max = (int)ds.Max(m => m.TILE_KM);
+            foreach (KHUYENMAI item in ds)
+            {
+                if (item.TILE_KM == max)
+                    return item;
+            }
+
+            return null;
+        }
+
+        ObservableCollection<ThongTinDatPhong> GetTTDatPhong(ObservableCollection<int> dsmaphong)
+        {
+            if(dsmaphong == null || dsmaphong.Count() == 0)
+                return null;
+
+            ListThongTinDatPhong = new ObservableCollection<ThongTinDatPhong>();
+            foreach (int maphong in dsmaphong)
+            {
+                var listTTDatPhong = from dp in DataProvider.Ins.model.DATPHONG
+                                     join p in DataProvider.Ins.model.PHONG
+                                     on dp.MA_PHONG equals p.MA_PHONG
+                                     join nv in DataProvider.Ins.model.NHANVIEN
+                                     on dp.MA_NV equals nv.MA_NV
+                                     join kh in DataProvider.Ins.model.KHACHHANG
+                                     on dp.MA_KH equals kh.MA_KH
+                                     where dp.MA_PHONG == maphong && dp.NGAYBATDAU_DP > DateTime.Now
+                                     select new ThongTinDatPhong()
+                                     {
+                                         MaPhong = maphong,
+                                         TenNV = nv.HOTEN_NV,
+                                         TenKH = kh.HOTEN_KH,
+                                         NgayDatPhong = (DateTime)dp.NGAYBATDAU_DP,
+                                         NgayTraPhong = (DateTime)dp.NGAYKETTHUC_DP
+                                     };
+                foreach (ThongTinDatPhong item in listTTDatPhong)
+                {
+                    ListThongTinDatPhong.Add(item);
+                }
+            }           
+
+            return ListThongTinDatPhong;
+        }
+
+        void RefreshTTP()
+        {
+            var listdp = DataProvider.Ins.model.DATPHONG.ToList();
+            foreach (DATPHONG item in listdp)
+            {
+                if (DateTime.Now.AddDays(1) > item.NGAYBATDAU_DP)
+                {
+                    var phong = DataProvider.Ins.model.PHONG.Where(x => x.MA_PHONG == item.MA_PHONG).SingleOrDefault();
+                    if(phong.TINHTRANG_PHONG == "Trống")
+                    {
+                        phong.TINHTRANG_PHONG = "Đã đặt trước";
+                        DataProvider.Ins.model.SaveChanges();
+                    }                    
+                }
+
+                if(DateTime.Now > item.NGAYBATDAU_DP)
+                {
+                    var phong = DataProvider.Ins.model.PHONG.Where(x => x.MA_PHONG == item.MA_PHONG && x.TINHTRANG_PHONG == "Đã đặt trước").SingleOrDefault();
+                    phong.TINHTRANG_PHONG = "Trống";
+                    DataProvider.Ins.model.SaveChanges();
+                }
+            }
+        }
     }
 }

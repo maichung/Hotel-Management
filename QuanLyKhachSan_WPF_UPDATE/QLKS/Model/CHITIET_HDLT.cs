@@ -9,25 +9,18 @@
 
 namespace QLKS.Model
 {
-    using QLKS.ViewModel;
     using System;
     using System.Collections.Generic;
     
-    public partial class CHITIET_HDLT : BaseViewModel
+    public partial class CHITIET_HDLT
     {
-        private int _MA_CTHDLT;
-        public int MA_CTHDLT { get => _MA_CTHDLT; set { _MA_CTHDLT = value; OnPropertyChanged(); } }
-        private int _MA_HD;
-        public int MA_HD { get => _MA_HD; set { _MA_HD = value; OnPropertyChanged(); } }
-        private int _MA_PHONG;
-        public int MA_PHONG { get => _MA_PHONG; set { _MA_PHONG = value; OnPropertyChanged(); } }
-        private Nullable<System.DateTime> _THOIGIANNHAN_PHONG;
-        public Nullable<System.DateTime> THOIGIANNHAN_PHONG { get => _THOIGIANNHAN_PHONG; set { _THOIGIANNHAN_PHONG = value; OnPropertyChanged(); } }
-        private Nullable<System.DateTime> _THOIGIANTRA_PHONG;
-        public Nullable<System.DateTime> THOIGIANTRA_PHONG { get => _THOIGIANTRA_PHONG; set { _THOIGIANTRA_PHONG = value; OnPropertyChanged(); } }
-        private Nullable<decimal> _TRIGIA_CTHDLT;
-        public Nullable<decimal> TRIGIA_CTHDLT { get => _TRIGIA_CTHDLT; set { _TRIGIA_CTHDLT = value; OnPropertyChanged(); } }
-
+        public int MA_CTHDLT { get; set; }
+        public int MA_HD { get; set; }
+        public int MA_PHONG { get; set; }
+        public Nullable<System.DateTime> THOIGIANNHAN_PHONG { get; set; }
+        public Nullable<System.DateTime> THOIGIANTRA_PHONG { get; set; }
+        public Nullable<decimal> TRIGIA_CTHDLT { get; set; }
+    
         public virtual PHONG PHONG { get; set; }
         public virtual HOADON HOADON { get; set; }
     }

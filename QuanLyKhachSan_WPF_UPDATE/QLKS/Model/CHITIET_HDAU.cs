@@ -9,26 +9,21 @@
 
 namespace QLKS.Model
 {
-    using QLKS.ViewModel;
     using System;
     using System.Collections.Generic;
     
-    public partial class CHITIET_HDAU : BaseViewModel
+    public partial class CHITIET_HDAU
     {
-        private int _MA_CTHDAU;
-        public int MA_CTHDAU { get => _MA_CTHDAU; set { _MA_CTHDAU = value; OnPropertyChanged(); } }
-        private int _MA_HD;
-        public int MA_HD { get => _MA_HD; set { _MA_HD = value; OnPropertyChanged(); } }
-        private int _MA_MH;
-        public int MA_MH { get => _MA_MH; set { _MA_MH = value; OnPropertyChanged(); } }
-        private Nullable<int> _SOLUONG_MH;
-        public Nullable<int> SOLUONG_MH { get => _SOLUONG_MH; set { _SOLUONG_MH = value; OnPropertyChanged(); } }
-        private Nullable<decimal> _TRIGIA_CTHDAU;
-        public Nullable<decimal> TRIGIA_CTHDAU { get => _TRIGIA_CTHDAU; set { _TRIGIA_CTHDAU = value; OnPropertyChanged(); } }
-        private Nullable<System.DateTime> _THOIGIANLAP_CTHDAU;
-        public Nullable<System.DateTime> THOIGIANLAP_CTHDAU { get => _THOIGIANLAP_CTHDAU; set { _THOIGIANLAP_CTHDAU = value; OnPropertyChanged(); } }
+        public int MA_CTHDAU { get; set; }
+        public int MA_HD { get; set; }
+        public int MA_MH { get; set; }
+        public Nullable<int> SOLUONG_MH { get; set; }
+        public Nullable<decimal> TRIGIA_CTHDAU { get; set; }
+        public Nullable<System.DateTime> THOIGIANLAP_CTHDAU { get; set; }
+        public int MA_PHONG { get; set; }
     
         public virtual MATHANG MATHANG { get; set; }
         public virtual HOADON HOADON { get; set; }
+        public virtual PHONG PHONG { get; set; }
     }
 }

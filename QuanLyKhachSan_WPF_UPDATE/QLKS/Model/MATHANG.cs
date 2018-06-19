@@ -9,27 +9,22 @@
 
 namespace QLKS.Model
 {
-    using QLKS.ViewModel;
     using System;
     using System.Collections.Generic;
     
-    public partial class MATHANG : BaseViewModel
+    public partial class MATHANG
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public MATHANG()
         {
             this.CHITIET_HDAU = new HashSet<CHITIET_HDAU>();
         }
-
-        private int _MA_MH;
-        public int MA_MH { get => _MA_MH; set { _MA_MH = value; OnPropertyChanged(); } }
-        private string _TEN_MH;
-        public string TEN_MH { get => _TEN_MH; set { _TEN_MH = value; OnPropertyChanged(); } }
-        private Nullable<decimal> _DONGIA_MH;
-        public Nullable<decimal> DONGIA_MH { get => _DONGIA_MH; set { _DONGIA_MH = value; OnPropertyChanged(); } }
-        private Nullable<System.DateTime> _NGAYNHAP_MH;
-        public Nullable<System.DateTime> NGAYNHAP_MH { get => _NGAYNHAP_MH; set { _NGAYNHAP_MH = value; OnPropertyChanged(); } }
-
+    
+        public int MA_MH { get; set; }
+        public string TEN_MH { get; set; }
+        public Nullable<decimal> DONGIA_MH { get; set; }
+        public Nullable<System.DateTime> NGAYNHAP_MH { get; set; }
+    
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CHITIET_HDAU> CHITIET_HDAU { get; set; }
     }
