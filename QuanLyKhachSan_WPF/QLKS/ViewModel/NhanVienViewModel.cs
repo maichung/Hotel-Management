@@ -180,7 +180,7 @@ namespace QLKS.ViewModel
                 {
                     string matKhauMaHoa = MD5Hash(Base64Encode(MatKhau));
                     var taiKhoan = DataProvider.Ins.model.TAIKHOAN.Where(x => x.MA_TK == SelectedItem.NhanVien.MA_TK).SingleOrDefault();
-                    taiKhoan.MATKHAU_TK = MatKhau;
+                    taiKhoan.MATKHAU_TK = matKhauMaHoa;
                     DataProvider.Ins.model.SaveChanges();
                 }                
 
