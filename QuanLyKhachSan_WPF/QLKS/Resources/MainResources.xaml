@@ -15,6 +15,7 @@
     <viewmodel:BaoCaoDichVuViewModel x:Key="BaoCaoDichVuVM"></viewmodel:BaoCaoDichVuViewModel>
     <viewmodel:BaoCaoNamViewModel x:Key="BaoCaoNamVM"></viewmodel:BaoCaoNamViewModel>
     <viewmodel:BaoCaoThangViewModel x:Key="BaoCaoThangVM"></viewmodel:BaoCaoThangViewModel>
+    <viewmodel:BaoCaoKhachHangViewModel x:Key="BaoCaoKhachHangVM"></viewmodel:BaoCaoKhachHangViewModel>
     <viewmodel:HoaDonViewModel x:Key="HoaDonVM"></viewmodel:HoaDonViewModel>
     <viewmodel:HoaDonLuuTruViewModel x:Key="HoaDonLuuTruVM"></viewmodel:HoaDonLuuTruViewModel>
     <viewmodel:HoaDonAnUongViewModel x:Key="HoaDonAnUongVM"></viewmodel:HoaDonAnUongViewModel>

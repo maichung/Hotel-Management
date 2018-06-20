@@ -103,6 +103,12 @@
     <Compile Include="DichVuReport.xaml.cs">
       <DependentUpon>DichVuReport.xaml</DependentUpon>
     </Compile>
+    <Compile Include="DoanhThuKhachHangReport.cs">
+      <DependentUpon>DoanhThuKhachHangReport.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="DoanhThuNamReport.cs">
       <DependentUpon>DoanhThuNamReport.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -123,6 +129,9 @@
     </Compile>
     <Compile Include="HoaDon.xaml.cs">
       <DependentUpon>HoaDon.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="KhachHangReport.xaml.cs">
+      <DependentUpon>KhachHangReport.xaml</DependentUpon>
     </Compile>
     <Compile Include="Model\BAOCAODICHVU.cs">
       <DependentUpon>Model.tt</DependentUpon>
@@ -203,6 +212,7 @@
     <Compile Include="ViewModel\BaoCaoNamViewModel.cs" />
     <Compile Include="ViewModel\BaoCaoThangViewModel.cs" />
     <Compile Include="ViewModel\BaseViewModel.cs" />
+    <Compile Include="ViewModel\BaoCaoKhachHangViewModel.cs" />
     <Compile Include="ViewModel\DangNhapViewModel.cs" />
     <Compile Include="ViewModel\DiChuyenViewModel.cs" />
     <Compile Include="ViewModel\HoaDonAnUongViewModel.cs" />
@@ -227,6 +237,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="HoaDon.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="KhachHangReport.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -271,6 +285,10 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <EmbeddedResource Include="DoanhThuKhachHangReport.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>DoanhThuKhachHangReport.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="DoanhThuNamReport.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>DoanhThuNamReport.cs</LastGenOutput>

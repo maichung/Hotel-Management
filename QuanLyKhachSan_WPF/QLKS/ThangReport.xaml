@@ -7,7 +7,7 @@
         xmlns:Viewer="clr-namespace:SAPBusinessObjects.WPF.Viewer;assembly=SAPBusinessObjects.WPF.Viewer" 
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         mc:Ignorable="d"
-        Title="ThangReport" Height="450" Width="800"
+        Title="Báo cáo doanh thu tháng" Height="450" Width="800"
         DataContext="{StaticResource BaoCaoThangVM}" WindowStartupLocation="CenterScreen" WindowState="Maximized">
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">

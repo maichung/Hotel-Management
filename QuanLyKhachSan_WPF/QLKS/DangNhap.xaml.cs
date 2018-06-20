@@ -22,7 +22,7 @@ namespace QLKS
         public DangNhap()
         {
             InitializeComponent();
-            //tboxUserName.Focus();
+            tboxUserName.Focus();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
