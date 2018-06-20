@@ -61,7 +61,7 @@ namespace QLKS.ViewModel
         {
             LoadTTPhong();
             ListLoaiPhong = new ObservableCollection<LOAIPHONG>(DataProvider.Ins.model.LOAIPHONG);
-            string[] tinhtrangphongs = new string[] { "Trống", "Đang thuê", "Đã đặt trước" };
+            string[] tinhtrangphongs = new string[] { "Trống", "Đang thuê", "Đang sửa chữa" };
             ListTinhTrangPhong = new ObservableCollection<string>(tinhtrangphongs);
 
             SearchPhongCommand = new RelayCommand<Object>((p) => { return true; }, (p) => {

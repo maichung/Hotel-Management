@@ -29,6 +29,8 @@ namespace QLKS.ViewModel
         public int SoPhongTrong { get => _SoPhongTrong; set { _SoPhongTrong = value;  OnPropertyChanged(); } }
         private int _SoPhongDangThue;
         public int SoPhongDangThue { get => _SoPhongDangThue; set { _SoPhongDangThue = value;  OnPropertyChanged(); } }
+        private int _SoPhongDangSuaChua;
+        public int SoPhongDangSuaChua { get => _SoPhongDangSuaChua; set { _SoPhongDangSuaChua = value; OnPropertyChanged(); } }
 
         private NHANVIEN _NhanVien;
         public NHANVIEN NhanVien { get => _NhanVien; set { _NhanVien = value; OnPropertyChanged(); } }
@@ -49,6 +51,7 @@ namespace QLKS.ViewModel
         public ICommand LoadTatCaPhongCommand { get; set; }
         public ICommand LoadPhongTrongCommand { get; set; }
         public ICommand LoadPhongDangThueCommand { get; set; }
+        public ICommand LoadPhongDangSuaChuaCommand { get; set; }
 
         public ICommand DangXuatCommand { get; set; }
 
@@ -59,7 +62,15 @@ namespace QLKS.ViewModel
         public MainViewModel()
         {
             #region Xử lý ản hiện view
-            btnTrangChuCommand = new RelayCommand<Object>((p) => { return true; }, (p) => { ChucNangKS = (int)ChucNangKhachSan.TrangChu; MaPhongChonThue = 0; });
+            btnTrangChuCommand = new RelayCommand<Object>((p) => { return true; }, (p) => 
+            {
+                ChucNangKS = (int)ChucNangKhachSan.TrangChu;
+                MaPhongChonThue = 0;
+                LoadTongSoPhong();
+                LoadSoPhongDangThue();
+                LoadSoPhongTrong();
+                LoadSoPhongDangSuaChua();
+            });
             btnDVAnUongCommand = new RelayCommand<Grid>((p) =>
             {
                 if (p == null || p.DataContext == null)
@@ -113,6 +124,7 @@ namespace QLKS.ViewModel
                   TongSoPhong = ListTTPhong.Count();
                   SoPhongTrong = ListTTPhong.Where(x => x.Phong.TINHTRANG_PHONG == "Trống").Count();
                   SoPhongDangThue = ListTTPhong.Where(x => x.Phong.TINHTRANG_PHONG == "Đang thuê").Count();
+                  SoPhongDangSuaChua = ListTTPhong.Where(x => x.Phong.TINHTRANG_PHONG == "Đang sửa chữa").Count();
               });
 
             DangXuatCommand = new RelayCommand<Window>((p) => { return true; }, (p) =>
@@ -145,6 +157,12 @@ namespace QLKS.ViewModel
                 ListTTPhong = LoadTTPhong("Đang thuê");
 
             });
+
+            LoadPhongDangSuaChuaCommand = new RelayCommand<Object>((p) => { return true; }, (p) =>
+            {
+                ListTTPhong = LoadTTPhong("Đang sửa chữa");
+
+            });
             #endregion
 
             MaPhongChonThue = 0;
@@ -165,7 +183,7 @@ namespace QLKS.ViewModel
                 var phong = DataProvider.Ins.model.PHONG.Where(x => x.MA_PHONG == MaPhongChonThue).SingleOrDefault();
                 if (phong == null || phong.TINHTRANG_PHONG != "Trống")
                 {
-                    MessageBox.Show("Phòng đã cho thuê, vui lòng chọn phòng khác!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    MessageBox.Show("Vui lòng chọn phòng trống!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
                     return false;
                 }
 
@@ -200,7 +218,7 @@ namespace QLKS.ViewModel
                 if (phong != null && phong.TINHTRANG_PHONG == "Đang thuê")
                     return true;
 
-                MessageBox.Show("Phòng đang trống không thể thanh toán!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show("Vui lòng chọn phòng đang cho thuê!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return false;
             }, (p) =>
             {
@@ -271,6 +289,10 @@ namespace QLKS.ViewModel
         public void LoadSoPhongDangThue()
         {
             SoPhongDangThue = DataProvider.Ins.model.PHONG.Where(x => x.TINHTRANG_PHONG == "Đang thuê").Count();
+        }
+        public void LoadSoPhongDangSuaChua()
+        {
+            SoPhongDangSuaChua = DataProvider.Ins.model.PHONG.Where(x => x.TINHTRANG_PHONG == "Đang sửa chữa").Count();
         }
     }
 }

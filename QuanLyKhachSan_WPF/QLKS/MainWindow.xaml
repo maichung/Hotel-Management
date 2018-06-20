@@ -398,19 +398,22 @@
                 <StackPanel Name="groupStatusTrangChu" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,120">
                     <Label Height="25" Width="auto" Content="Tất cả:" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" ></Label>
                     <Button Margin="10,0,5,0" Command="{Binding LoadTatCaPhongCommand}" Height="25" Width="60" Content="{Binding TongSoPhong, UpdateSourceTrigger=PropertyChanged}" Background="White" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" BorderBrush="{x:Null}" FontSize="12" Foreground="#DD292525"></Button>
-                    <GridSplitter IsEnabled="False" Width="1" Margin="10,0,10,0" Background="#FFD6D6D6"></GridSplitter>
+                    <GridSplitter IsEnabled="False" Width="1" Margin="5,0,5,0" Background="#FFD6D6D6"></GridSplitter>
                     <Label Height="25" Width="auto" Content="Còn trống:" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" ></Label>
                     <Button Margin="10,0,5,0" Command="{Binding LoadPhongTrongCommand}" Height="25" Width="60" Content="{Binding SoPhongTrong, UpdateSourceTrigger=PropertyChanged}" Background="#FFF1F1F1" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" BorderBrush="{x:Null}" Foreground="#DD292525" FontSize="12"></Button>
-                    <GridSplitter IsEnabled="False" Width="1" Margin="10,0,10,0" Background="#FFD6D6D6"></GridSplitter>
+                    <GridSplitter IsEnabled="False" Width="1" Margin="5,0,5,0" Background="#FFD6D6D6"></GridSplitter>
                     <Label Height="25" Width="auto" Content="Đang thuê:" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"></Label>
                     <Button Margin="10,0,5,0" Command="{Binding LoadPhongDangThueCommand}" Height="25" Width="60" Content="{Binding SoPhongDangThue, UpdateSourceTrigger=PropertyChanged}" Background="#FFA58A72" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" BorderBrush="{x:Null}" FontSize="12" ></Button>
-                    <GridSplitter IsEnabled="False" Width="1" Margin="10,0,10,0" Background="#FFD6D6D6"></GridSplitter>
+                    <GridSplitter IsEnabled="False" Width="1" Margin="5,0,5,0" Background="#FFD6D6D6"></GridSplitter>
+                    <Label Height="25" Width="auto" Content="Đang sửa chũa:" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"></Label>
+                    <Button Margin="10,0,5,0" Command="{Binding LoadPhongDangSuaChuaCommand}" Height="25" Width="60" Content="{Binding SoPhongDangSuaChua, UpdateSourceTrigger=PropertyChanged}" Background="#FFE2A86E" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" BorderBrush="{x:Null}" FontSize="12" ></Button>
+                    <GridSplitter IsEnabled="False" Width="1" Margin="5,0,5,0" Background="#FFD6D6D6"></GridSplitter>
                     <Label Height="25" Width="auto" Content="Phòng đã chọn:" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"></Label>
                     <Button Margin="10,0,5,0" Height="25" Width="60" Content="{Binding MaPhongChonThue}" Background="White" Foreground="#DD292525" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" BorderBrush="{x:Null}" FontSize="12" ></Button>
                 </StackPanel>
 
                 <ScrollViewer Name="SrViewTrangChu" Margin="5,170,20,20">
-                    <ItemsControl ItemsSource="{Binding ListTTPhong, UpdateSourceTrigger=PropertyChanged}">
+                    <ItemsControl ItemsSource="{Binding ListTTPhong, UpdateSourceTrigger=PropertyChanged}" DataContext="{StaticResource PhongVM}">
                         <ItemsControl.Resources>
                             <Style TargetType="Button">
                                 <Style.Triggers>
@@ -421,6 +424,10 @@
                                     <DataTrigger Binding="{Binding Phong.TINHTRANG_PHONG}" Value="Đang thuê">
                                         <Setter Property="Background" Value="#A58A72"></Setter>
                                         <Setter Property="Foreground" Value="#DDFFFFFF"></Setter>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Phong.TINHTRANG_PHONG}" Value="Đang sửa chữa">
+                                        <Setter Property="Background" Value="#FFE2A86E"></Setter>
+                                        <Setter Property="Foreground" Value="WhiteSmoke"></Setter>
                                     </DataTrigger>
                                     <EventTrigger RoutedEvent="Click">
                                         <EventTrigger.Actions>

@@ -361,7 +361,7 @@
             </Grid>
 
             <!-- Hóa đơn lưu trú -->
-            <Grid Name="gridHoaDonLuuTru">
+            <Grid Name="gridHoaDonLuuTru" Visibility="Visible">
                 <Grid.Style>
                     <Style TargetType="Grid">
                         <Setter Property="Visibility" Value="Hidden"></Setter>
